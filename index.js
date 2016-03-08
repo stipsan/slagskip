@@ -11,11 +11,6 @@ app.set('x-powered-by', false);
 // We are on Heroku after all, behind load balancers
 app.enable('trust proxy');
 
-app.use(express.static('public'));
-app.use(fallback(function(req, res, next) {
-  res.send('success');
-}));
-
 if(process.env.NODE_ENV === 'production') {
   app.use('/static', express.static('static', { maxAge: oneDay * 360 }));
 } else {
@@ -29,6 +24,9 @@ if(process.env.NODE_ENV === 'production') {
   }));
   app.use(require('webpack-hot-middleware')(compiler));
 }
+
+app.use(express.static('public'));
+app.use(fallback('index.html', {root: __dirname}));
 
 app.listen(port, function() {
   console.log('Node app is running on port', app.get('port'));
