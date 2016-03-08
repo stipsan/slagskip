@@ -4,6 +4,7 @@
   "description": "Just a simple game to learn the ropes of redux, socket.io and sharpen my skills on react, js and node development in general",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node index.js --presets es2015-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
