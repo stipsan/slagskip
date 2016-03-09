@@ -20,13 +20,16 @@ plugins = plugins.concat(new ExtractTextPlugin("[name].css?[hash]", {
   disable: process.env.NODE_ENV !== 'production'
 }));
 
+var AssetsPlugin = require('assets-webpack-plugin');
+plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json'}));
+
 var entry = process.env.NODE_ENV !== 'production' ? {
-    bundle: [
+    client: [
       'webpack-hot-middleware/client',
       './client/index'
     ]
   } : {
-    bundle: [
+    client: [
       './client/index'
     ]
   };
@@ -37,7 +40,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: "[name].js?[hash]",
-    chunkFilename: "[name].js?[hash]",
+    chunkFilename: "[name].js?[chunkhash]",
     publicPath: '/'
   },
   plugins: plugins,
@@ -51,7 +54,7 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
       },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer}') }
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer') }
     ]
   }
 };

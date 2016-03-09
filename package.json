@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js --presets es2015-node",
+    "postinstall": "NODE_ENV=production webpack --debug false --devtool false --optimize-dedupe -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/stipsan/slagskip#readme",
   "dependencies": {
     "@stipsan/express-history-api-fallback": "^2.1.0",
+    "assets-webpack-plugin": "^3.4.0",
     "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.4",
