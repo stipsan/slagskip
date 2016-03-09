@@ -48,6 +48,7 @@
     "redbox-react": "^1.2.2",
     "sass-loader": "^3.1.2",
     "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
