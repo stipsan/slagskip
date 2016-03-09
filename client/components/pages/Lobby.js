@@ -1,4 +1,4 @@
-import {PropTypes} from 'react';
+import { PropTypes } from 'react';
 
 function Lobby() {
   return <section className="section section--lobby">
