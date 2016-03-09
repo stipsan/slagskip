@@ -5,13 +5,19 @@ import Login from './pages/Login';
 
 export default class App extends Component {
   
-  state = {};
+  state = {
+    username: '',
+    loggedIn: false,
+    game: false,
+  };
   
   render() {
+    const { username, loggedIn, game } = this.state;
+
     return <div>
         <Lobby />
-        <Game />
-        <Login />
+        {game && <Game />}
+        {!loggedIn && <Login />}
     </div>;
   }
 };
