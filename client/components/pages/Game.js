@@ -1,7 +1,7 @@
 import {PropTypes} from 'react';
 
 function Game() {
-  return <section className="section--game">
+  return <section className="section section--game">
     Loading game…
   </section>;
 };
