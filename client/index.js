@@ -1,4 +1,6 @@
+import 'babel-polyfill';
 import './style.css';
-console.log('Hello, Worlds!');
+import { render } from 'react-dom';
+import App from './components/App';
 
-console.log('lets make a game');
+render(<App />, document.getElementById('app'));
