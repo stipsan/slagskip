@@ -1,2 +1,4 @@
 import './style.css';
-console.log('Hello, World!');
+console.log('Hello, Worlds!');
+
+console.log('lets make a game');

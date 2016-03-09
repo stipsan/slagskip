@@ -1,8 +1,8 @@
 const oneDay = 86400000;
 const port = process.env.PORT || 5000;
-var fallback = require('@stipsan/express-history-api-fallback');
 var express = require('express');
 var path = require('path');
+var html = require('./server/html');
 
 var app = express();
 
@@ -25,7 +25,7 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static('public'));
-app.use(fallback('index.html', {root: path.join(__dirname, 'public')}));
+app.use(html());
 
 app.listen(port, function() {
   console.log('Node app is running on port', port);

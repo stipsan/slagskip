@@ -21,7 +21,7 @@ plugins = plugins.concat(new ExtractTextPlugin("[name].css?[hash]", {
 }));
 
 var AssetsPlugin = require('assets-webpack-plugin');
-plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json'}));
+plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}));
 
 var entry = process.env.NODE_ENV !== 'production' ? {
     client: [
