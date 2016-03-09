@@ -64,7 +64,7 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
       },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer') }
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') }
     ]
   }
 };
