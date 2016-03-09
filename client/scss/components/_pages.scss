@@ -1,16 +1,74 @@
+$bg-default: white !default;
+$bg-login: hsl(200, 18%, 46%) !default;
+
 .section {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
 	left: 0px;
+    padding: $column-gutter;
 	
 	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .section--login {
+    background: $bg-login;
+    
     form {
+        background: hsla(0, 0%, 0%, .1);
+        display: flex;
+        overflow: hidden;
         max-width: 500px;
+        transition: background 150ms ease;
         width: 100%;
+        
+        input {
+            background: hsla(0, 0%, 100%, 0);
+            color: hsla(0, 0%, 0%, .9);
+            width: 100%;
+            
+            &::placeholder {
+                color: hsla(0, 0%, 0%, .4);
+            }
+        }
+        button {
+            background: darken($bg-login, 40%);
+            color: $bg-login;
+            transition: transform 150ms ease-out, background 150ms ease, color 150ms ease;
+            transform: translateX(0%);
+            text-transform: uppercase;
+            
+            &:hover {
+                color: lighten($bg-login, 30%);
+                background: darken($bg-login, 30%);
+            }
+            &:active {
+                color: lighten($bg-login, 40%);
+                background: darken($bg-login, 40%);
+            }
+        }
+        
+        input, button {
+            border: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            
+            &:focus {
+                outline: 0;
+            }
+        }
+        
+        &:hover, &:focus, &:active {
+            background: hsla(0, 0%, 100%, .1);
+        }
+        
+        &:invalid {
+            button {
+                transform: translateX(100%);
+            }
+        }
     }
 }
