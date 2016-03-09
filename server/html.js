@@ -24,7 +24,6 @@ module.exports = function(){
     ${stylesheets}
   </head>
   <body>
-    ${JSON.stringify([js,css])}
     <div id="app"></div>
     ${scripts}
   </body>
