@@ -1,5 +1,6 @@
 $bg-default: white !default;
 $bg-login: hsl(200, 18%, 46%) !default;
+$bg-lobby: #263238 !default;
 
 .section {
 	position: absolute;
@@ -12,6 +13,7 @@ $bg-login: hsl(200, 18%, 46%) !default;
 	display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .section--login {
@@ -71,4 +73,8 @@ $bg-login: hsl(200, 18%, 46%) !default;
             }
         }
     }
+}
+
+.section--lobby {
+    background: $bg-lobby;
 }

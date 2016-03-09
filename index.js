@@ -33,15 +33,26 @@ server.listen(port, function() {
   console.log('Node app is running on port', port);
 });
 
-const users = new Set();
+const users = new Map();
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.broadcast.emit('user connected');
   socket.on('login', function (data) {
     console.log('join', data);
-    users.add(data);
-    socket.emit('lobby', Array.from(users));
-    io.emit('join', data);
+    if(!users.has(data.username)) {
+      users.set(data.username, data);
+      socket.emit('successful login', {
+        users: Array.from(users.values()),
+        viewer: {
+          username: data.username,
+          invites: [],
+          requests: [],
+        }
+      });
+      socket.broadcast.emit('join', data);
+    } else {
+      socket.emit('failed login', {message: 'Username is taken!'});
+    }
   });
   socket.on('disconnect', function(){
     console.log('user disconnected');

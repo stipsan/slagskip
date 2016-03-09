@@ -14,23 +14,24 @@ export default class App extends Component {
   };
   
   handleLogin = username => {
-    this.setState({ loggedIn: true, username });
     console.log('sending socket', 'join', { username }, this.socket);
     this.socket.emit('login', { username });
   };
   
   componentWillMount() {
     this.socket = io();
+
     console.log('componentWillMount');
     this.socket.on('connect', data => {
       console.log('connect', data);
     });
-    this.socket.on('lobby', users => {
+    this.socket.on('successful login', data => {
+      const { viewer: { username }, users } = data;
       console.log('lobby', users);
-      this.setState({ users });
+      this.setState({ users, loggedIn: true, username });
     });
+    this.socket.on('failed login', data => window.alert(data.message));
     this.socket.on('join', user => {
-      console.log('join', user, [...this.state.users, user]);
       this.setState({ users: [...this.state.users, user] });
     });
   }
@@ -39,7 +40,7 @@ export default class App extends Component {
     const { username, loggedIn, game, users } = this.state;
 
     return <div>
-        <Lobby users={users} />
+        <Lobby users={users} username={username} />
         {game && <Game loggedIn={loggedIn} username={username} />}
         {!loggedIn && <Login handleSubmit={this.handleLogin} />}
     </div>;

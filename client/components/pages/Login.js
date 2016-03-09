@@ -13,6 +13,8 @@ class Login extends Component {
   handleChange = event => this.setState({value: event.target.value.trim()});
 
   handleSubmit = event => {
+    if(this.state.value.length < 3) return;
+
     event.preventDefault();
     
     this.props.handleSubmit(this.state.value);
@@ -23,7 +25,7 @@ class Login extends Component {
     const { value } = this.state;
     return <section className="section section--login">
       <form onSubmit={handleSubmit}>
-        <input placeholder={placeholderLabel} value={value} onChange={handleChange} minLength={4} required={true} />
+        <input placeholder={placeholderLabel} value={value} onChange={handleChange} minLength={3} required={true} />
         <button type="submit" onClick={handleSubmit}>{buttonLabel}</button>
       </form>
     </section>;
