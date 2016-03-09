@@ -23,11 +23,11 @@ plugins = plugins.concat(new ExtractTextPlugin("[name].css?[hash]", {
 var entry = process.env.NODE_ENV !== 'production' ? {
     bundle: [
       'webpack-hot-middleware/client',
-      './src/index'
+      './client/index'
     ]
   } : {
     bundle: [
-      './src/index'
+      './client/index'
     ]
   };
 
@@ -35,10 +35,10 @@ module.exports = {
   devtool: 'eval',
   entry: entry,
   output: {
-    path: path.join(__dirname, 'static'),
+    path: path.join(__dirname, 'public'),
     filename: "[name].js?[hash]",
     chunkFilename: "[name].js?[hash]",
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: plugins,
   module: {
