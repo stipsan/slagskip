@@ -25,7 +25,7 @@ class Login extends Component {
     const { value } = this.state;
     return <section className="section section--login">
       <form onSubmit={handleSubmit}>
-        <input placeholder={placeholderLabel} value={value} onChange={handleChange} minLength={3} required={true} />
+        <input placeholder={placeholderLabel} value={value} onChange={handleChange} minLength={3} required={true} autoFocus={true} />
         <button type="submit" onClick={handleSubmit}>{buttonLabel}</button>
       </form>
     </section>;
