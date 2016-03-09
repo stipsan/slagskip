@@ -10,7 +10,7 @@ class Login extends Component {
   
   state = {value: ''};
 
-  handleChange = event => this.setState({value: event.target.value});
+  handleChange = event => this.setState({value: event.target.value.trim()});
 
   handleSubmit = event => {
     event.preventDefault();
