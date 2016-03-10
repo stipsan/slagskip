@@ -10,7 +10,7 @@ export default class App extends Component {
     username: '',
     loggedIn: false,
     game: false,
-    users: [],
+    friends: [],
   };
   
   handleLogin = username => {
@@ -26,21 +26,27 @@ export default class App extends Component {
       console.log('connect', data);
     });
     this.socket.on('successful login', data => {
-      const { viewer: { username }, users } = data;
-      console.log('lobby', users);
-      this.setState({ users, loggedIn: true, username });
+      const { viewer: { username }, friends } = data;
+      console.log('successful login', data);
+      this.setState({ friends, loggedIn: true, username });
     });
     this.socket.on('failed login', data => window.alert(data.message));
     this.socket.on('join', user => {
-      this.setState({ users: [...this.state.users, user] });
+      this.setState({ friends: [...this.state.friends, user] });
     });
+    this.socket.on('logout', username => {
+      const friends = this.state.friends.filter(user => user.username !== username);
+      this.setState({ friends });
+    });
+    this.socket.on('disconnect', data => console.log('disconnect', data));
+    this.socket.on('reconnect', data => console.log('reconnect', data));
   }
   
   render() {
-    const { username, loggedIn, game, users } = this.state;
+    const { username, loggedIn, game, friends } = this.state;
 
     return <div>
-        <Lobby users={users} username={username} />
+        <Lobby friends={friends} username={username} />
         {game && <Game loggedIn={loggedIn} username={username} />}
         {!loggedIn && <Login handleSubmit={this.handleLogin} />}
     </div>;

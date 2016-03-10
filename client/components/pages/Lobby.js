@@ -1,10 +1,12 @@
 import { PropTypes } from 'react';
 
-function Lobby({ users, username }) {
+function Lobby({ friends, username }) {
   return <section className="section section--lobby">
     <h2>Welcome, {username}!</h2>
+    {!!friends.length && <h3>Online users: </h3>}
     <ul>
-      {users.filter(user => user.username !== username).map(user => <li key={user.username}>{user.username}</li>)}
+      {!friends.length && <li>Nobody here yet but you!</li>}
+      {friends.map(user => <li key={user.username}>{user.username}</li>)}
     </ul>
   </section>;
 };

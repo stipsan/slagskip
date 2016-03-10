@@ -77,4 +77,5 @@ $bg-lobby: #263238 !default;
 
 .section--lobby {
     background: $bg-lobby;
+    color: lighten($bg-lobby, 40%);
 }
