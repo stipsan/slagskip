@@ -24,6 +24,11 @@ export default class App extends Component {
     //@TODO create a real solution for persistence
     localStorage.setItem('username', username);
   };
+  handleLogout = event => {
+    localStorage.removeItem('username');
+    this.setState({loggedIn: false, username: false});
+    this.socket.emit('logout');
+  }
   handleInvite = username => {
     console.log('handleInvite', username);
     this.setState({ requests: [...this.state.requests, username] });
@@ -32,15 +37,15 @@ export default class App extends Component {
   };
   handleAccept = username => {
     console.log('handleAccept', username);
-    this.setState({ requests: [...this.state.requests, this.state.username] });
+    this.setState({ requests: [...this.state.requests, username] });
 
     this.socket.emit('accept', username);
   };
-  handleDeny = username => {
-    console.log('handleDeny', username);
-    this.setState({ invitations: this.state.invitations.filter(invite !== username) });
+  handleDecline = username => {
+    console.log('handleDecline', username);
+    this.setState({ invites: this.state.invites.filter(invite => invite !== username) });
 
-    this.socket.emit('deny', username);
+    this.socket.emit('decline', username);
   };
   
   componentWillMount() {
@@ -59,9 +64,9 @@ export default class App extends Component {
     });
 
     this.socket.on('successful login', data => {
-      const { viewer: { username }, friends } = data;
+      const { viewer, friends } = data;
       console.log('successful login', data);
-      this.setState({ friends, loggedIn: true, username });
+      this.setState({ friends, loggedIn: true, ...viewer });
     });
 
     this.socket.on('failed login', data => sendNotification(data.message));
@@ -71,9 +76,9 @@ export default class App extends Component {
       this.setState({ friends: [...this.state.friends, user] });
     });
 
-    this.socket.on('invited', data => console.log('invited', data));
-    this.socket.on('accepted', data => console.log('accepted', data));
-    this.socket.on('declined', data => console.log('declined', data));
+    this.socket.on('invited', host => this.setState({ invites: [...this.state.invites, host] }));
+    this.socket.on('accepted', friend => this.setState({ invites: [...this.state.invites, friend] }));
+    this.socket.on('declined', friend => this.setState({ requests: this.state.requests.filter(request => request !== friend) }));
 
     this.socket.on('logout', username => {
       const friends = this.state.friends.filter(user => user.username !== username);
@@ -91,10 +96,28 @@ export default class App extends Component {
   }
   
   render() {
-    const { username, loggedIn, game, friends, disconnected, invites, requests } = this.state;
+    const {
+      username,
+      loggedIn,
+      game,
+      friends,
+      disconnected,
+      invites,
+      requests,
+    } = this.state;
+    const { handleInvite, handleAccept, handleDecline, handleLogout } = this;
 
     return <div>
-        <Lobby friends={friends} username={username} invites={invites} requests={requests} />
+        <Lobby
+          friends={friends}
+          username={username}
+          invites={invites}
+          requests={requests}
+          handleInvite={handleInvite}
+          handleAccept={handleAccept}
+          handleDecline={handleDecline}
+          handleLogout={handleLogout}
+        />
         {game && <Game loggedIn={loggedIn} username={username} />}
         {!loggedIn && <Login handleSubmit={this.handleLogin} />}
         {disconnected && <Disconnected username={username} />}

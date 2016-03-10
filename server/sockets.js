@@ -36,7 +36,7 @@ module.exports = function(io){
         });
         socket.broadcast.emit('join', data);
       } else {
-        socket.emit('failed login', {message: `Username ${data.username} is taken!`});
+        socket.emit('failed login', {message: `Username ${data.username} is already logged in!`});
       }
     });
 
@@ -51,6 +51,7 @@ module.exports = function(io){
 
       io.sockets.connected[recipient.id].emit('invited', username);
     });
+    //@TODO add cancelling an sent invite
     socket.on('accept', function(friend) {
       console.log('accept', friend);
       //@TODO handle if username isn't found, may be disconnected or whatever
@@ -74,12 +75,14 @@ module.exports = function(io){
       io.sockets.connected[host.id].emit('declined', username);
     });
 
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
+    socket.on('logout', logout);
+    socket.on('disconnect', logout);
+    function logout(){
       const username = idToUsername[socket.id];
+      console.log(`user ${username} logout`);
       users.delete(username);
       io.emit('logout', username);
       delete idToUsername[socket.id];
-    });
+    };
   });
 };
