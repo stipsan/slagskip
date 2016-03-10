@@ -1,6 +1,7 @@
 $bg-default: white !default;
 $bg-login: hsl(200, 18%, 46%) !default;
 $bg-lobby: #263238 !default;
+$bg-disconnected: #C62828 !default;
 
 .section {
 	position: absolute;
@@ -78,4 +79,9 @@ $bg-lobby: #263238 !default;
 .section--lobby {
     background: $bg-lobby;
     color: lighten($bg-lobby, 40%);
+}
+
+.section--disconnected {
+    background: $bg-disconnected;
+    color: lighten($bg-disconnected, 30%);
 }
