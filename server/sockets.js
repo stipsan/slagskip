@@ -1,13 +1,26 @@
 module.exports = function(io){
-  const users = new Map(), idToUsername = {};
+  
+  //@TODO implement a persistent datastore, likely redis, for users
+  const users = new Map(), invites = new Map(), requests = new Map(), idToUsername = {};
+
   io.on('connection', function(socket){
+
     console.log('a user connected');
-    socket.broadcast.emit('user connected');
-    socket.on('login', function (data) {
+
+    socket.on('login', function(data) {
+      
       console.log('join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
+
+      if(!invites.has(data.username)) {
+        invites.set(data.username, new Set);
+      }
+      if(!requests.has(data.username)) {
+        requests.set(data.username, new Set);
+      }
+
       if(!users.has(data.username)) {
-        
+
         users.set(data.username, {username: data.username, id: socket.id});
         idToUsername[socket.id] = data.username;
         
@@ -16,15 +29,51 @@ module.exports = function(io){
           friends: friends,
           viewer: {
             username: data.username,
-            invites: [],
-            requests: [],
+            //@TODO rename to inbox/outbox?
+            invites: Array.from(invites.get(data.username)),
+            requests: Array.from(requests.get(data.username)),
           }
         });
         socket.broadcast.emit('join', data);
       } else {
-        socket.emit('failed login', {message: 'Username is taken!'});
+        socket.emit('failed login', {message: `Username ${data.username} is taken!`});
       }
     });
+
+    socket.on('invite', function(friend) {
+      console.log('invite', friend);
+      //@TODO handle if username isn't found, may be disconnected or whatever
+      const recipient = users.get(friend);
+      const username = idToUsername[socket.id];
+
+      invites.get(recipient.username).add(username);
+      requests.get(username).add(recipient.username);
+
+      io.sockets.connected[recipient.id].emit('invited', username);
+    });
+    socket.on('accept', function(friend) {
+      console.log('accept', friend);
+      //@TODO handle if username isn't found, may be disconnected or whatever
+      const host = users.get(friend);
+      const username = idToUsername[socket.id];
+      
+      invites.get(host.username).add(username);
+      requests.get(username).add(host.username);
+
+      io.sockets.connected[host.id].emit('accepted', username);
+    });
+    socket.on('decline', function(friend) {
+      console.log('decline', friend);
+      //@TODO handle if username isn't found, may be disconnected or whatever
+      const host = users.get(friend);
+      const username = idToUsername[socket.id];
+      
+      invites.get(username).delete(host.username);
+      requests.get(host.username).delete(username);
+
+      io.sockets.connected[host.id].emit('declined', username);
+    });
+
     socket.on('disconnect', function(){
       console.log('user disconnected');
       const username = idToUsername[socket.id];
