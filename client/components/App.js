@@ -12,6 +12,8 @@ export default class App extends Component {
     loggedIn: false,
     disconnected: false,
     game: false,
+    invites: [],
+    requests: [],
     friends: [],
   };
   
@@ -29,8 +31,8 @@ export default class App extends Component {
     this.socket.on('connect', data => {
       console.log('connect', data);
       
-      let username;
-      if(username = localStorage.getItem('username')) {
+      let username = localStorage.getItem('username');
+      if(username && username.length > 2) {
         this.socket.emit('login', { username });
       }
     });
@@ -60,10 +62,10 @@ export default class App extends Component {
   }
   
   render() {
-    const { username, loggedIn, game, friends, disconnected } = this.state;
+    const { username, loggedIn, game, friends, disconnected, invites, requests } = this.state;
 
     return <div>
-        <Lobby friends={friends} username={username} />
+        <Lobby friends={friends} username={username} invites={invites} requests={requests} />
         {game && <Game loggedIn={loggedIn} username={username} />}
         {!loggedIn && <Login handleSubmit={this.handleLogin} />}
         {disconnected && <Disconnected username={username} />}

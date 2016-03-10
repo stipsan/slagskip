@@ -12,9 +12,18 @@ $bg-disconnected: #C62828 !default;
     padding: $column-gutter;
 	
 	display: flex;
+    flex-direction: column;
+    flex-flow: row wrap;
+    
+    & > * {
+        flex: 1 100%;
+        text-align: center;
+    }
+}
+
+.section--login, .section--disconnected {
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 .section--login {
@@ -31,6 +40,7 @@ $bg-disconnected: #C62828 !default;
         input {
             background: hsla(0, 0%, 100%, 0);
             color: hsla(0, 0%, 0%, .9);
+            padding: 0.5rem 1rem;
             width: 100%;
             
             &::placeholder {
@@ -40,9 +50,11 @@ $bg-disconnected: #C62828 !default;
         button {
             background: darken($bg-login, 40%);
             color: $bg-login;
+            padding: 0.5rem .1rem;
             transition: transform 150ms ease-out, background 150ms ease, color 150ms ease;
             transform: translateX(0%);
             text-transform: uppercase;
+            width: 5rem;
             
             &:hover {
                 color: lighten($bg-login, 30%);
@@ -57,7 +69,7 @@ $bg-disconnected: #C62828 !default;
         input, button {
             border: none;
             font-size: 1rem;
-            padding: 0.5rem 1rem;
+            margin: 0;
             
             &:focus {
                 outline: 0;
@@ -68,7 +80,7 @@ $bg-disconnected: #C62828 !default;
             background: hsla(0, 0%, 100%, .1);
         }
         
-        &:invalid {
+        &:invalid, input:invalid + {
             button {
                 transform: translateX(100%);
             }
@@ -79,6 +91,15 @@ $bg-disconnected: #C62828 !default;
 .section--lobby {
     background: $bg-lobby;
     color: lighten($bg-lobby, 40%);
+    
+    header {
+        text-align: center;
+    }
+    .users {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .section--disconnected {

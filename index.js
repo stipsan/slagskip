@@ -41,6 +41,7 @@ io.on('connection', function(socket){
   socket.broadcast.emit('user connected');
   socket.on('login', function (data) {
     console.log('join', data);
+    if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
     if(!users.has(data.username)) {
       
       users.set(data.username, {username: data.username, id: socket.id});
