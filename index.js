@@ -1,3 +1,6 @@
+
+//@TODO implement ability to decide wether this is a socket endpoint, assets endpoint or both
+
 const oneDay = 86400000;
 const port = process.env.PORT || 5000;
 var express = require('express');

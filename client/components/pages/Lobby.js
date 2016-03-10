@@ -47,11 +47,8 @@ function Lobby({
   handleLogout,
 }) {
   const friends = origFriends.map(friend => {
-    console.log(invites, requests, friend.username);
     return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
   });
-  
-  console.log(friends);
 
   return <section className="section section--lobby">
     <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
