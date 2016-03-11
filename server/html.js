@@ -21,6 +21,7 @@ module.exports = function(){
 <html>
   <head>
     <title>Loading game…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     ${stylesheets}
   </head>
   <body>

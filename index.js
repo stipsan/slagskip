@@ -1,16 +1,13 @@
-var throng = require('throng');
+var sticky = require('sticky-cluster'),
+    options = {
+      concurrency: process.env.WEB_CONCURRENCY || 1,
+      port: process.env.PORT || 5000,
+      debug: process.env.NODE_ENV !== 'production'
+    };
 
 //@TODO implement ability to decide wether this is a socket endpoint, assets endpoint or both
 
-const WORKERS = process.env.WEB_CONCURRENCY || 1;
-const PORT = process.env.PORT || 5000;
-
-throng(start, {
-  workers: WORKERS,
-  lifetime: Infinity
-});
-
-function start(id) {
+function start(callback) {
   var sticky = require('sticky-session');
   var express = require('express');
   var path = require('path');
@@ -41,10 +38,16 @@ function start(id) {
   app.use(express.static('public'));
   app.use(html());
 
+  /*
   server.listen(PORT, function() {
-    console.log('Node app is running on port', PORT, 'with worker id', id);
+    console.log('Node app is running on port', PORT);
   });
+  //*/
+  // don't do server.listen(), just pass server instance into the sticky module
+  callback(server);
 
   // setup socket.io logic
-  require('./server/sockets.js')(io, id);
+  require('./server/sockets.js')(io);
 };
+
+sticky(start, options);
