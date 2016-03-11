@@ -1,17 +1,20 @@
 import { connect } from 'react-redux'
 import Lobby from '../components/Lobby'
 
-const mapStateToProps = state => {
-  return {
-    friends: state.friends,
-    username: state.viewer.username
-  };
+const mapFriendsStateToProps = ({
+  friends,
+  requests,
+  invites,
+}) => {
+  return friends.map(friend => {
+    return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
+  });
 };
 
 export default connect(
   state => {
     return {
-      friends: state.friends,
+      friends: mapFriendsStateToProps(state),
       username: state.viewer.username,
       disconnected: !state.serverConnection,
     }
