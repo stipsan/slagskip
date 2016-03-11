@@ -1,6 +1,6 @@
 module.exports = function(io){
   
-  //@TODO implement a persistent datastore, likely redis, for users
+  //@TODO implement a persistent datastore, likely redis, for users and use dataloader
   const users = new Map(), invites = new Map(), requests = new Map(), idToUsername = {};
 
   io.on('connection', function(socket){
@@ -19,7 +19,8 @@ module.exports = function(io){
         requests.set(data.username, new Set);
       }
 
-      if(!users.has(data.username)) {
+      //@TODO deal with persistence, log out previous socket on same user if it exists
+      if(!users.has(data.username) || true) {
 
         users.set(data.username, {username: data.username, id: socket.id});
         idToUsername[socket.id] = data.username;
@@ -75,8 +76,9 @@ module.exports = function(io){
       io.sockets.connected[host.id].emit('declined', username);
     });
 
-    socket.on('logout', logout);
-    socket.on('disconnect', logout);
+    //@TODO
+    //socket.on('logout', logout);
+    //socket.on('disconnect', logout);
     function logout(){
       const username = idToUsername[socket.id];
       console.log(`user ${username} logout`);

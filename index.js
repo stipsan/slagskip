@@ -16,6 +16,8 @@ function start(callback) {
   var app = express();
   var server  = require('http').createServer(app);
   var io = require('socket.io')(server);
+  var redis = require('socket.io-redis');
+  io.adapter(redis({ host: process.env.REDIS_HOST || 'localhost', port: process.env.REDIS_PORT || 6379 }));
 
   // Security reasons
   app.set('x-powered-by', false);
