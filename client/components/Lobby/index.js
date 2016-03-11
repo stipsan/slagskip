@@ -18,7 +18,7 @@ export default function Lobby({
   handleLogout,
   handleLogin,
 }) {
-  return <div>
+  return <div className="page">
     <Friends
       friends={friends}
       username={username}

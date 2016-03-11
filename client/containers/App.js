@@ -3,6 +3,7 @@ import { Component, PropTypes } from 'react';
 
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
 
+import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
 
 export default class App extends Component {
@@ -121,6 +122,7 @@ export default class App extends Component {
           handleLogout={handleLogout}
           handleLogin={handleLogin}
         />
+        <LobbyContainer />
     </div>;
   }
 };
