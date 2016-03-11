@@ -36,7 +36,7 @@ class User extends Component {
   }
 }
 
-function Lobby({
+function Friends({
   friends: origFriends,
   username,
   invites,
@@ -53,7 +53,7 @@ function Lobby({
   return <section className="section section--lobby">
     <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
     <div className="users">
-      {!!friends.length && <h3>Online users: </h3>}
+      {!!friends.length && <h3>Online friends: </h3>}
       <ul>
         {!friends.length && <li>Nobody here yet but you!</li>}
         {friends.map(user => <User
@@ -68,4 +68,4 @@ function Lobby({
   </section>;
 };
 
-export default Lobby;
+export default Friends;

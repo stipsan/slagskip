@@ -1,10 +1,9 @@
 import io from 'socket.io-client';
 import { Component, PropTypes } from 'react';
-import Disconnected from './pages/Disconnected';
-import Game from './pages/Game';
-import Lobby from './pages/Lobby';
-import Login from './pages/Login';
+
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
+
+import Lobby from '../components/Lobby';
 
 export default class App extends Component {
   
@@ -105,22 +104,23 @@ export default class App extends Component {
       invites,
       requests,
     } = this.state;
-    const { handleInvite, handleAccept, handleDecline, handleLogout } = this;
+    const { handleInvite, handleAccept, handleDecline, handleLogout, handleLogin } = this;
 
     return <div>
         <Lobby
-          friends={friends}
           username={username}
+          loggedIn={loggedIn}
+          game={game}
+          friends={friends}
+          disconnected={disconnected}
           invites={invites}
           requests={requests}
           handleInvite={handleInvite}
           handleAccept={handleAccept}
           handleDecline={handleDecline}
           handleLogout={handleLogout}
+          handleLogin={handleLogin}
         />
-        {game && <Game loggedIn={loggedIn} username={username} />}
-        {!loggedIn && <Login handleSubmit={this.handleLogin} />}
-        {disconnected && <Disconnected username={username} />}
     </div>;
   }
 };
