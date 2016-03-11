@@ -11,7 +11,7 @@ function start(callback) {
   var sticky = require('sticky-session');
   var express = require('express');
   var path = require('path');
-  var html = require('./server/html');
+  var html = require('./html');
 
   var app = express();
   var server  = require('http').createServer(app);
@@ -28,7 +28,7 @@ function start(callback) {
   if(process.env.NODE_ENV !== 'production') {
     var webpackDevMiddleware = require("webpack-dev-middleware");
     var webpack = require("webpack");
-    var config = require('./webpack.config');
+    var config = require('../webpack.config');
     var compiler = webpack(config);
     app.use(webpackDevMiddleware(compiler, {
         publicPath: config.output.publicPath,
@@ -49,7 +49,7 @@ function start(callback) {
   callback(server);
 
   // setup socket.io logic
-  require('./server/sockets.js')(io);
+  require('./sockets.js')(io);
 };
 
 sticky(start, options);
