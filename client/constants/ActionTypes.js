@@ -1,3 +1,8 @@
+export const SERVER_DISCONNECTED = 'SERVER_DISCONNECTED';
+export const SERVER_CONNECTED = 'SERVER_CONNECTED';
+export const NETWORK_OFFLINE = 'NETWORK_OFFLINE';
+export const NETWORK_ONLINE = 'NETWORK_ONLINE';
+
 // async network requests is suffixed _REQUEST, _SUCCESS or _FAILURE
 // actions that respond to server sent events is prefixed RECEIVE_
 

@@ -8,7 +8,7 @@ const Lobby = ({
   username = 'Batman',
   loggedIn = true,
   game = false,
-  friends = [{username: 'Superman'}, {username: 'Ironman'}],
+  friends,
   disconnected = false,
   invites = [],
   requests = [],

@@ -1,11 +1,20 @@
-import { Component, PropTypes } from 'react'
-
+import { connect } from 'react-redux'
 import Lobby from '../components/Lobby'
 
-class LobbyContainer extends Component {
-  render() {
-    return <Lobby />
-  }
-}
+const mapStateToProps = state => {
+  return {
+    friends: state.friends,
+    username: state.viewer.username
+  };
+};
 
-export default LobbyContainer
+export default connect(
+  state => {
+    return {
+      friends: state.friends,
+      username: state.viewer.username,
+      disconnected: !state.serverConnection,
+    }
+  },
+  null,
+)(Lobby)

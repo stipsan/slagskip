@@ -100,19 +100,23 @@ export default class App extends Component {
       username,
       loggedIn,
       game,
-      friends,
+      friends: origFriends,
       disconnected,
       invites,
       requests,
     } = this.state;
     const { handleInvite, handleAccept, handleDecline, handleLogout, handleLogin } = this;
 
+    const friends = origFriends.map(friend => {
+      return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
+    });
+
     return <div>
         <Lobby
-          //username={username}
+          username={username}
           loggedIn={loggedIn}
           game={game}
-          //friends={friends}
+          friends={friends}
           disconnected={disconnected}
           invites={invites}
           requests={requests}

@@ -37,7 +37,7 @@ class User extends Component {
 }
 
 const Friends = ({
-  friends: origFriends,
+  friends,
   username,
   invites,
   requests,
@@ -46,9 +46,6 @@ const Friends = ({
   handleDecline,
   handleLogout,
 }) => {
-  const friends = origFriends.map(friend => {
-    return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
-  });
 
   return <section className="section section--lobby">
     <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
