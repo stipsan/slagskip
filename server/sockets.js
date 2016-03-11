@@ -1,15 +1,15 @@
-module.exports = function(io){
+module.exports = function(io, workerId){
   
   //@TODO implement a persistent datastore, likely redis, for users
   const users = new Map(), invites = new Map(), requests = new Map(), idToUsername = {};
 
   io.on('connection', function(socket){
 
-    console.log('a user connected');
+    console.log(workerId, 'a user connected');
 
     socket.on('login', function(data) {
       
-      console.log('join', data);
+      console.log(workerId, 'join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
 
       if(!invites.has(data.username)) {
@@ -41,7 +41,7 @@ module.exports = function(io){
     });
 
     socket.on('invite', function(friend) {
-      console.log('invite', friend);
+      console.log(workerId, 'invite', friend);
       //@TODO handle if username isn't found, may be disconnected or whatever
       const recipient = users.get(friend);
       const username = idToUsername[socket.id];
@@ -53,7 +53,7 @@ module.exports = function(io){
     });
     //@TODO add cancelling an sent invite
     socket.on('accept', function(friend) {
-      console.log('accept', friend);
+      console.log(workerId, 'accept', friend);
       //@TODO handle if username isn't found, may be disconnected or whatever
       const host = users.get(friend);
       const username = idToUsername[socket.id];
@@ -64,7 +64,7 @@ module.exports = function(io){
       io.sockets.connected[host.id].emit('accepted', username);
     });
     socket.on('decline', function(friend) {
-      console.log('decline', friend);
+      console.log(workerId, 'decline', friend);
       //@TODO handle if username isn't found, may be disconnected or whatever
       const host = users.get(friend);
       const username = idToUsername[socket.id];
@@ -79,7 +79,7 @@ module.exports = function(io){
     socket.on('disconnect', logout);
     function logout(){
       const username = idToUsername[socket.id];
-      console.log(`user ${username} logout`);
+      console.log(workerId, `user ${username} logout`);
       users.delete(username);
       io.emit('logout', username);
       delete idToUsername[socket.id];

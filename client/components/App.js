@@ -57,7 +57,7 @@ export default class App extends Component {
     this.socket.on('connect', data => {
       console.log('connect', data);
       
-      let username = localStorage.getItem('username');
+      let username = this.state.username || localStorage.getItem('username');
       if(username && username.length > 2) {
         this.socket.emit('login', { username, userAgent: navigator.appVersion });
       }
