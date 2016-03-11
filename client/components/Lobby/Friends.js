@@ -36,7 +36,7 @@ class User extends Component {
   }
 }
 
-function Friends({
+const Friends = ({
   friends: origFriends,
   username,
   invites,
@@ -45,7 +45,7 @@ function Friends({
   handleAccept,
   handleDecline,
   handleLogout,
-}) {
+}) => {
   const friends = origFriends.map(friend => {
     return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
   });

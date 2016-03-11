@@ -4,20 +4,20 @@ import Game from '../Game'
 import Friends from './Friends'
 import Login from './Login'
 
-export default function Lobby({
-  username,
-  loggedIn,
-  game,
-  friends,
-  disconnected,
-  invites,
-  requests,
-  handleInvite,
-  handleAccept,
-  handleDecline,
-  handleLogout,
-  handleLogin,
-}) {
+const Lobby = ({
+  username = 'Batman',
+  loggedIn = true,
+  game = false,
+  friends = [{username: 'Superman'}, {username: 'Ironman'}],
+  disconnected = false,
+  invites = [],
+  requests = [],
+  handleInvite = () => {},
+  handleAccept = () => {},
+  handleDecline = () => {},
+  handleLogout = () => {},
+  handleLogin = () => {},
+}) => {
   return <div className="page">
     <Friends
       friends={friends}
@@ -34,3 +34,4 @@ export default function Lobby({
     {disconnected && <Disconnected username={username} />}
   </div>
 }
+export default Lobby;

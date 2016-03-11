@@ -109,10 +109,10 @@ export default class App extends Component {
 
     return <div>
         <Lobby
-          username={username}
+          //username={username}
           loggedIn={loggedIn}
           game={game}
-          friends={friends}
+          //friends={friends}
           disconnected={disconnected}
           invites={invites}
           requests={requests}
