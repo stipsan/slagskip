@@ -19,7 +19,9 @@ class Friends extends Component {
           {!friends.length && <li>Nobody here yet but you!</li>}
           {friends.map(user => <FriendRow
             key={user.username}
-            user={user}
+            username={user.username}
+            invited={user.invited}
+            pending={user.pending}
           />)}
         </ul>
       </div>

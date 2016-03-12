@@ -40,6 +40,8 @@ const invites = (state = ['Superman', 'Spiderman'], action) => {
         ...state,
         action.username
       ]
+    case TYPE.DECLINE_GAME_INVITE_SUCCESS:
+      return state.filter(username => username !== action.username)
     default:
       return state
   }
@@ -53,6 +55,8 @@ const requests = (state = ['Superman', 'Batman'], action) => {
         ...state,
         action.username
       ]
+    case TYPE.RECEIVE_GAME_INVITE_DECLINED:
+      return state.filter(username => username !== action.username)
     default:
       return state
   }

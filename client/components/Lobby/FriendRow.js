@@ -5,36 +5,32 @@ import { inviteFriend, acceptInvite, declineInvite } from '../../actions'
 class FriendRow extends Component {
   handleInvite = event => {
     event.preventDefault();
-    
-    //@TODO PropTypes validation on user.username
-    this.props.handleInvite(this.props.user.username);
-    
+
+    this.props.dispatch(inviteFriend(this.props.username));
   };
   handleAccept = event => {
     event.preventDefault();
     
-    //@TODO PropTypes validation on user.username
-    this.props.handleAccept(this.props.user.username);
+    this.props.dispatch(acceptInvite(this.props.username));
   };
   handleDecline = event => {
     event.preventDefault();
     
-    //@TODO PropTypes validation on user.username
-    this.props.handleDecline(this.props.user.username);
+    this.props.dispatch(declineInvite(this.props.username));
   };
   render() {
-    const { user } = this.props;
+    const { username, pending, invited } = this.props;
     const { handleInvite, handleAccept, handleDecline } = this;
  
-    return <li key={user.username}>
-      {user.username}
-      {user.invited && user.pending && <button>Start Game!</button>}
-      {!user.invited && user.pending && <div>
+    return <li>
+      {username}
+      {invited && pending && <button>Start Game!</button>}
+      {!invited && pending && <div>
         <button onClick={handleAccept}>Accept</button>
         <button onClick={handleDecline}>Decline</button>
       </div>}
-      {user.invited && !user.pending && <button disabled={true}>Pending</button>}
-      {!user.invited && !user.pending && <button onClick={handleInvite}>Invite</button>}
+      {invited && !pending && <button disabled={true}>Pending</button>}
+      {!invited && !pending && <button onClick={handleInvite}>Invite</button>}
     </li>;
   }
 }
