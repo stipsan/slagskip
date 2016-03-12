@@ -5,6 +5,7 @@
     padding: .2rem .4rem;
     color: white;
     text-transform: uppercase;
+    width: 100%;
     
     &:disabled {
         opacity: 0.3;
@@ -19,7 +20,9 @@
 }
 .btn-decline {
     background: crimson;
+    width: 30%;
 }
 .btn-accept {
     background: hsl(154, 100%, 25%);
+    width: 70%;
 }

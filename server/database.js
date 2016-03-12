@@ -49,14 +49,6 @@ function userInviteFriend(data, success, failure) {
 }
 
 //createUser(require('faker').name.firstName(), () => {}, () => {});
-createUser('Stian', () => {}, () => {});
-createUser('stipsan', () => {}, () => {});
-createUser('Heidi', () => {}, () => {});
-createUser('Einar', () => {}, () => {});
-createUser('Mylene', () => {}, () => {});
-createUser('Ivan', () => {}, () => {});
-createUser('Helene', () => {}, () => {});
-createUser('Philip', () => {}, () => {});
 
 function loginUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {

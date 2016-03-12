@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 
@@ -8,6 +7,8 @@ import { USER_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../const
 
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
+
+import socket from '../model';
 
 class App extends Component {
   
@@ -59,8 +60,8 @@ class App extends Component {
   componentWillMount() {
     // now is a good time to ask for notification permissions
     requestNotificationPermission();
-
-    this.socket = io();
+    
+    this.socket = socket;
 
     this.socket.on('connect', data => {
       console.log('connect', data);
