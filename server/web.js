@@ -1,3 +1,11 @@
+/**
+ * Heroku terminology labels a 'worker' process as a background task that do
+ * not handle incoming web requests or do web server-y things.
+ * SocketCluster terminology puts server work in a 'worker'.
+ * This file is called web.js as it's what Heroku will run in  a 'web' dyno,
+ * not a 'worker' dyno.
+ */
+
 var sticky = require('sticky-cluster'),
     options = {
       concurrency: process.env.WEB_CONCURRENCY || 1,
