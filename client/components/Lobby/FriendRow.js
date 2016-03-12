@@ -24,13 +24,13 @@ class FriendRow extends Component {
  
     return <li>
       {username}
-      {invited && pending && <button>Start Game!</button>}
+      {invited && pending && <button className="btn btn-primary">Start Game!</button>}
       {!invited && pending && <div>
-        <button onClick={handleAccept}>Accept</button>
-        <button onClick={handleDecline}>Decline</button>
+        <button className="btn btn-accept" onClick={handleAccept}>Accept</button>
+        <button className="btn btn-decline" onClick={handleDecline}>Decline</button>
       </div>}
-      {invited && !pending && <button disabled={true}>Pending</button>}
-      {!invited && !pending && <button onClick={handleInvite}>Invite</button>}
+      {invited && !pending && <button className="btn btn-default" disabled={true}>Pending</button>}
+      {!invited && !pending && <button className="btn btn-default" onClick={handleInvite}>Invite</button>}
     </li>;
   }
 }

@@ -1,0 +1,25 @@
+.btn {
+    border: none;
+    background: none;
+    margin: 0;
+    padding: .2rem .4rem;
+    color: white;
+    text-transform: uppercase;
+    
+    &:disabled {
+        opacity: 0.3;
+    }
+}
+
+.btn-default {
+    background: hsla(0, 0%, 100%, 0.4);
+}
+.btn-primary {
+    background: teal;
+}
+.btn-decline {
+    background: crimson;
+}
+.btn-accept {
+    background: hsl(154, 100%, 25%);
+}

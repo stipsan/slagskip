@@ -14,7 +14,7 @@ class Friends extends Component {
     return <section className="section section--lobby">
       <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
       <div className="users">
-        {!!friends.length && <h3>Online friends: </h3>}
+        {!!friends.length && <h3>Online friends<sub>{friends.length}</sub>: </h3>}
         <ul>
           {!friends.length && <li>Nobody here yet but you!</li>}
           {friends.map(user => <FriendRow

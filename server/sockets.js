@@ -58,13 +58,13 @@ module.exports = function(io, users){
     socket.on('invite', function(friend) {
       console.log('invite', friend);
       //@TODO handle if username isn't found, may be disconnected or whatever
-      const recipient = users.get(friend);
       const username = idToUsername[socket.id];
-
-      invites.get(recipient.username).add(username);
-      requests.get(username).add(recipient.username);
-
-      io.sockets.connected[recipient.id].emit('invited', username);
+      database.userInviteFriend({
+        user: {username},
+        friend: {username: friend}
+      }, () => {
+        io.sockets.connected[recipient.id].emit('invited', username);
+      }, () => {});
     });
     //@TODO add cancelling an sent invite
     socket.on('accept', function(friend) {

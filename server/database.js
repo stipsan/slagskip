@@ -16,7 +16,7 @@ function getUserByUsername(username) {
 };
 
 function createUser(username, success, error) {
-  redis.get('next_user_id').then(result => {
+  redis.incr('next_user_id').then(result => {
     const id = Math.max(Number(result), 1);
     
     // validate if username exists
@@ -27,13 +27,36 @@ function createUser(username, success, error) {
       redis.hsetnx(`user:${id}`, 'username', username).then(result => {
         if(result === 0) return; //@TODO handle error
         
-        redis.incr('next_user_id').then(result => success());
+        
       });
     });
   });
 };
 
+function userInviteFriend(data, success, failure) {
+  console.log('userInviteFriend', data);
+  redis.hget('users', data.user.username).then(id => {
+    if(id < 1) return failure({message: `User '${data.user.username} does not exist!'`});
+    
+    redis.sadd(`requests:${id}`, data.friend.username);
+    redis.hget('users', data.friend.username).then(id => {
+      if(id < 1) return failure({message: `Friend '${data.friend.username} does not exist!'`});
+      
+      
+      redis.sadd(`invites:${id}`, data.user.username);
+    });
+  });
+}
+
 //createUser(require('faker').name.firstName(), () => {}, () => {});
+createUser('Stian', () => {}, () => {});
+createUser('stipsan', () => {}, () => {});
+createUser('Heidi', () => {}, () => {});
+createUser('Einar', () => {}, () => {});
+createUser('Mylene', () => {}, () => {});
+createUser('Ivan', () => {}, () => {});
+createUser('Helene', () => {}, () => {});
+createUser('Philip', () => {}, () => {});
 
 function loginUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {
@@ -65,4 +88,5 @@ module.exports = {
   getUserByID,
   getUserByUsername,
   loginUser,
+  userInviteFriend,
 };

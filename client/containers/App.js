@@ -1,12 +1,15 @@
 import io from 'socket.io-client';
 import { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
 
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
+
+import { USER_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
 
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
 
-export default class App extends Component {
+class App extends Component {
   
   state = {
     username: '',
@@ -34,6 +37,11 @@ export default class App extends Component {
     this.setState({ requests: [...this.state.requests, username] });
 
     this.socket.emit('invite', username);
+    console.log(username);
+    this.dispatch({
+      type: GAME_INVITE_SUCCESS,
+      username
+    });
   };
   handleAccept = username => {
     console.log('handleAccept', username);
@@ -67,6 +75,11 @@ export default class App extends Component {
       const { viewer, friends } = data;
       console.log('successful login', data);
       this.setState({ friends, loggedIn: true, ...viewer });
+      this.props.dispatch({
+        type: USER_SUCCESS,
+        friends,
+        ...viewer
+      });
     });
 
     this.socket.on('failed login', data => sendNotification(data.message));
@@ -76,7 +89,13 @@ export default class App extends Component {
       this.setState({ friends: [...this.state.friends, user] });
     });
 
-    this.socket.on('invited', host => this.setState({ invites: [...this.state.invites, host] }));
+    this.socket.on('invited', host => {
+      this.setState({ invites: [...this.state.invites, host] });
+      this.dispatch({
+        type: RECEIVE_GAME_INVITE,
+        username: host
+      });
+    });
     this.socket.on('accepted', friend => this.setState({ invites: [...this.state.invites, friend] }));
     this.socket.on('declined', friend => this.setState({ requests: this.state.requests.filter(request => request !== friend) }));
 
@@ -130,3 +149,5 @@ export default class App extends Component {
     </div>;
   }
 };
+
+export default connect()(App);
