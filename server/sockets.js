@@ -1,7 +1,7 @@
-module.exports = function(io){
+module.exports = function(io, users){
   
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
-  const users = new Map(), invites = new Map(), requests = new Map(), idToUsername = {};
+  const invites = new Map(), requests = new Map(), idToUsername = {};
 
   io.on('connection', function(socket){
 
