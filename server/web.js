@@ -6,32 +6,22 @@
  * not a 'worker' dyno.
  */
 
-var sticky = require('sticky-cluster'),
-    options = {
-      concurrency: process.env.WEB_CONCURRENCY || 1,
-      port: process.env.PORT || 5000,
-      debug: process.env.NODE_ENV !== 'production'
-    };
+module.exports.run = function (worker) {
+  
+  console.log('   >> Worker PID:', process.pid);
+  
+  const express = require('express');
+  const app = express();
+  
+  const httpServer = worker.httpServer;
+  const scServer = worker.scServer;
 
-//@TODO implement ability to decide wether this is a socket endpoint, assets endpoint or both
-
-function start(callback) {
-  var sticky = require('sticky-session');
-  var express = require('express');
-  var path = require('path');
-  var html = require('./html');
-  var database = require('./database');
-
-  var app = express();
-  var server  = require('http').createServer(app);
-  var io = require('socket.io')(server);
-  var redis = require('socket.io-redis');
-  io.adapter(redis({ host: process.env.REDIS_HOST || 'localhost', port: process.env.REDIS_PORT || 6379 }));
-
-  // Security reasons
+  // Security reasons, this should be the default in express, 
+  // at least when NODE_ENV = production
   app.set('x-powered-by', false);
 
-  // We are on Heroku after all, behind load balancers
+  // We are on Heroku after all, behind load balancers 
+  // and want our https and wss to work properly with the IPs
   app.enable('trust proxy');
 
   if(process.env.NODE_ENV !== 'production') {
@@ -46,19 +36,11 @@ function start(callback) {
     app.use(require('webpack-hot-middleware')(compiler));
   }
 
+  const html = require('./html');
   app.use(express.static('public'));
   app.use(html());
-
-  /*
-  server.listen(PORT, function() {
-    console.log('Node app is running on port', PORT);
-  });
-  //*/
-  // don't do server.listen(), just pass server instance into the sticky module
-  callback(server);
   
-  // setup socket.io logic since 
-  require('./sockets.js')(io);
+  httpServer.on('request', app);
+  
+  require('./sockets.js')(scServer);
 };
-
-sticky(start, options);
