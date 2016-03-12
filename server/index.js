@@ -12,6 +12,7 @@ function start(callback) {
   var express = require('express');
   var path = require('path');
   var html = require('./html');
+  var database = require('./database');
 
   var app = express();
   var server  = require('http').createServer(app);
@@ -47,8 +48,8 @@ function start(callback) {
   //*/
   // don't do server.listen(), just pass server instance into the sticky module
   callback(server);
-
-  // setup socket.io logic
+  
+  // setup socket.io logic since 
   require('./sockets.js')(io);
 };
 

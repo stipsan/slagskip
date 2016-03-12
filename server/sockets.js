@@ -1,5 +1,7 @@
 module.exports = function(io, users){
   
+  const database = require('./database');
+  
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
   const invites = new Map(), requests = new Map(), idToUsername = {};
 
@@ -11,13 +13,25 @@ module.exports = function(io, users){
       
       console.log('join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
+      
+      database.loginUser(
+        {username: data.username, socket: socket.id},
+        user => {
+          idToUsername[socket.id] = data.username;
+          
+          console.log('loginUser', user);
+          socket.emit('successful login', {
+            friends: user.friends,
+            viewer: user
+          });
+          socket.broadcast.emit('join', data);
+        },
+        error => {
+          socket.emit('failed login', error);
+        }
+      );
 
-      if(!invites.has(data.username)) {
-        invites.set(data.username, new Set);
-      }
-      if(!requests.has(data.username)) {
-        requests.set(data.username, new Set);
-      }
+      return; //@TODO cleanup after db.loginUser is completed
 
       //@TODO deal with persistence, log out previous socket on same user if it exists
       if(!users.has(data.username) || true) {
@@ -37,7 +51,7 @@ module.exports = function(io, users){
         });
         socket.broadcast.emit('join', data);
       } else {
-        socket.emit('failed login', {message: `Username ${data.username} is already logged in!`});
+        
       }
     });
 
