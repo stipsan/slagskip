@@ -1,11 +1,11 @@
-module.exports = function(io, users){
+module.exports = function(scServer){
   
   const database = require('./database');
   
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
   const invites = new Map(), requests = new Map(), idToUsername = {};
 
-  io.on('connection', function(socket){
+  scServer.on('connection', function(socket){
 
     console.log('a user connected');
 
