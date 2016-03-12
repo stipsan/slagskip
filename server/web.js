@@ -7,14 +7,10 @@
  */
 
 module.exports.run = function (worker) {
-  
   console.log('   >> Worker PID:', process.pid);
-  
+
   const express = require('express');
   const app = express();
-  
-  const httpServer = worker.httpServer;
-  const scServer = worker.scServer;
 
   // Security reasons, this should be the default in express, 
   // at least when NODE_ENV = production
@@ -25,22 +21,18 @@ module.exports.run = function (worker) {
   app.enable('trust proxy');
 
   if(process.env.NODE_ENV !== 'production') {
-    var webpackDevMiddleware = require("webpack-dev-middleware");
-    var webpack = require("webpack");
-    var config = require('../webpack.config');
-    var compiler = webpack(config);
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: config.output.publicPath,
-        noInfo: true,
-    }));
+    const config     = require('../webpack.config');
+    const compiler   = require('webpack')(config);
+    const publicPath = config.output.publicPath;
+
+    app.use(require('webpack-dev-middleware')(compiler, { publicPath }));
     app.use(require('webpack-hot-middleware')(compiler));
   }
 
-  const html = require('./html');
   app.use(express.static('public'));
-  app.use(html());
+  app.use(require('./html')());
   
-  httpServer.on('request', app);
+  worker.httpServer.on('request', app);
   
-  require('./sockets.js')(scServer);
+  require('./sockets.js')(worker.scServer);
 };
