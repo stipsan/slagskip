@@ -3,7 +3,7 @@ import {
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
   SOCKET_FAILURE,
-} from '../constants/ActionTypes'
+} from '../../constants/ActionTypes'
 
 let memoizedSocket    = false
 let pendingConnection = false

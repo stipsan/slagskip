@@ -1,10 +1,6 @@
 //@TODO make this a reusable middleware tailored socketcluster?
-import { 
-  SUBSCRIBE_REQUEST,
-  SUBSCRIBE_SUCCESS,
-  SUBSCRIBE_FAILURE,
-} from '../constants/ActionTypes'
 import { connect } from './connect'
+import { maybeJoinChannel, willLeaveChannel } from './channel'
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
@@ -20,8 +16,9 @@ export default store => next => action => {
     return action.type && next(action)
   }
   
-  if(action.type === SUBSCRIBE_REQUEST) {
-    console.error('works');
+  // logout, kick event or leaving a game
+  if(willLeaveChannel(store, next, action)) {
+    return next(action)
   }
   
   const callSocket = action[CALL_SOCKET]
@@ -56,10 +53,12 @@ export default store => next => action => {
         error: {type: err, message: data || 'Something bad happened'}
       }))
     } else {
-      next(actionWith({
+      const successAction = actionWith({
         ...data,
         type: successType
-      }))
+      })
+      maybeJoinChannel(store, successAction, next)
+      next(successAction)
     }
   })
 }
