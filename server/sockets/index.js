@@ -30,7 +30,6 @@ module.exports = function(scServer){
       );
     });
     
-    
     /*
     socket.on(TYPES.LOGIN_REQUEST, function(data) {
       
