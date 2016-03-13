@@ -1,12 +1,6 @@
 var Redis = require('ioredis');
 var redis = new Redis(process.env.REDIS_URL);
 
-function mapUserToObject(username) {
-  return {
-    username
-  };
-}
-
 function getUserByID(id) {
   
 };
@@ -55,11 +49,21 @@ function loginUser(data, success, failure) {
     if(id < 1) return failure({message: `User '${data.username}' does not exist!`});
     
     redis.multi([
-      ['hkeys', 'users'],
+      ['hgetall', 'users'],
       ['smembers', `invites:${id}`],
       ['smembers', `requests:${id}`],
     ]).exec((err, results) => {
-      const friends  = results[0][1].filter(user => user !== data.username).map(mapUserToObject);
+      console.warn('hgetall', results[0][1]  );
+      const users    = results[0][1];
+      delete           users[data.username];
+      const friends  = Object.keys(users).reduce(
+        (previousValue, currentValue, currentIndex) => [
+          ...previousValue,
+          { id: users[currentValue], username: currentValue }
+        ], []);
+        
+      console.log('friends', friends);
+      //const friends  = results[0][1].filter(user => user !== data.username).map(mapUserToObject);
       const invites  = results[1][1];
       const requests = results[2][1];
       console.log('redis.multi', results, ['smembers', `invites:${id}`],
@@ -67,6 +71,7 @@ function loginUser(data, success, failure) {
       
       success({
         username: data.username,
+        id,
         friends,
         invites,
         requests,
