@@ -10,7 +10,7 @@ module.exports = function(scServer){
 
     console.log('a user connected');
 
-    socket.on('login', function(data) {
+    socket.on(TYPES.LOGIN_REQUEST, function(data) {
       
       console.log('join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
