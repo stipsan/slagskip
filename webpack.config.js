@@ -68,8 +68,34 @@ module.exports = {
     loaders: [
       {
         test: /\.js?$/,
-        loader: 'babel',
         exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          "presets": ["react", "es2015", "stage-0"],
+          "env": {
+            "production": {
+              "plugins": [
+                "transform-react-constant-elements",
+                "transform-react-inline-elements",
+                "transform-runtime"
+              ]
+            },
+            "development": {
+              "plugins": [
+                ["react-transform", {
+                  "transforms": [{
+                    "transform": "react-transform-hmr",
+                    "imports": ["react"],
+                    "locals": ["module"]
+                  }, {
+                    "transform": "react-transform-catch-errors",
+                    "imports": ["react", "redbox-react"]
+                  }]
+                }]
+              ]
+            }
+          }
+        },
       },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') }
     ]
