@@ -21,11 +21,9 @@ module.exports.run = function (worker) {
   app.enable('trust proxy');
 
   if(process.env.NODE_ENV !== 'production') {
-    const config     = require('../webpack.config');
-    const compiler   = require('webpack')(config);
-    const publicPath = config.output.publicPath;
-
-    app.use(require('webpack-dev-middleware')(compiler, { publicPath }));
+    const config   = require('../webpack.config');
+    const compiler = require('webpack')(config);
+    app.use(require('webpack-dev-middleware')(compiler, config));
     app.use(require('webpack-hot-middleware')(compiler));
   }
 
@@ -34,5 +32,5 @@ module.exports.run = function (worker) {
   
   worker.httpServer.on('request', app);
   
-  require('./sockets.js')(worker.scServer);
+  require('./sockets')(worker.scServer);
 };

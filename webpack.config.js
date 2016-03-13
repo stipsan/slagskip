@@ -47,6 +47,7 @@ var entry = process.env.NODE_ENV !== 'production' ? {
 module.exports = {
   devtool: 'eval',
   entry: entry,
+  noInfo: true,
   output: {
     path: path.join(__dirname, 'public'),
     filename: "[name].js?[hash]",
