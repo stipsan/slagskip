@@ -24,7 +24,7 @@ class FriendRow extends Component {
  
     return <tr>
       <td className="user-name">{username}</td>
-      <td>
+      <td className="control-group">
       {invited && pending && <button className="btn btn-primary">Start Game!</button>}
       {!invited && pending && <div>
         <button className="btn btn-accept" onClick={handleAccept}>Accept</button>
