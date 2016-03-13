@@ -7,7 +7,7 @@ import {
 } from '../constants/ActionTypes'
 
 // if connecting went well, we store the socket instance here
-let memoizedSocket = null
+let memoizedSocket
 
 let pendingConnection = false
 
@@ -24,16 +24,43 @@ export default store => next => action => {
     
     socket.on('connect', data => {
       // yay! lets memoize the socket
-      memoizedSocket = socket;
+      memoizedSocket = socket
       pendingConnection = false
       next({ type: SOCKET_SUCCESS, ...data })
+      
+      // @TODO move this functionality further up the tree, add new constant to deal with subscribes
+      const id          = data.id
+      const userChannel = socket.subscribe(`user:${id}`)
+      // This acts essentially like a proxy for the server to dispatch redux actions
+      // on the client directly
+      // @TODO add server middleware to keep this channel private, for security
+      //       or else anyone can trigger anything in other user sessions
+      userChannel.watch(action => next(action))
     })
     socket.on('error', data => {
       next({ type: SOCKET_FAILURE, event: 'error', ...data })
     })
     socket.on('connectAbort', () => {
       next({ type: SOCKET_FAILURE, event: 'connectAbort' })
-    })    
+    })
+    socket.on('kickOut', (...args) => {
+      console.warn('kickOut', ...args);
+    })
+    socket.on('subscribe', (...args) => {
+      console.warn('subscribe', ...args);
+    })
+    socket.on('subscribeFail', (...args) => {
+      console.warn('subscribeFail', ...args);
+    })
+    socket.on('unsubscribe', (...args) => {
+      console.warn('unsubscribe', ...args);
+    })
+    socket.on('subscribeStateChange', (...args) => {
+      console.warn('subscribeStateChange', ...args);
+    })
+    socket.on('subscribeRequest', (...args) => {
+      console.warn('subscribeRequest', ...args);
+    })
 
     return next(action)    
   }
@@ -77,15 +104,4 @@ export default store => next => action => {
       }))
     }
   })
-  
-  return callSocket(endpoint, schema).then(
-    response => next(actionWith({
-      response,
-      type: successType
-    })),
-    error => next(actionWith({
-      type: failureType,
-      error: error.message || 'Something bad happened'
-    }))
-  )
 }

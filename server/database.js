@@ -52,22 +52,18 @@ function loginUser(data, success, failure) {
       ['hgetall', 'users'],
       ['smembers', `invites:${id}`],
       ['smembers', `requests:${id}`],
+      ['hset', `user:${id}`, 'online', 1],
     ]).exec((err, results) => {
-      console.warn('hgetall', results[0][1]  );
       const users    = results[0][1];
       delete           users[data.username];
       const friends  = Object.keys(users).reduce(
         (previousValue, currentValue, currentIndex) => [
           ...previousValue,
           { id: users[currentValue], username: currentValue }
-        ], []);
-        
-      console.log('friends', friends);
-      //const friends  = results[0][1].filter(user => user !== data.username).map(mapUserToObject);
+        ], []);        
       const invites  = results[1][1];
       const requests = results[2][1];
-      console.log('redis.multi', results, ['smembers', `invites:${id}`],
-      ['smembers', `requests:${id}`]);
+      console.log('redis.multi', results);
       
       success({
         username: data.username,

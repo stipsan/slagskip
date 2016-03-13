@@ -39,10 +39,13 @@ const viewer = (state = {username: '', loggedIn: false}, action) => {
   }
 };
 
-const friends = (state = [{username: 'Superman'}, {username: 'Batman'}, {username: 'Spiderman'}, {username: 'StarLord'}], action) => {
+
+const friends = (state = [], action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
-      return action.friends
+      return action.friends.map(friend => {
+        return { connected: false, ...friend }
+      })
     case TYPE.RECEIVE_FRIEND:
       return [
         ...state,
@@ -55,7 +58,7 @@ const friends = (state = [{username: 'Superman'}, {username: 'Batman'}, {usernam
   }
 };
 
-const invites = (state = ['Superman', 'Spiderman'], action) => {
+const invites = (state = [], action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
       return action.invites
@@ -71,7 +74,7 @@ const invites = (state = ['Superman', 'Spiderman'], action) => {
   }
 };
 
-const requests = (state = ['Superman', 'Batman'], action) => {
+const requests = (state = [], action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
       return action.requests
