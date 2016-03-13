@@ -17,7 +17,7 @@ export default store => next => action => {
   // no socket means we're still setting it up, proceed the stack while we wait
   // @TODO queue actions while waiting for connect?
   if(!socket) {
-    return next(action)
+    return action.type && next(action)
   }
   
   if(action.type === SUBSCRIBE_REQUEST) {
