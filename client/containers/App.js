@@ -61,6 +61,7 @@ class App extends Component {
     // now is a good time to ask for notification permissions
     requestNotificationPermission();
     
+    return; //@TODO
     this.socket = socket;
 
     this.socket.on('connect', data => {
@@ -116,21 +117,6 @@ class App extends Component {
   }
   
   render() {
-    const {
-      username,
-      loggedIn,
-      game,
-      friends: origFriends,
-      disconnected,
-      invites,
-      requests,
-    } = this.state;
-    const { handleInvite, handleAccept, handleDecline, handleLogout, handleLogin } = this;
-
-    const friends = origFriends.map(friend => {
-      return {...friend, invited: requests.includes(friend.username), pending: invites.includes(friend.username)};
-    });
-
     return <div>
         <LobbyContainer />
     </div>;
