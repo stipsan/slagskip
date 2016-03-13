@@ -1,6 +1,6 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions'
+import { loginUser } from '../../actions'
 
 const placeholderLabel = 'Username';
 const buttonLabel = 'Enter';
@@ -20,7 +20,7 @@ class Login extends Component {
     event.preventDefault();
     
     
-    this.props.dispatch(login(this.state.value));
+    this.props.dispatch(loginUser(this.state.value));
   };
 
   render(){

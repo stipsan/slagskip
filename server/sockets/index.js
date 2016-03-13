@@ -10,6 +10,32 @@ module.exports = function(scServer){
 
     console.log('a user connected');
 
+    socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
+      
+      console.log(TYPES.LOGIN_REQUEST, data);
+      
+      // @TODO reuse http status code as error code for failed validation?
+      if(data.username.length < 3) return res('USERNAME_TOO_SHORT', {message: 'Username too short'});
+      
+      database.loginUser(
+        {username: data.username, socket: socket.id},
+        user => {
+          idToUsername[socket.id] = data.username;
+          
+          console.log(TYPES.LOGIN_SUCCESS, user);
+          res(null, {
+            friends: user.friends,
+            viewer: user
+          });
+          //socket.broadcast.emit('join', data);
+        },
+        error => {
+          console.log(TYPES.LOGIN_FAILURE, error);
+          res(TYPES.LOGIN_FAILURE, error)
+        }
+      );
+    });
+    /*
     socket.on(TYPES.LOGIN_REQUEST, function(data) {
       
       console.log('join', data);
@@ -32,6 +58,7 @@ module.exports = function(scServer){
         }
       );
     });
+    //*/
 
     socket.on('invite', function(friend) {
       console.log('invite', friend);
