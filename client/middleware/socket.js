@@ -7,7 +7,9 @@ import {
 } from '../constants/ActionTypes'
 
 // if connecting went well, we store the socket instance here
-let memoizedSocket;
+let memoizedSocket = null
+
+let pendingConnection = false
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
@@ -16,12 +18,14 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   // initial setup
-  if(action.type === SOCKET_REQUEST) {
-    const socket = socketCluster.connect()
+  if(!pendingConnection && action.type === SOCKET_REQUEST) {
+    pendingConnection = true
+    const socket = socketCluster.connect({ autoReconnect: true })
     
     socket.on('connect', data => {
       // yay! lets memoize the socket
-      memoizedSocket = socket
+      memoizedSocket = socket;
+      pendingConnection = false
       next({ type: SOCKET_SUCCESS, ...data })
     })
     socket.on('error', data => {
