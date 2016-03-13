@@ -1,4 +1,6 @@
 import { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions'
 
 const placeholderLabel = 'Username';
 const buttonLabel = 'Enter';
@@ -17,7 +19,8 @@ class Login extends Component {
 
     event.preventDefault();
     
-    this.props.handleSubmit(this.state.value);
+    
+    this.props.dispatch(login(this.state.value));
   };
 
   render(){
@@ -32,4 +35,4 @@ class Login extends Component {
   }
 };
 
-export default Login;
+export default connect()(Login);

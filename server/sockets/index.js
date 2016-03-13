@@ -24,7 +24,7 @@ module.exports = function(scServer){
             friends: user.friends,
             viewer: user
           });
-          socket.broadcast.emit('join', data);
+          //socket.broadcast.emit('join', data);
         },
         error => {
           socket.emit('failed login', error);

@@ -75,17 +75,6 @@ class App extends Component {
       }
     });
 
-    this.socket.on('successful login', data => {
-      const { viewer, friends } = data;
-      console.log('successful login', data);
-      this.setState({ friends, loggedIn: true, ...viewer });
-      this.props.dispatch({
-        type: LOGIN_SUCCESS,
-        friends,
-        ...viewer
-      });
-    });
-
     this.socket.on('failed login', data => sendNotification(data.message));
 
     // someone logged in

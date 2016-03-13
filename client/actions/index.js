@@ -1,5 +1,6 @@
 import * as TYPE from '../constants/ActionTypes'
 export * from './network'
+export * from './user'
 
 export const receiveFriend = friend => {
   return { type: TYPE.RECEIVE_FRIEND, friend }
