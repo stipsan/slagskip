@@ -132,20 +132,6 @@ class App extends Component {
     });
 
     return <div>
-        <Lobby
-          username={username}
-          loggedIn={loggedIn}
-          game={game}
-          friends={friends}
-          disconnected={disconnected}
-          invites={invites}
-          requests={requests}
-          handleInvite={handleInvite}
-          handleAccept={handleAccept}
-          handleDecline={handleDecline}
-          handleLogout={handleLogout}
-          handleLogin={handleLogin}
-        />
         <LobbyContainer />
     </div>;
   }

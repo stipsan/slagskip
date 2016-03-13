@@ -10,6 +10,7 @@ $bg-disconnected: #C62828 !default;
 	bottom: 0px;
 	left: 0px;
     padding: $column-gutter;
+    overflow: auto;
 	
 	display: flex;
     flex-direction: column;
