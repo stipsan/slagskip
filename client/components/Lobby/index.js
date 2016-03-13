@@ -10,6 +10,7 @@ const Lobby = ({
   game = false,
   friends,
   disconnected = false,
+  connected,
   invites = [],
   requests = [],
   handleInvite = () => {},
@@ -31,7 +32,7 @@ const Lobby = ({
     />
     {game && <Game loggedIn={loggedIn} username={username} />}
     {!loggedIn && <Login handleSubmit={handleLogin} />}
-    {disconnected && <Disconnected username={username} />}
+    {disconnected && <Disconnected username={username} connected={connected} />}
   </div>
 }
 export default Lobby;

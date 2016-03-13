@@ -1,4 +1,9 @@
 //@TODO make this a reusable middleware tailored socketcluster?
+import { 
+  SOCKET_REQUEST,
+  SOCKET_SUCCESS,
+  SOCKET_FAILURE,
+} from '../constants/ActionTypes'
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
@@ -7,7 +12,11 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   
-  
+  console.log('socket middleware', action);
+  if(action.type === SOCKET_REQUEST) {
+    console.log('oh dude!');
+    return next({ ...action, type: SOCKET_FAILURE });
+  }
   
   const callAPI = action[CALL_SOCKET]
   if (typeof callAPI === 'undefined') {

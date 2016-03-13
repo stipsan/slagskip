@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
+import DocumentTitle from 'react-document-title'
 
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
 
@@ -9,8 +10,14 @@ import { connectSocket } from '../actions';
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
 
+const initialTitle   = 'Connecting to server…'
+const connectedTitle = 'Socket connected!'
+
 class App extends Component {
   
+  // why use setState in this component? 
+  // there's no need to have <App /> subscribe to redux when we only want to 
+  // respond to the initial socket connect (or disconnect) event
   state = {
     username: '',
     loggedIn: false,
@@ -108,10 +115,19 @@ class App extends Component {
   }
   
   render() {
+    const { title } = this.state;
+    const { connected } = this.props;
     return <div>
+      <DocumentTitle title={connected ? connectedTitle : initialTitle}>
         <LobbyContainer />
+      </DocumentTitle>
     </div>;
   }
 };
 
-export default connect()(App);
+export default connect(
+  state => {
+    return { connected: state.connected }
+  },
+  null
+)(App);

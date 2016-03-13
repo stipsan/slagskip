@@ -1,5 +1,6 @@
 import * as TYPE from '../constants/ActionTypes'
 export * from './network'
+export * from './socket'
 export * from './user'
 
 export const receiveFriend = friend => {

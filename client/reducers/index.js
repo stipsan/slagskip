@@ -1,11 +1,17 @@
 import { combineReducers } from 'redux'
 import * as TYPE from '../constants/ActionTypes'
 
-const serverConnection = (state = true, action) => {
+const connected = (state = false, action) => {
+  switch (action.type) {
+    case TYPE.SOCKET_SUCCESS:
+      return true
+    default:
+      return state
+  }
+};
+const disconnected = (state = false, action) => {
   switch (action.type) {
     case TYPE.SOCKET_FAILURE:
-      return false
-    case TYPE.SOCKET_SUCCESS:
       return true
     default:
       return state
@@ -75,7 +81,13 @@ const requests = (state = ['Superman', 'Batman'], action) => {
 };
 
 export default combineReducers({
-  serverConnection,
+  // why separate connected and disconnected?
+  // connected = false && disconnected = false => attempting to connect socket
+  // connected = false && disconnected = true => connecting failed, could be firewall
+  // connected = true && disconnected = false => socket is live and connected
+  // connected = true && disconnected = true => our live connection disconnected
+  connected,
+  disconnected,
   viewer,
   friends,
   invites,

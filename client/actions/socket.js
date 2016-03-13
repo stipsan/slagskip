@@ -1,8 +1,12 @@
 import { 
-  RECEIVE_NETWORK_OFFLINE,
-  RECEIVE_NETWORK_ONLINE,
+  SOCKET_REQUEST,
+  SOCKET_SUCCESS,
+  SOCKET_FAILURE,
 } from '../constants/ActionTypes'
 
+export const connectSocket = () => {
+  return { type: SOCKET_REQUEST }
+}
 /*
 export const connectSocket = () => {
   return dispatch => {
