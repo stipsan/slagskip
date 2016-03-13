@@ -11,7 +11,6 @@ module.exports = function(scServer){
     console.log('a user connected');
 
     socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
-      
       console.log(TYPES.LOGIN_REQUEST, data);
       
       // @TODO reuse http status code as error code for failed validation?
@@ -19,9 +18,7 @@ module.exports = function(scServer){
       
       database.loginUser(
         {username: data.username, socket: socket.id},
-        user => {
-          idToUsername[socket.id] = data.username;
-          
+        user => {          
           console.log(TYPES.LOGIN_SUCCESS, user);
           res(null, user);
           //socket.broadcast.emit('join', data);
@@ -32,6 +29,8 @@ module.exports = function(scServer){
         }
       );
     });
+    
+    
     /*
     socket.on(TYPES.LOGIN_REQUEST, function(data) {
       

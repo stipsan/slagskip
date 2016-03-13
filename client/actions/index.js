@@ -2,6 +2,7 @@ import * as TYPE from '../constants/ActionTypes'
 export * from './network'
 export * from './socket'
 export * from './user'
+export * from './game_invite'
 
 export const receiveFriend = friend => {
   return { type: TYPE.RECEIVE_FRIEND, friend }

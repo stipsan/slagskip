@@ -61,6 +61,8 @@ export default store => next => action => {
     socket.on('subscribeRequest', (...args) => {
       console.warn('subscribeRequest', ...args);
     })
+    
+    global.socket = socket;
 
     return next(action)    
   }

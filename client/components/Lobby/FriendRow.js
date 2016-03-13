@@ -1,12 +1,14 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { inviteFriend, acceptInvite, declineInvite } from '../../actions'
+import { gameInvite, acceptInvite, declineInvite } from '../../actions'
 
 class FriendRow extends Component {
   handleInvite = event => {
     event.preventDefault();
+    
+    const { id, username } = this.props;
 
-    this.props.dispatch(inviteFriend(this.props.username));
+    this.props.dispatch(gameInvite({ id, username }));
   };
   handleAccept = event => {
     event.preventDefault();
