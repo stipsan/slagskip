@@ -17,6 +17,7 @@ export default connect(
       friends: mapFriendsStateToProps(state),
       username: state.viewer.username,
       disconnected: !state.serverConnection,
+      loggedIn: state.viewer.loggedIn
     }
   },
   null,

@@ -12,11 +12,12 @@ const serverConnection = (state = true, action) => {
   }
 };
 
-const viewer = (state = {username: 'Ironman'}, action) => {
+const viewer = (state = {username: '', loggedIn: false}, action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
       return {
         ...state,
+        loggedIn: true,
         username: action.username,
       }
     default:

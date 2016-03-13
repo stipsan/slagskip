@@ -5,8 +5,8 @@ import Friends from './Friends'
 import Login from './Login'
 
 const Lobby = ({
-  username = 'Batman',
-  loggedIn = true,
+  username,
+  loggedIn,
   game = false,
   friends,
   disconnected = false,
