@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
 
 import { LOGIN_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
+import { connectSocket } from '../actions';
 
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
@@ -60,6 +61,9 @@ class App extends Component {
   componentWillMount() {
     // now is a good time to ask for notification permissions
     requestNotificationPermission();
+    
+    
+    this.props.dispatch(connectSocket());
     
     return; //@TODO
     this.socket = socket;

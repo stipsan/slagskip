@@ -1,8 +1,5 @@
 import * as TYPE from '../constants/ActionTypes'
-
-export const connect = () => {
-  console.log('connect');
-}
+export * from './socket'
 
 export const receiveFriend = friend => {
   return { type: TYPE.RECEIVE_FRIEND, friend }
