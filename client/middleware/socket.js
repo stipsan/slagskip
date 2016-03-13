@@ -61,11 +61,16 @@ export default store => next => action => {
   return memoizedSocket.emit(requestType, emitData, (err, data) => {
     console.log('socket.emit', requestType, emitData, err, data);
     if (err) {
-      console.log('socket.emit', failureType, emitData, err, data);
       // Failed to emit event, retry or let the user know and keep going?
+      next(actionWith({
+        type: failureType,
+        error: {type: err, message: data || 'Something bad happened'}
+      }))
     } else {
-      // Event was emitted successfully
-      console.log('socket.emit', successType, emitData, err, data);
+      next(actionWith({
+        ...data,
+        type: successType
+      }))
     }
   })
   

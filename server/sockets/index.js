@@ -23,10 +23,7 @@ module.exports = function(scServer){
           idToUsername[socket.id] = data.username;
           
           console.log(TYPES.LOGIN_SUCCESS, user);
-          res(null, {
-            friends: user.friends,
-            viewer: user
-          });
+          res(null, user);
           //socket.broadcast.emit('join', data);
         },
         error => {

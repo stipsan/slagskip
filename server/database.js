@@ -36,11 +36,11 @@ function createUser(username, success, error) {
 function userInviteFriend(data, success, failure) {
   console.log('userInviteFriend', data);
   redis.hget('users', data.user.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.user.username} does not exist!'`});
+    if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`});
     
     redis.sadd(`requests:${id}`, data.friend.username);
     redis.hget('users', data.friend.username).then(id => {
-      if(id < 1) return failure({message: `Friend '${data.friend.username} does not exist!'`});
+      if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`});
       
       
       redis.sadd(`invites:${id}`, data.user.username);
@@ -52,7 +52,7 @@ function userInviteFriend(data, success, failure) {
 
 function loginUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.username} does not exist!'`});
+    if(id < 1) return failure({message: `User '${data.username}' does not exist!`});
     
     redis.multi([
       ['hkeys', 'users'],

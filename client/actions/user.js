@@ -3,6 +3,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from '../constants/ActionTypes'
 
 // Fetches a single user from Github API unless it is cached.
@@ -18,6 +21,10 @@ export function loginUser(username) {
       }
     })
   }
+}
+
+export function logoutUser() {
+  return { type: LOGOUT_SUCCESS }
 }
 
 /*

@@ -28,6 +28,12 @@ const viewer = (state = {username: '', loggedIn: false}, action) => {
         loggedIn: true,
         username: action.username,
       }
+    case TYPE.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loggedIn: false,
+        username: '',
+      }
     default:
       return state
   }

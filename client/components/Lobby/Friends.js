@@ -1,15 +1,20 @@
 import { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import FriendRow from './FriendRow'
+import { logoutUser } from '../../actions'
 
 class Friends extends Component {
+  handleLogout = event => {
+    this.props.dispatch(logoutUser());
+  };
   render() {
     const {
       friends,
       username,
       invites,
       requests,
-      handleLogout,
     } = this.props;
+    const { handleLogout } = this;
 
     return <section className="section section--lobby">
       <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
@@ -33,4 +38,4 @@ class Friends extends Component {
   };
 }
 
-export default Friends;
+export default connect()(Friends);

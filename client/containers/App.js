@@ -35,9 +35,7 @@ class App extends Component {
     localStorage.setItem('username', username);
   };
   handleLogout = event => {
-    localStorage.removeItem('username');
-    this.setState({loggedIn: false, username: false});
-    this.socket.emit('logout');
+    //
   }
   handleInvite = username => {
     console.log('handleInvite', username);
