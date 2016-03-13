@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nf start",
     "postinstall": "NODE_ENV=production webpack --debug false --devtool false --optimize-dedupe -p",
+    "hmr": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
