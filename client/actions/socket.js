@@ -1,19 +1,6 @@
-import { 
-  SOCKET_REQUEST,
-  SOCKET_SUCCESS,
-  SOCKET_FAILURE,
-} from '../constants/ActionTypes'
+import { SOCKET_REQUEST } from '../constants/ActionTypes'
 
+// client/middleware/socket.js knows what to do
 export const connectSocket = () => {
   return { type: SOCKET_REQUEST }
 }
-/*
-export const connectSocket = () => {
-  return dispatch => {
-    connect(
-      () => dispatch({ type: SOCKET_CONNECTED }),
-      message => dispatch({ type: SOCKET_DISCONNECTED, message })
-    );
-  }
-}
-//*/

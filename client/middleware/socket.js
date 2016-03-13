@@ -1,9 +1,13 @@
 //@TODO make this a reusable middleware tailored socketcluster?
+import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
   SOCKET_FAILURE,
 } from '../constants/ActionTypes'
+
+// if connecting went well, we store the socket instance here
+let memoizedSocket;
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
@@ -12,9 +16,29 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   
-  console.log('socket middleware', action);
+  console.log('socket middleware', action)
   if(action.type === SOCKET_REQUEST) {
-    console.log('oh dude!');
+    console.log('oh dude!')
+    console.log('memoizedSocket first attempt', memoizedSocket);
+    const socket = socketCluster.connect()
+    /*connect(
+      () => dispatch({ type: SOCKET_CONNECTED }),
+      message => dispatch({ type: SOCKET_DISCONNECTED, message })
+    );*/
+    socket.on('connect', () => {
+      // yay! lets memoize the socket
+      memoizedSocket = socket
+      next({ type: SOCKET_FAILURE })
+      next({ type: SOCKET_SUCCESS })
+    })
+    console.log('memoizedSocket second attempt', memoizedSocket);
+    setTimeout(() => {
+      console.log('memoizedSocket third attempt', memoizedSocket);
+    }, 5000);
+    //socket.on('error', failure)
+    
+    return next(action)
+    
     return next({ ...action, type: SOCKET_FAILURE });
   }
   
