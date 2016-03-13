@@ -11,6 +11,8 @@ const connected = (state = false, action) => {
 };
 const disconnected = (state = false, action) => {
   switch (action.type) {
+    case TYPE.SOCKET_SUCCESS:
+      return false
     case TYPE.SOCKET_FAILURE:
       return true
     default:

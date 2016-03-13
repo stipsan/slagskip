@@ -15,35 +15,28 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
-  
-  console.log('socket middleware', action)
+  // initial setup
   if(action.type === SOCKET_REQUEST) {
-    console.log('oh dude!')
-    console.log('memoizedSocket first attempt', memoizedSocket);
     const socket = socketCluster.connect()
-    /*connect(
-      () => dispatch({ type: SOCKET_CONNECTED }),
-      message => dispatch({ type: SOCKET_DISCONNECTED, message })
-    );*/
-    socket.on('connect', () => {
+    
+    socket.on('connect', data => {
       // yay! lets memoize the socket
       memoizedSocket = socket
-      next({ type: SOCKET_FAILURE })
-      next({ type: SOCKET_SUCCESS })
+      next({ type: SOCKET_SUCCESS, ...data })
     })
-    console.log('memoizedSocket second attempt', memoizedSocket);
-    setTimeout(() => {
-      console.log('memoizedSocket third attempt', memoizedSocket);
-    }, 5000);
-    //socket.on('error', failure)
-    
-    return next(action)
-    
-    return next({ ...action, type: SOCKET_FAILURE });
+    socket.on('error', data => {
+      next({ type: SOCKET_FAILURE, event: 'error', ...data })
+    })
+    socket.on('connectAbort', () => {
+      next({ type: SOCKET_FAILURE, event: 'connectAbort' })
+    })    
+
+    return next(action)    
   }
   
+  // @TODO when CALL_SOCKET happens before SOCKET_SUCCESS did and memoizedSocket doesn't exist
   const callAPI = action[CALL_SOCKET]
-  if (typeof callAPI === 'undefined') {
+  if (typeof callAPI === 'undefined' || !memoizedSocket) {
     return next(action)
   }
 
