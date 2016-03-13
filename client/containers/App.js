@@ -9,8 +9,6 @@ import { connectSocket } from '../actions';
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
 
-import socket from '../model';
-
 class App extends Component {
   
   state = {

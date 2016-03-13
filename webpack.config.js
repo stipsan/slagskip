@@ -36,7 +36,7 @@ plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.j
 var entry = process.env.NODE_ENV !== 'production' ? {
     client: [
       'webpack-dev-server/client?http://localhost:8080/',
-      'webpack/hot/dev-server?http://localhost:8080/',
+      'webpack/hot/dev-server',
       './client/index'
     ]
   } : {
@@ -49,13 +49,16 @@ module.exports = {
   devtool: 'eval',
   entry: entry,
   devServer: {
+    publicPath: "http://localhost:8080/",
+    hot: true,
     noInfo: true,
+    headers: { "Access-Control-Allow-Origin": "*" }
   },
   output: {
     path: path.join(__dirname, 'public'),
     filename: "[name].js?[hash]",
     chunkFilename: "[name].js?[chunkhash]",
-    publicPath: process.env.NODE_ENV !== 'production' ? 'http://localhost:8080/' : '/'
+    publicPath: '/'
   },
   plugins: plugins,
   module: {

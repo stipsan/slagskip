@@ -23,7 +23,7 @@ module.exports.run = function (worker) {
   if(process.env.NODE_ENV !== 'production') {
     const config   = require('../webpack.config');
     const compiler = require('webpack')(config);
-    app.use(require('webpack-dev-middleware')(compiler, config));
+    app.use(require('webpack-dev-middleware')(compiler, config.devServer));
     //@TODO the socket.io that the middleware uses breaks on SocketCluster
     app.use(require('webpack-hot-middleware')(compiler));
   }

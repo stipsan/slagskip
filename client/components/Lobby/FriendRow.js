@@ -2,14 +2,11 @@ import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { inviteFriend, acceptInvite, declineInvite } from '../../actions'
 
-import socket from '../../model';
-
 class FriendRow extends Component {
   handleInvite = event => {
     event.preventDefault();
 
     this.props.dispatch(inviteFriend(this.props.username));
-    socket.emit('invite', this.props.username);
   };
   handleAccept = event => {
     event.preventDefault();
