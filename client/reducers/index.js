@@ -3,9 +3,9 @@ import * as TYPE from '../constants/ActionTypes'
 
 const serverConnection = (state = true, action) => {
   switch (action.type) {
-    case TYPE.SOCKET_DISCONNECTED:
+    case TYPE.SOCKET_FAILURE:
       return false
-    case TYPE.SOCKET_CONNECTED:
+    case TYPE.SOCKET_SUCCESS:
       return true
     default:
       return state

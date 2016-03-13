@@ -6,6 +6,9 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
+  
+  
+  
   const callAPI = action[CALL_SOCKET]
   if (typeof callAPI === 'undefined') {
     return next(action)

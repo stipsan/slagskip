@@ -1,10 +1,18 @@
-export const SOCKET_DISCONNECTED = 'SOCKET_DISCONNECTED';
-export const SOCKET_CONNECTED = 'SOCKET_CONNECTED';
-export const NETWORK_OFFLINE = 'NETWORK_OFFLINE';
-export const NETWORK_ONLINE = 'NETWORK_ONLINE';
-
 // async network requests is suffixed _REQUEST, _SUCCESS or _FAILURE
 // actions that respond to server sent events is prefixed RECEIVE_
+
+// client local network status (client to router)
+// @TODO add network middleware that dispatch these
+export const RECEIVE_NETWORK_OFFLINE = 'RECEIVE_NETWORK_OFFLINE'
+export const RECEIVE_NETWORK_ONLINE = 'RECEIVE_NETWORK_ONLINE'
+
+// attempting to connect SocketCluster to server
+export const SOCKET_REQUEST = 'SOCKET_REQUEST'
+// socket connected successfully
+export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
+// socket got disconnected, or maybe the user got bandwidth capped, a firewall
+// blocks the websocket but is letting http requests come through, etc.
+export const SOCKET_FAILURE = 'SOCKET_FAILURE'
 
 // attempt login
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
