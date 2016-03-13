@@ -1,27 +1,16 @@
-//@TODO make this a reusable middleware tailored socketcluster?
 import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
   SOCKET_FAILURE,
-  SUBSCRIBE_REQUEST,
-  SUBSCRIBE_SUCCESS,
-  SUBSCRIBE_FAILURE,
 } from '../constants/ActionTypes'
 
-// if connecting went well, we store the socket instance here
-let memoizedSocket
-
+let memoizedSocket    = false
 let pendingConnection = false
 
-// Action key that carries API call info interpreted by this Redux middleware.
-export const CALL_SOCKET = Symbol('Call ClusterSocket')
-
-// A Redux middleware that interprets actions with CALL_SOCKET info specified.
-// Performs the call and promises when such actions are dispatched.
-export default store => next => action => {
+export const connect = (store, next, action) => {
   // initial setup
-  if(!pendingConnection && action.type === SOCKET_REQUEST) {
+  if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
     const socket = socketCluster.connect({ autoReconnect: true })
     
@@ -73,52 +62,9 @@ export default store => next => action => {
       console.warn('subscribeRequest', ...args);
     })
     
-    global.socket = socket;
+    // @TODO put behind debug flag
+    global.socket = socket
 
-    return next(action)    
+    return memoizedSocket
   }
-  
-  if(action.type === SUBSCRIBE_REQUEST) {
-    console.error('works');
-  }
-  
-  // @TODO when CALL_SOCKET happens before SOCKET_SUCCESS did and memoizedSocket doesn't exist
-  const callSocket = action[CALL_SOCKET]
-  if (typeof callSocket === 'undefined' || !memoizedSocket) {
-    return next(action)
-  }
-
-  const { types, data: emitData } = callSocket
-
-  if (!Array.isArray(types) || types.length !== 3) {
-    throw new Error('Expected an array of three action types.')
-  }
-  if (!types.every(type => typeof type === 'string')) {
-    throw new Error('Expected action types to be strings.')
-  }
-
-  function actionWith(data) {
-    const finalAction = Object.assign({}, action, data)
-    delete finalAction[CALL_SOCKET]
-    return finalAction
-  }
-
-  const [ requestType, successType, failureType ] = types
-  next(actionWith({ type: requestType }))
-
-  return memoizedSocket.emit(requestType, emitData, (err, data) => {
-    console.log('socket.emit', requestType, emitData, err, data);
-    if (err) {
-      // Failed to emit event, retry or let the user know and keep going?
-      next(actionWith({
-        type: failureType,
-        error: {type: err, message: data || 'Something bad happened'}
-      }))
-    } else {
-      next(actionWith({
-        ...data,
-        type: successType
-      }))
-    }
-  })
 }
