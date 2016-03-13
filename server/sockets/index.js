@@ -1,6 +1,7 @@
 module.exports = function(scServer){
   
   const database = require('../database');
+  const TYPES = require('../../shared/constants/ActionTypes');
   
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
   const invites = new Map(), requests = new Map(), idToUsername = {};

@@ -9,6 +9,14 @@
 module.exports.run = function (worker) {
   console.log('   >> Worker PID:', process.pid);
 
+  // this is only to allow import/export syntax in /shared/* to be supported on node
+  // until --harmony_modules is stable in v8 and lands in node
+
+  require('babel-register')({
+    only: /shared/,
+    plugins: ['transform-es2015-modules-commonjs']
+  });
+
   const express = require('express');
   const app = express();
 
