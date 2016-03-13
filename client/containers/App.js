@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import {requestNotificationPermission, sendNotification} from '../utils/notify';
 
-import { USER_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
+import { LOGIN_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
 
 import LobbyContainer from './LobbyContainer';
 import Lobby from '../components/Lobby';
@@ -77,7 +77,7 @@ class App extends Component {
       console.log('successful login', data);
       this.setState({ friends, loggedIn: true, ...viewer });
       this.props.dispatch({
-        type: USER_SUCCESS,
+        type: LOGIN_SUCCESS,
         friends,
         ...viewer
       });

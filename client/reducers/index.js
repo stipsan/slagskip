@@ -14,7 +14,7 @@ const serverConnection = (state = true, action) => {
 
 const viewer = (state = {username: 'Ironman'}, action) => {
   switch (action.type) {
-    case TYPE.USER_SUCCESS:
+    case TYPE.LOGIN_SUCCESS:
       return {
         ...state,
         username: action.username,
@@ -26,7 +26,7 @@ const viewer = (state = {username: 'Ironman'}, action) => {
 
 const friends = (state = [{username: 'Superman'}, {username: 'Batman'}, {username: 'Spiderman'}, {username: 'StarLord'}], action) => {
   switch (action.type) {
-    case TYPE.USER_SUCCESS:
+    case TYPE.LOGIN_SUCCESS:
       return action.friends
     case TYPE.RECEIVE_FRIEND:
       return [
@@ -42,7 +42,7 @@ const friends = (state = [{username: 'Superman'}, {username: 'Batman'}, {usernam
 
 const invites = (state = ['Superman', 'Spiderman'], action) => {
   switch (action.type) {
-    case TYPE.USER_SUCCESS:
+    case TYPE.LOGIN_SUCCESS:
       return action.invites
     case TYPE.RECEIVE_GAME_INVITE:
       return [
@@ -58,7 +58,7 @@ const invites = (state = ['Superman', 'Spiderman'], action) => {
 
 const requests = (state = ['Superman', 'Batman'], action) => {
   switch (action.type) {
-    case TYPE.USER_SUCCESS:
+    case TYPE.LOGIN_SUCCESS:
       return action.requests
     case TYPE.GAME_INVITE_SUCCESS:
     case TYPE.ACCEPT_GAME_INVITE_SUCCESS:
