@@ -14,6 +14,11 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 // blocks the websocket but is letting http requests come through, etc.
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
 
+// setup private and public service channel subs
+export const SUBSCRIBE_REQUEST = 'SUBSCRIBE_REQUEST'
+export const SUBSCRIBE_SUCCESS = 'SUBSCRIBE_SUCCESS'
+export const SUBSCRIBE_FAILURE = 'SUBSCRIBE_FAILURE'
+
 // attempt login
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 // login succeeded, payload contains friends, invities and game matches

@@ -27,7 +27,7 @@ class Friends extends Component {
         </thead>
         <tbody>
           {friends.map(user => <FriendRow
-            key={user.username}
+            key={user.id}
             username={user.username}
             invited={user.invited}
             pending={user.pending}

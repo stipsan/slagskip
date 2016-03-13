@@ -4,6 +4,9 @@ import {
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
   SOCKET_FAILURE,
+  SUBSCRIBE_REQUEST,
+  SUBSCRIBE_SUCCESS,
+  SUBSCRIBE_FAILURE,
 } from '../constants/ActionTypes'
 
 // if connecting went well, we store the socket instance here
@@ -36,6 +39,14 @@ export default store => next => action => {
       // @TODO add server middleware to keep this channel private, for security
       //       or else anyone can trigger anything in other user sessions
       userChannel.watch(action => next(action))
+      
+      // intended for global redux actions that announce server maintenance, etc
+      // @TODO safeguard what can be passed in the public channel
+      // @TODO responding to 'friends' events, a friend coming online etc will be moved
+      //       to the private userChannel later
+      // @TODO everyone can listen to this socket, but only server can publish to it
+      const serviceChannel = socket.subscribe('service');
+      serviceChannel.watch(action => next(action))
     })
     socket.on('error', data => {
       next({ type: SOCKET_FAILURE, event: 'error', ...data })
@@ -65,6 +76,10 @@ export default store => next => action => {
     global.socket = socket;
 
     return next(action)    
+  }
+  
+  if(action.type === SUBSCRIBE_REQUEST) {
+    console.error('works');
   }
   
   // @TODO when CALL_SOCKET happens before SOCKET_SUCCESS did and memoizedSocket doesn't exist
