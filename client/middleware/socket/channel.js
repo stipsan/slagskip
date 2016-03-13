@@ -7,12 +7,14 @@ import {
   SUBSCRIBE_PRIVATE_FAILURE,
 } from '../../constants/ActionTypes'
 
-export const maybeJoinChannel = (store, next, action) => {
-  
+
+
+export const maybeJoinChannel = (store, next, action, socket) => {
+  console.warn('maybeJoinChannel', action);
 }
 
-export const willLeaveChannel = (store, next, action) => {
-  
+export const willLeaveChannel = (store, next, action, socket) => {
+  console.warn('shouldLeaveChannel?', action);
   
   return false
 }

@@ -11,13 +11,15 @@ export default store => next => action => {
   
   const socket = connect(store, next, action);
   // no socket means we're still setting it up, proceed the stack while we wait
-  // @TODO queue actions while waiting for connect?
   if(!socket) {
+    if(!action.type) {
+      console.warn('@TODO queue action while waiting for connect?', action, socket)
+    }
     return action.type && next(action)
   }
   
   // logout, kick event or leaving a game
-  if(willLeaveChannel(store, next, action)) {
+  if(willLeaveChannel(store, next, action, socket)) {
     return next(action)
   }
   
@@ -57,7 +59,7 @@ export default store => next => action => {
         ...data,
         type: successType
       })
-      maybeJoinChannel(store, successAction, next)
+      maybeJoinChannel(store, next, successAction, socket)
       next(successAction)
     }
   })

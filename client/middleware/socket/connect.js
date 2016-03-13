@@ -64,7 +64,7 @@ export const connect = (store, next, action) => {
     
     // @TODO put behind debug flag
     global.socket = socket
-
-    return memoizedSocket
   }
+  
+  return memoizedSocket
 }
