@@ -9,7 +9,7 @@ module.exports = function(worker){
     console.log('middleware.authToken', authToken);
     if (req.authTokenExpiredError) {
       next(req.authTokenExpiredError); // Fail with a default auth token expiry error
-    } else if (req.channel !== 'service' || true) {
+    } else if (authToken && authToken.channels.indexOf(req.channel) > -1) {
       next() // Allow
     } else {
       next(true); // Block
