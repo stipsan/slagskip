@@ -22,6 +22,7 @@ const attachListeners = (store, next, action, socket) => {
     console.warn('kickOut', ...args);
   })
   socket.on('subscribe', channel => {
+    console.log('subscribe', channel);
     switch (channel) {
       case SERVICE_CHANNEL:
         return next({ type: SUBSCRIBE_SERVICE_SUCCESS, channel })
@@ -30,6 +31,7 @@ const attachListeners = (store, next, action, socket) => {
     }
   })
   socket.on('subscribeFail', (err, channel) => {
+    console.log('subscribeFail', err, channel);
     switch (channel) {
       case SERVICE_CHANNEL:
         return next({ type: SUBSCRIBE_SERVICE_FAILURE, channel })
@@ -43,7 +45,8 @@ const attachListeners = (store, next, action, socket) => {
   socket.on('subscribeStateChange', (...args) => {
     console.warn('subscribeStateChange', ...args);
   })
-  socket.on('subscribeRequest', channel => {    
+  socket.on('subscribeRequest', channel => {
+    console.log('subscribeRequest', channel);
     switch (channel) {
       case SERVICE_CHANNEL:
         return next({ type: SUBSCRIBE_SERVICE_REQUEST, channel })

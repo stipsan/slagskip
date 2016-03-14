@@ -5,10 +5,11 @@ module.exports = function(worker){
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
   function (req, next) {
-    // @TODO
-    if (req.authTokenExpiredError && false) {
+    var authToken = req.socket.getAuthToken();
+    console.log('middleware.authToken', authToken);
+    if (req.authTokenExpiredError) {
       next(req.authTokenExpiredError); // Fail with a default auth token expiry error
-    } else if (req.channel !== 'service') {
+    } else if (req.channel !== 'service' || true) {
       next() // Allow
     } else {
       next(true); // Block
@@ -38,6 +39,7 @@ module.exports = function(worker){
         user => {          
           console.log(TYPES.LOGIN_SUCCESS, user);
           res(null, user);
+          socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`]});
           //socket.broadcast.emit('join', data);
         },
         error => {
