@@ -5,24 +5,7 @@ import { maybeJoinChannel, willLeaveChannel } from './channel'
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
 
-// A Redux middleware that interprets actions with CALL_SOCKET info specified.
-// Performs the call and promises when such actions are dispatched.
-export default store => next => action => {
-  
-  const socket = connect(store, next, action);
-  // no socket means we're still setting it up, proceed the stack while we wait
-  if(!socket) {
-    if(!action.type) {
-      console.warn('@TODO queue action while waiting for connect?', action, socket)
-    }
-    return action.type && next(action)
-  }
-  
-  // logout, kick event or leaving a game
-  if(willLeaveChannel(store, next, action, socket)) {
-    return next(action)
-  }
-  
+export const createCallSocket = (store, next, action, socket) => {
   const callSocket = action[CALL_SOCKET]
   if (typeof callSocket === 'undefined') {
     return next(action)
@@ -63,4 +46,25 @@ export default store => next => action => {
       next(successAction)
     }
   })
+}
+
+// A Redux middleware that interprets actions with CALL_SOCKET info specified.
+// Performs the call and promises when such actions are dispatched.
+export default store => next => action => {
+  
+  const socket = connect(store, next, action);
+  // no socket means we're still setting it up, proceed the stack while we wait
+  if(!socket) {
+    if(!action.type) {
+      console.warn('@TODO queue action while waiting for connect?', action, socket)
+    }
+    return action.type && next(action)
+  }
+  
+  // logout, kick event or leaving a game
+  if(willLeaveChannel(store, next, action, socket)) {
+    return next(action)
+  }
+  
+  return createCallSocket(store, next, action, socket);
 }

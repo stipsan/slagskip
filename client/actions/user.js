@@ -11,15 +11,13 @@ import {
 // Fetches a single user from Github API unless it is cached.
 // Relies on Redux Thunk middleware.
 export function loginUser(username) {
-  return (dispatch, getState) => {
-    return dispatch({
-      [CALL_SOCKET]: {
-        types: [ LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE ],
-        data: {
-          username: username
-        }
+  return {
+    [CALL_SOCKET]: {
+      types: [ LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE ],
+      data: {
+        username: username
       }
-    })
+    }
   }
 }
 

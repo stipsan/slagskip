@@ -7,6 +7,7 @@ import {
 import {
   loginUser
 } from '../../actions'
+import { createCallSocket } from './index'
 
 let memoizedSocket    = false
 let pendingConnection = false
@@ -26,7 +27,7 @@ export const connect = (store, next, action) => {
       pendingConnection = false
       next({ type: SOCKET_SUCCESS, ...data })
       if(socket.authToken) {
-        next(loginUser(socket.authToken.username))
+        createCallSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })
     socket.on('error', data => {
