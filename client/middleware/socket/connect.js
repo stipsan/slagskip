@@ -4,6 +4,9 @@ import {
   SOCKET_SUCCESS,
   SOCKET_FAILURE,
 } from '../../constants/ActionTypes'
+import {
+  loginUser
+} from '../../actions'
 
 let memoizedSocket    = false
 let pendingConnection = false
@@ -12,13 +15,19 @@ export const connect = (store, next, action) => {
   // initial setup
   if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
-    const socket = socketCluster.connect({ autoReconnect: true })
+    const socket = socketCluster.connect({ 
+      autoReconnect: true,
+      rejectUnauthorized: 'production' === process.env.NODE_ENV,
+    })
     
     socket.on('connect', data => {
       // yay! lets memoize the socket
       memoizedSocket = socket
       pendingConnection = false
       next({ type: SOCKET_SUCCESS, ...data })
+      if(socket.authToken) {
+        next(loginUser(socket.authToken.username))
+      }
     })
     socket.on('error', data => {
       next({ type: SOCKET_FAILURE, event: 'error', ...data })

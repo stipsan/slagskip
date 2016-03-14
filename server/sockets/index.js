@@ -26,7 +26,7 @@ module.exports = function(worker){
 
   scServer.on('connection', function(socket){
 
-    console.log('a user connected');
+    console.log('a user connected', socket.getAuthToken());
 
     socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
       console.log(TYPES.LOGIN_REQUEST, data);
