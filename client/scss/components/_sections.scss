@@ -115,7 +115,14 @@ $bg-disconnected: #C62828 !default;
             padding: .2rem 1rem;
         }
         .control-group {
-            width: 100px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 5rem;
+            position: relative;
+            
+            div, .btn-group {
+                position: relative;
+            }
         }
     }
 }

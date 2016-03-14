@@ -14,7 +14,7 @@ module.exports.run = function (worker) {
 
   require('babel-register')({
     only: /shared/,
-    plugins: ['transform-es2015-modules-commonjs']
+    plugins: ['transform-es2015-modules-commonjs'],
   });
 
   const express = require('express');

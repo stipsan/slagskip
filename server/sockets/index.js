@@ -26,7 +26,7 @@ module.exports = function(worker){
 
   scServer.on('connection', function(socket){
 
-    console.log('a user connected', socket.getAuthToken());
+    console.log(process.pid, 'a user connected', socket.getAuthToken());
 
     socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
       console.log(TYPES.LOGIN_REQUEST, data);
@@ -41,6 +41,10 @@ module.exports = function(worker){
           res(null, user);
           socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`]});
           //socket.broadcast.emit('join', data);
+          scServer.exchange.publish('service', {
+            type: TYPES.RECEIVE_FRIEND,
+            username: {data.username}
+          })
         },
         error => {
           console.log(TYPES.LOGIN_FAILURE, error);
@@ -92,6 +96,37 @@ module.exports = function(worker){
       }, err => {
         res(TYPES.GAME_INVITE_FAILURE, err);
       });
+    });
+    
+    socket.on(TYPES.CANCEL_GAME_INVITE_REQUEST, function(friend, res) {
+      console.log('decline', friend);
+      // @TODO guard emits in middleware to ensure only authenticated requests come through
+      const username = socket.authToken.username;
+      scServer.exchange.publish(`user:${friend.id}`, {
+        type: TYPES.RECEIVE_GAME_INVITE_CANCELLED,
+        username: socket.authToken.username,
+      });
+      res(null, friend);
+    });
+    socket.on(TYPES.DECLINE_GAME_INVITE_REQUEST, function(friend, res) {
+      console.log('decline', friend);
+      // @TODO guard emits in middleware to ensure only authenticated requests come through
+      const username = socket.authToken.username;
+      scServer.exchange.publish(`user:${friend.id}`, {
+        type: TYPES.RECEIVE_GAME_INVITE_DECLINED,
+        username: socket.authToken.username,
+      });
+      res(null, friend);
+    });
+    socket.on(TYPES.ACCEPT_GAME_INVITE_REQUEST, function(friend, res) {
+      console.log('accept', friend);
+      // @TODO guard emits in middleware to ensure only authenticated requests come through
+      const username = socket.authToken.username;
+      scServer.exchange.publish(`user:${friend.id}`, {
+        type: TYPES.RECEIVE_GAME_INVITE_ACCEPTED,
+        username: socket.authToken.username,
+      });
+      res(null, friend);
     });
     
   });

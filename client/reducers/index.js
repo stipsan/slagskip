@@ -58,35 +58,42 @@ const friends = (state = [], action) => {
   }
 };
 
-const invites = (state = [], action) => {
+const invites = (state = new Set([]), action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
-      return action.invites
+      return new Set(action.invites)
     case TYPE.RECEIVE_GAME_INVITE:
-      return [
+    case TYPE.RECEIVE_GAME_INVITE_ACCEPTED:
+      return new Set([
         ...state,
         action.username
-      ]
+      ])
     case TYPE.DECLINE_GAME_INVITE_SUCCESS:
-      return state.filter(username => username !== action.username)
+    case TYPE.CANCEL_GAME_INVITE_SUCCESS:
+    console.warn(...state);
+      const nextState = new Set([...state])
+      nextState.delete(action.username)
+      return nextState
     default:
       return state
   }
 };
 
-const requests = (state = [], action) => {
+const requests = (state = new Set([]), action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
-      return action.requests
+      return new Set(action.requests)
     case TYPE.GAME_INVITE_SUCCESS:
     case TYPE.ACCEPT_GAME_INVITE_SUCCESS:
-    console.warn('request.id', action)
-      return [
+      return new Set([
         ...state,
         action.username
-      ]
+      ])
     case TYPE.RECEIVE_GAME_INVITE_DECLINED:
-      return state.filter(username => username !== action.username)
+    case TYPE.CANCEL_GAME_INVITE_SUCCESS:
+      const nextState = new Set([...state])
+      nextState.delete(action.username)
+      return nextState
     default:
       return state
   }

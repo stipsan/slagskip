@@ -1,38 +1,40 @@
-import { PropTypes } from 'react'
-import Disconnected from './Disconnected'
-import Game from '../Game'
-import Friends from './Friends'
-import Login from './Login'
+import { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import FriendRow from './FriendRow'
+import { logoutUser } from '../../actions'
 
-const Lobby = ({
-  username,
-  loggedIn,
-  game = false,
-  friends,
-  disconnected = false,
-  connected,
-  invites = [],
-  requests = [],
-  handleInvite = () => {},
-  handleAccept = () => {},
-  handleDecline = () => {},
-  handleLogout = () => {},
-  handleLogin = () => {},
-}) => {
-  return <div className="page">
-    <Friends
-      friends={friends}
-      username={username}
-      invites={invites}
-      requests={requests}
-      handleInvite={handleInvite}
-      handleAccept={handleAccept}
-      handleDecline={handleDecline}
-      handleLogout={handleLogout}
-    />
-    {game && <Game loggedIn={loggedIn} username={username} />}
-    {!loggedIn && <Login handleSubmit={handleLogin} />}
-    {disconnected && <Disconnected username={username} connected={connected} />}
-  </div>
+class Friends extends Component {
+  handleLogout = event => {
+    this.props.dispatch(logoutUser());
+  };
+  render() {
+    const {
+      friends,
+      username,
+    } = this.props;
+    const { handleLogout } = this;
+
+    return <section className="section section--lobby">
+      <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
+      {!friends.length && <h3>Nobody here yet but you!</h3>}
+      <table className="users">
+        <thead>
+          <tr>
+            <th colSpan={2}>{friends.length} Online friends</th>
+          </tr>
+        </thead>
+        <tbody>
+          {friends.map(user => <FriendRow
+            key={user.id}
+            id={user.id}
+            username={user.username}
+            invited={user.invited}
+            pending={user.pending}
+          />)}
+        </tbody>
+      </table>
+    </section>;
+  };
 }
-export default Lobby;
+
+export default connect()(Friends);

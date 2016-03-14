@@ -1,6 +1,13 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { gameInvite, acceptInvite, declineInvite } from '../../actions'
+import className from 'classnames'
+import {} 'react-addons-css-transition-group'
+import {
+  gameInvite,
+  acceptGameInvite,
+  declineGameInvite,
+  cancelGameInvite,
+} from '../../actions'
 
 class FriendRow extends Component {
   handleInvite = event => {
@@ -13,27 +20,52 @@ class FriendRow extends Component {
   handleAccept = event => {
     event.preventDefault();
     
-    this.props.dispatch(acceptInvite(this.props.username));
+    const { id, username } = this.props;
+
+    this.props.dispatch(acceptGameInvite({ id, username }));    
   };
   handleDecline = event => {
     event.preventDefault();
     
-    this.props.dispatch(declineInvite(this.props.username));
+    const { id, username } = this.props;
+
+    this.props.dispatch(declineGameInvite({ id, username }));    
+  };
+  handleCancel = event => {
+    event.preventDefault();
+    
+    const { id, username } = this.props;
+
+    this.props.dispatch(cancelGameInvite({ id, username }));    
   };
   render() {
     const { username, pending, invited } = this.props;
-    const { handleInvite, handleAccept, handleDecline } = this;
+    const { handleInvite, handleAccept, handleDecline, handleCancel, handleSubmit } = this;
+ 
+    const canLaunchGame = invited && pending
+    const canAcceptInvite = !invited && pending
+    const canCancelInvite = invited && !pending
+    const canInviteFriend = !invited && !pending
  
     return <tr>
       <td className="user-name">{username}</td>
       <td className="control-group">
-      {invited && pending && <button className="btn btn-primary">Start Game!</button>}
-      {!invited && pending && <div>
-        <button className="btn btn-accept" onClick={handleAccept}>Accept</button>
-        <button className="btn btn-decline" onClick={handleDecline}>&times;</button>
-      </div>}
-      {invited && !pending && <button className="btn btn-default" disabled={true}>Pending</button>}
-      {!invited && !pending && <button className="btn btn-default" onClick={handleInvite}>Invite</button>}
+      <div>
+        <button className={className('btn', {
+          'btn-primary': canLaunchGame,
+          'btn-accept': canAcceptInvite,
+          'btn-pending': canCancelInvite,
+          'btn-invite': canInviteFriend,
+        })} onClick={handleInvite}>
+          {canLaunchGame && 'Start Game!'}
+          {canAcceptInvite && 'Accept'}
+          {canCancelInvite && 'Pending'}
+          {canInviteFriend && 'Invite'}
+        </button>
+        <button onClick={handleCancel} className={className(
+          'btn btn-decline', {'btn-disabled': !invited && !pending}
+        )}><strong>&times;</strong></button>
+        </div>
       </td>
     </tr>;
   }

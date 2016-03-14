@@ -23,7 +23,6 @@ export const createCallSocket = (store, next, action, socket) => {
   function actionWith(data) {
     const finalAction = Object.assign({}, action, data)
     delete finalAction[CALL_SOCKET]
-    console.log('finalAction', finalAction, data);
     return finalAction
   }
 

@@ -7,125 +7,60 @@ import {requestNotificationPermission, sendNotification} from '../utils/notify';
 import { LOGIN_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
 import { connectSocket } from '../actions';
 
-import LobbyContainer from './LobbyContainer';
-import Lobby from '../components/Lobby';
+import Disconnected from '../components/Disconnected'
+import Game from '../components/Game'
+import Lobby from '../components/Lobby'
+import Login from '../components/Login'
 
 const initialTitle   = 'Connecting to server…'
 const connectedTitle = 'Socket connected!'
 
 class App extends Component {
-  
-  // why use setState in this component? 
-  // there's no need to have <App /> subscribe to redux when we only want to 
-  // respond to the initial socket connect (or disconnect) event
-  state = {
-    username: '',
-    loggedIn: false,
-    disconnected: false,
-    game: false,
-    invites: [],
-    requests: [],
-    friends: [],
-  };
-  
-  handleLogin = username => {
-    console.log('sending socket', 'join', { username }, this.socket);
-    this.socket.emit('login', { username, userAgent: navigator.appVersion });
-    //@TODO create a real solution for persistence
-    localStorage.setItem('username', username);
-  };
-  handleLogout = event => {
-    //
-  }
-  handleInvite = username => {
-    console.log('handleInvite', username);
-    this.setState({ requests: [...this.state.requests, username] });
 
-    this.socket.emit('invite', username);
-    console.log(username);
-    this.dispatch({
-      type: GAME_INVITE_SUCCESS,
-      username
-    });
-  };
-  handleAccept = username => {
-    console.log('handleAccept', username);
-    this.setState({ requests: [...this.state.requests, username] });
-
-    this.socket.emit('accept', username);
-  };
-  handleDecline = username => {
-    console.log('handleDecline', username);
-    this.setState({ invites: this.state.invites.filter(invite => invite !== username) });
-
-    this.socket.emit('decline', username);
-  };
-  
   componentWillMount() {
-    // now is a good time to ask for notification permissions
-    requestNotificationPermission();
-    
-    
     this.props.dispatch(connectSocket());
-    
-    return; //@TODO
-    this.socket = socket;
-
-    this.socket.on('connect', data => {
-      console.log('connect', data);
-      
-      let username = this.state.username || localStorage.getItem('username');
-      if(username && username.length > 2) {
-        this.socket.emit('login', { username, userAgent: navigator.appVersion });
-      }
-    });
-
-    this.socket.on('failed login', data => sendNotification(data.message));
-
-    // someone logged in
-    this.socket.on('join', user => {
-      this.setState({ friends: [...this.state.friends, user] });
-    });
-
-    this.socket.on('invited', host => {
-      this.setState({ invites: [...this.state.invites, host] });
-      this.dispatch({
-        type: RECEIVE_GAME_INVITE,
-        username: host
-      });
-    });
-    this.socket.on('accepted', friend => this.setState({ invites: [...this.state.invites, friend] }));
-    this.socket.on('declined', friend => this.setState({ requests: this.state.requests.filter(request => request !== friend) }));
-
-    this.socket.on('logout', username => {
-      const friends = this.state.friends.filter(user => user.username !== username);
-      this.setState({ friends });
-    });
-    this.socket.on('disconnect', data => {
-      console.log('disconnect', data);
-      // @TODO have a offline/disconnected state
-      this.setState({disconnected: true});
-    });
-    this.socket.on('reconnect', data => {
-      this.setState({disconnected: false});
-      console.log('reconnect', data);
-    });
   }
   
   render() {
-    const { title } = this.state;
-    const { connected } = this.props;
-    return <div>
-      <DocumentTitle title={connected ? connectedTitle : initialTitle}>
-        <LobbyContainer />
-      </DocumentTitle>
-    </div>;
+    const {
+      connected,
+      disconnected,
+      friends,
+      username,
+      loggedIn,
+      game,
+    } = this.props;
+    return <DocumentTitle title={connected ? connectedTitle : initialTitle}>
+      <div className="page">
+        <Lobby friends={friends} username={username} />
+        {game && <Game loggedIn={loggedIn} username={username} />}
+        {!loggedIn && <Login />}
+        {disconnected && <Disconnected username={username} connected={connected} />}
+      </div>
+    </DocumentTitle>;
   }
 };
 
+const mapFriendsStateToProps = ({
+  friends,
+  requests,
+  invites,
+}) => {
+  return friends.map(friend => {
+    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username)};
+  });
+};
+
+// move this to grandchildren so the root don't need to subscribe to Redux
 export default connect(
   state => {
-    return { connected: state.connected }
+    return {
+      friends: mapFriendsStateToProps(state),
+      username: state.viewer.username,
+      connected: state.connected,
+      disconnected: state.disconnected,
+      loggedIn: state.viewer.loggedIn
+    }
   },
-  null
-)(App);
+  null,
+)(App)

@@ -1,28 +1,66 @@
+$btn-bg: hsl(202, 4%, 51%) !default;
+
 .btn {
+    display: block;
     border: none;
-    background: none;
+    background: $btn-bg;
     margin: 0;
     padding: .2rem .4rem;
     color: white;
     text-transform: uppercase;
+    overflow: hidden;
+    height: 1rem;
     width: 100%;
+    transition: all 400ms cubic-bezier(0.65, 0.05, 0.36, 1);
     
+
     &:disabled {
         opacity: 0.3;
     }
-}
-
-.btn-default {
-    background: hsla(0, 0%, 100%, 0.4);
+    &:active, &:focus {
+        outline: 0;
+    }
 }
 .btn-primary {
     background: teal;
 }
 .btn-decline {
-    background: crimson;
-    width: 30%;
+    color: crimson;
+    background: white;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    width: 1.2rem;
+    left: 100%;
+    top: 0;
+    position: absolute;
+    transform: translate(-1.2rem, 0%);
+    will-change: translate;
+    
+    strong {
+        margin-top: -.1em;
+        display: block;
+    }
+}
+.btn-pending {
+    background: hsl(204, 25%, 28%);
+    color: hsl(203, 25%, 78%);
+}
+.btn-disabled {
+    pointer-events: none;
+}
+.btn-pending, .btn-accept {
+    //transform: translate(-0.5rem, 0%);
+}
+
+.btn-decline.btn-disabled {
+    transform: translate(-.6rem, 0%);
+    
+    background: $btn-bg;
+    color: fade-out(crimson, 1);
 }
 .btn-accept {
-    background: hsl(154, 100%, 25%);
-    width: 70%;
+    color: hsl(154, 100%, 25%);
+    background: white;
 }
