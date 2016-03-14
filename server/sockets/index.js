@@ -129,5 +129,26 @@ module.exports = function(worker){
       res(null, friend);
     });
     
+    socket.on(TYPES.LOGOUT_REQUEST, function (user, res) {
+      const username = socket.authToken.username;
+      
+      database.logoutUser(
+        { username },
+        () => {
+          res(null, { username })
+          scServer.exchange.publish('service', {
+            type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
+            username: socket.authToken.username,
+            online: false
+          });
+        },
+        error => {
+          console.log(TYPES.LOGOUT_FAILURE, error);
+          res(TYPES.LOGOUT_FAILURE, error)
+        }
+      );
+      
+    });
+    
   });
 };

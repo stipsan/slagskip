@@ -1,5 +1,33 @@
 $btn-bg: hsl(202, 4%, 51%) !default;
 
+
+@keyframes activity-indicator {
+  0%   { color: hsl(203, 25%, 48%); }
+  50% { color: hsl(203, 25%, 68%); }
+  100% { color: hsl(203, 25%, 48%); }
+}
+.button-label-enter {
+  opacity: 0.01;
+}
+
+.button-label-enter.button-label-enter-active {
+  opacity: 1;
+  transition: opacity 150ms linear;
+}
+
+.button-label-leave {
+  opacity: 1;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+}
+
+.button-label-leave.button-label-leave-active {
+  opacity: 0.01;
+  transition: opacity 150ms linear;
+}
+
+
 .btn {
     display: block;
     border: none;
@@ -11,7 +39,7 @@ $btn-bg: hsl(202, 4%, 51%) !default;
     overflow: hidden;
     height: 1rem;
     width: 100%;
-    transition: all 400ms cubic-bezier(0.65, 0.05, 0.36, 1);
+    transition: all 300ms cubic-bezier(0.65, 0.05, 0.36, 1);
     
 
     &:disabled {
@@ -25,8 +53,8 @@ $btn-bg: hsl(202, 4%, 51%) !default;
     background: teal;
 }
 .btn-decline {
-    color: crimson;
-    background: white;
+    color: hsla(0, 0%, 100%, .6);
+    background: hsl(204, 25%, 28%);
     font-weight: 700;
     font-size: 1rem;
     line-height: 1;
@@ -38,6 +66,10 @@ $btn-bg: hsl(202, 4%, 51%) !default;
     transform: translate(-1.2rem, 0%);
     will-change: translate;
     
+    &:hover {
+        color: white;
+    }
+    
     strong {
         margin-top: -.1em;
         display: block;
@@ -45,7 +77,9 @@ $btn-bg: hsl(202, 4%, 51%) !default;
 }
 .btn-pending {
     background: hsl(204, 25%, 28%);
-    color: hsl(203, 25%, 78%);
+    color: hsl(203, 25%, 48%);
+    position: relative;
+    animation: activity-indicator .9s cubic-bezier(0.46, 0.03, 0.52, 0.96) .6s infinite;
 }
 .btn-disabled {
     pointer-events: none;

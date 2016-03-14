@@ -1,6 +1,8 @@
 var Redis = require('ioredis');
 var redis = new Redis(process.env.REDIS_URL);
 
+const INVITE_EXPIRE = 
+
 function getUserByID(id) {
   
 };
@@ -44,6 +46,11 @@ function userInviteFriend(data, success, failure) {
 }
 
 //createUser(require('faker').name.firstName(), () => {}, () => {});
+/*
+for (var i = 0; i < 20; i++) {
+   createUser(require('faker').name.firstName(), () => {}, () => {});
+}
+*/
 
 function loginUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {
@@ -51,13 +58,16 @@ function loginUser(data, success, failure) {
     
     redis.multi([
       ['hgetall', 'users'],
-      ['smembers', `invites:${id}`],
-      ['smembers', `requests:${id}`],
+      ['smembers', `user:${id}:invites`],
+      ['smembers', `user:${id}:requests`],
       ['hset', `user:${id}`, 'online', 1],
       // @TODO temp measures to ease testing of invite system
-      ['expire', `invites:${id}`, 120],
-      ['expire', `requests:${id}`, 120],
+      ['expire', `user:${id}:invites`, 120],
+      ['expire', `user:${id}:requests`, 120],
     ]).exec((err, results) => {
+      // @TODO investigate if error handling is correct here
+      
+      if(err) return
       const users    = results[0][1];
       delete           users[data.username];
       const friends  = Object.keys(users).reduce(
@@ -81,10 +91,37 @@ function loginUser(data, success, failure) {
   });
 };
 
+function logoutUser(data, success, failure) {
+  
+    redis.multi([
+      ['hgetall', 'users'],
+      ['smembers', `invites:${id}`],
+      ['smembers', `requests:${id}`],
+      ['hset', `user:${id}`, 'online', 1],
+      // @TODO temp measures to ease testing of invite system
+      ['expire', `invites:${id}`, 120],
+      ['expire', `requests:${id}`, 120],
+    ]).exec((err, results) => {
+      const users    = results[0][1];
+      delete           users[data.username];
+      const friends  = Object.keys(users).reduce(
+        (previousValue, currentValue, currentIndex) => [
+          ...previousValue,
+          { id: users[currentValue], username: currentValue }
+        ], []);        
+      const invites  = results[1][1];
+      const requests = results[2][1];
+      
+      success(data);
+    });
+    console.log('logoutUser', data.username, id);
+};
+
 module.exports = {
   getUserByID,
   getUserByUsername,
   loginUser,
+  logoutUser,
   userInviteFriend,
   createUser,
 };

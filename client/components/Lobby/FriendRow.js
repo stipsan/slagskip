@@ -1,7 +1,7 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import className from 'classnames'
-import {} 'react-addons-css-transition-group'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {
   gameInvite,
   acceptGameInvite,
@@ -57,10 +57,12 @@ class FriendRow extends Component {
           'btn-pending': canCancelInvite,
           'btn-invite': canInviteFriend,
         })} onClick={handleInvite}>
-          {canLaunchGame && 'Start Game!'}
-          {canAcceptInvite && 'Accept'}
-          {canCancelInvite && 'Pending'}
-          {canInviteFriend && 'Invite'}
+          <ReactCSSTransitionGroup transitionName="button-label" transitionEnterTimeout={150} transitionLeaveTimeout={150}>
+            {canLaunchGame && <span>Start Game!</span>}
+            {canAcceptInvite && <span>Accept</span>}
+            {canCancelInvite && <span>Pending</span>}
+            {canInviteFriend && <span>Invite</span>}
+          </ReactCSSTransitionGroup>
         </button>
         <button onClick={handleCancel} className={className(
           'btn btn-decline', {'btn-disabled': !invited && !pending}
