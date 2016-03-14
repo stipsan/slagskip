@@ -43,7 +43,7 @@ module.exports = function(worker){
           //socket.broadcast.emit('join', data);
           scServer.exchange.publish('service', {
             type: TYPES.RECEIVE_FRIEND,
-            username: {data.username}
+            username: data.username
           })
         },
         error => {
