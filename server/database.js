@@ -38,6 +38,7 @@ function userInviteFriend(data, success, failure) {
       
       
       redis.sadd(`invites:${id}`, data.user.username);
+      success(id);
     });
   });
 }
@@ -53,6 +54,9 @@ function loginUser(data, success, failure) {
       ['smembers', `invites:${id}`],
       ['smembers', `requests:${id}`],
       ['hset', `user:${id}`, 'online', 1],
+      // @TODO temp measures to ease testing of invite system
+      ['expire', `invites:${id}`, 120],
+      ['expire', `requests:${id}`, 120],
     ]).exec((err, results) => {
       const users    = results[0][1];
       delete           users[data.username];
@@ -82,4 +86,5 @@ module.exports = {
   getUserByUsername,
   loginUser,
   userInviteFriend,
+  createUser,
 };

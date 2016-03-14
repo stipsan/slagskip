@@ -80,6 +80,7 @@ const requests = (state = [], action) => {
       return action.requests
     case TYPE.GAME_INVITE_SUCCESS:
     case TYPE.ACCEPT_GAME_INVITE_SUCCESS:
+    console.warn('request.id', action)
       return [
         ...state,
         action.username

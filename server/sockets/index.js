@@ -74,16 +74,24 @@ module.exports = function(worker){
     });
     //*/
 
-    socket.on('invite', function(friend) {
+    socket.on(TYPES.GAME_INVITE_REQUEST, function(friend, res) {
       console.log('invite', friend);
-      //@TODO handle if username isn't found, may be disconnected or whatever
-      const username = idToUsername[socket.id];
+      // @TODO guard emits in middleware to ensure only authenticated requests come through
+      const username = socket.authToken.username;
       database.userInviteFriend({
         user: {username},
-        friend: {username: friend}
-      }, () => {
-        io.sockets.connected[recipient.id].emit('invited', username);
-      }, () => {});
+        friend
+      }, id => {
+        console.log('userInviteFriend', friend, `user:${id}`);
+        scServer.exchange.publish(`user:${id}`, {
+          type: TYPES.RECEIVE_GAME_INVITE,
+          username: socket.authToken.username,
+        });
+        res(null, friend);
+        
+      }, err => {
+        res(TYPES.GAME_INVITE_FAILURE, err);
+      });
     });
     
   });
