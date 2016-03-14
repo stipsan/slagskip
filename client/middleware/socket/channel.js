@@ -6,6 +6,7 @@ import {
   SUBSCRIBE_PRIVATE_REQUEST,
   SUBSCRIBE_PRIVATE_SUCCESS,
   SUBSCRIBE_PRIVATE_FAILURE,
+  LOGOUT_SUCCESS,
 } from '../../constants/ActionTypes'
 
 const SERVICE_CHANNEL = 'service'
@@ -20,11 +21,21 @@ const attachListeners = (store, next, action, socket) => {
   socket.on('kickOut', (...args) => {
     console.warn('kickOut', ...args);
   })
-  socket.on('subscribe', (...args) => {
-    console.warn('subscribe', ...args);
+  socket.on('subscribe', channel => {
+    switch (channel) {
+      case SERVICE_CHANNEL:
+        return next({ type: SUBSCRIBE_SERVICE_SUCCESS, channel })
+      case PRIVATE_CHANNEL:
+        return next({ type: SUBSCRIBE_PRIVATE_SUCCESS, channel })
+    }
   })
-  socket.on('subscribeFail', (...args) => {
-    console.warn('subscribeFail', ...args);
+  socket.on('subscribeFail', (err, channel) => {
+    switch (channel) {
+      case SERVICE_CHANNEL:
+        return next({ type: SUBSCRIBE_SERVICE_FAILURE, channel })
+      case PRIVATE_CHANNEL:
+        return next({ type: SUBSCRIBE_PRIVATE_FAILURE, channel })
+    }
   })
   socket.on('unsubscribe', (...args) => {
     console.warn('unsubscribe', ...args);
@@ -32,9 +43,13 @@ const attachListeners = (store, next, action, socket) => {
   socket.on('subscribeStateChange', (...args) => {
     console.warn('subscribeStateChange', ...args);
   })
-  socket.on('subscribeRequest', channel => {
-    
-    console.warn('subscribeRequest', channel);
+  socket.on('subscribeRequest', channel => {    
+    switch (channel) {
+      case SERVICE_CHANNEL:
+        return next({ type: SUBSCRIBE_SERVICE_REQUEST, channel })
+      case PRIVATE_CHANNEL:
+        return next({ type: SUBSCRIBE_PRIVATE_REQUEST, channel })
+    }
   })
 }
 
@@ -61,9 +76,7 @@ const subscribeUser = (store, next, action, socket) => {
 
 const batch = (callbacks, args) => callbacks.forEach(callback => callback(...args))
 
-export const maybeJoinChannel = (store, next, action, socket) => {
-  console.warn('maybeJoinChannel', action)
-  
+export const maybeJoinChannel = (store, next, action, socket) => {  
   switch (action.type) {
     case LOGIN_SUCCESS:
       return batch(
@@ -75,6 +88,12 @@ export const maybeJoinChannel = (store, next, action, socket) => {
 
 export const willLeaveChannel = (store, next, action, socket) => {
   console.warn('shouldLeaveChannel?', action)
+  
+  switch (action.type) {
+    case LOGOUT_SUCCESS:
+      //@TODO implement this
+      //return true
+  }
   
   return false
 }

@@ -41,5 +41,5 @@ module.exports.run = function (worker) {
   
   worker.httpServer.on('request', app);
   
-  require('./sockets')(worker.scServer);
+  require('./sockets')(worker);
 };

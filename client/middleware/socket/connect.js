@@ -26,6 +26,12 @@ export const connect = (store, next, action) => {
     socket.on('connectAbort', () => {
       next({ type: SOCKET_FAILURE, event: 'connectAbort' })
     })
+    socket.on('authenticate', (...args) => {
+      console.warn('authenticate', ...args);
+    })
+    socket.on('deauthenticate', (...args) => {
+      console.warn('deauthenticate', ...args);
+    })
     
     // @TODO put behind debug flag
     global.socket = socket

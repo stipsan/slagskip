@@ -1,4 +1,21 @@
-module.exports = function(scServer){
+module.exports = function(worker){
+  
+  const scServer = worker.scServer;
+  const wsServer = worker.getSCServer();
+  
+  wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
+  function (req, next) {
+    // @TODO
+    if (req.authTokenExpiredError && false) {
+      next(req.authTokenExpiredError); // Fail with a default auth token expiry error
+    } else if (req.channel !== 'service') {
+      next() // Allow
+    } else {
+      next(true); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
   
   const database = require('../database');
   const TYPES = require('../../shared/constants/ActionTypes');
