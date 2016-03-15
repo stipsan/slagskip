@@ -1,22 +1,42 @@
+'use strict'; // @TODO this is to allow let & const
+
 // @TODO could prove to be a useful reusable module on npm
 
-var Redis = require('ioredis');
-var redis = new Redis(process.env.REDIS_URL);
+const Redis = require('ioredis')
+const redis = new Redis(process.env.REDIS_URL)
 
-// it is a bit primitive for now, but it is a good start
-redis.setnx('next_user_id', 0);
-
-/* later, let's do something like this for real migrations
-redis.get('last_migration', id => {
-  let batch = [];
+redis.get('next_migration_id', (err, result) => {
+  const id = parseInt(result || 1, 10)
+  const pipeline = redis.pipeline();
+  console.log('id', err, result, id);
   switch (id) {
-    default:
-      
+    case 1:
+      pipeline.setnx('next_migration_id', 0)
+    case 2:
+      pipeline.setnx('next_user_id', 1)
+    case 3:
+      pipeline.multi().set('foo', 'bar').get('foo').exec()
+    case 4:
+      pipeline.setnx('Stian', new Set([1,2,3]))
+    case 5:
+      pipeline.set('Heidi', 'OK')
   }
-    batch.push()
+  pipeline.exec((err, results) => {
+    console.log(results);
+    const next_migration_id = results.reduce((previous, current) =>
+      current[0] === null &&
+      current[1] !== 'OK' &&
+      current[1] !== 'QUEUED' ?
+        ++previous :
+        previous,
+      0
+    );
     
+    for (var i = id; i < 9; i++) {
+       console.log(i);
+       // more statements
+    }
+    
+    redis.quit()
+  })
 })
-
-*/
-
-redis.quit();
