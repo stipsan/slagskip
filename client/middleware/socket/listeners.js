@@ -5,6 +5,7 @@ import {
   SUBSCRIBE_CHANNEL_REQUEST,
   SUBSCRIBE_CHANNEL_SUCCESS,
   SUBSCRIBE_CHANNEL_FAILURE,
+  LOGOUT_SUCCESS,
 } from '../../constants/ActionTypes'
 
 let shouldAttachListeners = true
@@ -34,8 +35,9 @@ export const attachListeners = (store, next, action, socket) => {
   socket.on('deauthenticate', (...args) => {
     console.warn('deauthenticate', ...args);
   })
-  socket.on('authStateChange', (...args) => {
-    console.warn('authStateChange', ...args);
+  socket.on('authStateChange', data => {
+    if(data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
+    console.warn('authStateChange', data);
   })
   
   // channel.js
