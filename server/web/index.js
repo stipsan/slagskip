@@ -5,4 +5,6 @@ var socketCluster = new SocketCluster({
   port: process.env.PORT || 5000,
   workerController: __dirname + '/worker.js',
   path: '/ws',
+  logLevel: 'production' === process.env.NODE_ENV ? 1 : 3,
+  authKey: process.env.AUTH_KEY,
 });
