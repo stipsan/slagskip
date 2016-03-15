@@ -11,18 +11,17 @@ redis.get('next_migration_id', (err, result) => {
   console.log('id', err, result, id);
   switch (id) {
     case 0:
-      console.log('case 1')
       pipeline.setnx('next_migration_id', 0)
     case 1:
       pipeline.set('Heidi', 'OKs')
     case 2:
       pipeline.setnx('next_user_id', 1)
     case 3:
-      pipeline.multi().set('foo', 'bar').get('foo').exec()
+      pipeline.multi().set('foo', 'bar').sadd('Heidi', 'OKs').get('foo').exec()
     case 4:
       pipeline.setnx('Stian', new Set([1,2,3]))
     case 5:
-      pipeline.set('Heidi', 'OKs')
+      pipeline.sadd('Heidi', 'OKs')
   }
   pipeline.exec((err, results) => {
     const migrations = results.filter(
@@ -38,12 +37,20 @@ redis.get('next_migration_id', (err, result) => {
       0
     );
     //*/
-    console.log('migrations', migrations);
-    for (var i = id; i < 9; i++) {
-       console.log(i);
+    const multi = redis.multi()
+    for (var i = id, total = migrations.length; i < total; i++) {
+       const migration = migrations[i]
+       if(migration[0] !== null) {
+         console.error(migration[0])
+         break
+       }
+       console.log('next_migration', i, migration)
+       multi.incr('next_migration_id').set(`migration:${i}`, new Date)
        // @TODO break on null
        // more statements
+       
     }
+    
     
     redis.quit()
   })
