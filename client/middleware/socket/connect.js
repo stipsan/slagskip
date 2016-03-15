@@ -7,40 +7,42 @@ import {
 import {
   loginUser
 } from '../../actions'
-import { createCallSocket } from './index'
+import { attachListeners } from './listeners'
+import { subscribeChannels } from './channel'
+import { maybeAuthenticate, maybeDeauthenticate } from './authenticate'
 
 let memoizedSocket    = false
 let pendingConnection = false
 
-export const connect = (store, next, action) => {
+export const connect = (store, next, action, callSocket) => {
   // initial setup
   if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
-    const socket = socketCluster.connect({ 
+    const socket = socketCluster.connect({
+      path: '/ws',
       autoReconnect: true,
-      rejectUnauthorized: 'production' === process.env.NODE_ENV,
+      autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
+      authTokenName: 'authToken',
     })
     
+    attachListeners(store, next, action, socket, callSocket)
+    
     socket.on('connect', data => {
+      console.info('connect', data)
       // yay! lets memoize the socket
       memoizedSocket = socket
       pendingConnection = false
+      
+      const authToken = socket.getAuthToken()
+      const channels = authToken && authToken.channels || undefined
+      subscribeChannels(store, next, action, socket, channels)
+      
       next({ type: SOCKET_SUCCESS, ...data })
       if(socket.authToken) {
-        createCallSocket(store, next, loginUser(socket.authToken.username), socket)
+        console.warn('can login user')
+        
+        callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
-    })
-    socket.on('error', data => {
-      next({ type: SOCKET_FAILURE, event: 'error', ...data })
-    })
-    socket.on('connectAbort', () => {
-      next({ type: SOCKET_FAILURE, event: 'connectAbort' })
-    })
-    socket.on('authenticate', (...args) => {
-      console.warn('authenticate', ...args);
-    })
-    socket.on('deauthenticate', (...args) => {
-      console.warn('deauthenticate', ...args);
     })
     
     // @TODO put behind debug flag

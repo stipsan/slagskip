@@ -110,6 +110,10 @@ $bg-disconnected: #C62828 !default;
         th {
             font-size: .8em;
         }
+        .online-status {
+            width: 1px;
+            padding: 0;
+        }
         .user-name, th {
             text-align: left;
             padding: .2rem 1rem;

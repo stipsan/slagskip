@@ -30,7 +30,7 @@ function createUser(username, success, error) {
 };
 
 function userInviteFriend(data, success, failure) {
-  console.log('userInviteFriend', data);
+  //console.info('userInviteFriend', data);
   redis.hget('users', data.user.username).then(id => {
     if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`});
     
@@ -49,9 +49,11 @@ function userInviteFriend(data, success, failure) {
 
 //createUser(require('faker').name.firstName(), () => {}, () => {});
 
+/*
 for (var i = 0; i < 2; i++) {
    createUser(require('faker').name.firstName(), () => {}, () => {});
 }
+//*/
 
 
 function loginUser(data, success, failure) {
@@ -65,51 +67,62 @@ function loginUser(data, success, failure) {
       ['hset', `user:${id}`, 'online', 1],
     ]).exec((err, results) => {
       // @TODO investigate if error handling is correct here
-      
       if(err) return failure(err);
+
       const users    = results[0][1];
-      delete           users[data.username];
-      const friends  = Object.keys(users).reduce(
-        (previousValue, currentValue, currentIndex) => [
-          ...previousValue,
-          { id: users[currentValue], username: currentValue }
-        ], []);        
       const invites  = results[1][1];
       const requests = results[2][1];
-      
-      success({
-        username: data.username,
-        id,
-        friends,
-        invites,
-        requests,
+
+      // exclude our own user from the friends list
+      delete users[data.username];
+
+      const hgetallFriends = Object.keys(users).reduce(
+        (previousValue, currentValue, currentIndex) => [
+          ...previousValue,
+          ['hgetall', `user:${users[currentValue]}`]
+        ], []);
+      //console.info('hgetallFriends', hgetallFriends);
+      redis.multi(hgetallFriends).exec((err, hgetallFriendsResults) => {
+        // @TODO investigate if error handling is correct here
+        if(err) return failure(err);
+        
+        const friends = hgetallFriendsResults.reduce(
+          (previousValue, currentValue, index) => [
+            ...previousValue,
+            Object.assign(currentValue[1], {id: users[index]})
+          ], []);
+        //console.info('hgetallFriends.multi', friends);
+        
+        success({
+          username: data.username,
+          id,
+          friends,
+          invites,
+          requests,
+        });
       });
     });
-    console.log('loginUser', data.username, id);
+    //console.info('loginUser', data.username, id);
   });
 };
 
 function logoutUser(data, success, failure) {
-  
+  redis.hget('users', data.username).then(id => {
+    if(id < 1) return failure({message: `User '${data.username}' does not exist!`});
+
+    const lastVisit = new Date().toJSON()
     redis.multi([
-      ['hgetall', 'users'],
-      ['smembers', `invites:${id}`],
-      ['smembers', `requests:${id}`],
-      ['hset', `user:${id}`, 'online', 0, 'lastVisit', new Date],
+      ['hmset', `user:${id}`, 'online', 0, 'lastVisit', lastVisit],
     ]).exec((err, results) => {
-      const users    = results[0][1];
-      delete           users[data.username];
-      const friends  = Object.keys(users).reduce(
-        (previousValue, currentValue, currentIndex) => [
-          ...previousValue,
-          { id: users[currentValue], username: currentValue }
-        ], []);        
-      const invites  = results[1][1];
-      const requests = results[2][1];
-      
-      success(data);
+      if(err) return failure(err);
+
+      success({
+        username: data.username,
+        online: false,
+        lastVisit,
+      });
     });
-    console.log('logoutUser', data.username, id);
+  });
 };
 
 module.exports = {

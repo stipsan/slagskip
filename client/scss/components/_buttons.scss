@@ -1,11 +1,38 @@
 $btn-bg: hsl(202, 4%, 51%) !default;
 
 
-@keyframes activity-indicator {
+@keyframes progress-letters-blink {
   0%   { color: hsl(203, 25%, 48%); }
   50% { color: hsl(203, 25%, 68%); }
   100% { color: hsl(203, 25%, 48%); }
 }
+@keyframes progress-letters-slide {
+  25%   { color: hsl(203, 25%, 48%); }
+  50% { color: hsl(203, 25%, 68%); }
+  75% { color: hsl(203, 25%, 48%); }
+}
+
+.progress-letters {
+  span {
+    animation: progress-letters-blink .9s cubic-bezier(0.46, 0.03, 0.52, 0.96) 0s infinite;
+  }
+}
+.progress-letters.fresh {
+  span {
+    animation: progress-letters-slide 1s cubic-bezier(0.46, 0.03, 0.52, 0.96) 50ms infinite;
+    
+    $letters: 7;
+    $selector: ' + span';
+
+    @for $i from 2 through $letters {
+      & #{$selector} {
+        animation-delay: #{ 50 * $i }ms;
+      }
+      $selector: selector-nest($selector, ' + span');
+    }    
+  }
+}
+
 .button-label-enter {
   opacity: 0.01;
 }
@@ -49,7 +76,7 @@ $btn-bg: hsl(202, 4%, 51%) !default;
         outline: 0;
     }
 }
-.btn-primary {
+.btn-primary, .btn-primary + .btn-decline.btn-disabled {
     background: teal;
 }
 .btn-decline {
@@ -79,7 +106,6 @@ $btn-bg: hsl(202, 4%, 51%) !default;
     background: hsl(204, 25%, 28%);
     color: hsl(203, 25%, 48%);
     position: relative;
-    animation: activity-indicator .9s cubic-bezier(0.46, 0.03, 0.52, 0.96) .6s infinite;
 }
 .btn-disabled {
     pointer-events: none;
@@ -96,5 +122,14 @@ $btn-bg: hsl(202, 4%, 51%) !default;
 }
 .btn-accept {
     color: hsl(154, 100%, 25%);
+}
+.btn-accept + .btn-decline {
+    color: rgba(crimson, .7);
+    
+    &:hover {
+        color: crimson;
+    }
+}
+.btn-accept, .btn-accept + .btn-decline {
     background: white;
 }

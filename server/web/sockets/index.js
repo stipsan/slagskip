@@ -1,22 +1,8 @@
 module.exports = function(worker){
   
   const scServer = worker.scServer;
-  const wsServer = worker.getSCServer();
-  
-  wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
-  function (req, next) {
-    var authToken = req.socket.getAuthToken();
-    console.log('middleware.authToken', authToken);
-    if (req.authTokenExpiredError) {
-      next(req.authTokenExpiredError); // Fail with a default auth token expiry error
-    } else if (authToken && authToken.channels.indexOf(req.channel) > -1) {
-      next() // Allow
-    } else {
-      next(true); // Block
-      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
-    }
-  }
-);
+
+  require('./middleware')(worker.getSCServer());  
   
   const database = require('../database');
   const TYPES = require('../../../shared/constants/ActionTypes');
@@ -26,10 +12,12 @@ module.exports = function(worker){
 
   scServer.on('connection', function(socket){
 
-    console.log(process.pid, 'a user connected', socket.getAuthToken());
+    const authToken = socket.getAuthToken();
+    
+    //console.info(process.pid, 'a user connected', authToken);
 
     socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
-      console.log(TYPES.LOGIN_REQUEST, data);
+      //console.info(TYPES.LOGIN_REQUEST, data);
       
       // @TODO reuse http status code as error code for failed validation?
       if(data.username.length < 3) return res('USERNAME_TOO_SHORT', {message: 'Username too short'});
@@ -37,17 +25,18 @@ module.exports = function(worker){
       database.loginUser(
         {username: data.username, socket: socket.id},
         user => {          
-          console.log(TYPES.LOGIN_SUCCESS, user);
-          res(null, user);
+          //console.info(TYPES.LOGIN_SUCCESS, user);
+          res(null, {type: TYPES.LOGIN_SUCCESS, user});
           socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`]});
           //socket.broadcast.emit('join', data);
           scServer.exchange.publish('service', {
             type: TYPES.RECEIVE_FRIEND,
-            username: data.username
+            username: data.username,
+            online: true,
           })
         },
         error => {
-          console.log(TYPES.LOGIN_FAILURE, error);
+          //console.info(TYPES.LOGIN_FAILURE, error);
           res(TYPES.LOGIN_FAILURE, error)
         }
       );
@@ -56,7 +45,7 @@ module.exports = function(worker){
     /*
     socket.on(TYPES.LOGIN_REQUEST, function(data) {
       
-      console.log('join', data);
+      console.info('join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
       
       database.loginUser(
@@ -64,7 +53,7 @@ module.exports = function(worker){
         user => {
           idToUsername[socket.id] = data.username;
           
-          console.log('loginUser', user);
+          console.info('loginUser', user);
           socket.emit('successful login', {
             friends: user.friends,
             viewer: user
@@ -79,14 +68,14 @@ module.exports = function(worker){
     //*/
 
     socket.on(TYPES.GAME_INVITE_REQUEST, function(friend, res) {
-      console.log('invite', friend);
+      //console.info('invite', friend);
       // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username;
       database.userInviteFriend({
         user: {username},
         friend
       }, id => {
-        console.log('userInviteFriend', friend, `user:${id}`);
+        //console.info('userInviteFriend', friend, `user:${id}`);
         scServer.exchange.publish(`user:${id}`, {
           type: TYPES.RECEIVE_GAME_INVITE,
           username: socket.authToken.username,
@@ -99,7 +88,7 @@ module.exports = function(worker){
     });
     
     socket.on(TYPES.CANCEL_GAME_INVITE_REQUEST, function(friend, res) {
-      console.log('decline', friend);
+      //console.info('decline', friend);
       // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username;
       scServer.exchange.publish(`user:${friend.id}`, {
@@ -109,7 +98,7 @@ module.exports = function(worker){
       res(null, friend);
     });
     socket.on(TYPES.DECLINE_GAME_INVITE_REQUEST, function(friend, res) {
-      console.log('decline', friend);
+      //console.info('decline', friend);
       // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username;
       scServer.exchange.publish(`user:${friend.id}`, {
@@ -119,7 +108,7 @@ module.exports = function(worker){
       res(null, friend);
     });
     socket.on(TYPES.ACCEPT_GAME_INVITE_REQUEST, function(friend, res) {
-      console.log('accept', friend);
+      //console.info('accept', friend);
       // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username;
       scServer.exchange.publish(`user:${friend.id}`, {
@@ -130,21 +119,28 @@ module.exports = function(worker){
     });
     
     socket.on(TYPES.LOGOUT_REQUEST, function (user, res) {
+      if(!socket.authToken) return res('NO_SESSION', {message: "You can't logout without being logged in, buddy"})
       const username = socket.authToken.username;
-      
+      //console.info(TYPES.LOGOUT_REQUEST, username);
       database.logoutUser(
         { username },
-        () => {
+        data => {
+          //console.info(TYPES.LOGOUT_SUCCESS, data);
           res(null, { username })
-          scServer.exchange.publish('service', {
-            type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
-            username: socket.authToken.username,
-            online: false
-          });
+          scServer.exchange.publish(
+            'service',
+            Object.assign(
+              { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
+              data
+            )
+          )
+          socket.deauthenticate()
+          //kickOut([channel, message, callback])
         },
         error => {
-          console.log(TYPES.LOGOUT_FAILURE, error);
+          //console.info(TYPES.LOGOUT_FAILURE, error);
           res(TYPES.LOGOUT_FAILURE, error)
+          socket.deauthenticate()
         }
       );
       

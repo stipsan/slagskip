@@ -1,6 +1,6 @@
 //@TODO rewrite to async/await
 let memoizedPermission = undefined;
-export function requestNotificationPermission(callback = ::console.log) {
+export function requestNotificationPermission(callback = ::console.info) {
   if(memoizedPermission !== undefined) {
     return callback(memoizedPermission);
   }
@@ -18,7 +18,7 @@ export function requestNotificationPermission(callback = ::console.log) {
 }
 
 export function sendNotification (title, options) {
-  console.log('sendNotification', title);
+  console.info('sendNotification', title);
   // Memoize based on feature detection.
   if ("Notification" in window) {
     sendNotification = function (title, options) {

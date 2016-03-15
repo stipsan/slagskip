@@ -1,6 +1,5 @@
 //@TODO make this a reusable middleware tailored socketcluster?
 import { connect } from './connect'
-import { maybeJoinChannel, willLeaveChannel } from './channel'
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_SOCKET = Symbol('Call ClusterSocket')
@@ -29,8 +28,8 @@ export const createCallSocket = (store, next, action, socket) => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return socket.emit(requestType, emitData, (err, data) => {
-    console.log('socket.emit', requestType, emitData, err, data);
+  return socket.emit(requestType, {...emitData, sender: socket.authToken }, (err, data) => {
+    console.info('socket.emit', requestType, emitData, err, data);
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({
@@ -38,12 +37,10 @@ export const createCallSocket = (store, next, action, socket) => {
         error: {type: err, message: data || 'Something bad happened'}
       }))
     } else {
-      const successAction = actionWith({
+      next(actionWith({
         ...data,
         type: successType
-      })
-      maybeJoinChannel(store, next, successAction, socket)
-      next(successAction)
+      }))
     }
   })
 }
@@ -52,18 +49,13 @@ export const createCallSocket = (store, next, action, socket) => {
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   
-  const socket = connect(store, next, action);
+  const socket = connect(store, next, action, createCallSocket);
   // no socket means we're still setting it up, proceed the stack while we wait
   if(!socket) {
     if(!action.type) {
       console.warn('@TODO queue action while waiting for connect?', action, socket)
     }
     return action.type && next(action)
-  }
-  
-  // logout, kick event or leaving a game
-  if(willLeaveChannel(store, next, action, socket)) {
-    return next(action)
   }
   
   return createCallSocket(store, next, action, socket);

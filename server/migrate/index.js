@@ -41,7 +41,27 @@ redis.multi([
       createUser(
         pipeline,
         ++user_next,
-        'Batman'
+        'Batman',
+        false,
+        ['Superman']
+      )
+    case 3:
+      createUser(
+        pipeline,
+        ++user_next,
+        'Superman',
+        false,
+        ['WonderWoman'],
+        ['WonderWoman', 'Batman']
+      )
+    case 4:
+      createUser(
+        pipeline,
+        ++user_next,
+        'WonderWoman',
+        false,
+        ['Superman'],
+        ['Superman']
       )
   }
 
@@ -49,20 +69,11 @@ redis.multi([
     const migrations = results.filter(
       migration => migration[1] !== 'QUEUED' && migration[1] !== 'OK'
     )
-    /*
-    const migration_next = results.reduce((previous, current) =>
-      current[0] === null &&
-      current[1] !== 'OK' &&
-      current[1] !== 'QUEUED' ?
-        ++previous :
-        previous,
-      0
-    );
-    //*/
+
     if(migrations.length > 0) {
-      console.log('Ran the following migrations:', migrations)
+      console.info('Ran the following migrations:')
     } else {
-      console.log('Nothing to migrate')
+      console.info('Nothing to migrate')
     }
     const multi = redis.multi(), total = migrations.length
     for (var i = 0; i < total;i++) {
@@ -85,7 +96,7 @@ redis.multi([
        }
        const key = `migration:${ i + migration_next }`
        multi.set(key, (new Date).toJSON())
-       console.log(key)
+       console.info(key)
     }
     multi.set('migration_next', i + migration_next)
     multi.exec(() => redis.quit())

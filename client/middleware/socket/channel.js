@@ -1,61 +1,15 @@
 import { 
+  LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  SUBSCRIBE_SERVICE_REQUEST,
-  SUBSCRIBE_SERVICE_SUCCESS,
-  SUBSCRIBE_SERVICE_FAILURE,
-  SUBSCRIBE_PRIVATE_REQUEST,
-  SUBSCRIBE_PRIVATE_SUCCESS,
-  SUBSCRIBE_PRIVATE_FAILURE,
   LOGOUT_SUCCESS,
+  SUBSCRIBE_CHANNEL_REQUEST,
 } from '../../constants/ActionTypes'
 
 const SERVICE_CHANNEL = 'service'
 let   PRIVATE_CHANNEL
 
-let shouldAttachListeners = true
-const attachListeners = (store, next, action, socket) => {
-  if(!shouldAttachListeners) {
-    return false
-  }
 
-  socket.on('kickOut', (...args) => {
-    console.warn('kickOut', ...args);
-  })
-  socket.on('subscribe', channel => {
-    console.log('subscribe', channel);
-    switch (channel) {
-      case SERVICE_CHANNEL:
-        return next({ type: SUBSCRIBE_SERVICE_SUCCESS, channel })
-      case PRIVATE_CHANNEL:
-        return next({ type: SUBSCRIBE_PRIVATE_SUCCESS, channel })
-    }
-  })
-  socket.on('subscribeFail', (err, channel) => {
-    console.log('subscribeFail', err, channel);
-    switch (channel) {
-      case SERVICE_CHANNEL:
-        return next({ type: SUBSCRIBE_SERVICE_FAILURE, channel })
-      case PRIVATE_CHANNEL:
-        return next({ type: SUBSCRIBE_PRIVATE_FAILURE, channel })
-    }
-  })
-  socket.on('unsubscribe', (...args) => {
-    console.warn('unsubscribe', ...args);
-  })
-  socket.on('subscribeStateChange', (...args) => {
-    console.warn('subscribeStateChange', ...args);
-  })
-  socket.on('subscribeRequest', channel => {
-    console.log('subscribeRequest', channel);
-    switch (channel) {
-      case SERVICE_CHANNEL:
-        return next({ type: SUBSCRIBE_SERVICE_REQUEST, channel })
-      case PRIVATE_CHANNEL:
-        return next({ type: SUBSCRIBE_PRIVATE_REQUEST, channel })
-    }
-  })
-}
-
+/*
 const subscribeService = (store, next, action, socket) => {
   // intended for global redux actions that announce server maintenance, etc
   // @TODO safeguard what can be passed in the public channel
@@ -63,7 +17,7 @@ const subscribeService = (store, next, action, socket) => {
   //       to the private userChannel later
   // @TODO everyone can listen to this socket, but only server can publish to it
   const serviceChannel = socket.subscribe(SERVICE_CHANNEL);
-  serviceChannel.watch(action => next(action))
+  serviceChannel.watch(action => next({ ...action, authToken: socket.authToken }))
 }
 
 const subscribeUser = (store, next, action, socket) => {
@@ -76,27 +30,27 @@ const subscribeUser = (store, next, action, socket) => {
   //       or else anyone can trigger anything in other user sessions
   userChannel.watch(action => next(action))
 }
+//*/
+export const subscribeChannels = (store, next, action, socket, channels = ['service']) =>
+  channels.map(channel => {
+    if(!socket.isSubscribed(channel, true)) {
+      const subscribedTo = socket.subscribe(channel, {waitForAuth: true})
+      subscribedTo.watch(action => next(action))
+      
+      return subscribedTo
+    }
+  })
+  
 
 const batch = (callbacks, args) => callbacks.forEach(callback => callback(...args))
 
 export const maybeJoinChannel = (store, next, action, socket) => {  
+  console.warn('maybeJoinChannel', action, socket);
   switch (action.type) {
     case LOGIN_SUCCESS:
       return batch(
-        [attachListeners, subscribeService, subscribeUser],
+        [attachListeners, subscribeChannels],
         [store, next, action, socket],
       )
   }
-}
-
-export const willLeaveChannel = (store, next, action, socket) => {
-  console.warn('shouldLeaveChannel?', action)
-  
-  switch (action.type) {
-    case LOGOUT_SUCCESS:
-      //@TODO implement this
-      //return true
-  }
-  
-  return false
 }

@@ -20,16 +20,17 @@ class Friends extends Component {
       <table className="users">
         <thead>
           <tr>
-            <th colSpan={2}>{friends.length} Online friends</th>
+            <th colSpan={3}>{friends.length} Online friends</th>
           </tr>
         </thead>
         <tbody>
           {friends.map(user => <FriendRow
-            key={user.id}
+            key={user.username}
             id={user.id}
             username={user.username}
             invited={user.invited}
             pending={user.pending}
+            online={user.online}
           />)}
         </tbody>
       </table>

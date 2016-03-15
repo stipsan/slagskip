@@ -22,7 +22,11 @@ export function loginUser(username) {
 }
 
 export function logoutUser() {
-  return { type: LOGOUT_SUCCESS }
+  return { 
+    [CALL_SOCKET]: {
+      types: [ LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE ]
+    }
+  }
 }
 
 /*

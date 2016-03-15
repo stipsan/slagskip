@@ -3,14 +3,30 @@ var webpack = require('webpack');
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+// @TODO move this into env
+const autoReconnectOptions = {
+  initialDelay: 10000,
+  randomness: 10000,
+  multiplier: 1.5,
+  maxDelay: 60000,
+};
+
 var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.DefinePlugin({
+    'process.env.AUTO_RECONNECT_OPTIONS': 'null',
     'process.env.NODE_ENV': JSON.stringify('production')
   })
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
+      'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
+        Object.assign({}, autoReconnectOptions, {
+          initialDelay: 100,
+          randomness: 100,
+          maxDelay: 1000,
+        })
+      ),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     })
   ];

@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import store from './store'
 import Root from './containers/Root'
 
-console.log('env', process.env.NODE_ENV);
+console.info('AUTO_RECONNECT_OPTIONS', process.env.AUTO_RECONNECT_OPTIONS);
 
 render(
   <Root store={store} />,

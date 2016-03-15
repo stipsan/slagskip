@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import * as TYPE from '../constants/ActionTypes'
 
+
+
 const connected = (state = false, action) => {
   switch (action.type) {
     case TYPE.SOCKET_SUCCESS:
@@ -50,9 +52,17 @@ const friends = (state = [], action) => {
       return [
         ...state,
         {
-          username: action.username
+          username: action.username,
+          online: action.online,
         }
       ]
+    case TYPE.RECEIVE_FRIEND_NETWORK_STATUS:
+      return state.map(friend => 
+        // @TODO should use ids as usernames could change
+        friend.username === action.username ?
+          Object.assign({}, friend, action) :
+          friend
+      )
     default:
       return state
   }

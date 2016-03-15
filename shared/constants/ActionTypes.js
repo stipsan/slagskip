@@ -13,20 +13,22 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 // socket got disconnected, or maybe the user got bandwidth capped, a firewall
 // blocks the websocket but is letting http requests come through, etc.
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
+// allow manual trigger of reconnect w/o full page reload or waiting for timeout
+export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 
 // attempt login
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 // login succeeded, payload contains friends, invities and game matches
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+// we got a valid authentication and don't need to login
+export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
 
 // setup private and public service channel subs
-export const SUBSCRIBE_SERVICE_REQUEST = 'SUBSCRIBE_SERVICE_REQUEST'
-export const SUBSCRIBE_SERVICE_SUCCESS = 'SUBSCRIBE_SERVICE_SUCCESS'
-export const SUBSCRIBE_SERVICE_FAILURE = 'SUBSCRIBE_SERVICE_FAILURE'
-export const SUBSCRIBE_PRIVATE_REQUEST = 'SUBSCRIBE_PRIVATE_REQUEST'
-export const SUBSCRIBE_PRIVATE_SUCCESS = 'SUBSCRIBE_PRIVATE_SUCCESS'
-export const SUBSCRIBE_PRIVATE_FAILURE = 'SUBSCRIBE_PRIVATE_FAILURE'
+export const SUBSCRIBE_CHANNEL_REQUEST = 'SUBSCRIBE_CHANNEL_REQUEST'
+export const SUBSCRIBE_CHANNEL_SUCCESS = 'SUBSCRIBE_CHANNEL_SUCCESS'
+export const SUBSCRIBE_CHANNEL_FAILURE = 'SUBSCRIBE_CHANNEL_FAILURE'
+//export const SUBSCRIBE_CHANNEL_FAILURE = 'SUBSCRIBE_CHANNEL_FAILURE'
 
 // during alpha everybody is friends, friends lists will come later
 export const RECEIVE_FRIEND = 'RECEIVE_FRIEND'
