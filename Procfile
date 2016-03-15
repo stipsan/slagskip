@@ -1,2 +1,2 @@
 web: node server/web
-migrate: node server/migrate
+migrate: npm run migrate
