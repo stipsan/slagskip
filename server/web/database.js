@@ -1,7 +1,7 @@
 var Redis = require('ioredis');
 var redis = new Redis(process.env.REDIS_URL);
 
-const INVITE_EXPIRE = 
+const INVITE_EXPIRE = 86400;
 
 function getUserByID(id) {
   
@@ -34,7 +34,8 @@ function userInviteFriend(data, success, failure) {
   redis.hget('users', data.user.username).then(id => {
     if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`});
     
-    redis.sadd(`requests:${id}`, data.friend.username);
+    redis.sadd(`user:${id}:requests`, data.friend.username);
+    redis.expire(`user:${id}:requests`);
     redis.hget('users', data.friend.username).then(id => {
       if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`});
       
@@ -67,7 +68,7 @@ function loginUser(data, success, failure) {
     ]).exec((err, results) => {
       // @TODO investigate if error handling is correct here
       
-      if(err) return
+      if(err) return failure(err);
       const users    = results[0][1];
       delete           users[data.username];
       const friends  = Object.keys(users).reduce(
@@ -77,7 +78,6 @@ function loginUser(data, success, failure) {
         ], []);        
       const invites  = results[1][1];
       const requests = results[2][1];
-      console.log('redis.multi', results);
       
       success({
         username: data.username,
