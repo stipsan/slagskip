@@ -1,5 +1,5 @@
 {
-  "name": "slagskip",
+  "name": "epic",
   "version": "1.0.0",
   "description": "Just a simple game to learn the ropes of redux, socket.io and sharpen my skills on react, js and node development in general",
   "scripts": {
