@@ -35,12 +35,13 @@ function userInviteFriend(data, success, failure) {
     if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`});
     
     redis.sadd(`user:${id}:requests`, data.friend.username);
-    redis.expire(`user:${id}:requests`);
+    redis.expire(`user:${id}:requests`, INVITE_EXPIRE);
     redis.hget('users', data.friend.username).then(id => {
       if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`});
       
       
-      redis.sadd(`invites:${id}`, data.user.username);
+      redis.sadd(`user:${id}:invites`, data.user.username);
+      redis.expire(`user:${id}:invites`, INVITE_EXPIRE);
       success(id);
     });
   });
@@ -62,9 +63,6 @@ function loginUser(data, success, failure) {
       ['smembers', `user:${id}:invites`],
       ['smembers', `user:${id}:requests`],
       ['hset', `user:${id}`, 'online', 1],
-      // @TODO temp measures to ease testing of invite system
-      ['expire', `user:${id}:invites`, 120],
-      ['expire', `user:${id}:requests`, 120],
     ]).exec((err, results) => {
       // @TODO investigate if error handling is correct here
       
@@ -97,10 +95,7 @@ function logoutUser(data, success, failure) {
       ['hgetall', 'users'],
       ['smembers', `invites:${id}`],
       ['smembers', `requests:${id}`],
-      ['hset', `user:${id}`, 'online', 1],
-      // @TODO temp measures to ease testing of invite system
-      ['expire', `invites:${id}`, 120],
-      ['expire', `requests:${id}`, 120],
+      ['hset', `user:${id}`, 'online', 0, 'lastVisit', new Date],
     ]).exec((err, results) => {
       const users    = results[0][1];
       delete           users[data.username];
