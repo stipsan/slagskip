@@ -48,11 +48,11 @@ function userInviteFriend(data, success, failure) {
 }
 
 //createUser(require('faker').name.firstName(), () => {}, () => {});
-/*
-for (var i = 0; i < 20; i++) {
+
+for (var i = 0; i < 2; i++) {
    createUser(require('faker').name.firstName(), () => {}, () => {});
 }
-*/
+
 
 function loginUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {

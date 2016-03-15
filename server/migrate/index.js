@@ -40,7 +40,7 @@ redis.multi([
     case 2:
       createUser(
         pipeline,
-        user_next++,
+        ++user_next,
         'Batman'
       )
   }
