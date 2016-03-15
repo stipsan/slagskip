@@ -6,8 +6,6 @@ console.log('migration started');
 console.log('it is a bit primitive for now, but it is a good start :-)');
 redis.set('next_user_id', 1);
 
-
-
 setTimeout(() => console.log('About to complete'), 1000);
 
-setTimeout(() => process.exit(), 2000);
+//if(process.env.IS_DYNO) setTimeout(() => process.exit(), 2000);
