@@ -29,7 +29,7 @@ module.exports.run = function (worker) {
   app.enable('trust proxy');
 
   if(process.env.NODE_ENV !== 'production') {
-    const config   = require('../webpack.config');
+    const config   = require('../../webpack.config');
     const compiler = require('webpack')(config);
     app.use(require('webpack-dev-middleware')(compiler, config.devServer));
     //@TODO the socket.io that the middleware uses breaks on SocketCluster

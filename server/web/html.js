@@ -6,7 +6,7 @@ module.exports = function(){
 
   return fallback(function(req, res, next){
     if(!assets) {
-      assets = require('./assets.json');
+      assets = require('../assets.json');
       
       const css = [], js = [];
       Object.keys(assets).forEach(key => {
