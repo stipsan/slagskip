@@ -1,12 +1,21 @@
 //@TODO implement using dataloader
 
+const webpackToAssets = config => {
+  console.log('webpackToAssets', config);
+  return Object.keys(config.entry).reduce((prev, curr) => {
+  return Object.assign(prev, {[curr]: {js: `${config.output.publicPath}${curr}.js?${new Date().getTime()}`}})
+  }, {})
+}
+
 module.exports = function(){
   var fallback = require('@stipsan/express-history-api-fallback');
   var assets, html;
 
   return fallback(function(req, res, next){
     if(!assets) {
-      assets = require('../assets.json');
+      assets = 'production' === process.env.NODE_ENV ? 
+        require('../assets.json') :
+        webpackToAssets(require('../../webpack.config.js'))
       
       const css = [], js = [];
       Object.keys(assets).forEach(key => {
@@ -24,7 +33,7 @@ module.exports = function(){
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     ${stylesheets}
   </head>
-  <body>
+  <body>    
     <div id="app"></div>
     ${scripts}
   </body>

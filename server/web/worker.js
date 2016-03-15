@@ -28,6 +28,7 @@ module.exports.run = function (worker) {
   // and want our https and wss to work properly with the IPs
   app.enable('trust proxy');
 
+  /*
   if(process.env.NODE_ENV !== 'production') {
     const config   = require('../../webpack.config');
     const compiler = require('webpack')(config);
@@ -35,6 +36,7 @@ module.exports.run = function (worker) {
     //@TODO the socket.io that the middleware uses breaks on SocketCluster
     app.use(require('webpack-hot-middleware')(compiler));
   }
+  //*/
 
   app.use(express.static('public'));
   app.use(require('./html')());

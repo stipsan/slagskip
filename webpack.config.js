@@ -74,7 +74,7 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: "[name].js?[hash]",
     chunkFilename: "[name].js?[chunkhash]",
-    publicPath: '/'
+    publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/'
   },
   plugins: plugins,
   module: {
