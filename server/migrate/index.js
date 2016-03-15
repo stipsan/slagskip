@@ -8,55 +8,49 @@ const redis = new Redis(process.env.REDIS_URL)
 const createUser = (pipeline, id, username, friends, invites, requests) => {
   const multi = pipeline.multi()
   
-  //multi.hset('users', username, id)
-  //multi.hset()
-  return [
-    ['hset', 'users', username, id],
-    ['hset', `user:${id}`, 'username', username],
-    friends && ['sadd', `user:${id}:friends`, friends],
-    invites && ['sadd', `user:${id}:invites`, invites],
-    requests && ['sadd', `user:${id}:requests`, requests],
-  ].filter(arg => !!arg)
+  multi.incr('user_next')
+  multi.hset('users', username, id)
+  multi.hset(`user:${id}`, 'username', username)
+  
+  if(friends) {
+    multi.sadd(`user:${id}:friends`, friends)
+  }
+  if(invites) {
+    multi.sadd(`user:${id}:invites`, invites)
+  }
+  if(requests) {
+    multi.sadd(`user:${id}:requests`, requests)
+  }
+
+  return multi.exec()
 }
 
 redis.multi([
-  ['get', 'next_migration_id'],
-  ['get', 'next_user_id']
+  ['get', 'migration_next'],
+  ['get', 'user_next']
 ]).exec((err, result) => {
-  const next_migration_id = parseInt(result[0][1] || 0, 10)
-  let   next_user_id      = parseInt(result[1][1] || 0, 10)
-  const pipeline = redis.pipeline();
-  console.log('before switch', err, result, next_migration_id, next_user_id);
-  switch (next_migration_id) {
+  const migration_next = parseInt(result[0][1] || 0, 10)
+  let   user_next      = parseInt(result[1][1] || 0, 10)
+  const pipeline = redis.pipeline()
+  switch (migration_next) {
     case 0:
-      pipeline.setnx('next_migration_id', 0)
+      pipeline.setnx('migration_next', 0)
     case 1:
-      pipeline.setnx('next_user_id', 1)
+      pipeline.setnx('user_next', 1)
     case 2:
-    console.log('createUser',createUser(
-      next_user_id++,
-      'Batman'
-    ))
-      pipeline.multi(createUser(
+      createUser(
         pipeline,
-        next_user_id++,
+        user_next++,
         'Batman'
-      )).exec()
-    case 3:
-      pipeline.multi().set('foo', 'bar').sadd('Heidis', 'OKs').get('foo').exec()
-    case 4:
-      pipeline.setnx('Stian', new Set([1,2,3]))
-    case 5:
-      pipeline.sadd('Heidis', 'OKs')
-    case 5:
-      pipeline.set('foobar', 'barfoo')
+      )
   }
+
   pipeline.exec((err, results) => {
     const migrations = results.filter(
-      migration => migration[1] !== 'QUEUED'
+      migration => migration[1] !== 'QUEUED' && migration[1] !== 'OK'
     )
     /*
-    const next_migration_id = results.reduce((previous, current) =>
+    const migration_next = results.reduce((previous, current) =>
       current[0] === null &&
       current[1] !== 'OK' &&
       current[1] !== 'QUEUED' ?
@@ -65,22 +59,35 @@ redis.multi([
       0
     );
     //*/
-    const multi = redis.multi()
-    for (var i = next_migration_id, total = migrations.length; i < total; i++) {
+    if(migrations.length > 0) {
+      console.log('Ran the following migrations:', migrations)
+    } else {
+      console.log('Nothing to migrate')
+    }
+    const multi = redis.multi(), total = migrations.length
+    for (var i = 0; i < total;i++) {
        const migration = migrations[i]
        if(migration[0] !== null) {
          console.error(migration[0])
          break
        }
-       console.log('next_migration', migration)
-       multi.incr('next_migration_id').set(`migration:${i}`, new Date)
-       // @TODO break on null
-       // more statements
-       
+       if(typeof migration[1] === 'object') {
+         let breakTheLoop = false
+         migration[1].some(stub => {
+           if(typeof stub === 'object') {
+             console.error(stub)
+             return breakTheLoop = true
+           }
+         })
+         if(breakTheLoop === true) {
+           break
+         }
+       }
+       const key = `migration:${ i + migration_next }`
+       multi.set(key, (new Date).toJSON())
+       console.log(key)
     }
-    console.log(i);
-    
-    
-    
+    multi.set('migration_next', i + migration_next)
+    multi.exec(() => redis.quit())
   })
 })

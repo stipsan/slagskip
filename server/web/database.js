@@ -12,7 +12,7 @@ function getUserByUsername(username) {
 };
 
 function createUser(username, success, error) {
-  redis.incr('next_user_id').then(result => {
+  redis.incr('user_next').then(result => {
     const id = Math.max(Number(result), 1);
     
     // validate if username exists
