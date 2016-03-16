@@ -81,7 +81,7 @@ var entry = process.env.NODE_ENV !== 'production' ? {
   };
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'production' !== process.env.NODE_ENV && 'eval',
   entry: entry,
   devServer: {
     contentBase: path.join(__dirname, 'public'),

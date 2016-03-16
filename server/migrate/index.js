@@ -71,13 +71,13 @@ redis.multi([
       createUser(
         pipeline,
         ++user_next,
-        'Ironman',
+        'Ironman'
       )
     case 6:
       createUser(
         pipeline,
         ++user_next,
-        'Spiderman',
+        'Spiderman'
       )
   }
 
