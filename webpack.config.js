@@ -14,7 +14,9 @@ const autoReconnectOptions = {
 var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.DefinePlugin({
     'process.env.AUTO_RECONNECT_OPTIONS': 'null',
-    'process.env.NODE_ENV': JSON.stringify('production')
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
+    'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
   }),
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({
@@ -36,6 +38,8 @@ var plugins = process.env.NODE_ENV === 'production' ? [
         })
       ),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
+      'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
     })
   ];
 
