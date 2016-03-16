@@ -17,6 +17,10 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     'process.env.NODE_ENV': JSON.stringify('production'),
   }),
   new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.OccurrenceOrderPlugin(true),
+  new webpack.optimize.AggressiveMergingPlugin({
+    moveToParents: true,
+  }),
   new webpack.optimize.UglifyJsPlugin({
     screw_ie8: true,
     wrap: true,

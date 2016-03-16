@@ -12,7 +12,7 @@ module.exports.run = function (worker) {
   const express = require('express');
   const app = express();
   
-  app.use(require('compression')({level:9}));
+  app.use(require('compression')());
   
   app.use(require('./origins')());
 
