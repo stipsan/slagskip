@@ -1,6 +1,6 @@
 module.exports = function(wsServer){
 
-  const TYPES = require('../../../shared/constants/ActionTypes');
+  const TYPES = require('../../constants/ActionTypes');
 
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {

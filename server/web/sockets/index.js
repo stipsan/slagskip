@@ -5,7 +5,7 @@ module.exports = function(worker){
   require('./middleware')(worker.getSCServer());  
   
   const database = require('../database');
-  const TYPES = require('../../../shared/constants/ActionTypes');
+  const TYPES = require('../../constants/ActionTypes');
   
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
   const invites = new Map(), requests = new Map(), idToUsername = {};
