@@ -19,6 +19,8 @@ module.exports.run = function (worker) {
 
   const express = require('express');
   const app = express();
+  
+  app.use(require('compression')());
 
   // Security reasons, this should be the default in express, 
   // at least when NODE_ENV = production
