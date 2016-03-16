@@ -2,24 +2,10 @@ module.exports = function(wsServer){
 
   const TYPES = require('../../../shared/constants/ActionTypes');
 
-  // For WebSocket handshakes
-  wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
-    function (req, next) {
-      console.info('middleware.MIDDLEWARE_HANDSHAKE', req.channel, req.data, req.socket.authToken, req.socket.id);
-      if (true) {
-        next() // Allow
-      } else {
-        //var err = new MyCustomHandshakeFailedError('Handshake failed');
-        //next(err); // Block
-        // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
-      }
-    }
-  );
-
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
-      var authToken = req.socket.getAuthToken();
-      console.info('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, req.data, authToken, req.socket.id);
+      const authToken = req.socket.getAuthToken();
+      console.info('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username);
       if (req.authTokenExpiredError) {
         next(req.authTokenExpiredError); // Fail with a default auth token expiry error
       } else if (authToken && authToken.channels.indexOf(req.channel) !== -1) {

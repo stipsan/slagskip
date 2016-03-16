@@ -65,11 +65,11 @@ module.exports = {
   devtool: 'eval',
   entry: entry,
   devServer: {
-    contentBase: 'public/',
-    publicPath: "http://localhost:8080/",
+    contentBase: path.join(__dirname, 'public'),
+    publicPath: 'http://localhost:8080/',
     hot: true,
     noInfo: true,
-    headers: { "Access-Control-Allow-Origin": "*" }
+    headers: { 'Access-Control-Allow-Origin': '*' }
   },
   output: {
     path: path.join(__dirname, 'public'),

@@ -1,9 +1,8 @@
 //@TODO implement using dataloader
 
 const webpackToAssets = config => {
-  console.log('webpackToAssets', config);
   return Object.keys(config.entry).reduce((prev, curr) => {
-  return Object.assign(prev, {[curr]: {js: `${config.output.publicPath}${curr}.js?${new Date().getTime()}`}})
+    return Object.assign(prev, {[curr]: {js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}`}})
   }, {})
 }
 

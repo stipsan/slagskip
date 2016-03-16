@@ -112,7 +112,8 @@ $bg-disconnected: #C62828 !default;
         }
         .online-status {
             width: 1px;
-            padding: 0;
+            padding: 0 .4rem;
+            color: hsl(88, 50%, 53%);
         }
         .user-name, th {
             text-align: left;
