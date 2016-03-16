@@ -1,3 +1,5 @@
+[![Dependency Status](https://david-dm.org/stipsan/epic.svg)](https://david-dm.org/stipsan/epic)
+
 Realtime React based two-player game! Inspired by the good old "Battleship" by Hasbro.
 Tech stack includes Redux, SocketCluster, Heroku, Redis and more!
 

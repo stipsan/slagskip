@@ -46,6 +46,25 @@ plugins = plugins.concat(new webpack.ProvidePlugin({
   React: 'react',
 }));
 
+const babelPlugins = {
+  "production": [
+    "transform-react-constant-elements",
+    "transform-react-inline-elements",
+    ],
+  "development":  [
+    ["react-transform", {
+      "transforms": [{
+        "transform": "react-transform-hmr",
+        "imports": ["react"],
+        "locals": ["module"],
+      }, {
+        "transform": "react-transform-catch-errors",
+        "imports": ["react", "redbox-react"],
+      }]
+    }]
+  ]
+};
+
 var AssetsPlugin = require('assets-webpack-plugin');
 plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}));
 
@@ -89,29 +108,7 @@ module.exports = {
         loader: 'babel',
         query: {
           "presets": ["react", "es2015", "stage-0"],
-          "env": {
-            "production": {
-              "plugins": [
-                "transform-react-constant-elements",
-                "transform-react-inline-elements",
-                "transform-runtime"
-              ]
-            },
-            "development": {
-              "plugins": [
-                ["react-transform", {
-                  "transforms": [{
-                    "transform": "react-transform-hmr",
-                    "imports": ["react"],
-                    "locals": ["module"]
-                  }, {
-                    "transform": "react-transform-catch-errors",
-                    "imports": ["react", "redbox-react"]
-                  }]
-                }]
-              ]
-            }
-          }
+          "plugins": babelPlugins[process.env.NODE_ENV === 'development' ? 'development' : 'production']
         },
       },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') }
