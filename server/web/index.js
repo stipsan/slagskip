@@ -10,4 +10,4 @@ var socketCluster = new SocketCluster({
 });
 
 // @TODO move to broker so we can reload using sigterm and run migrations without pain
-require('../migrate')
+require('../migrates')
