@@ -29,11 +29,10 @@ module.exports = function(worker){
           res(null, Object.assign({type: TYPES.LOGIN_SUCCESS}, user));
           socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`]});
           //socket.broadcast.emit('join', data);
-          scServer.exchange.publish('service', {
-            type: TYPES.RECEIVE_FRIEND,
-            username: data.username,
-            online: true,
-          })
+          scServer.exchange.publish('service', Object.assign(
+            { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
+            data
+          ))
         },
         error => {
           //console.info(TYPES.LOGIN_FAILURE, error);
