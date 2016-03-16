@@ -21,6 +21,7 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     compress: {
         warnings: false,
         drop_console: true,
+        unsafe: true, // could use Bugsnag in case we get trouble when live
     }
 })
 ] : [
