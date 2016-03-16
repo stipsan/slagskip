@@ -10,6 +10,11 @@ It's also meant to serve as a reference for others who wish to embark on similar
 
 # FAQ
 
+## Why is (https://epic.vg) loading faster than lightning?
+
+It's thanks to Herokus' Standard 1x dynos and CloudFlare's CDN combined with very agressive caching on all layers of the stack.
+I'll share all the details later on Medium.
+
 ## How do I get started hacking away at this?
 
 Assuming you've already got redis setup and running on your localhost, it's this easy:
