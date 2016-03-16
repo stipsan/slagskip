@@ -14,7 +14,7 @@ const mapSupportedBrowsersToProps = browsers => {
       return prev
     }
     
-    return [ ...prev, Object.assign(browser, { name: curr }) ]
+    return [ ...prev, { name: curr, y: browser.y } ]
   }, [])
 }
 
@@ -24,8 +24,6 @@ module.exports = function(){
   var fallback = require('@stipsan/express-history-api-fallback');
   var minify = require('html-minifier').minify;
   var assets, html;
-  const SOCKET_HOSTNAME = JSON.stringify(process.env.SOCKET_HOSTNAME);
-  const SOCKET_PATH = JSON.stringify(process.env.SOCKET_PATH);
   
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers);
@@ -78,8 +76,6 @@ module.exports = function(){
       </noscript>
     </div>
     <script>
-      SOCKET_HOSTNAME = ${SOCKET_HOSTNAME};
-      SOCKET_PATH = ${SOCKET_PATH};
       SUPPORTED_BROWSERS = ${SUPPORTED_BROWSERS};
     </script>
     ${scripts}

@@ -10,12 +10,23 @@ const autoReconnectOptions = {
   multiplier: 1.5,
   maxDelay: 60000,
 };
+const provideDefaults = {
+  'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
+    Object.assign({}, autoReconnectOptions, {
+      initialDelay: 1000,
+      randomness: 1000,
+      maxDelay: 10000,
+    })
+  ),
+  'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
+  'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
+};
 
 var plugins = process.env.NODE_ENV === 'production' ? [
-  new webpack.DefinePlugin({
+  new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
     'process.env.AUTO_RECONNECT_OPTIONS': 'null',
     'process.env.NODE_ENV': JSON.stringify('production'),
-  }),
+  })),
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.OccurrenceOrderPlugin(true),
   new webpack.optimize.AggressiveMergingPlugin({
@@ -39,16 +50,9 @@ var plugins = process.env.NODE_ENV === 'production' ? [
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
-        Object.assign({}, autoReconnectOptions, {
-          initialDelay: 1000,
-          randomness: 1000,
-          maxDelay: 10000,
-        })
-      ),
+    new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-    })
+    }))
   ];
 
 plugins = plugins.concat(new ExtractTextPlugin("[hash].css", {

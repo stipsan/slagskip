@@ -19,8 +19,8 @@ export const connect = (store, next, action, callSocket) => {
   if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
     const socket = socketCluster.connect({
-      hostname: window.SOCKET_HOSTNAME || location.hostname,
-      path: window.SOCKET_PATH || '/ws',
+      hostname: process.env.SOCKET_HOSTNAME || location.hostname,
+      path: process.env.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
       authTokenName: 'authToken',
