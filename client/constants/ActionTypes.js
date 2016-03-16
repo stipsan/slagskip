@@ -1,1 +1,1 @@
-export * from '../../shared/constants/ActionTypes'
+./shared/constants/ActionTypes.js

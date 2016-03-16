@@ -1,15 +1,9 @@
 import { 
   RECEIVE_NETWORK_OFFLINE,
   RECEIVE_NETWORK_ONLINE,
+  SOCKET_RECONNECT,
 } from '../constants/ActionTypes'
 
-/*
-export const connectSocket = () => {
-  return dispatch => {
-    connect(
-      () => dispatch({ type: SOCKET_CONNECTED }),
-      message => dispatch({ type: SOCKET_DISCONNECTED, message })
-    );
-  }
+export const reconnectSocket = () => {
+  return { type: SOCKET_RECONNECT }
 }
-//*/
