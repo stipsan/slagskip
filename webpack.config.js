@@ -15,7 +15,14 @@ var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.DefinePlugin({
     'process.env.AUTO_RECONNECT_OPTIONS': 'null',
     'process.env.NODE_ENV': JSON.stringify('production')
-  })
+  }),
+  new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+        warnings: false,
+        drop_console: true,
+    }
+})
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
