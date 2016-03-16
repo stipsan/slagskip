@@ -1,13 +1,20 @@
 import { PropTypes } from 'react';
 
+const browsers = SUPPORTED_BROWSERS;
+const iconStyle = Object.freeze({height: '64px', width: '64px'});
+
 function UnsupportedBrowser({ capabilities }) {
   return <section className="section section--unsupported-browser">
-      <h2>You got disconnected!</h2>
-      {!connected && <h2>Socket failed to connect!</h2>}
-      {!!username && <p>You'll be logged back in as soon as the server is reached again.</p>}
-      {connected && !username && <p>Attempting to reconnect.</p>}
-      {connected && <p>You don't need to refresh the page.</p>}
-      {!connected && <p>Try reloading the page.</p>}
+      <h2>Your browser isn't supported</h2>
+      {browsers && <p>Recommended browsers:</p>}
+      {browsers && <p>{browsers.map(browser => <a 
+        href={`http://lmgtfy.com/?q=${browser.name}`}
+        title={`${browser.name} ${browser.y} or later`}
+        target="_blank"
+      >
+          <img src={`/browser/${browser.name}.svg`} style={iconStyle} />
+          <span>{browser.name}</span>
+      </a>)}</p>}
   </section>;
 };
 

@@ -33,6 +33,7 @@ class App extends Component {
       supportedBrowser,
       capabilities,
     } = this.props;
+    console.error(supportedBrowser);
     return <DocumentTitle title={connected ? connectedTitle : initialTitle}>
       <div className="page">
         <Lobby friends={friends} username={username} />

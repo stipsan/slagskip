@@ -2,6 +2,12 @@ $bg-default: white !default;
 $bg-login: hsl(200, 18%, 46%) !default;
 $bg-lobby: #263238 !default;
 $bg-disconnected: #C62828 !default;
+$bg-unsupported-browser: #eee6e1 !default;
+
+/* prevent white FLOC in production */
+html, body {
+  background: $bg-login;
+}
 
 .section {
 	position: absolute;
@@ -139,5 +145,22 @@ $bg-disconnected: #C62828 !default;
 
 .section--unsupported-browser {
     color: $bg-disconnected;
-    background: lighten($bg-disconnected, 33%);
+    background: $bg-unsupported-browser;
+    
+    a {
+      position: relative;
+      padding: .5em 1em;
+      
+      span {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        text-decoration: none;
+        text-transform: capitalize;
+        font-weight: 700;
+        color: rgba(darken($bg-disconnected, 33%), .7);
+      }
+    }
 }
