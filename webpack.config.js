@@ -65,6 +65,7 @@ module.exports = {
   devtool: 'eval',
   entry: entry,
   devServer: {
+    contentBase: 'public/',
     publicPath: "http://localhost:8080/",
     hot: true,
     noInfo: true,
