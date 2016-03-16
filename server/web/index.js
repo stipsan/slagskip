@@ -8,3 +8,6 @@ var socketCluster = new SocketCluster({
   logLevel: 'production' === process.env.NODE_ENV ? 1 : 3,
   authKey: process.env.AUTH_KEY,
 });
+
+// @TODO move to broker so we can reload using sigterm and run migrations without pain
+require('../migrate')
