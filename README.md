@@ -10,6 +10,19 @@ It's also meant to serve as a reference for others who wish to embark on similar
 
 # FAQ
 
+## How do I get started hacking away at this?
+
+Assuming you've already got redis setup and running on your localhost, it's this easy:
+
+1. Clone this repo
+2. `npm install`
+3. `npm start`
+
+If installing a local redis isn't your cup of tea, hit the purple `Deploy` up top and [https://devcenter.heroku.com/articles/config-vars](reuse) the REDIS_URL env var the heroku-redis addon create after provision.
+
+Be sure to install both the React and Redux Devtools for an developer experience like no other.
+Complete with Hot Reload and Time Travel, making web development more fun than ever!
+
 ## Why no RelayJS?
 
 RelayJS and GraphQL don't support realtime communication out of the box yet.
