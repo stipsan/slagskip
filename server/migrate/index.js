@@ -67,6 +67,18 @@ redis.multi([
         ['Superman'],
         ['Superman']
       )
+    case 5:
+      createUser(
+        pipeline,
+        ++user_next,
+        'Ironman',
+      )
+    case 6:
+      createUser(
+        pipeline,
+        ++user_next,
+        'Spiderman',
+      )
   }
 
   pipeline.exec((err, results) => {
