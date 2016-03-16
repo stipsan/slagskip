@@ -2,6 +2,10 @@
 
 // @TODO could prove to be a useful reusable module on npm
 
+if(!process.env.REDIS_URL) {
+  return console.error('REDIS_URL env variable missing, cannot connect to Redis and run migrations!')
+}
+
 const Redis = require('ioredis')
 const redis = new Redis(process.env.REDIS_URL)
 
