@@ -1,6 +1,8 @@
 // async network requests is suffixed _REQUEST, _SUCCESS or _FAILURE
 // actions that respond to server sent events is prefixed RECEIVE_
 
+export const CHECK_CAPABILITIES = 'CHECK_CAPABILITIES'
+
 // client local network status (client to router)
 // @TODO add network middleware that dispatch these
 export const RECEIVE_NETWORK_OFFLINE = 'RECEIVE_NETWORK_OFFLINE'

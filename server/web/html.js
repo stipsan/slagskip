@@ -1,14 +1,38 @@
-//@TODO implement using dataloader
+const title = process.env.APP_NAME || 'This app'
 
 const webpackToAssets = config => {
   return Object.keys(config.entry).reduce((prev, curr) => {
     return Object.assign(prev, {[curr]: {js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}`}})
   }, {})
 }
+const mapSupportedBrowsersToProps = browsers => {
+  return Object.keys(browsers).reduce((prev, curr) => {
+    const browser = browsers[curr]
+    if(!browser.y || [
+      'crhome', 'firefox', 'ie', 'safari', 'opera'
+    ].indexOf(browser) === -1) {
+      return prev
+    }
+    
+    return [ ...prev, Object.assign(browser, { name: curr }) ]
+  }, [])
+}
 
 module.exports = function(){
+  var caniuse = require('caniuse-api');
+
   var fallback = require('@stipsan/express-history-api-fallback');
+  var minify = require('html-minifier').minify;
   var assets, html;
+  const SOCKET_HOSTNAME = JSON.stringify(process.env.SOCKET_HOSTNAME);
+  const SOCKET_PATH = JSON.stringify(process.env.SOCKET_PATH);
+  
+  const getSupportedBrowsers = caniuse.getSupport('websockets')
+  const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers);
+  const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers);
+  const browsersList = supportedBrowsers.map(browser => `<a>
+      ${browser.name}
+  </a>`).join('');
 
   return fallback(function(req, res, next){
     if(!assets) {
@@ -26,19 +50,57 @@ module.exports = function(){
       const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('');
       
       html = `<!doctype html>
-<html>
+<html lang="en-US">
   <head>
-    <title>Loading game…</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7, IE=9" />
+    <meta charset="utf-8" />
+
+    <title>Loading ${title}…</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     ${stylesheets}
   </head>
-  <body>    
-    <div id="app"></div>
+  <body>
+    <div id="app">
+      <div class="page">
+        <div class="section section--unsupported-browser">
+          <h2>${title} requires JavaScript and a modern browser to function correctly.</h2>
+          <p>Recommended browsers:</p>
+          <p>${browsersList}</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      SOCKET_HOSTNAME = ${SOCKET_HOSTNAME};
+      SOCKET_PATH = ${SOCKET_PATH};
+      SUPPORTED_BROWSERS = ${SUPPORTED_BROWSERS};
+    </script>
     ${scripts}
   </body>
 </html>`;
+
+      if('production' === process.env.NODE_ENV) {
+        html = minify(html, {
+          collapseWhitespace: true,
+          collapseInlineTagWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeTagWhitespace: true,
+          removeAttributeQuotes: true,
+          removeRedundantAttributes: true,
+          preventAttributesEscaping: true,
+          useShortDoctype: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+        });
+      }
     }
-    
+
+    // 2 hour cache, helps prevent flooding and hide dyno deployment downtime
+    // if deployments are breaking, let maintenance:on run for 2h or purge cf cache
+    res.set('Cache-Control', 'max-age=60');
+
     res.send(html);
   });
 };

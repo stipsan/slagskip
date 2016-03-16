@@ -2,9 +2,12 @@ import 'babel-polyfill'
 import './scss/index.scss'
 import { render } from 'react-dom'
 import store from './store'
+import { checkCapabilities } from './actions/capabilities'
 import Root from './containers/Root'
 
 console.info('AUTO_RECONNECT_OPTIONS', process.env.AUTO_RECONNECT_OPTIONS);
+global.store = store;
+store.dispatch(checkCapabilities());
 
 render(
   <Root store={store} />,

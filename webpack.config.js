@@ -14,7 +14,7 @@ const autoReconnectOptions = {
 var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.DefinePlugin({
     'process.env.AUTO_RECONNECT_OPTIONS': 'null',
-    'process.env.NODE_ENV': JSON.stringify('production')
+    'process.env.NODE_ENV': JSON.stringify('production'),
   }),
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({
@@ -39,7 +39,7 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     })
   ];
 
-plugins = plugins.concat(new ExtractTextPlugin("[name].css?[hash]", {
+plugins = plugins.concat(new ExtractTextPlugin("[hash].css", {
   allChunks: true,
   disable: process.env.NODE_ENV !== 'production'
 }));
@@ -100,8 +100,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: "[name].js?[hash]",
-    chunkFilename: "[name].js?[chunkhash]",
+    filename: 'production' === process.env.NODE_ENV ? "[hash].js" : "[name].js?[hash]",
+    chunkFilename: 'production' === process.env.NODE_ENV ? "[chunkhash].js" : "[name].js?[chunkhash]",
     publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/'
   },
   plugins: plugins,

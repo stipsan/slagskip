@@ -19,7 +19,7 @@ module.exports = function(wsServer){
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
     function (req, next) {
-      console.info('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, req.socket.authToken, req.socket.id);
+      console.info('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, authToken && authToken.username);
       if (true) {
         next() // Allow
       } else {
@@ -32,7 +32,8 @@ module.exports = function(wsServer){
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_OUT,
     function (req, next) {
-      console.info('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, req.socket.authToken, req.socket.id);
+      const authToken = req.socket.getAuthToken();
+      console.info('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, authToken && authToken.username);
       if(!req.socket.authToken) {
         next(true) // Deny silently
       } else if (req.data.type === TYPES.RECEIVE_FRIEND && req.data.username === req.socket.authToken.username) {
@@ -48,8 +49,9 @@ module.exports = function(wsServer){
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
     function (req, next) {
+      const authToken = req.socket.getAuthToken();
       // only LOGIN_REQUEST unless authToken
-      console.info('middleware.MIDDLEWARE_EMIT', req.channel, req.data, req.socket.authToken, req.socket.id);
+      console.info('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username);
       if (true) {
         next() // Allow
       } else {

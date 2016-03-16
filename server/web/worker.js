@@ -12,7 +12,9 @@ module.exports.run = function (worker) {
   const express = require('express');
   const app = express();
   
-  app.use(require('compression')());
+  app.use(require('compression')({level:9}));
+  
+  app.use(require('./origins')());
 
   // Security reasons, this should be the default in express, 
   // at least when NODE_ENV = production
@@ -32,7 +34,7 @@ module.exports.run = function (worker) {
   }
   //*/
 
-  app.use(express.static('public'));
+  app.use(express.static('public', { maxAge: 86400000 * 365, index: false }));
   app.use(require('./html')());
   
   worker.httpServer.on('request', app);

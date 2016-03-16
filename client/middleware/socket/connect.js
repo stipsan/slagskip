@@ -19,7 +19,8 @@ export const connect = (store, next, action, callSocket) => {
   if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
     const socket = socketCluster.connect({
-      path: '/ws',
+      hostname: window.SOCKET_HOSTNAME || location.hostname,
+      path: window.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
       authTokenName: 'authToken',
@@ -44,9 +45,6 @@ export const connect = (store, next, action, callSocket) => {
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })
-    
-    // @TODO put behind debug flag
-    global.socket = socket
   }
   
   return memoizedSocket

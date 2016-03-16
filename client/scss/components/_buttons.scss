@@ -17,21 +17,24 @@ $btn-bg: hsl(202, 4%, 51%) !default;
     animation: progress-letters-blink .9s cubic-bezier(0.46, 0.03, 0.52, 0.96) 0s infinite;
   }
 }
-.progress-letters.fresh {
-  span {
-    animation: progress-letters-slide 1s cubic-bezier(0.46, 0.03, 0.52, 0.96) 50ms infinite;
-    
-    $letters: 7;
-    $selector: ' + span';
 
-    @for $i from 2 through $letters {
-      & #{$selector} {
-        animation-delay: #{ 50 * $i }ms;
-      }
-      $selector: selector-nest($selector, ' + span');
-    }    
-  }
-}
+
+//.progress-letters.fresh {
+//  span {
+//    animation: progress-letters-slide 1s cubic-bezier(0.46, 0.03, 0.52, 0.96) 50ms infinite;
+//    
+//    $letters: 7;
+//    $selector: ' + span';
+//
+//    @for $i from 2 through $letters {
+//      & #{$selector} {
+//        animation-delay: #{ 50 * $i }ms;
+//      }
+//      $selector: selector-nest($selector, ' + span');
+//    }    
+//  }
+//}
+
 
 .button-label-enter {
   opacity: 0.01;

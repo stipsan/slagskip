@@ -1,7 +1,17 @@
 import { combineReducers } from 'redux'
 import * as TYPE from '../constants/ActionTypes'
 
-
+const capabilities = (state = {}, action) => {
+  switch (action.type) {
+    case TYPE.CHECK_CAPABILITIES:
+      return {
+        ...state,
+        websocket: !!window.WebSocket
+      }
+    default:
+      return state
+  }
+}
 
 const connected = (state = false, action) => {
   switch (action.type) {
@@ -121,4 +131,5 @@ export default combineReducers({
   friends,
   invites,
   requests,
+  capabilities,
 });

@@ -136,3 +136,8 @@ $bg-disconnected: #C62828 !default;
     background: $bg-disconnected;
     color: lighten($bg-disconnected, 33%);
 }
+
+.section--unsupported-browser {
+    color: $bg-disconnected;
+    background: lighten($bg-disconnected, 33%);
+}
