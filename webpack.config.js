@@ -22,9 +22,9 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     new webpack.DefinePlugin({
       'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
         Object.assign({}, autoReconnectOptions, {
-          initialDelay: 100,
-          randomness: 100,
-          maxDelay: 1000,
+          initialDelay: 1000,
+          randomness: 1000,
+          maxDelay: 10000,
         })
       ),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
