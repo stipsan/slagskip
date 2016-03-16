@@ -7,10 +7,10 @@ const webpackToAssets = config => {
 }
 const mapSupportedBrowsersToProps = browsers => {
   return Object.keys(browsers).reduce((prev, curr) => {
-    const browser = browsers[curr]
+    const browser = browsers[curr];
     if(!browser.y || [
-      'crhome', 'firefox', 'ie', 'safari', 'opera'
-    ].indexOf(browser) === -1) {
+      'chrome', 'firefox', 'edge', 'safari', 'opera'
+    ].indexOf(curr) === -1) {
       return prev
     }
     
@@ -30,8 +30,14 @@ module.exports = function(){
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers);
   const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers);
-  const browsersList = supportedBrowsers.map(browser => `<a>
-      ${browser.name}
+  console.log(supportedBrowsers);
+  const browsersList = supportedBrowsers.map(browser => `<a 
+    href="http://lmgtfy.com/?q=${browser.name}"
+    title="${browser.name} ${browser.y} or later"
+    target="_blank"
+  >
+      <img src="/browser/${browser.name}.svg" style="height: 64px; width: 64px;" />
+      <span>${browser.name}</span>
   </a>`).join('');
 
   return fallback(function(req, res, next){
@@ -61,13 +67,15 @@ module.exports = function(){
   </head>
   <body>
     <div id="app">
-      <div class="page">
-        <div class="section section--unsupported-browser">
-          <h2>${title} requires JavaScript and a modern browser to function correctly.</h2>
-          <p>Recommended browsers:</p>
-          <p>${browsersList}</p>
+      <noscript>
+        <div class="page">
+          <div class="section section--unsupported-browser">
+            <h2>${title} requires JavaScript and a modern browser to function correctly.</h2>
+            <p>Recommended browsers:</p>
+            <p>${browsersList}</p>
+          </div>
         </div>
-      </div>
+      </noscript>
     </div>
     <script>
       SOCKET_HOSTNAME = ${SOCKET_HOSTNAME};
