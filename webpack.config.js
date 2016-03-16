@@ -18,11 +18,18 @@ var plugins = process.env.NODE_ENV === 'production' ? [
   }),
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({
+    screw_ie8: true,
     compress: {
-        warnings: false,
-        drop_console: true,
-        unsafe: true, // could use Bugsnag in case we get trouble when live
-    }
+      unsafe: true, // could use Bugsnag in case we get trouble when live
+      drop_console: true,
+      warnings: false,
+    },
+    mangle: {
+      toplevel: true,
+      eval: true,
+    },
+    comments: false,
+    mangle_props: true,
 })
 ] : [
     new webpack.HotModuleReplacementPlugin(),

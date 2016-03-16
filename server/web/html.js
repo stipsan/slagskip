@@ -33,7 +33,7 @@ module.exports = function(){
   console.log(supportedBrowsers);
   const browsersList = supportedBrowsers.map(browser => `<a 
     href="http://lmgtfy.com/?q=${browser.name}"
-    title="${browser.name} ${browser.y}"
+    title="${browser.y}"
     target="_blank"
   >
       <img src="/browser/${browser.name}.svg" style="height: 64px; width: 64px;" />
