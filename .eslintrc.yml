@@ -11,9 +11,12 @@ parserOptions:
 plugins:
   - react
 rules:
+  comma-dangle:
+    - error
+    - always-multiline
   indent:
     - error
-    - 4
+    - 2
   linebreak-style:
     - error
     - unix
