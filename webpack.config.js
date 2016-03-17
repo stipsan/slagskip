@@ -1,7 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
+var webpack = require('webpack')
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // @TODO move this into env
 const autoReconnectOptions = {
@@ -9,7 +9,7 @@ const autoReconnectOptions = {
   randomness: 10000,
   multiplier: 1.5,
   maxDelay: 60000,
-};
+}
 const provideDefaults = {
   'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
     Object.assign({}, autoReconnectOptions, {
@@ -20,7 +20,7 @@ const provideDefaults = {
   ),
   'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
   'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
-};
+}
 
 var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
@@ -46,19 +46,19 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     },
     comments: false,
     mangleProps: true,
-})
+  })
 ] : [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoErrorsPlugin(),
+  new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }))
-  ];
+]
 
-plugins = plugins.concat(new ExtractTextPlugin("[hash].css", {
+plugins = plugins.concat(new ExtractTextPlugin('[hash].css', {
   allChunks: true,
   disable: process.env.NODE_ENV !== 'production'
-}));
+}))
 
 // JSX syntax is transpiled to React.createElement calls with babel, which is why devs
 // often do `import React from 'react'` even if `React` itself isn't used in the source.
@@ -68,41 +68,41 @@ plugins = plugins.concat(new ExtractTextPlugin("[hash].css", {
 // returns on the call-site, reducing bloat and laying the ground work for tree shaking in webpack v2
 plugins = plugins.concat(new webpack.ProvidePlugin({
   React: 'react',
-}));
+}))
 
 const babelPlugins = {
-  "production": [
-    "transform-react-constant-elements",
-    "transform-react-inline-elements",
-    ],
-  "development":  [
-    ["react-transform", {
-      "transforms": [{
-        "transform": "react-transform-hmr",
-        "imports": ["react"],
-        "locals": ["module"],
+  'production': [
+    'transform-react-constant-elements',
+    'transform-react-inline-elements',
+  ],
+  'development':  [
+    ['react-transform', {
+      'transforms': [{
+        'transform': 'react-transform-hmr',
+        'imports': ['react'],
+        'locals': ['module'],
       }, {
-        "transform": "react-transform-catch-errors",
-        "imports": ["react", "redbox-react"],
+        'transform': 'react-transform-catch-errors',
+        'imports': ['react', 'redbox-react'],
       }]
     }]
   ]
-};
+}
 
-var AssetsPlugin = require('assets-webpack-plugin');
-plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}));
+var AssetsPlugin = require('assets-webpack-plugin')
+plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}))
 
 var entry = process.env.NODE_ENV !== 'production' ? {
-    client: [
+  client: [
       'webpack-dev-server/client?http://localhost:8080/',
       'webpack/hot/dev-server',
       './client/index'
     ]
-  } : {
+} : {
     client: [
       './client/index'
     ]
-  };
+  }
 
 module.exports = {
   devtool: 'production' !== process.env.NODE_ENV && 'eval',
@@ -112,13 +112,13 @@ module.exports = {
     publicPath: 'http://localhost:8080/',
     hot: true,
     noInfo: true,
-    headers: { 'Access-Control-Allow-Origin': '*' }
+    headers: { 'Access-Control-Allow-Origin': '*' },
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'production' === process.env.NODE_ENV ? "[hash].js" : "[name].js?[hash]",
-    chunkFilename: 'production' === process.env.NODE_ENV ? "[chunkhash].js" : "[name].js?[chunkhash]",
-    publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/'
+    filename: 'production' === process.env.NODE_ENV ? '[hash].js' : '[name].js?[hash]',
+    chunkFilename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[chunkhash]',
+    publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/',
   },
   plugins: plugins,
   module: {
@@ -131,10 +131,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          "plugins": babelPlugins[process.env.NODE_ENV === 'development' ? 'development' : 'production']
+          'plugins': babelPlugins[process.env.NODE_ENV === 'development' ? 'development' : 'production'],
         },
       },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') }
-    ]
-  }
-};
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') },
+    ],
+  },
+}

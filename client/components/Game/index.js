@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react'
 
 class Game extends Component {
   static propTypes = {
@@ -6,15 +6,11 @@ class Game extends Component {
     username: PropTypes.string.isRequired,
   };
   
-  componentWillReceiveProps(nextProps) {
-    
-  }
-  
   render(){
     return <section className="section section--game">
       Loading game…
-    </section>;
+    </section>
   }
-};
+}
 
-export default Game;
+export default Game

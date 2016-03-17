@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import className from 'classnames'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
@@ -15,9 +15,8 @@ class FriendRow extends Component {
   };
   
   componentWillReceiveProps(nextProps) {
-    console.info('componentWillReceiveProps', nextProps);
     if(nextProps.invited && !this.props.invited) {
-      this.setState({pendingForAWhile: false});
+      this.setState({pendingForAWhile: false})
       setTimeout(
         () => this.setState({pendingForAWhile: true}),
         3000
@@ -26,37 +25,37 @@ class FriendRow extends Component {
   }
   
   handleInvite = event => {
-    event.preventDefault();
+    event.preventDefault()
     
-    const { id, username } = this.props;
+    const { id, username } = this.props
 
-    this.props.dispatch(gameInvite({ id, username }));
+    this.props.dispatch(gameInvite({ id, username }))
   };
   handleAccept = event => {
-    event.preventDefault();
+    event.preventDefault()
     
-    const { id, username } = this.props;
+    const { id, username } = this.props
 
-    this.props.dispatch(acceptGameInvite({ id, username }));    
+    this.props.dispatch(acceptGameInvite({ id, username }))    
   };
   handleDecline = event => {
-    event.preventDefault();
+    event.preventDefault()
     
-    const { id, username } = this.props;
+    const { id, username } = this.props
 
-    this.props.dispatch(declineGameInvite({ id, username }));    
+    this.props.dispatch(declineGameInvite({ id, username }))    
   };
   handleCancel = event => {
-    event.preventDefault();
+    event.preventDefault()
     
-    const { id, username } = this.props;
+    const { id, username } = this.props
 
-    this.props.dispatch(cancelGameInvite({ id, username }));    
+    this.props.dispatch(cancelGameInvite({ id, username }))    
   };
   render() {
-    const { username, pending, invited, online, lastVisit } = this.props;
-    const { handleInvite, handleAccept, handleDecline, handleCancel, handleSubmit } = this;
-    const {pendingForAWhile} = this.state;
+    const { username, pending, invited, online, lastVisit } = this.props
+    const { handleInvite, handleAccept, handleDecline, handleCancel, handleSubmit } = this
+    const {pendingForAWhile} = this.state
  
     const canLaunchGame = invited && pending
     const canAcceptInvite = !invited && pending
@@ -94,8 +93,8 @@ class FriendRow extends Component {
         )}><strong>&times;</strong></button>
         </div>
       </td>
-    </tr>;
+    </tr>
   }
 }
 
-export default connect()(FriendRow);
+export default connect()(FriendRow)
