@@ -32,7 +32,7 @@ const disconnected = (state = false, action) => {
   }
 };
 
-const viewer = (state = {username: '', loggedIn: false}, action) => {
+export const viewer = (state = {username: '', loggedIn: false}, action) => {
   switch (action.type) {
     case TYPE.LOGIN_SUCCESS:
       return {

@@ -7,7 +7,8 @@
     "start": "nf start web=1",
     "heroku-postbuild": "npm run bundle",
     "hmr": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch",
     "reboot-workers": "kill -SIGUSR2"
   },
   "engines": {
@@ -66,6 +67,8 @@
     "webpack-dev-server": "1.14.1"
   },
   "devDependencies": {
-    "foreman": "^1.4.1"
+    "expect": "^1.15.2",
+    "foreman": "^1.4.1",
+    "mocha": "^2.4.5"
   }
 }
