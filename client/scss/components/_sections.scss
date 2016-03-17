@@ -15,16 +15,17 @@ html, body {
 	right: 0px;
 	bottom: 0px;
 	left: 0px;
-    padding: $column-gutter;
-    overflow: auto;
+  padding: $column-gutter;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 	
 	display: flex;
-    flex-direction: column;
-    flex-flow: row wrap;
+  flex-direction: column;
+  flex-flow: row wrap;
     
     & > * {
-        flex: 1 100%;
-        text-align: center;
+      flex: 1 100%;
+      text-align: center;
     }
 }
 
