@@ -4,5 +4,6 @@ module.exports.run = function(thisProcess) {
   require('babel-register')({
     only: /shared/,
     plugins: ['transform-es2015-modules-commonjs'],
+    babelrc: false,
   });
 }
