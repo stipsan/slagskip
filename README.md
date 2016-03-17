@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/stipsan/epic/badge.svg?branch=master)](https://coveralls.io/github/stipsan/epic?branch=master)
 [![Build Status](https://travis-ci.org/stipsan/epic.svg)](https://travis-ci.org/stipsan/epic)
 [![Dependency Status](https://david-dm.org/stipsan/epic.svg)](https://david-dm.org/stipsan/epic)
 
