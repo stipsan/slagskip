@@ -13,4 +13,27 @@ describe('viewer reducer', () => {
       }
     )
   })
+  it('should handle LOGIN_SUCCESS', () => {
+    expect(
+      reducer({}, {
+        type: types.LOGIN_SUCCESS,
+        username: 'Foo'
+      })
+    ).toEqual(
+      {
+        username: 'Foo',
+        loggedIn: true,
+      }
+    )
+  })
+  it('should handle LOGOUT_SUCCESS', () => {
+    expect(
+      reducer({}, { type: types.LOGOUT_SUCCESS})
+    ).toEqual(
+      {
+        username: '',
+        loggedIn: false,
+      }
+    )
+  })
 })
