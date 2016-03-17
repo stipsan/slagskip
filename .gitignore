@@ -5,3 +5,5 @@ server/assets.json
 .env
 
 *.log
+
+coverage
