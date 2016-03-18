@@ -7,22 +7,20 @@
  */
 
 module.exports.run = function (worker) {
-  console.info('   >> Worker PID:', process.pid);
-
-  const express = require('express');
-  const app = express();
+  const express = require('express')
+  const app = express()
   
-  app.use(require('compression')());
+  app.use(require('compression')())
   
-  app.use(require('./origins')());
+  app.use(require('./origins')())
 
   // Security reasons, this should be the default in express, 
   // at least when NODE_ENV = production
-  app.set('x-powered-by', false);
+  app.set('x-powered-by', false)
 
   // We are on Heroku after all, behind load balancers 
   // and want our https and wss to work properly with the IPs
-  app.enable('trust proxy');
+  app.enable('trust proxy')
 
   /*
   if(process.env.NODE_ENV !== 'production') {
@@ -34,10 +32,10 @@ module.exports.run = function (worker) {
   }
   //*/
 
-  app.use(express.static('public', { maxAge: 86400000 * 365, index: false }));
-  app.use(require('./html')());
+  app.use(express.static('public', { maxAge: 86400000 * 365, index: false }))
+  app.use(require('./html')())
   
-  worker.httpServer.on('request', app);
+  worker.httpServer.on('request', app)
   
-  require('./sockets')(worker);
-};
+  require('./sockets')(worker)
+}

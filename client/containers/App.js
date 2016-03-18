@@ -1,11 +1,8 @@
-import { Component, PropTypes } from 'react';
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 
-import {requestNotificationPermission, sendNotification} from '../utils/notify';
-
-import { LOGIN_SUCCESS, RECEIVE_GAME_INVITE, GAME_INVITE_SUCCESS } from '../constants/ActionTypes';
-import { connectSocket } from '../actions';
+import { connectSocket } from '../actions'
 
 import Disconnected from '../components/Disconnected'
 import Game from '../components/Game'
@@ -19,7 +16,7 @@ const connectedTitle = 'Socket connected!'
 class App extends Component {
 
   componentWillMount() {
-    this.props.dispatch(connectSocket());
+    this.props.dispatch(connectSocket())
   }
   
   render() {
@@ -32,8 +29,8 @@ class App extends Component {
       game,
       supportedBrowser,
       capabilities,
-    } = this.props;
-    console.error(supportedBrowser);
+    } = this.props
+
     return <DocumentTitle title={connected ? connectedTitle : initialTitle}>
       <div className="page">
         <Lobby friends={friends} username={username} />
@@ -42,9 +39,9 @@ class App extends Component {
         {disconnected && <Disconnected username={username} connected={connected} />}
         {!supportedBrowser && <UnsupportedBrowser capabilities={capabilities} />}
       </div>
-    </DocumentTitle>;
+    </DocumentTitle>
   }
-};
+}
 
 const mapFriendsStateToProps = ({
   friends,
@@ -52,9 +49,9 @@ const mapFriendsStateToProps = ({
   invites,
 }) => {
   return friends.map(friend => {
-    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username)};
-  });
-};
+    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username)}
+  })
+}
 
 // move this to grandchildren so the root don't need to subscribe to Redux
 export default connect(

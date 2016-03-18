@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import { PropTypes } from 'react'
 
 function Disconnected({ username, connected }) {
   return <section className="section section--disconnected">
@@ -8,7 +8,11 @@ function Disconnected({ username, connected }) {
       {connected && !username && <p>Attempting to reconnect.</p>}
       {connected && <p>You don't need to refresh the page.</p>}
       {!connected && <p>Try reloading the page.</p>}
-  </section>;
-};
+  </section>
+}
+Disconnected.propTypes = {
+  username: PropTypes.string,
+  connected: PropTypes.bool.isRequired,
+}
 
-export default Disconnected;
+export default Disconnected

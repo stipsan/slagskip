@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/stipsan/epic.svg)](https://travis-ci.org/stipsan/epic)
+[![Coverage Status](https://coveralls.io/repos/github/stipsan/epic/badge.svg?branch=master)](https://coveralls.io/github/stipsan/epic?branch=master)
 [![Dependency Status](https://david-dm.org/stipsan/epic.svg)](https://david-dm.org/stipsan/epic)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)

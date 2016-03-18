@@ -5,10 +5,6 @@ import {
   SUBSCRIBE_CHANNEL_REQUEST,
 } from '../../constants/ActionTypes'
 
-const SERVICE_CHANNEL = 'service'
-let   PRIVATE_CHANNEL
-
-
 /*
 const subscribeService = (store, next, action, socket) => {
   // intended for global redux actions that announce server maintenance, etc
@@ -40,17 +36,3 @@ export const subscribeChannels = (store, next, action, socket, channels = ['serv
       return subscribedTo
     }
   })
-  
-
-const batch = (callbacks, args) => callbacks.forEach(callback => callback(...args))
-
-export const maybeJoinChannel = (store, next, action, socket) => {  
-  console.warn('maybeJoinChannel', action, socket);
-  switch (action.type) {
-    case LOGIN_SUCCESS:
-      return batch(
-        [attachListeners, subscribeChannels],
-        [store, next, action, socket],
-      )
-  }
-}

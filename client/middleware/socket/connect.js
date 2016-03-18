@@ -1,3 +1,4 @@
+/*eslint no-console: 1 */
 import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
@@ -5,11 +6,10 @@ import {
   SOCKET_FAILURE,
 } from '../../constants/ActionTypes'
 import {
-  loginUser
+  loginUser,
 } from '../../actions'
 import { attachListeners } from './listeners'
 import { subscribeChannels } from './channel'
-import { maybeAuthenticate, maybeDeauthenticate } from './authenticate'
 
 let memoizedSocket    = false
 let pendingConnection = false
@@ -29,7 +29,7 @@ export const connect = (store, next, action, callSocket) => {
     attachListeners(store, next, action, socket, callSocket)
     
     socket.on('connect', data => {
-      console.info('connect', data)
+      if('production' !== process.env.NODE_ENV) console.log('connect', data)
       // yay! lets memoize the socket
       memoizedSocket = socket
       pendingConnection = false
@@ -40,7 +40,7 @@ export const connect = (store, next, action, callSocket) => {
       
       next({ type: SOCKET_SUCCESS, ...data })
       if(socket.authToken) {
-        console.warn('can login user')
+        if('production' !== process.env.NODE_ENV) console.log('can login user')
         
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }

@@ -1,9 +1,9 @@
-import { PropTypes } from 'react';
+/* eslint no-undef: 1 */
 
-const browsers = SUPPORTED_BROWSERS;
-const iconStyle = Object.freeze({height: '64px', width: '64px'});
+const browsers = SUPPORTED_BROWSERS
+const iconStyle = Object.freeze({height: '64px', width: '64px'})
 
-function UnsupportedBrowser({ capabilities }) {
+function UnsupportedBrowser() {
   return <section className="section section--unsupported-browser">
       <h2>Your browser isn't supported</h2>
       {browsers && <p>Recommended browsers:</p>}
@@ -15,7 +15,7 @@ function UnsupportedBrowser({ capabilities }) {
           <img src={`/browser/${browser.name}.svg`} style={iconStyle} />
           <span>{browser.name}</span>
       </a>)}</p>}
-  </section>;
-};
+  </section>
+}
 
-export default UnsupportedBrowser;
+export default UnsupportedBrowser

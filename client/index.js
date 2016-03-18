@@ -5,9 +5,11 @@ import store from './store'
 import { checkCapabilities } from './actions/capabilities'
 import Root from './containers/Root'
 
-console.info('AUTO_RECONNECT_OPTIONS', process.env.AUTO_RECONNECT_OPTIONS);
-global.store = store;
-store.dispatch(checkCapabilities());
+if('production' !== process.env.NODE_ENV) {
+  global.store = store
+}
+
+store.dispatch(checkCapabilities())
 
 render(
   <Root store={store} />,
