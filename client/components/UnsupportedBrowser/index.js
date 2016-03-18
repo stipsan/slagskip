@@ -1,6 +1,6 @@
 /* eslint no-undef: 1 */
 
-const browsers = SUPPORTED_BROWSERS
+const browsers = global.SUPPORTED_BROWSERS
 const iconStyle = Object.freeze({height: '64px', width: '64px'})
 
 function UnsupportedBrowser() {

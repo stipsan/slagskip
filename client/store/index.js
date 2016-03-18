@@ -8,8 +8,8 @@ const store = createStore(
   undefined,
   compose(
     applyMiddleware(thunk, socket),
-    process.env.NODE_ENV !== 'production' && window.devToolsExtension ? 
-      window.devToolsExtension() : 
+    process.env.NODE_ENV !== 'production' && global.devToolsExtension ? 
+      global.devToolsExtension() : 
       f => f
   )
 )
