@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'production' && module.hot) {
 }
 
 if(process.env.NODE_ENV !== 'production') {
-  global.store = store;
+  global.store = store
 }
 
-export default store;
+export default store

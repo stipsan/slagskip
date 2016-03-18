@@ -11,7 +11,7 @@ import {
 
 class FriendRow extends Component {
   state = {
-    pendingForAWhile: true
+    pendingForAWhile: true,
   };
   
   componentWillReceiveProps(nextProps) {

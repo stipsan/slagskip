@@ -1,3 +1,4 @@
+/*eslint no-console: 1 */
 import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
@@ -5,11 +6,10 @@ import {
   SOCKET_FAILURE,
 } from '../../constants/ActionTypes'
 import {
-  loginUser
+  loginUser,
 } from '../../actions'
 import { attachListeners } from './listeners'
 import { subscribeChannels } from './channel'
-import { maybeAuthenticate, maybeDeauthenticate } from './authenticate'
 
 let memoizedSocket    = false
 let pendingConnection = false
@@ -40,7 +40,7 @@ export const connect = (store, next, action, callSocket) => {
       
       next({ type: SOCKET_SUCCESS, ...data })
       if(socket.authToken) {
-        console.warn('can login user')
+        console.info('can login user')
         
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }

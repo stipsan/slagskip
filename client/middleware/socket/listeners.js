@@ -1,6 +1,5 @@
+/*eslint no-console: 1 */
 import { 
-  SOCKET_REQUEST,
-  SOCKET_SUCCESS,
   SOCKET_FAILURE,
   SUBSCRIBE_CHANNEL_REQUEST,
   SUBSCRIBE_CHANNEL_SUCCESS,
@@ -15,11 +14,11 @@ export const attachListeners = (store, next, action, socket) => {
   }
   
   // @TODO purely for debugging
-  socket.on('message', (...args) => console.debug('message', args))
+  socket.on('message', (...args) => console.info('message', args))
 
   // connect.js
   socket.on('disconnect', () => {
-    console.warn('disconnect')
+    console.info('disconnect')
   })
   socket.on('error', data => {
     next({ type: SOCKET_FAILURE, event: 'error', ...data, socket })
@@ -30,19 +29,19 @@ export const attachListeners = (store, next, action, socket) => {
   
   // authenticate.js
   socket.on('authenticate', (...args) => {
-    console.warn('authenticate', ...args);
+    console.info('authenticate', ...args)
   })
   socket.on('deauthenticate', (...args) => {
-    console.warn('deauthenticate', ...args);
+    console.info('deauthenticate', ...args)
   })
   socket.on('authStateChange', data => {
     if(data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
-    console.warn('authStateChange', data);
+    console.info('authStateChange', data)
   })
   
   // channel.js
   socket.on('kickOut', (...args) => {
-    console.warn('kickOut', ...args);
+    console.info('kickOut', ...args)
   })
   socket.on('subscribe', channel => {
     next({ ...action, type: SUBSCRIBE_CHANNEL_SUCCESS, channel, socket })
@@ -51,10 +50,10 @@ export const attachListeners = (store, next, action, socket) => {
     next({ ...action, type: SUBSCRIBE_CHANNEL_FAILURE, channel, socket })
   })
   socket.on('unsubscribe', (...args) => {
-    console.warn('unsubscribe', ...args);
+    console.info('unsubscribe', ...args)
   })
   socket.on('subscribeStateChange', (...args) => {
-    console.warn('subscribeStateChange', ...args);
+    console.info('subscribeStateChange', ...args)
   })
   socket.on('subscribeRequest', channel => {
     next({ ...action,  type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })

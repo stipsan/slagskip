@@ -1,3 +1,4 @@
+/*eslint no-console: 1 */
 //@TODO make this a reusable middleware tailored socketcluster?
 import { connect } from './connect'
 
@@ -29,17 +30,17 @@ export const createCallSocket = (store, next, action, socket) => {
   next(actionWith({ type: requestType }))
 
   return socket.emit(requestType, {...emitData, sender: socket.authToken }, (err, data) => {
-    console.info('socket.emit', requestType, emitData, err, data);
+    console.info('socket.emit', requestType, emitData, err, data)
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({
         type: failureType,
-        error: {type: err, message: data || 'Something bad happened'}
+        error: {type: err, message: data || 'Something bad happened'},
       }))
     } else {
       next(actionWith({
         ...data,
-        type: successType
+        type: successType,
       }))
     }
   })
@@ -49,14 +50,14 @@ export const createCallSocket = (store, next, action, socket) => {
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   
-  const socket = connect(store, next, action, createCallSocket);
+  const socket = connect(store, next, action, createCallSocket)
   // no socket means we're still setting it up, proceed the stack while we wait
   if(!socket) {
     if(!action.type) {
-      console.warn('@TODO queue action while waiting for connect?', action, socket)
+      console.info('@TODO queue action while waiting for connect?', action, socket)
     }
     return action.type && next(action)
   }
   
-  return createCallSocket(store, next, action, socket);
+  return createCallSocket(store, next, action, socket)
 }
