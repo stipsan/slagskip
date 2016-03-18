@@ -121,10 +121,17 @@ html, body {
             width: 1px;
             padding: 0 .4rem;
             color: hsl(88, 50%, 53%);
+            text-align: right;
         }
         .user-name, th {
             text-align: left;
             padding: .2rem 1rem;
+        }
+        .last-visit {
+          font-size: .5em;
+          white-space: nowrap;
+          text-align: right;
+          padding-right: 1em;
         }
         .control-group {
             overflow: hidden;

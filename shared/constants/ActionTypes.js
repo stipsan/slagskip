@@ -17,6 +17,7 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
 // allow manual trigger of reconnect w/o full page reload or waiting for timeout
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
+export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
 
 // attempt login
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -25,12 +26,17 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 // we got a valid authentication and don't need to login
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
+export const RECEIVE_AUTH_STATE_CHANGE = 'RECEIVE_AUTH_STATE_CHANGE'
+export const RECEIVE_AUTHENTICATE = 'RECEIVE_AUTHENTICATE'
+export const RECEIVE_DEAUTHENTICATE = 'RECEIVE_DEAUTHENTICATE'
 
 // setup private and public service channel subs
 export const SUBSCRIBE_CHANNEL_REQUEST = 'SUBSCRIBE_CHANNEL_REQUEST'
 export const SUBSCRIBE_CHANNEL_SUCCESS = 'SUBSCRIBE_CHANNEL_SUCCESS'
 export const SUBSCRIBE_CHANNEL_FAILURE = 'SUBSCRIBE_CHANNEL_FAILURE'
-//export const SUBSCRIBE_CHANNEL_FAILURE = 'SUBSCRIBE_CHANNEL_FAILURE'
+export const RECEIVE_SUBSCRIBE_STATE_CHANGE = 'RECEIVE_SUBSCRIBE_STATE_CHANGE'
+export const RECEIVE_UNSUBSCRIBE_CHANNEL = 'RECEIVE_UNSUBSCRIBE_CHANNEL'
+export const RECEIVE_KICK_OUT = 'RECEIVE_KICK_OUT'
 
 // during alpha everybody is friends, friends lists will come later
 export const RECEIVE_FRIEND = 'RECEIVE_FRIEND'
