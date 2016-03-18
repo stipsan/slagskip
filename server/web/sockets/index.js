@@ -1,3 +1,5 @@
+/*eslint no-console: [2, { allow: ["error"] }] */
+
 module.exports = function(worker){
   
   const scServer = worker.scServer
@@ -30,7 +32,7 @@ module.exports = function(worker){
             type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
             username: user.username,
             id: user.id,
-            online: true
+            online: true,
           })
         },
         error => {

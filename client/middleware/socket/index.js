@@ -30,7 +30,6 @@ export const createCallSocket = (store, next, action, socket) => {
   next(actionWith({ type: requestType }))
 
   return socket.emit(requestType, emitData, (err, data) => {
-    if('production' !== process.env.NODE_ENV) console.log('socket.emit', requestType, emitData, err, data)
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({

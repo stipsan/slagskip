@@ -5,7 +5,12 @@ import FriendRow from './FriendRow'
 import { logoutUser } from '../../actions'
 
 class Friends extends Component {
-  handleLogout = event => this.props.dispatch(logoutUser());
+  static propTypes = {
+    friends: PropTypes.array.isRequired,
+    username: PropTypes.string.isRequired,
+  }
+  
+  handleLogout = () => this.props.dispatch(logoutUser());
   render() {
     const {
       friends,

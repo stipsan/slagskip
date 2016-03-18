@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 
@@ -12,6 +12,16 @@ const initialTitle   = 'Connecting to server…'
 const connectedTitle = 'Socket connected!'
 
 class App extends Component {
+  static propTypes = {
+    connected: PropTypes.bool,
+    disconnected: PropTypes.bool,
+    friends: PropTypes.array,
+    username: PropTypes.string,
+    loggedIn: PropTypes.bool,
+    game: PropTypes.object,
+    supportedBrowser: PropTypes.bool,
+    capabilities: PropTypes.object,
+  }
   
   render() {
     const {
