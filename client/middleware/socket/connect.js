@@ -29,7 +29,7 @@ export const connect = (store, next, action, callSocket) => {
     attachListeners(store, next, action, socket, callSocket)
     
     socket.on('connect', data => {
-      console.log('connect', data)
+      if('production' !== process.env.NODE_ENV) console.log('connect', data)
       // yay! lets memoize the socket
       memoizedSocket = socket
       pendingConnection = false
@@ -40,7 +40,7 @@ export const connect = (store, next, action, callSocket) => {
       
       next({ type: SOCKET_SUCCESS, ...data })
       if(socket.authToken) {
-        console.log('can login user')
+        if('production' !== process.env.NODE_ENV) console.log('can login user')
         
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
