@@ -46,18 +46,18 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     },
     comments: false,
     mangleProps: true,
-  })
+  }),
 ] : [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-    }))
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  })),
 ]
 
 plugins = plugins.concat(new ExtractTextPlugin('[hash].css', {
   allChunks: true,
-  disable: process.env.NODE_ENV !== 'production'
+  disable: process.env.NODE_ENV !== 'production',
 }))
 
 // JSX syntax is transpiled to React.createElement calls with babel, which is why devs
@@ -84,9 +84,9 @@ const babelPlugins = {
       }, {
         'transform': 'react-transform-catch-errors',
         'imports': ['react', 'redbox-react'],
-      }]
-    }]
-  ]
+      }],
+    }],
+  ],
 }
 
 var AssetsPlugin = require('assets-webpack-plugin')
@@ -94,15 +94,15 @@ plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.j
 
 var entry = process.env.NODE_ENV !== 'production' ? {
   client: [
-      'webpack-dev-server/client?http://localhost:8080/',
-      'webpack/hot/dev-server',
-      './client/index'
-    ]
+    'webpack-dev-server/client?http://localhost:8080/',
+    'webpack/hot/dev-server',
+    './client/index',
+  ],
 } : {
-    client: [
-      './client/index'
-    ]
-  }
+  client: [
+    './client/index',
+  ],
+}
 
 module.exports = {
   devtool: 'production' !== process.env.NODE_ENV && 'eval',

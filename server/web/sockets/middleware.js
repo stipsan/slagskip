@@ -1,25 +1,31 @@
+/*eslint no-console: 0 */
+
 module.exports = function(wsServer){
 
-  const TYPES = require('../../constants/ActionTypes');
+  const TYPES = require('../../constants/ActionTypes')
 
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
-      const authToken = req.socket.getAuthToken();
-      console.info('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username);
+      const authToken = req.socket.getAuthToken()
+      console.info('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username)
       if (req.authTokenExpiredError) {
-        next(req.authTokenExpiredError); // Fail with a default auth token expiry error
+        next(req.authTokenExpiredError) // Fail with a default auth token expiry error
       } else if (authToken && authToken.channels.indexOf(req.channel) !== -1) {
         next() // Allow
       } else {
-        next(true); // Block
+        next(true) // Block
         // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
       }
     }
-  );
+  )
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
     function (req, next) {
-      console.info('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, authToken && authToken.username);
+      const authToken = req.socket.getAuthToken()
+      console.info('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, authToken && authToken.username)
+      next()
+      
+      /*
       if (true) {
         next() // Allow
       } else {
@@ -27,13 +33,14 @@ module.exports = function(wsServer){
         //next(err); // Block
         // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
       }
+      //*/
     }
-  );
+  )
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_OUT,
     function (req, next) {
-      const authToken = req.socket.getAuthToken();
-      console.info('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, authToken && authToken.username);
+      const authToken = req.socket.getAuthToken()
+      console.info('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, authToken && authToken.username)
       if(!req.socket.authToken) {
         next(true) // Deny silently
       } else if (req.data.type === TYPES.RECEIVE_FRIEND && req.data.username === req.socket.authToken.username) {
@@ -45,13 +52,16 @@ module.exports = function(wsServer){
         // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
       }
     }
-  );
+  )
   
   wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
     function (req, next) {
-      const authToken = req.socket.getAuthToken();
+      const authToken = req.socket.getAuthToken()
       // only LOGIN_REQUEST unless authToken
-      console.info('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username);
+      console.info('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username)
+      
+      next()
+      /*
       if (true) {
         next() // Allow
       } else {
@@ -59,7 +69,8 @@ module.exports = function(wsServer){
         //next(err); // Block
         // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
       }
+      //*/
     }
-  );
+  )
 
-};
+}
