@@ -6,7 +6,7 @@ const capabilities = (state = {}, action) => {
   case TYPE.CHECK_CAPABILITIES:
     return {
       ...state,
-      websocket: !!window.WebSocket,
+      websocket: !!global.WebSocket,
     }
   default:
     return state
