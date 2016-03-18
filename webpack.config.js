@@ -70,25 +70,6 @@ plugins = plugins.concat(new webpack.ProvidePlugin({
   React: 'react',
 }))
 
-const babelPlugins = {
-  'production': [
-    'transform-react-constant-elements',
-    'transform-react-inline-elements',
-  ],
-  'development':  [
-    ['react-transform', {
-      'transforms': [{
-        'transform': 'react-transform-hmr',
-        'imports': ['react'],
-        'locals': ['module'],
-      }, {
-        'transform': 'react-transform-catch-errors',
-        'imports': ['react', 'redbox-react'],
-      }],
-    }],
-  ],
-}
-
 var AssetsPlugin = require('assets-webpack-plugin')
 plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}))
 
@@ -126,14 +107,7 @@ module.exports = {
         { test: /\.json$/, loader: 'json'},
     ],
     loaders: [
-      {
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          'plugins': babelPlugins[process.env.NODE_ENV === 'development' ? 'development' : 'production'],
-        },
-      },
+      { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') },
     ],
   },

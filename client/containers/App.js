@@ -2,8 +2,6 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 
-import { connectSocket } from '../actions'
-
 import Disconnected from '../components/Disconnected'
 import Game from '../components/Game'
 import Lobby from '../components/Lobby'
@@ -14,10 +12,6 @@ const initialTitle   = 'Connecting to server…'
 const connectedTitle = 'Socket connected!'
 
 class App extends Component {
-
-  componentWillMount() {
-    this.props.dispatch(connectSocket())
-  }
   
   render() {
     const {
@@ -33,7 +27,7 @@ class App extends Component {
 
     return <DocumentTitle title={connected ? connectedTitle : initialTitle}>
       <div className="page">
-        <Lobby friends={friends} username={username} />
+        {loggedIn && <Lobby friends={friends} username={username} />}
         {game && <Game loggedIn={loggedIn} username={username} />}
         {!loggedIn && <Login />}
         {disconnected && <Disconnected username={username} connected={connected} />}
@@ -49,7 +43,7 @@ const mapFriendsStateToProps = ({
   invites,
 }) => {
   return friends.map(friend => {
-    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username)}
+    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username), online: friend.online * 1}
   })
 }
 

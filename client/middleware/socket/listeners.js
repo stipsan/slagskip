@@ -4,6 +4,13 @@ import {
   SUBSCRIBE_CHANNEL_REQUEST,
   SUBSCRIBE_CHANNEL_SUCCESS,
   SUBSCRIBE_CHANNEL_FAILURE,
+  RECEIVE_SUBSCRIBE_STATE_CHANGE,
+  RECEIVE_UNSUBSCRIBE_CHANNEL,
+  RECEIVE_KICK_OUT,
+  RECEIVE_AUTH_STATE_CHANGE,
+  RECEIVE_AUTHENTICATE,
+  RECEIVE_DEAUTHENTICATE,
+  SOCKET_DISCONNECT,
   LOGOUT_SUCCESS,
 } from '../../constants/ActionTypes'
 
@@ -18,7 +25,7 @@ export const attachListeners = (store, next, action, socket) => {
 
   // connect.js
   socket.on('disconnect', () => {
-    if('production' !== process.env.NODE_ENV) console.log('disconnect')
+    next({ type: SOCKET_DISCONNECT, socket })
   })
   socket.on('error', data => {
     next({ type: SOCKET_FAILURE, event: 'error', ...data, socket })
@@ -29,34 +36,34 @@ export const attachListeners = (store, next, action, socket) => {
   
   // authenticate.js
   socket.on('authenticate', (...args) => {
-    if('production' !== process.env.NODE_ENV) console.log('authenticate', ...args)
+    next({ ...args, type: RECEIVE_AUTHENTICATE, socket })
   })
   socket.on('deauthenticate', (...args) => {
-    if('production' !== process.env.NODE_ENV) console.log('deauthenticate', ...args)
+    next({ ...args, type: RECEIVE_DEAUTHENTICATE, socket })
   })
   socket.on('authStateChange', data => {
     if(data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
-    if('production' !== process.env.NODE_ENV) console.log('authStateChange', data)
+    else next({ ...data, type: RECEIVE_AUTH_STATE_CHANGE, socket })
   })
   
   // channel.js
   socket.on('kickOut', (...args) => {
-    if('production' !== process.env.NODE_ENV) console.log('kickOut', ...args)
+    next({ ...args, type: RECEIVE_KICK_OUT, socket })
   })
   socket.on('subscribe', channel => {
-    next({ ...action, type: SUBSCRIBE_CHANNEL_SUCCESS, channel, socket })
+    next({ type: SUBSCRIBE_CHANNEL_SUCCESS, channel, socket })
   })
   socket.on('subscribeFail', (err, channel) => {
-    next({ ...action, type: SUBSCRIBE_CHANNEL_FAILURE, channel, socket })
+    next({ type: SUBSCRIBE_CHANNEL_FAILURE, error: err, channel, socket })
   })
   socket.on('unsubscribe', (...args) => {
-    if('production' !== process.env.NODE_ENV) console.log('unsubscribe', ...args)
+    next({ ...args, type: RECEIVE_UNSUBSCRIBE_CHANNEL, socket })
   })
   socket.on('subscribeStateChange', (...args) => {
-    if('production' !== process.env.NODE_ENV) console.log('subscribeStateChange', ...args)
+    next({ ...args, type: RECEIVE_SUBSCRIBE_STATE_CHANGE, socket })
   })
   socket.on('subscribeRequest', channel => {
-    next({ ...action,  type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })
+    next({ type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })
   })
 }
 

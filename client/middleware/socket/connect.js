@@ -29,7 +29,6 @@ export const connect = (store, next, action, callSocket) => {
     attachListeners(store, next, action, socket, callSocket)
     
     socket.on('connect', data => {
-      if('production' !== process.env.NODE_ENV) console.log('connect', data)
       // yay! lets memoize the socket
       memoizedSocket = socket
       pendingConnection = false
@@ -38,10 +37,8 @@ export const connect = (store, next, action, callSocket) => {
       const channels = authToken && authToken.channels || undefined
       subscribeChannels(store, next, action, socket, channels)
       
-      next({ type: SOCKET_SUCCESS, ...data })
-      if(socket.authToken) {
-        if('production' !== process.env.NODE_ENV) console.log('can login user')
-        
+      next({ type: SOCKET_SUCCESS, ...data, socket })
+      if(socket.authToken) {        
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })

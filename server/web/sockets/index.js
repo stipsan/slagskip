@@ -24,12 +24,14 @@ module.exports = function(worker){
         user => {          
           //console.log(TYPES.LOGIN_SUCCESS, user);
           res(null, Object.assign({type: TYPES.LOGIN_SUCCESS}, user))
-          socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`]})
+          socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`], id: user.id})
           //socket.broadcast.emit('join', data);
-          scServer.exchange.publish('service', Object.assign(
-            { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
-            data
-          ))
+          scServer.exchange.publish('service', {
+            type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
+            username: user.username,
+            id: user.id,
+            online: true
+          })
         },
         error => {
           //console.log(TYPES.LOGIN_FAILURE, error);
@@ -131,7 +133,7 @@ module.exports = function(worker){
             )
           )
           socket.deauthenticate()
-          //kickOut([channel, message, callback])
+          //socket.kickOut([channel, message, callback])
         },
         error => {
           //console.log(TYPES.LOGOUT_FAILURE, error);
@@ -140,6 +142,25 @@ module.exports = function(worker){
         }
       )
       
+    })
+    
+    socket.on('disconnect', () => {
+      if(socket.authToken) {
+        database.logoutUser(socket.authToken, data => {
+          //console.log(TYPES.LOGOUT_SUCCESS, data);
+          scServer.exchange.publish(
+            'service',
+            Object.assign(
+              { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
+              data
+            )
+          )
+        },
+        error => {
+          //console.log(TYPES.LOGOUT_FAILURE, error);
+          console.error(TYPES.LOGOUT_FAILURE, error)
+        })
+      }
     })
     
   })

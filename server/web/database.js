@@ -96,6 +96,7 @@ function fetchUser(id, data, success, failure) {
         friends,
         invites,
         requests,
+        online: true,
       })
     })
   })

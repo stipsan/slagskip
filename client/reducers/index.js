@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 import * as TYPE from '../constants/ActionTypes'
 
-const capabilities = (state = {}, action) => {
+const capabilities = (state = {
+  websocket: true,
+}, action) => {
   switch (action.type) {
   case TYPE.CHECK_CAPABILITIES:
     return {
@@ -52,16 +54,23 @@ export const viewer = (state = {username: '', loggedIn: false}, action) => {
 }
 
 
+
+const defaultFriend = {
+  online: false,
+  lastVisit: null,
+}
+
 const friends = (state = [], action) => {
   switch (action.type) {
   case TYPE.LOGIN_SUCCESS:
     return action.friends.map(friend => {
-      return { connected: false, ...friend }
+      return { ...defaultFriend, ...friend }
     })
   case TYPE.RECEIVE_FRIEND:
     return [
       ...state,
       {
+        ...defaultFriend,
         username: action.username,
         online: action.online,
       },
