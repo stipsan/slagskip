@@ -88,9 +88,9 @@ redis.multi([
     )
 
     if(migrations.length > 0) {
-      console.info('Ran the following migrations:')
+      console.log('Ran the following migrations:')
     } else {
-      console.info('Nothing to migrate')
+      console.log('Nothing to migrate')
     }
     const multi = redis.multi(), total = migrations.length
     for (var i = 0; i < total;i++) {
@@ -113,7 +113,7 @@ redis.multi([
       }
       const key = `migration:${ i + migration_next }`
       multi.set(key, (new Date).toJSON())
-      console.info(key)
+      console.log(key)
     }
     multi.set('migration_next', i + migration_next)
     multi.exec(() => redis.quit())

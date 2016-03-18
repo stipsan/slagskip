@@ -14,11 +14,11 @@ export const attachListeners = (store, next, action, socket) => {
   }
   
   // @TODO purely for debugging
-  socket.on('message', (...args) => console.info('message', args))
+  socket.on('message', (...args) => console.log('message', args))
 
   // connect.js
   socket.on('disconnect', () => {
-    console.info('disconnect')
+    console.log('disconnect')
   })
   socket.on('error', data => {
     next({ type: SOCKET_FAILURE, event: 'error', ...data, socket })
@@ -29,19 +29,19 @@ export const attachListeners = (store, next, action, socket) => {
   
   // authenticate.js
   socket.on('authenticate', (...args) => {
-    console.info('authenticate', ...args)
+    console.log('authenticate', ...args)
   })
   socket.on('deauthenticate', (...args) => {
-    console.info('deauthenticate', ...args)
+    console.log('deauthenticate', ...args)
   })
   socket.on('authStateChange', data => {
     if(data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
-    console.info('authStateChange', data)
+    console.log('authStateChange', data)
   })
   
   // channel.js
   socket.on('kickOut', (...args) => {
-    console.info('kickOut', ...args)
+    console.log('kickOut', ...args)
   })
   socket.on('subscribe', channel => {
     next({ ...action, type: SUBSCRIBE_CHANNEL_SUCCESS, channel, socket })
@@ -50,10 +50,10 @@ export const attachListeners = (store, next, action, socket) => {
     next({ ...action, type: SUBSCRIBE_CHANNEL_FAILURE, channel, socket })
   })
   socket.on('unsubscribe', (...args) => {
-    console.info('unsubscribe', ...args)
+    console.log('unsubscribe', ...args)
   })
   socket.on('subscribeStateChange', (...args) => {
-    console.info('subscribeStateChange', ...args)
+    console.log('subscribeStateChange', ...args)
   })
   socket.on('subscribeRequest', channel => {
     next({ ...action,  type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })

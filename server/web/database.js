@@ -30,7 +30,7 @@ function createUser(username, success, failure) {
 }
 
 function userInviteFriend(data, success, failure) {
-  //console.info('userInviteFriend', data);
+  //console.log('userInviteFriend', data);
   redis.hget('users', data.user.username).then(id => {
     if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
     
@@ -78,7 +78,7 @@ function fetchUser(id, data, success, failure) {
         ...previousValue,
         ['hgetall', `user:${users[currentValue]}`],
       ], [])
-    //console.info('hgetallFriends', hgetallFriends);
+    //console.log('hgetallFriends', hgetallFriends);
     redis.multi(hgetallFriends).exec((err, hgetallFriendsResults) => {
       // @TODO investigate if error handling is correct here
       if(err) return failure(err)
@@ -88,7 +88,7 @@ function fetchUser(id, data, success, failure) {
           ...previousValue,
           Object.assign(currentValue[1], {id: users[index]}),
         ], [])
-      //console.info('hgetallFriends.multi', friends);
+      //console.log('hgetallFriends.multi', friends);
       
       success({
         username: data.username,
@@ -113,7 +113,7 @@ function loginUser(data, success, failure) {
     //if(id < 1) return failure({message: `User '${data.username}' does not exist!`});
     
     
-    //console.info('loginUser', data.username, id);
+    //console.log('loginUser', data.username, id);
   })
 }
 

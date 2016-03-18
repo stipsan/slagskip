@@ -7,7 +7,7 @@ module.exports = function(wsServer){
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
-      console.info('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username)
+      console.log('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username)
       if (req.authTokenExpiredError) {
         next(req.authTokenExpiredError) // Fail with a default auth token expiry error
       } else if (authToken && authToken.channels.indexOf(req.channel) !== -1) {
@@ -22,7 +22,7 @@ module.exports = function(wsServer){
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
-      console.info('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, authToken && authToken.username)
+      console.log('middleware.MIDDLEWARE_PUBLISH_IN', req.channel, req.data, authToken && authToken.username)
       next()
       
       /*
@@ -40,7 +40,7 @@ module.exports = function(wsServer){
   wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_OUT,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
-      console.info('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, authToken && authToken.username)
+      console.log('middleware.MIDDLEWARE_PUBLISH_OUT', req.channel, req.data, authToken && authToken.username)
       if(!req.socket.authToken) {
         next(true) // Deny silently
       } else if (req.data.type === TYPES.RECEIVE_FRIEND && req.data.username === req.socket.authToken.username) {
@@ -58,7 +58,7 @@ module.exports = function(wsServer){
     function (req, next) {
       const authToken = req.socket.getAuthToken()
       // only LOGIN_REQUEST unless authToken
-      console.info('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username)
+      console.log('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username)
       
       next()
       /*

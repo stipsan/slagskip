@@ -30,7 +30,7 @@ export const createCallSocket = (store, next, action, socket) => {
   next(actionWith({ type: requestType }))
 
   return socket.emit(requestType, {...emitData, sender: socket.authToken }, (err, data) => {
-    console.info('socket.emit', requestType, emitData, err, data)
+    console.log('socket.emit', requestType, emitData, err, data)
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({
@@ -54,7 +54,7 @@ export default store => next => action => {
   // no socket means we're still setting it up, proceed the stack while we wait
   if(!socket) {
     if(!action.type) {
-      console.info('@TODO queue action while waiting for connect?', action, socket)
+      console.log('@TODO queue action while waiting for connect?', action, socket)
     }
     return action.type && next(action)
   }
