@@ -6,6 +6,7 @@ import Login from '../components/Login'
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   redirectAfterLogin: state.auth.redirectAfterLogin,
+  isRequestPending: state.auth.authState === 'pending',
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -3,6 +3,7 @@ import { replace } from 'react-router-redux'
 import Disconnected from '../../containers/Disconnected'
 import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
 import Loading from '../Loading'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 function shouldCheckAuth ({
   maybeRedirectToLogin,
@@ -27,10 +28,10 @@ export default class App extends Component {
   
   render() {
     const { connected, disconnected, supportedBrowser, children } = this.props
-    return <div className="page">
-      {connected && supportedBrowser && children || <Loading />}
+    return <ReactCSSTransitionGroup className="page" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div> || <Loading />}
       {disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
-    </div>
+    </ReactCSSTransitionGroup>
   }
 }

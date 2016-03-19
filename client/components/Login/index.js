@@ -16,6 +16,7 @@ export default class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
     maybeRestoreLocation: PropTypes.func.isRequired,
+    isRequestPending: PropTypes.bool.isRequired,
   };
 
   handleSubmit = event => {
@@ -33,11 +34,18 @@ export default class Login extends Component {
 
   render(){
     const { handleSubmit } = this
+    const { isRequestPending } = this.props
     return <section className="section section--login">
-      <form onSubmit={handleSubmit}>
-        <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} />
-        <button type="submit">{buttonLabel}</button>
+      <h1 className="request-pending-message" style={{opacity: isRequestPending ? 1 : 0}}>
+        Logging in…
+      </h1>
+      <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>
+        <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
+        <button type="submit" disabled={isRequestPending}>
+          {buttonLabel}
+        </button>
       </form>
+      <div></div>
     </section>
   }
 }

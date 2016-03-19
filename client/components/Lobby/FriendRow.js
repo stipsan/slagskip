@@ -95,7 +95,6 @@ class FriendRow extends Component {
     const canAcceptInvite = localState === CAN_ACCEPT_INVITE
     const canCancelPending = localState === CAN_CANCEL_PENDING
     const canInviteFriend = localState === CAN_INVITE_FRIEND
-    
  
     return <tr className={className({ online })}>
       <td className="user-name">{username}</td>

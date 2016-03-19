@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux'
 import FriendRow from './FriendRow'
+import Logoutbar from './Logoutbar'
 import { logoutUser } from '../../actions'
 
 class Friends extends Component {
@@ -20,7 +21,7 @@ class Friends extends Component {
 
     return <DocumentTitle title={username ? `${username} - Lobby` : null}>
       <section className="section section--lobby">
-        <header><h2>Welcome, {username}! <button onClick={handleLogout}>Logout</button></h2></header>
+        <Logoutbar username={username} handleLogout={handleLogout} />
         {!friends.length && <h3>Nobody here yet but you!</h3>}
         <table className="users">
           <thead>
