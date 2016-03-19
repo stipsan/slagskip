@@ -52,14 +52,14 @@ function userAcceptInvite(data, success, failure) {
   redis.hget('users', data.user.username).then(id => {
     if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
     
-    redis.sadd(`user:${id}:invites`, data.friend.username)
-    redis.expire(`user:${id}:invites`, INVITE_EXPIRE)
+    redis.sadd(`user:${id}:requests`, data.friend.username)
+    redis.expire(`user:${id}:requests`, INVITE_EXPIRE)
     redis.hget('users', data.friend.username).then(id => {
       if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`})
       
       
-      redis.sadd(`user:${id}:requests`, data.user.username)
-      redis.expire(`user:${id}:requests`, INVITE_EXPIRE)
+      redis.sadd(`user:${id}:invites`, data.user.username)
+      redis.expire(`user:${id}:invites`, INVITE_EXPIRE)
       success(id)
     })
   })
