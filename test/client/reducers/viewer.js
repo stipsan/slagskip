@@ -9,7 +9,7 @@ describe('viewer reducer', () => {
     ).toEqual(
       {
         username: '',
-        loggedIn: false,
+        isAuthenticated: false,
       }
     )
   })
@@ -22,7 +22,7 @@ describe('viewer reducer', () => {
     ).toEqual(
       {
         username: 'Foo',
-        loggedIn: true,
+        isAuthenticated: true,
       }
     )
   })
@@ -32,7 +32,7 @@ describe('viewer reducer', () => {
     ).toEqual(
       {
         username: '',
-        loggedIn: false,
+        isAuthenticated: false,
       }
     )
   })
