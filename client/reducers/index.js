@@ -81,6 +81,13 @@ export const auth = (state = {
       ...state,
       redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin
     }
+  case TYPE.RECEIVE_DEAUTHENTICATE:
+    return {
+      ...state,
+      isAuthenticated: false,
+      authState: 'unauthenticated',
+      authToken: null,
+    }
   default:
     return state
   }

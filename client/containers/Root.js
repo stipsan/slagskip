@@ -4,6 +4,8 @@ import { Router, Route, browserHistory, Link, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, replace } from 'react-router-redux'
 import Index from './Index'
 import Login from './Login'
+import Lobby from '../components/Lobby'
+import NotFound from '../components/NotFound'
 
 function Foo() {
   return <section className="section section--foo">
@@ -26,6 +28,14 @@ function Dashboard() {
 }
 
 class App extends Component {
+  componentWillMount () {
+    this.props.checkAuth(this.props.isAuthenticated, this.props.location.pathname);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.props.checkAuth(nextProps.isAuthenticated, nextProps.location.pathname);
+  }
+  
   render() {
     const { connected, disconnnected, supportedBrowser, children } = this.props
     return <div className="page">
@@ -41,9 +51,16 @@ const AppContainer = connect(
       connected: state.connected,
       disconnected: state.disconnected,
       supportedBrowser: state.capabilities.websocket,
+      isAuthenticated: state.auth.isAuthenticated,
     }
   },
-  null,
+  dispatch => ({
+    checkAuth: (isAuthenticated, pathname) => {
+      if (!isAuthenticated && pathname !== '/login') {
+          dispatch(replace({ pathname: '/login' }));
+      }
+    }
+  }),
 )(App)
 
 function onEnter(nextState, replace) {
@@ -90,9 +107,9 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={AppContainer} onEnter={checkAuth}>
-            <IndexRoute component={Index} />
+            <IndexRoute component={Lobby} />
             <Route path="login" component={Login} />
-            <Route path="*" component={Index}/>
+            <Route path="*" component={NotFound}/>
           </Route>
         </Router>
       </Provider>

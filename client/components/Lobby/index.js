@@ -45,4 +45,19 @@ class Friends extends Component {
   }
 }
 
-export default connect()(Friends)
+const mapFriendsStateToProps = ({
+  friends,
+  requests,
+  invites,
+}) => {
+  return friends.map(friend => {
+    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username), online: friend.online * 1}
+  })
+}
+
+export default connect(state => {
+  return {
+    friends: mapFriendsStateToProps(state),
+    username: state.viewer.username,
+  }
+})(Friends)
