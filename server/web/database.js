@@ -23,7 +23,7 @@ function createUser(username, success, failure) {
       redis.hsetnx(`user:${id}`, 'username', username).then(result => {
         if(result === 0) return failure({message: `User id '${id}' already taken by another user!`})
         
-        
+        success(id)
       })
     })
   })
