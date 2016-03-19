@@ -14,12 +14,6 @@ function Foo() {
   </section>
 }
 
-function Bar() {
-  return <section className="section section--bar">
-    <h1>Bar</h1>
-    <Link to="/">Home</Link>
-  </section>
-}
 function Dashboard() {
   return <section className="section section--dashboard">
     <h1>Dashboard</h1>
@@ -70,42 +64,13 @@ const AppContainer = connect(
   }),
 )(App)
 
-function onEnter(nextState, replace) {
-  console.log('onEnter', this.constructor.name, nextState)
-}
-function onEnter1(nextState, replace) {
-  console.log('onEnter1', this.constructor.name, nextState)
-}
-function onEnter2(nextState, replace) {
-  console.log('onEnter2', this.constructor.name, nextState)
-}
-
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
   }
-  
-  checkAuth = (nextState, replace) => {
-    const { auth: { isAuthenticated } } = this.props.store.getState()
-    const { location: { pathname } } = nextState
-    
-    console.log('checkAuth', nextState, isAuthenticated)
-    
-    if (!isAuthenticated && pathname !== '/login') {
-      
-      replace({
-        pathname: '/login',
-        state: { redirectAfterLogin: pathname }
-      })
-        //let redirectAfterLogin = this.props.location.pathname;
-        //this.props
-        //    .dispatch(pushState(null, `/login?next=${redirectAfterLogin}`));
-    }
-  }
 
   render() {
     const { store } = this.props
-    const { checkAuth } = this
     
     // Create an enhanced history that syncs navigation events with the store
     const history = syncHistoryWithStore(browserHistory, store)
