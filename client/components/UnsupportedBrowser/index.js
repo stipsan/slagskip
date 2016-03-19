@@ -1,3 +1,4 @@
+import { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
 
 const iconStyle = Object.freeze({height: '64px', width: '64px'})
@@ -17,6 +18,9 @@ function UnsupportedBrowser({ browsers }) {
       </a>)}</p>}
     </section>
   </DocumentTitle>
+}
+UnsupportedBrowser.propTypes = {
+  browsers: PropTypes.array.isRequired,
 }
 
 export default UnsupportedBrowser

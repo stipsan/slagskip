@@ -17,6 +17,13 @@ export default class App extends Component {
 
   componentWillMount = shouldCheckAuth
   componentWillReceiveProps = shouldCheckAuth
+
+  static propTypes = {
+    connected: PropTypes.bool.isRequired,
+    disconnected: PropTypes.bool.isRequired,
+    supportedBrowser: PropTypes.bool.isRequired,
+    children: PropTypes.element.isRequired,
+  }
   
   render() {
     const { connected, disconnected, supportedBrowser, children } = this.props

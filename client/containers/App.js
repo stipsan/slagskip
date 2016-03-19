@@ -13,10 +13,9 @@ export default connect(
   },
   dispatch => ({
     maybeRedirectToLogin: (connected, isAuthenticated, { pathname, ...redirectAfterLogin }) => {
-      console.log(`connected ${connected}, isAuthenticated ${isAuthenticated}, pathname ${pathname}`)
       if (connected && !isAuthenticated && pathname !== '/login') {
-          dispatch(redirectToLogin({ pathname, ...redirectAfterLogin }));
+        dispatch(redirectToLogin({ pathname, ...redirectAfterLogin }))
       }
-    }
+    },
   }),
 )(App)

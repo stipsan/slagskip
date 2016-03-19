@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { replace } from 'react-router-redux'
 import { loginUser, restoreLocation } from '../actions'
 
 import Login from '../components/Login'
@@ -7,7 +6,7 @@ import Login from '../components/Login'
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   redirectAfterLogin: state.auth.redirectAfterLogin,
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   onLogin: (username) => {
@@ -16,11 +15,11 @@ const mapDispatchToProps = dispatch => ({
   maybeRestoreLocation: (isAuthenticated, redirectAfterLogin = {}) => {
     const location = {
       pathname: '/',
-      ...redirectAfterLogin
+      ...redirectAfterLogin,
     }
     
     if (isAuthenticated && location.pathname !== '/login') {
-      dispatch(restoreLocation(location));
+      dispatch(restoreLocation(location))
     }
   },
 })
