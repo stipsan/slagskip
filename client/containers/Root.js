@@ -7,7 +7,6 @@ import App from './App'
 import Lobby from '../components/Lobby'
 import NotFound from '../components/NotFound'
 
-
 const Root = ({ store }) => {
   
   // Create an enhanced history that syncs navigation events with the store

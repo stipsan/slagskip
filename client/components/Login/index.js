@@ -4,10 +4,18 @@ import { connect } from 'react-redux'
 const placeholderLabel = 'Username'
 const buttonLabel = 'Enter'
 
-class Login extends Component {
+function shouldCheckAuth ({
+  maybeRestoreLocation,
+  isAuthenticated,
+  redirectAfterLogin,
+} = this.props) {
+  return maybeRestoreLocation(isAuthenticated, redirectAfterLogin)
+}
+
+export default class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
-    checkAuth: PropTypes.func.isRequired,
+    maybeRestoreLocation: PropTypes.func.isRequired,
   };
 
   handleSubmit = event => {
@@ -16,15 +24,8 @@ class Login extends Component {
     this.props.onLogin(this._input.value)
   }
   
-  componentWillMount () {
-    const { isAuthenticated, redirectAfterLogin } = this.props
-    this.props.checkAuth(isAuthenticated, redirectAfterLogin);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const { isAuthenticated, redirectAfterLogin } = nextProps
-    this.props.checkAuth(isAuthenticated, redirectAfterLogin);
-  }
+  componentWillMount = shouldCheckAuth
+  componentWillReceiveProps = shouldCheckAuth
   
   componentDidMount() {
     this._input.focus()
@@ -40,5 +41,3 @@ class Login extends Component {
     </section>
   }
 }
-
-export default connect()(Login)

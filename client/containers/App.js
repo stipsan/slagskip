@@ -1,35 +1,6 @@
-import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { checkAuth } from '../actions'
-import { replace } from 'react-router-redux'
-import Disconnected from '../components/Disconnected'
-import UnsupportedBrowser from '../components/UnsupportedBrowser'
-
-class App extends Component {
-
-  componentWillReceiveProps (nextProps) {
-    const {
-      connected,
-      checkAuth: callCheckAuth,
-      isAuthenticated,
-      dispatch,
-      location: redirectAfterLogin
-    } = nextProps
-    
-    if(connected) {
-      checkAuth(isAuthenticated, redirectAfterLogin)
-    }
-  }
-  
-  render() {
-    const { connected, disconnnected, supportedBrowser, children } = this.props
-    return <div className="page">
-      {connected && supportedBrowser && children}
-      {!connected && supportedBrowser && <h1></h1>/*@TODO add loading indicator*/}
-      {!supportedBrowser && <h1>Unsupported browser</h1>}
-    </div>
-  }
-}
+import { redirectToLogin } from '../actions'
+import App from '../components/App'
 
 export default connect(
   state => {
@@ -41,6 +12,11 @@ export default connect(
     }
   },
   dispatch => ({
-    checkAuth,
+    maybeRedirectToLogin: (connected, isAuthenticated, { pathname, ...redirectAfterLogin }) => {
+      console.log(`connected ${connected}, isAuthenticated ${isAuthenticated}, pathname ${pathname}`)
+      if (connected && !isAuthenticated && pathname !== '/login') {
+          dispatch(redirectToLogin({ pathname, ...redirectAfterLogin }));
+      }
+    }
   }),
 )(App)

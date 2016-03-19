@@ -13,12 +13,16 @@ const mapDispatchToProps = dispatch => ({
   onLogin: (username) => {
     dispatch(loginUser(username))
   },
-  checkAuth: (isAuthenticated, redirectAfterLogin) => {
-    console.log('checkAuth',dispatch, isAuthenticated, redirectAfterLogin);
-    if (isAuthenticated) {
-        dispatch(replace({ ...redirectAfterLogin }));
+  maybeRestoreLocation: (isAuthenticated, redirectAfterLogin = {}) => {
+    const location = {
+      pathname: '/',
+      ...redirectAfterLogin
     }
-  }
+    
+    if (isAuthenticated && location.pathname !== '/login') {
+      dispatch(restoreLocation(location));
+    }
+  },
 })
 
 // move this to grandchildren so the root don't need to subscribe to Redux
