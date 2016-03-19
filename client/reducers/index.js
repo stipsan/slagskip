@@ -1,3 +1,4 @@
+import { routerReducer, LOCATION_CHANGE } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import * as TYPE from '../constants/ActionTypes'
 
@@ -34,19 +35,51 @@ const disconnected = (state = false, action) => {
   }
 }
 
-export const viewer = (state = {username: '', loggedIn: false}, action) => {
+export const viewer = (state = {username: '', isAuthenticated: false}, action) => {
   switch (action.type) {
   case TYPE.LOGIN_SUCCESS:
     return {
       ...state,
-      loggedIn: true,
+      isAuthenticated: true,
       username: action.username,
     }
   case TYPE.LOGOUT_SUCCESS:
     return {
       ...state,
-      loggedIn: false,
+      isAuthenticated: false,
       username: '',
+    }
+  default:
+    return state
+  }
+}
+
+
+// state can be authenticated, pending or unauthenticated
+export const auth = (state = {
+  isAuthenticated: false,
+  authState: 'pending',
+  authToken: null,
+  redirectAfterLogin: '/',
+}, action) => {
+  switch (action.type) {
+  case TYPE.SOCKET_SUCCESS:
+    return {
+      ...state,
+      isAuthenticated: action.isAuthenticated,
+      authState: action.isAuthenticated ? 'authenticated' : 'unauthenticated',
+    }
+  case TYPE.RECEIVE_AUTH_STATE_CHANGE:
+    return {
+      ...state,
+      isAuthenticated: action.newState === 'authenticated',
+      authState: action.newState,
+      authToken: action.authToken,
+    }
+  case LOCATION_CHANGE:
+    return {
+      ...state,
+      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin
     }
   default:
     return state
@@ -138,6 +171,8 @@ export default combineReducers({
   viewer,
   friends,
   invites,
+  auth,
   requests,
   capabilities,
+  routing: routerReducer,
 })

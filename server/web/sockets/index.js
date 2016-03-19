@@ -1,3 +1,5 @@
+/*eslint no-console: [2, { allow: ["error"] }] */
+
 module.exports = function(worker){
   
   const scServer = worker.scServer
@@ -30,7 +32,7 @@ module.exports = function(worker){
             type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
             username: user.username,
             id: user.id,
-            online: true
+            online: true,
           })
         },
         error => {
@@ -86,34 +88,52 @@ module.exports = function(worker){
     })
     
     socket.on(TYPES.CANCEL_GAME_INVITE_REQUEST, function(friend, res) {
-      //console.log('decline', friend);
-      // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username
-      scServer.exchange.publish(`user:${friend.id}`, {
-        type: TYPES.RECEIVE_GAME_INVITE_CANCELLED,
-        username,
+      database.userCancelInvite({
+        user: {username},
+        friend,
+      }, id => {
+        scServer.exchange.publish(`user:${friend.id}`, {
+          type: TYPES.RECEIVE_GAME_INVITE_CANCELLED,
+          username,
+        })
+        res(null, friend)
+        
+      }, err => {
+        res(TYPES.CANCEL_GAME_INVITE_FAILURE, err)
       })
-      res(null, friend)
     })
     socket.on(TYPES.DECLINE_GAME_INVITE_REQUEST, function(friend, res) {
-      //console.log('decline', friend);
-      // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username
-      scServer.exchange.publish(`user:${friend.id}`, {
-        type: TYPES.RECEIVE_GAME_INVITE_DECLINED,
-        username,
+      database.userDeclineInvite({
+        user: {username},
+        friend,
+      }, id => {
+        scServer.exchange.publish(`user:${friend.id}`, {
+          type: TYPES.RECEIVE_GAME_INVITE_DECLINED,
+          username,
+        })
+        res(null, friend)
+        
+      }, err => {
+        res(TYPES.DECLINE_GAME_INVITE_FAILURE, err)
       })
-      res(null, friend)
     })
     socket.on(TYPES.ACCEPT_GAME_INVITE_REQUEST, function(friend, res) {
-      //console.log('accept', friend);
-      // @TODO guard emits in middleware to ensure only authenticated requests come through
       const username = socket.authToken.username
-      scServer.exchange.publish(`user:${friend.id}`, {
-        type: TYPES.RECEIVE_GAME_INVITE_ACCEPTED,
-        username,
+      database.userAcceptInvite({
+        user: {username},
+        friend,
+      }, id => {
+        scServer.exchange.publish(`user:${friend.id}`, {
+          type: TYPES.RECEIVE_GAME_INVITE_ACCEPTED,
+          username,
+        })
+        res(null, friend)
+        
+      }, err => {
+        res(TYPES.ACCEPT_GAME_INVITE_FAILURE, err)
       })
-      res(null, friend)
     })
     
     socket.on(TYPES.LOGOUT_REQUEST, function (user, res) {

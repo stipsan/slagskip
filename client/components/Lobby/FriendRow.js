@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import className from 'classnames'
 import TimeAgo from 'react-timeago'
@@ -35,11 +35,18 @@ const getLocalState = (invited, pending) => {
     return CAN_INVITE_FRIEND
   }
 }
-const compareLocalState = (state, compare, ifSuccess, ifFalse = false) =>
-  state === compare ? ifSuccess : ifFalse
 
 class FriendRow extends Component {
-  handleYes = event => {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    invited: PropTypes.bool,
+    pending: PropTypes.bool,
+    online: PropTypes.bool,
+    lastVisit: PropTypes.string,
+  }
+  
+  handleYes = () => {
     const {
       id,
       username,
@@ -52,15 +59,15 @@ class FriendRow extends Component {
     const localState = getLocalState(invited, pending)
     
     switch (localState) {
-      case CAN_LAUNCH_GAME:
-        return dispatch(newGame(data))
-      case CAN_ACCEPT_INVITE:
-        return dispatch(acceptGameInvite(data))
-      case CAN_INVITE_FRIEND:
-        return dispatch(gameInvite(data))
+    case CAN_LAUNCH_GAME:
+      return dispatch(newGame(data))
+    case CAN_ACCEPT_INVITE:
+      return dispatch(acceptGameInvite(data))
+    case CAN_INVITE_FRIEND:
+      return dispatch(gameInvite(data))
     }
   }
-  handleNo = event => {
+  handleNo = () => {
     const {
       id,
       username,
@@ -73,10 +80,10 @@ class FriendRow extends Component {
     const localState = getLocalState(invited, pending)
     
     switch (localState) {
-      case CAN_CANCEL_PENDING:
-        return dispatch(cancelGameInvite(data))
-      case CAN_ACCEPT_INVITE:
-        return dispatch(declineGameInvite(data))
+    case CAN_CANCEL_PENDING:
+      return dispatch(cancelGameInvite(data))
+    case CAN_ACCEPT_INVITE:
+      return dispatch(declineGameInvite(data))
     }
   };
   render() {

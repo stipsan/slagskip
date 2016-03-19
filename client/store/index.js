@@ -1,13 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import { routerMiddleware } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import socket from '../middleware/socket'
 import rootReducer from '../reducers'
+
+const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
 
 const store = createStore(
   rootReducer,
   undefined,
   compose(
-    applyMiddleware(thunk, socket),
+    applyMiddleware(thunk, socket, routerMiddlewareWithHistory),
     process.env.NODE_ENV !== 'production' && global.devToolsExtension ? 
       global.devToolsExtension() : 
       f => f

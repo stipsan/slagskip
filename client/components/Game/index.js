@@ -2,7 +2,7 @@ import { Component, PropTypes } from 'react'
 
 class Game extends Component {
   static propTypes = {
-    loggedIn: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
   };
   

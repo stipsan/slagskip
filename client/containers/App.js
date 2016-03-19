@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 
@@ -12,6 +12,16 @@ const initialTitle   = 'Connecting to server…'
 const connectedTitle = 'Socket connected!'
 
 class App extends Component {
+  static propTypes = {
+    connected: PropTypes.bool,
+    disconnected: PropTypes.bool,
+    friends: PropTypes.array,
+    username: PropTypes.string,
+    isAuthenticated: PropTypes.bool,
+    game: PropTypes.object,
+    supportedBrowser: PropTypes.bool,
+    capabilities: PropTypes.object,
+  }
   
   render() {
     const {
@@ -19,7 +29,7 @@ class App extends Component {
       disconnected,
       friends,
       username,
-      loggedIn,
+      isAuthenticated,
       game,
       supportedBrowser,
       capabilities,
@@ -27,9 +37,9 @@ class App extends Component {
 
     return <DocumentTitle title={connected ? connectedTitle : initialTitle}>
       <div className="page">
-        {loggedIn && <Lobby friends={friends} username={username} />}
-        {game && <Game loggedIn={loggedIn} username={username} />}
-        {!loggedIn && <Login />}
+        {isAuthenticated && <Lobby friends={friends} username={username} />}
+        {game && <Game isAuthenticated={isAuthenticated} username={username} />}
+        {!isAuthenticated && <Login />}
         {disconnected && <Disconnected username={username} connected={connected} />}
         {!supportedBrowser && <UnsupportedBrowser capabilities={capabilities} />}
       </div>
@@ -55,7 +65,7 @@ export default connect(
       username: state.viewer.username,
       connected: state.connected,
       disconnected: state.disconnected,
-      loggedIn: state.viewer.loggedIn,
+      isAuthenticated: state.viewer.isAuthenticated,
       supportedBrowser: state.capabilities.websocket,
       capabilities: state.capabilities,
     }
