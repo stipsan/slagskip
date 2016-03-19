@@ -64,27 +64,24 @@ const AppContainer = connect(
   }),
 )(App)
 
-export default class Root extends Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-  }
-
-  render() {
-    const { store } = this.props
-    
-    // Create an enhanced history that syncs navigation events with the store
-    const history = syncHistoryWithStore(browserHistory, store)
-    
-    return (
-      <Provider store={store}>
-        <Router history={history}>
-          <Route path="/" component={AppContainer}>
-            <IndexRoute component={Lobby} />
-            <Route path="login" component={Login} />
-            <Route path="*" component={NotFound}/>
-          </Route>
-        </Router>
-      </Provider>
-    )
-  }
+const Root = ({ store }) => {
+  
+  // Create an enhanced history that syncs navigation events with the store
+  const history = syncHistoryWithStore(browserHistory, store)
+  
+  return <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={AppContainer}>
+        <IndexRoute component={Lobby} />
+        <Route path="login" component={Login} />
+        <Route path="*" component={NotFound}/>
+      </Route>
+    </Router>
+  </Provider>
 }
+
+Root.propTypes = {
+  store: PropTypes.object.isRequired,
+}
+
+export default Root
