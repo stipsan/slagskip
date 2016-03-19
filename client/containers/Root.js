@@ -28,12 +28,19 @@ function Dashboard() {
 }
 
 class App extends Component {
+  checkAuth = ({
+    connected,
+    checkAuth,
+    isAuthenticated,
+    location: { pathname }
+  }) => connected && checkAuth(isAuthenticated, pathname)
+
   componentWillMount () {
-    if(this.props.connected) this.props.checkAuth(this.props.isAuthenticated, this.props.location.pathname);
+    this.checkAuth(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
-    if(nextProps.connected) this.props.checkAuth(nextProps.isAuthenticated, nextProps.location.pathname);
+    this.checkAuth(nextProps)
   }
   
   render() {
