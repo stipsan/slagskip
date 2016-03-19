@@ -1,4 +1,4 @@
-const title = process.env.APP_NAME || 'This app'
+const title = process.env.APP_NAME || 'game'
 
 const webpackToAssets = config => {
   return Object.keys(config.entry).reduce((prev, curr) => {

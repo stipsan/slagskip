@@ -1,7 +1,8 @@
 import { Component, PropTypes } from 'react'
 import { replace } from 'react-router-redux'
-import Disconnected from '../Disconnected'
-import UnsupportedBrowser from '../UnsupportedBrowser'
+import Disconnected from '../../containers/Disconnected'
+import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
+import Loading from '../Loading'
 
 function shouldCheckAuth ({
   maybeRedirectToLogin,
@@ -18,11 +19,11 @@ export default class App extends Component {
   componentWillReceiveProps = shouldCheckAuth
   
   render() {
-    const { connected, disconnnected, supportedBrowser, children } = this.props
+    const { connected, disconnected, supportedBrowser, children } = this.props
     return <div className="page">
-      {connected && supportedBrowser && children}
-      {!connected && supportedBrowser && <h1></h1>/*@TODO add loading indicator*/}
-      {!supportedBrowser && <h1>Unsupported browser</h1>}
+      {connected && supportedBrowser && children || <Loading />}
+      {disconnected && <Disconnected />}
+      {!supportedBrowser && <UnsupportedBrowser />}
     </div>
   }
 }
