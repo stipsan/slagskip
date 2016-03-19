@@ -3,7 +3,6 @@ import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
-  SOCKET_FAILURE,
 } from '../../constants/ActionTypes'
 import {
   loginUser,

@@ -6,22 +6,19 @@ import Disconnected from '../components/Disconnected'
 import UnsupportedBrowser from '../components/UnsupportedBrowser'
 
 class App extends Component {
-  
-  // @TODO simplify, we likely only need to respond to componentWillReceiveProps
-  maybeRedirect = ({
-    connected,
-    checkAuth: callCheckAuth,
-    isAuthenticated,
-    dispatch,
-    location: { pathname }
-  }) => connected && dispatch(callCheckAuth(isAuthenticated, pathname))
-
-  componentWillMount () {
-    this.maybeRedirect(this.props)
-  }
 
   componentWillReceiveProps (nextProps) {
-    this.maybeRedirect(nextProps)
+    const {
+      connected,
+      checkAuth: callCheckAuth,
+      isAuthenticated,
+      dispatch,
+      location: redirectAfterLogin
+    } = nextProps
+    
+    if(connected) {
+      checkAuth(isAuthenticated, redirectAfterLogin)
+    }
   }
   
   render() {

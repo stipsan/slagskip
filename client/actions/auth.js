@@ -4,8 +4,17 @@ import {
 } from '../constants/ActionTypes'
 import { replace } from 'react-router-redux'
 
-export const checkAuth = (isAuthenticated, pathname) => dispatch => {
+// @TODO use the react-router-redux action types directly instead of relying on redux-thunk for this
+
+export const checkAuth = (isAuthenticated, redirectAfterLogin) => dispatch => {
   if (!isAuthenticated && pathname !== '/login') {
-      dispatch(replace({ pathname: '/login', state: { redirectAfterLogin: pathname } }));
+      dispatch(replace({ pathname: '/login', state: { redirectAfterLogin } }));
+  }
+}
+
+export const restoreLocation = (isAuthenticated, redirectAfterLogin) => dispatch => {
+  debugger;
+  if (isAuthenticated) {
+      dispatch(replace({ ...redirectAfterLogin }));
   }
 }

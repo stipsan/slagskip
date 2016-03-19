@@ -1,7 +1,6 @@
-import { Component } from 'react'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
-import { loginUser } from '../actions'
+import { loginUser, restoreLocation } from '../actions'
 
 import Login from '../components/Login'
 
@@ -17,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   checkAuth: (isAuthenticated, redirectAfterLogin) => {
     console.log('checkAuth',dispatch, isAuthenticated, redirectAfterLogin);
     if (isAuthenticated) {
-        dispatch(replace({ pathname: redirectAfterLogin }));
+        dispatch(replace({ ...redirectAfterLogin }));
     }
   }
 })
