@@ -29,11 +29,11 @@ function Dashboard() {
 
 class App extends Component {
   componentWillMount () {
-    this.props.checkAuth(this.props.isAuthenticated, this.props.location.pathname);
+    if(this.props.connected) this.props.checkAuth(this.props.isAuthenticated, this.props.location.pathname);
   }
 
   componentWillReceiveProps (nextProps) {
-    this.props.checkAuth(nextProps.isAuthenticated, nextProps.location.pathname);
+    if(nextProps.connected) this.props.checkAuth(nextProps.isAuthenticated, nextProps.location.pathname);
   }
   
   render() {
@@ -57,7 +57,7 @@ const AppContainer = connect(
   dispatch => ({
     checkAuth: (isAuthenticated, pathname) => {
       if (!isAuthenticated && pathname !== '/login') {
-          dispatch(replace({ pathname: '/login' }));
+          dispatch(replace({ pathname: '/login', state: { redirectAfterLogin: pathname } }));
       }
     }
   }),
@@ -106,7 +106,7 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/" component={AppContainer} onEnter={checkAuth}>
+          <Route path="/" component={AppContainer}>
             <IndexRoute component={Lobby} />
             <Route path="login" component={Login} />
             <Route path="*" component={NotFound}/>
