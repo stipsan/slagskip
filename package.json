@@ -84,5 +84,8 @@
     "mocha-eslint": "^2.0.2",
     "react-transform-count-renders": "^1.0.1",
     "react-transform-render-visualizer": "^0.4.0"
+  },
+  "optionalDependencies": {
+    "growl": "^1.9.2"
   }
 }
