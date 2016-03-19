@@ -58,7 +58,7 @@ export const viewer = (state = {username: '', isAuthenticated: false}, action) =
 // state can be authenticated, pending or unauthenticated
 export const auth = (state = {
   isAuthenticated: false,
-  authState: 'pending',
+  authState: 'unauthenticated',
   authToken: null,
   redirectAfterLogin: '/',
 }, action) => {
@@ -79,14 +79,27 @@ export const auth = (state = {
   case LOCATION_CHANGE:
     return {
       ...state,
-      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin
+      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
     }
+  case TYPE.LOGIN_FAILURE:
   case TYPE.RECEIVE_DEAUTHENTICATE:
     return {
       ...state,
       isAuthenticated: false,
       authState: 'unauthenticated',
       authToken: null,
+    }
+  case TYPE.LOGIN_REQUEST:
+    return {
+      ...state,
+      authState: 'pending',
+    }
+  case TYPE.LOGIN_SUCCESS:
+    return {
+      ...state,
+      authState: 'authenticated',
+      isAUthenticated: true,
+      authToken: action.authToken,
     }
   default:
     return state

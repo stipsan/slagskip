@@ -25,8 +25,9 @@ module.exports = function(worker){
         {username: data.username, socket: socket.id},
         user => {          
           //console.log(TYPES.LOGIN_SUCCESS, user);
-          res(null, Object.assign({type: TYPES.LOGIN_SUCCESS}, user))
           socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`], id: user.id})
+          res(null, Object.assign({type: TYPES.LOGIN_SUCCESS}, user, {authToken: socket.getAuthToken()}))
+          
           //socket.broadcast.emit('join', data);
           scServer.exchange.publish('service', {
             type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,

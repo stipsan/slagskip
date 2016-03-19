@@ -2,8 +2,12 @@ import {
   CHECK_CAPABILITIES,
   SOCKET_REQUEST,
 } from '../constants/ActionTypes'
+import { replace } from 'react-router-redux'
 
-export const checkAuth = (isAuthenticated, redirectAfterLogin) => dispatch => {
-  dispatch({ type: CHECK_CAPABILITIES })
-  dispatch({ type: SOCKET_REQUEST })
+// @TODO use the react-router-redux action types directly instead of relying on redux-thunk for this
+
+export const redirectToLogin = redirectAfterLogin => {
+  return replace({ pathname: '/login', state: { redirectAfterLogin } })
 }
+
+export const restoreLocation = location => replace(location)

@@ -37,12 +37,16 @@ html, body {
 .section--login {
     background: $bg-login;
     
+    .request-pending-message {
+      transition: opacity 300ms ease-out;
+    }
+    
     form {
         background: hsla(0, 0%, 0%, .1);
         display: flex;
         overflow: hidden;
         max-width: 500px;
-        transition: background 150ms ease;
+        transition: background 150ms ease, opacity 300ms ease-out;
         width: 100%;
         
         input {

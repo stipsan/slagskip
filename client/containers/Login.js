@@ -1,25 +1,28 @@
-import { Component } from 'react'
 import { connect } from 'react-redux'
-import { replace } from 'react-router-redux'
-import { loginUser } from '../actions'
+import { loginUser, restoreLocation } from '../actions'
 
 import Login from '../components/Login'
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   redirectAfterLogin: state.auth.redirectAfterLogin,
-});
+  isRequestPending: state.auth.authState === 'pending',
+})
 
 const mapDispatchToProps = dispatch => ({
   onLogin: (username) => {
     dispatch(loginUser(username))
   },
-  checkAuth: (isAuthenticated, redirectAfterLogin) => {
-    console.log('checkAuth',dispatch, isAuthenticated, redirectAfterLogin);
-    if (isAuthenticated) {
-        dispatch(replace({ pathname: redirectAfterLogin }));
+  maybeRestoreLocation: (isAuthenticated, redirectAfterLogin = {}) => {
+    const location = {
+      pathname: '/',
+      ...redirectAfterLogin,
     }
-  }
+    
+    if (isAuthenticated && location.pathname !== '/login') {
+      dispatch(restoreLocation(location))
+    }
+  },
 })
 
 // move this to grandchildren so the root don't need to subscribe to Redux

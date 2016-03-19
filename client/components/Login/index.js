@@ -4,10 +4,19 @@ import { connect } from 'react-redux'
 const placeholderLabel = 'Username'
 const buttonLabel = 'Enter'
 
-class Login extends Component {
+function shouldCheckAuth ({
+  maybeRestoreLocation,
+  isAuthenticated,
+  redirectAfterLogin,
+} = this.props) {
+  return maybeRestoreLocation(isAuthenticated, redirectAfterLogin)
+}
+
+export default class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
-    checkAuth: PropTypes.func.isRequired,
+    maybeRestoreLocation: PropTypes.func.isRequired,
+    isRequestPending: PropTypes.bool.isRequired,
   };
 
   handleSubmit = event => {
@@ -16,15 +25,8 @@ class Login extends Component {
     this.props.onLogin(this._input.value)
   }
   
-  componentWillMount () {
-    const { isAuthenticated, redirectAfterLogin } = this.props
-    this.props.checkAuth(isAuthenticated, redirectAfterLogin);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const { isAuthenticated, redirectAfterLogin } = nextProps
-    this.props.checkAuth(isAuthenticated, redirectAfterLogin);
-  }
+  componentWillMount = shouldCheckAuth
+  componentWillReceiveProps = shouldCheckAuth
   
   componentDidMount() {
     this._input.focus()
@@ -32,13 +34,18 @@ class Login extends Component {
 
   render(){
     const { handleSubmit } = this
+    const { isRequestPending } = this.props
     return <section className="section section--login">
-      <form onSubmit={handleSubmit}>
-        <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} />
-        <button type="submit">{buttonLabel}</button>
+      <h1 className="request-pending-message" style={{opacity: isRequestPending ? 1 : 0}}>
+        Logging in…
+      </h1>
+      <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>
+        <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
+        <button type="submit" disabled={isRequestPending}>
+          {buttonLabel}
+        </button>
       </form>
+      <div></div>
     </section>
   }
 }
-
-export default connect()(Login)
