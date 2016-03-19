@@ -1,4 +1,4 @@
-/*eslint no-console: 1 */
+/*eslint no-console: 0 */
 import { 
   SOCKET_FAILURE,
   SUBSCRIBE_CHANNEL_REQUEST,

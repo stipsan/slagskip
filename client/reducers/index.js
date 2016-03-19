@@ -79,7 +79,7 @@ export const auth = (state = {
   case LOCATION_CHANGE:
     return {
       ...state,
-      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin
+      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
     }
   case TYPE.RECEIVE_DEAUTHENTICATE:
     return {

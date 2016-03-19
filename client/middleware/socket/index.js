@@ -51,10 +51,8 @@ export default store => next => action => {
   
   const socket = connect(store, next, action, createCallSocket)
   // no socket means we're still setting it up, proceed the stack while we wait
+  // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon as we connect and got a socket
   if(!socket) {
-    if(!action.type) {
-      if('production' !== process.env.NODE_ENV) console.log('@TODO queue action while waiting for connect?', action, socket)
-    }
     return action.type && next(action)
   }
   

@@ -1,23 +1,27 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { checkAuth } from '../actions'
 import { replace } from 'react-router-redux'
 import Disconnected from '../components/Disconnected'
 import UnsupportedBrowser from '../components/UnsupportedBrowser'
 
 class App extends Component {
-  checkAuth = ({
+  
+  // @TODO simplify, we likely only need to respond to componentWillReceiveProps
+  maybeRedirect = ({
     connected,
-    checkAuth,
+    checkAuth: callCheckAuth,
     isAuthenticated,
+    dispatch,
     location: { pathname }
-  }) => connected && checkAuth(isAuthenticated, pathname)
+  }) => connected && dispatch(callCheckAuth(isAuthenticated, pathname))
 
   componentWillMount () {
-    this.checkAuth(this.props)
+    this.maybeRedirect(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
-    this.checkAuth(nextProps)
+    this.maybeRedirect(nextProps)
   }
   
   render() {
@@ -40,10 +44,6 @@ export default connect(
     }
   },
   dispatch => ({
-    checkAuth: (isAuthenticated, pathname) => {
-      if (!isAuthenticated && pathname !== '/login') {
-          dispatch(replace({ pathname: '/login', state: { redirectAfterLogin: pathname } }));
-      }
-    }
+    checkAuth,
   }),
 )(App)
