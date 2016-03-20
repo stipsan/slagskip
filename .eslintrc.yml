@@ -17,8 +17,7 @@ parserOptions:
 plugins:
   - react
 rules:
-  comma-dangle:
-    - warning
+  comma-dangle: 1
   indent:
     - error
     - 2
