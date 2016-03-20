@@ -42,7 +42,7 @@ Once RelayJS release the new Subscriptions API I'll revisit it and probably fork
 
 This project is setup in a |pipeline](https://devcenter.heroku.com/articles/pipelines#deployment-with-pipelines) on Heroku.
 There are three domains and apps setup, one for each step: **development**, **staging** and **production**.
-Review apps are also setup to help contributors, to easily test new code in Pull Requests without having to manually setup Heroku apps. It just works.
+Review apps are also setup to help contributors, to easily test new code in Pull Requests without having to manually setup Heroku apps. It doesn't matter if the pull request is from the same repo, or is from a fork. It just works, automatically.
 
 Here's the relevant config for each of them:
 * [nightly.epic.vg](https://nightly.epic.vg) **development** - deploys automatically whenever code is pushed to `master`.
@@ -51,9 +51,36 @@ Here's the relevant config for each of them:
 
 ## More details about the Heroku apps
 
+Each app have their own Redis instance and is completely isolated.
+**development** and **staging** are relatively identical. They run on free plans.
+That means each is limited to one free dyno, and run the free hobbyist redis plan.
+This causes two important considerations:
+1. Free dynos will go to sleep after 30 mins of inactivity, and waking it from sleep can cause the initial page load to take a minute or two.
+2. Free redis storage is **not** persisted, meaning data is whiped now and then as redis instances reboot.
+
+**production** is on a paid plan. Dynos are standard 1x, redis is on the `Premium 0` plan.
+Data is persisted, and performance swift.
+
+CloudFare is setup with very aggressive caching on all three domains, causing deploys to take up to 30 mins before you can see the changes.
+If you can't see the new changes, check the `CF-Cache-Status` header and if it says `HIT` it's because CloudFlare haven't updated the cache with the new code yet.
+The only way to bypass this cache layer is to access the Heroku app directly.
+* [nightly.epic.vg](https://nightly.epic.vg) => (https://morning-stream-43659.herokuapp.com/)
+* [beta.epic.vg](https://beta.epic.vg) => (https://agile-river-17606.herokuapp.com/)
+
+[epic.vg](https://epic.vg) cannot be bypassed, accessing (https://getepic.herokuapp.com/) will redirect you to [epic.vg](https://epic.vg).This is to enforce a canonical domain for the game in production, protecting SEO and preventing ambiguity. Since CloudFlare requires a paid plan for secure websockets we've left open `getepic.herokuapp.com`.
+This allows us to enforce SSL and turn on HTS without breaking our app.
+Naturally, only clients that origin `epic.vg` can setup a WebSocket that talks with `getepic.herokuapp.com`.
+
+### Development
+
+This stage intentionally deploys code wether or not test pass in order to test bleeding edge ideas.
 
 
 ### Production
 
 The `production` branch is meant to mirror what's tested, Q&A'd and deployed to the **production** pipeline.
+Many intense performance optimizations is put in place. 
+Every time css and js is bundled files with unique hashed names is generated.
+This guarantees a new asset url whenever it changes. This is why we can tell browsers, and CloudFlare, to cache it for as long as a year at a time.
 
+This readme will be updated throghout the project.
