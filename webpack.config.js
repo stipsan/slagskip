@@ -108,7 +108,8 @@ module.exports = {
     ],
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass') },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1!autoprefixer!sass') },
+      { test: /\.svg$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" }
     ],
   },
 }

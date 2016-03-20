@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import './style.scss'
 
 const placeholderLabel = 'Username'
 const buttonLabel = 'Enter'
