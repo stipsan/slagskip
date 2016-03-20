@@ -5,10 +5,10 @@ import App from '../components/App'
 export default connect(
   state => {
     return {
-      connected: state.connected,
-      disconnected: state.disconnected,
-      supportedBrowser: state.capabilities.websocket,
-      isAuthenticated: state.auth.isAuthenticated,
+      connected: state.get('connected'),
+      disconnected: state.get('disconnected'),
+      supportedBrowser: state.getIn(['capabilities', 'websocket']),
+      isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
     }
   },
   dispatch => ({
