@@ -1,0 +1,26 @@
+@keyframes fade-in-out {
+  0%   { color: hsl(203, 25%, 48%); }
+  50% { color: hsl(203, 25%, 68%); }
+  100% { color: hsl(203, 25%, 48%); }
+}
+
+.fadeInOut {
+  animation: fade-in-out .9s cubic-bezier(0.46, 0.03, 0.52, 0.96) 0s infinite;
+}
+
+
+//.progress-letters.fresh {
+//  span {
+//    animation: progress-letters-slide 1s cubic-bezier(0.46, 0.03, 0.52, 0.96) 50ms infinite;
+//    
+//    $letters: 7;
+//    $selector: ' + span';
+//
+//    @for $i from 2 through $letters {
+//      & #{$selector} {
+//        animation-delay: #{ 50 * $i }ms;
+//      }
+//      $selector: selector-nest($selector, ' + span');
+//    }    
+//  }
+//}

@@ -44,6 +44,50 @@
   position: relative;
 }
           
-.sectionLobby div, .btn-group {
+.buttonGroup {
   position: relative;
+}
+
+.enter {
+  opacity: 0.01;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 150ms 150ms ease-in;
+}
+
+.leave {
+  opacity: 1;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+}
+
+.leaveActive {
+  opacity: 0.01;
+  transition: opacity 150ms ease-out;
+}
+
+.canLaunchGame {
+  composes: button buttonPrimary from '../../style/_button.scss';
+}
+.canAcceptInvite {
+  composes: button buttonAccept from '../../style/_button.scss';
+}
+.canCancelPending {
+  composes: button buttonPending from '../../style/_button.scss';
+}
+.canCancelPendingTransition {
+  composes: fadeInOut from '../../style/_transition.scss';
+}
+.canInviteFriend {
+  composes: button buttonInvite from '../../style/_button.scss';
+}
+.canSayNo {
+  composes: button buttonDecline from '../../style/_button.scss';
+}
+/* @TODO refactor to use the disabled attribute instead */
+.buttonDisabled {
+  composes: buttonDisabled from '../../style/_button.scss';
 }

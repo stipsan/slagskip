@@ -15,7 +15,26 @@ import {
   lastVisit as lastVisitClassName,
   controlGroup as controlGroupClassName,
   onlineStatus as onlineStatusClassName,
+  buttonGroup as buttonGroupClassName,
+  enter,
+  enterActive,
+  leave,
+  leaveActive,
+  canLaunchGame as canLaunchGameClassName,
+  canAcceptInvite as canAcceptInviteClassName,
+  canCancelPending as canCancelPendingClassName,
+  canCancelPendingTransition as canCancelPendingTransitionClassName,
+  canInviteFriend as canInviteFriendClassName,
+  canSayNo as canSayNoClassName,
+  buttonDisabled as buttonDisabledClassName,
 } from './style.scss'
+
+const transitionName = Object.freeze({
+  enter,
+  enterActive,
+  leave,
+  leaveActive,
+})
 
 const timeAgoFormatter = (value, unit) => {
   const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
@@ -112,24 +131,23 @@ class FriendRow extends Component {
         >{lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} />}</td>
       }
       <td className={controlGroupClassName}>
-      <div>
-        <button className={className('btn', {
-          'btn-primary': canLaunchGame,
-          'btn-accept': canAcceptInvite,
-          'btn-pending': canCancelPending,
-          'btn-invite': canInviteFriend,
+      <div className={buttonGroupClassName}>
+        <button className={className({
+          [canLaunchGameClassName]: canLaunchGame,
+          [canAcceptInviteClassName]: canAcceptInvite,
+          [canAcceptInviteClassName]: canAcceptInvite,
+          [canCancelPendingClassName]: canCancelPending,
+          [canInviteFriendClassName]: canInviteFriend,
         })} onClick={handleYes}>
-          <ReactCSSTransitionGroup transitionName="button-label" transitionEnterTimeout={150} transitionLeaveTimeout={150}>
+          <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={150} transitionLeaveTimeout={150}>
             {canLaunchGame && <span>Start Game!</span>}
             {canAcceptInvite && <span>Accept</span>}
-            {canCancelPending && <span className="progress-letters">
-              {'Pending'.split('').map((letter, index) => <span key={index}>{letter}</span>)}
-            </span>}
+            {canCancelPending && <span className={canCancelPendingTransitionClassName}>Pending</span>}
             {canInviteFriend && <span>Invite</span>}
           </ReactCSSTransitionGroup>
         </button>
         <button onClick={handleNo} className={className(
-          'btn btn-decline', {'btn-disabled': canLaunchGame || canInviteFriend}
+          canSayNoClassName, {[buttonDisabledClassName]: canLaunchGame || canInviteFriend}
         )}><strong>&times;</strong></button>
         </div>
       </td>

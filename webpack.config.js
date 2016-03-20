@@ -86,7 +86,7 @@ var entry = process.env.NODE_ENV !== 'production' ? {
 }
 
 const localIdentName = 'production' !== process.env.NODE_ENV ?
-  '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
+  '[local]__[hash:base64:5]' : '[hash:base64]'
 
 module.exports = {
   devtool: 'production' !== process.env.NODE_ENV && 'eval',
