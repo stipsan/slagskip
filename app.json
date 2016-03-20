@@ -44,8 +44,8 @@
     },
     "TRACKING_ID": {
       "description": "Google Analytics Tracking ID",
-      "required": "false"
-    },
+      "required": false
+    }
   },
   "image": "heroku/nodejs",
   "addons": [
