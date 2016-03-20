@@ -51,7 +51,7 @@ Here's the relevant config for each of them:
 
 ## More details about the Heroku apps
 
-Each app have their own Redis instance and is completely isolated.
+Each app have their own Redis instance and is completely isolated, this includes Review Apps.
 **development** and **staging** are relatively identical. They run on free plans.
 That means each is limited to one free dyno, and run the free hobbyist redis plan.
 This causes two important considerations:
