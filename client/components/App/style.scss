@@ -1,0 +1,31 @@
+@import '../../style/_config';
+
+:global {
+  html {
+  	font-family: $font-family;
+  	font-size: $base-font-size;
+  	box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+}
+
+
+.enter, .appearActive {
+  opacity: 0.01;
+}
+
+.enterActive, .appearActive {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.leave {
+  opacity: 1;
+}
+
+.leaveActive {
+  opacity: 0.01;
+  transition: opacity 150ms ease-out;
+}

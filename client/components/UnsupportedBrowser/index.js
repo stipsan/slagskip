@@ -1,11 +1,14 @@
 import { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
+import {
+  section as sectionClassName,
+} from './style.scss'
 
 const iconStyle = Object.freeze({height: '64px', width: '64px'})
 
 function UnsupportedBrowser({ browsers }) {
   return <DocumentTitle title="Unsupported Browser">
-    <section className="section section--unsupported-browser">
+    <section className={sectionClassName}>
       <h2>Your browser isn't supported</h2>
       {browsers && <p>Recommended browsers:</p>}
       {browsers && <p>{browsers.map(browser => <a 

@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 import FriendRow from './FriendRow'
 import Logoutbar from './Logoutbar'
 import { logoutUser } from '../../actions'
+import {
+  section as sectionClassName,
+  users as usersClassName,
+} from './style.scss'
 
 class Friends extends Component {
   static propTypes = {
@@ -20,10 +24,10 @@ class Friends extends Component {
     const { handleLogout } = this
 
     return <DocumentTitle title={username ? `${username} - Lobby` : null}>
-      <section className="section section--lobby">
+      <section className={sectionClassName}>
         <Logoutbar username={username} handleLogout={handleLogout} />
         {!friends.length && <h3>Nobody here yet but you!</h3>}
-        <table className="users">
+        <table className={usersClassName}>
           <thead>
             <tr>
               <th colSpan={3}>{friends.length} Online friends</th>

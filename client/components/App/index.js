@@ -4,6 +4,24 @@ import Disconnected from '../../containers/Disconnected'
 import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
 import Loading from '../Loading'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import {
+  enter,
+  enterActive,
+  leave,
+  leaveActive,
+  appear,
+  appearActive,
+} from './style.scss'
+
+const transitionName = Object.freeze({
+  enter,
+  enterActive,
+  leave,
+  leaveActive,
+  appear,
+  appearActive,
+})
+const transitionDuration = 300
 
 function shouldCheckAuth ({
   maybeRedirectToLogin,
@@ -28,8 +46,9 @@ export default class App extends Component {
   
   render() {
     const { connected, disconnected, supportedBrowser, children } = this.props
-    return <ReactCSSTransitionGroup className="page" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div> || <Loading />}
+    return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration / 2} transitionAppearTimeout={transitionDuration}>
+      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div>}
+      {!connected && supportedBrowser && <Loading />}
       {disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
     </ReactCSSTransitionGroup>
