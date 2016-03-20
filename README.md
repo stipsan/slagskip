@@ -90,7 +90,10 @@ This guarantees a new asset url whenever it changes. This is why we can tell bro
 
 ## Protected branches
 
-The `production` branch is fiercely protected. Nobody can push any code into it without it passing all tests.
+The `production` branch is fiercely protected. Nobody can push any code into it without it passing all tests. Not even admins.
+`master` is also protected, but it only requires Travis CI to pass, it does not require coveralls for allowing a merge to happen. Admins may merge it anyway even if Travis fails.
+Nobody is able to commit directly to neither branches, all work must be done in their own branch.
+More on protected branches in this [blog post](https://help.github.com/articles/about-protected-branches/).
 If eslint reports any errors, it'll block the merge as well (warnings is ok).
 Coveralls will prevent a merge if the code coverage decrease by more than 1 %, or is less than 40%.
 In the future this limit will be changed to enforce 100% coverage at all times.
