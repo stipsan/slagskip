@@ -18,8 +18,7 @@ plugins:
   - react
 rules:
   comma-dangle:
-    - error
-    - always-multiline
+    - warning
   indent:
     - error
     - 2
