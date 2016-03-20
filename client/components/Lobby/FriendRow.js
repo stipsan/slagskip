@@ -10,6 +10,12 @@ import {
   declineGameInvite,
   cancelGameInvite,
 } from '../../actions'
+import {
+  username as usernameClassName,
+  lastVisit as lastVisitClassName,
+  controlGroup as controlGroupClassName,
+  onlineStatus as onlineStatusClassName,
+} from './style.scss'
 
 const timeAgoFormatter = (value, unit) => {
   const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
@@ -96,16 +102,16 @@ class FriendRow extends Component {
     const canCancelPending = localState === CAN_CANCEL_PENDING
     const canInviteFriend = localState === CAN_INVITE_FRIEND
  
-    return <tr className={className({ online })}>
-      <td className="user-name">{username}</td>
+    return <tr className={className({  online })}>
+      <td className={usernameClassName}>{username}</td>
       {
         online && 
-        <td className="online-status">&bull;</td> ||
-        <td className="last-visit"
+        <td className={onlineStatusClassName}>&bull;</td> ||
+        <td className={lastVisitClassName}
             title={lastVisit && new Date(lastVisit).toLocaleString()}
         >{lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} />}</td>
       }
-      <td className="control-group">
+      <td className={controlGroupClassName}>
       <div>
         <button className={className('btn', {
           'btn-primary': canLaunchGame,

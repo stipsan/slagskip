@@ -7,11 +7,13 @@
 
 @import 'backgrounds/login';
 
-html {
-	font-family: $font-family;
-	font-size: $base-font-size;
-	box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
+:global {
+  html {
+  	font-family: $font-family;
+  	font-size: $base-font-size;
+  	box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 }

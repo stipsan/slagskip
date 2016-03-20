@@ -1,0 +1,20 @@
+$column-gutter: 10px !default;
+
+.section {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+  padding: $column-gutter;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+	
+	display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+}
+.section > * {
+  flex: 1 100%;
+  text-align: center;
+}

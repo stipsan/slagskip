@@ -1,0 +1,50 @@
+$bg-lobby: #263238 !default;
+
+:local .sectionLobby {
+  composes: section from '../../style/section.scss';
+
+  background: $bg-lobby;
+  color: lighten($bg-lobby, 40%);  
+}
+
+:local .sectionLobby header {
+  text-align: center;
+}
+.users {
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.users td {
+  vertical-align: middle;
+}
+.users th {
+  font-size: .8em;
+}
+.onlineStatus {
+  width: 1px;
+  padding: 0 .4rem;
+  color: hsl(88, 50%, 53%);
+  text-align: right;
+}
+.username, .sectionLobby th {
+  text-align: left;
+  padding: .2rem 1rem;
+}
+.lastVisit {
+  font-size: .5em;
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 1em;
+}
+.controlGroup {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 5rem;
+  position: relative;
+}
+          
+.sectionLobby div, .btn-group {
+  position: relative;
+}

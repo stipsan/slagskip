@@ -1,33 +1,16 @@
 $bg-default: white !default;
 $bg-login: hsl(200, 18%, 46%) !default;
-$bg-lobby: #263238 !default;
 $bg-disconnected: #C62828 !default;
 $bg-unsupported-browser: #eee6e1 !default;
 
 /* prevent white FLOC in production */
-html, body {
-  background: $bg-login;
+
+:global {
+  html, body {
+    background: $bg-login;
+  }
 }
 
-.section {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	left: 0px;
-  padding: $column-gutter;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-	
-	display: flex;
-  flex-direction: column;
-  flex-flow: row wrap;
-    
-    & > * {
-      flex: 1 100%;
-      text-align: center;
-    }
-}
 
 .section--login, .section--disconnected {
     align-items: center;
@@ -97,54 +80,6 @@ html, body {
             button {
                 opacity: 0;
                 transform: translateX(100%);
-            }
-        }
-    }
-}
-
-.section--lobby {
-    background: $bg-lobby;
-    color: lighten($bg-lobby, 40%);
-    
-    header {
-        text-align: center;
-    }
-    .users {
-        width: 100%;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-        
-        td {
-            vertical-align: middle;
-        }
-        th {
-            font-size: .8em;
-        }
-        .online-status {
-            width: 1px;
-            padding: 0 .4rem;
-            color: hsl(88, 50%, 53%);
-            text-align: right;
-        }
-        .user-name, th {
-            text-align: left;
-            padding: .2rem 1rem;
-        }
-        .last-visit {
-          font-size: .5em;
-          white-space: nowrap;
-          text-align: right;
-          padding-right: 1em;
-        }
-        .control-group {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 5rem;
-            position: relative;
-            
-            div, .btn-group {
-                position: relative;
             }
         }
     }
