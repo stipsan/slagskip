@@ -87,6 +87,8 @@ var entry = process.env.NODE_ENV !== 'production' ? {
 
 const localIdentName = 'production' !== process.env.NODE_ENV ?
   '[local]__[hash:base64:5]' : '[hash:base64]'
+// https://github.com/webpack/css-loader/blob/6ade74035c845978e3cf4026bdacb829fcf300d7/lib/processCss.js#L181
+const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&reduceIdents'
 
 module.exports = {
   devtool: 'production' !== process.env.NODE_ENV && 'eval',
@@ -111,7 +113,7 @@ module.exports = {
     ],
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', `css?modules&mergeIdents&reduceIdents&importLoaders=2&localIdentName=${localIdentName}!autoprefixer!sass`) },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', `css?modules${cssnanoOptIn}&importLoaders=2&localIdentName=${localIdentName}!autoprefixer!sass`) },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
