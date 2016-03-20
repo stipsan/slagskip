@@ -73,14 +73,27 @@ Naturally, only clients that origin `epic.vg` can setup a WebSocket that talks w
 
 ### Development
 
-This stage intentionally deploys code wether or not test pass in order to test bleeding edge ideas.
+This stage intentionally deploys code wether or not test pass in order to let end-users who wish to test bleeding edge features without having to look for review apps on github.
 
+### Staging
+
+While [beta.epic.vg](https://beta.epic.vg) will let end-users try out what's in the master branch before it's pushed to production, it only deploys code that pass the CI.
+This way it's possible to opt-in to find bugs by playing with apps in the **development** pipeline, but if you're not a bug-hunter but more of a provide-feedback-on-functional-stuff-fella then you can do that.
 
 ### Production
 
 The `production` branch is meant to mirror what's tested, Q&A'd and deployed to the **production** pipeline.
+
 Many intense performance optimizations is put in place. 
 Every time css and js is bundled files with unique hashed names is generated.
 This guarantees a new asset url whenever it changes. This is why we can tell browsers, and CloudFlare, to cache it for as long as a year at a time.
 
-This readme will be updated throghout the project.
+## Protected branches
+
+The `production` branch is fiercely protected. Nobody can push any code into it without it passing all tests. Not even admins.
+`master` is also protected, but it only requires Travis CI to pass, it does not require coveralls for allowing a merge to happen. Admins may merge it anyway even if Travis fails.
+Nobody is able to commit directly to neither branches, all work must be done in their own branch.
+More on protected branches in this [blog post](https://help.github.com/articles/about-protected-branches/).
+If eslint reports any errors, it'll block the merge as well (warnings is ok).
+Coveralls will prevent a merge if the code coverage decrease by more than 1 %, or is less than 40%.
+In the future this limit will be changed to enforce 100% coverage at all times.
