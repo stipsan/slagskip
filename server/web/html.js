@@ -18,6 +18,19 @@ const mapSupportedBrowsersToProps = browsers => {
   }, [])
 }
 
+const getAnalyticsSnippet = TrackingID => `
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '${TrackingID}', 'auto');
+ga('send', 'pageview');
+
+</script>
+`
+
 module.exports = function(){
   var caniuse = require('caniuse-api')
 
@@ -52,6 +65,8 @@ module.exports = function(){
       const scripts     = js.map(script => `<script src="${script}"></script>`).join('')
       const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
       
+      const analytics = process.env.TRACKING_ID ? getAnalyticsSnippet(process.env.TRACKING_ID) : ''
+      
       html = `<!doctype html>
 <html lang="en-US">
   <head>
@@ -74,6 +89,7 @@ module.exports = function(){
         </div>
       </noscript>
     </div>
+    ${analytics}
     <script>
       SUPPORTED_BROWSERS = ${SUPPORTED_BROWSERS};
     </script>
