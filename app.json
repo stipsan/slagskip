@@ -41,7 +41,11 @@
       "description": "The SocketCluster path is normally /socketcluster to avoid collisions, but that's not a worry here",
       "value": "/",
       "required": false
-    }
+    },
+    "TRACKING_ID": {
+      "description": "Google Analytics Tracking ID",
+      "required": "false"
+    },
   },
   "image": "heroku/nodejs",
   "addons": [
