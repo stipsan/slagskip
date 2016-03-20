@@ -1,17 +1,17 @@
-:global(.fade-enter) {
+.enter, .appearActive {
   opacity: 0.01;
 }
 
-:global(.fade-enter.fade-enter-active) {
+.enterActive, .appearActive {
   opacity: 1;
   transition: opacity 300ms ease-out;
 }
 
-:global(.fade-leave) {
+.leave {
   opacity: 1;
 }
 
-:global(.fade-leave.fade-leave-active) {
+.leaveActive {
   opacity: 0.01;
   transition: opacity 300ms ease-out;
 }
