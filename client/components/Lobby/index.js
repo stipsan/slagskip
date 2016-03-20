@@ -26,22 +26,17 @@ class Friends extends Component {
     return <DocumentTitle title={username ? `${username} - Lobby` : null}>
       <section className={sectionClassName}>
         <Logoutbar username={username} handleLogout={handleLogout} />
-        {!friends.length && <h3>Nobody here yet but you!</h3>}
+        {!friends.size && <h3>Nobody here yet but you!</h3>}
         <table className={usersClassName}>
           <thead>
             <tr>
-              <th colSpan={3}>{friends.length} Online friends</th>
+              <th colSpan={3}>{friends.size} Online friends</th>
             </tr>
           </thead>
           <tbody>
-            {friends.map(user => <FriendRow
-              key={user.username}
-              id={user.id}
-              username={user.username}
-              invited={user.invited}
-              pending={user.pending}
-              online={user.online}
-              lastVisit={user.lastVisit}
+            {friends.map(friend => <FriendRow
+              key={friend.get('username')}
+              friend={friend}
             />)}
           </tbody>
         </table>
@@ -50,19 +45,24 @@ class Friends extends Component {
   }
 }
 
-const mapFriendsStateToProps = ({
-  friends,
-  requests,
-  invites,
-}) => {
+const mapFriendsStateToProps = state => {
+  const invites = state.get('invites')
+  const requests = state.get('requests')
+  const friends = state.get('friends')
+
   return friends.map(friend => {
-    return {...friend, invited: requests.has(friend.username), pending: invites.has(friend.username), online: friend.online * 1}
+    const username = friend.get('username')
+    return friend.merge({
+      invited: requests.has(username),
+      pending: invites.has(username),
+      online: friend.get('online', 0) * 1,
+    })
   })
 }
 
 export default connect(state => {
   return {
     friends: mapFriendsStateToProps(state),
-    username: state.viewer.username,
+    username: state.getIn(['viewer', 'username']),
   }
 })(Friends)

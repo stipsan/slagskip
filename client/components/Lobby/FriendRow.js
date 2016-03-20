@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import className from 'classnames'
 import TimeAgo from 'react-timeago'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {
   newGame,
@@ -71,14 +72,16 @@ class FriendRow extends Component {
     lastVisit: PropTypes.string,
   }
   
+  shouldComponentUpdate = shouldComponentUpdate
+  
   handleYes = () => {
     const {
       id,
       username,
       invited,
       pending,
-      dispatch,
-    } = this.props
+    } = this.props.friend.toJS()
+    const dispatch = this.props.dispatch
     const data = { id, username }
     
     const localState = getLocalState(invited, pending)
@@ -98,8 +101,8 @@ class FriendRow extends Component {
       username,
       invited,
       pending,
-      dispatch,
-    } = this.props
+    } = this.props.friend.toJS()
+    const dispatch = this.props.dispatch
     const data = { id, username }
     
     const localState = getLocalState(invited, pending)
@@ -112,7 +115,8 @@ class FriendRow extends Component {
     }
   };
   render() {
-    const { username, pending, invited, online, lastVisit } = this.props
+    // @FIXME
+    const { username, pending, invited, online, lastVisit } = this.props.friend.toJS()
     const { handleYes, handleNo } = this
  
     const localState = getLocalState(invited, pending)

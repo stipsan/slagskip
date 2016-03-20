@@ -1,11 +1,13 @@
-import * as TYPE from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
+import {
+  SOCKET_SUCCESS,
+  SOCKET_FAILURE,
+} from '../constants/ActionTypes'
 
 export const disconnected = (state = false, action) => {
   switch (action.type) {
-  case TYPE.SOCKET_SUCCESS:
+  case SOCKET_SUCCESS:
     return false
-  case TYPE.SOCKET_FAILURE:
+  case SOCKET_FAILURE:
     return true
   default:
     return state

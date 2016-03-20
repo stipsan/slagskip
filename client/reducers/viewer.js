@@ -1,20 +1,26 @@
-import * as TYPE from '../constants/ActionTypes'
+import {
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../constants/ActionTypes'
 import { Map as ImmutableMap } from 'immutable'
 
-export const viewer = (state = {username: '', isAuthenticated: false}, action) => {
+const initialState = ImmutableMap({
+  username: '',
+  isAuthenticated: false
+})
+
+export const viewer = (state = initialState, action) => {
   switch (action.type) {
-  case TYPE.LOGIN_SUCCESS:
-    return {
-      ...state,
+  case LOGIN_SUCCESS:
+    return state.merge({
       isAuthenticated: true,
       username: action.username,
-    }
-  case TYPE.LOGOUT_SUCCESS:
-    return {
-      ...state,
+    })
+  case LOGOUT_SUCCESS:
+    return state.merge({
       isAuthenticated: false,
       username: '',
-    }
+    })
   default:
     return state
   }

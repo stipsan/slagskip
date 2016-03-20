@@ -1,21 +1,24 @@
-import * as TYPE from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
+import {
+  LOGIN_SUCCESS,
+  GAME_INVITE_SUCCESS,
+  ACCEPT_GAME_INVITE_SUCCESS,
+  RECEIVE_GAME_INVITE_DECLINED,
+  CANCEL_GAME_INVITE_SUCCESS,
+} from '../constants/ActionTypes'
+import { Set as ImmutableSet } from 'immutable'
 
-export const requests = (state = new Set([]), action) => {
+const initialState = ImmutableSet()
+
+export const requests = (state = initialState, action) => {
   switch (action.type) {
-  case TYPE.LOGIN_SUCCESS:
-    return new Set(action.requests)
-  case TYPE.GAME_INVITE_SUCCESS:
-  case TYPE.ACCEPT_GAME_INVITE_SUCCESS:
-    return new Set([
-      ...state,
-      action.username,
-    ])
-  case TYPE.RECEIVE_GAME_INVITE_DECLINED:
-  case TYPE.CANCEL_GAME_INVITE_SUCCESS:
-    var nextState = new Set([...state])
-    nextState.delete(action.username)
-    return nextState
+  case LOGIN_SUCCESS:
+    return state.intersect(action.requests)
+  case GAME_INVITE_SUCCESS:
+  case ACCEPT_GAME_INVITE_SUCCESS:
+    return state.add(action.username)
+  case RECEIVE_GAME_INVITE_DECLINED:
+  case CANCEL_GAME_INVITE_SUCCESS:
+    return state.subtract(action.username)
   default:
     return state
   }

@@ -1,5 +1,4 @@
 import { Component, PropTypes } from 'react'
-import { replace } from 'react-router-redux'
 import Disconnected from '../../containers/Disconnected'
 import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
 import Loading from '../Loading'

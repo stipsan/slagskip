@@ -1,4 +1,11 @@
-import * as TYPE from '../constants/ActionTypes'
+import {
+  SOCKET_SUCCESS,
+  RECEIVE_AUTH_STATE_CHANGE,
+  LOGIN_FAILURE,
+  RECEIVE_DEAUTHENTICATE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+} from '../constants/ActionTypes'
 import {
   LOCATION_CHANGE
 } from 'react-router-redux'
@@ -15,12 +22,12 @@ const initialState = ImmutableMap({
 
 export const auth = (state = initialState, action) => {
   switch (action.type) {
-  case TYPE.SOCKET_SUCCESS:
+  case SOCKET_SUCCESS:
     return state.merge({
       isAuthenticated: action.isAuthenticated,
       authState: action.isAuthenticated ? 'authenticated' : 'unauthenticated',
     })
-  case TYPE.RECEIVE_AUTH_STATE_CHANGE:
+  case RECEIVE_AUTH_STATE_CHANGE:
     return state.merge({
       isAuthenticated: action.newState === 'authenticated',
       authState: action.newState,
@@ -30,18 +37,18 @@ export const auth = (state = initialState, action) => {
     return state.merge({
       redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
     })
-  case TYPE.LOGIN_FAILURE:
-  case TYPE.RECEIVE_DEAUTHENTICATE:
+  case LOGIN_FAILURE:
+  case RECEIVE_DEAUTHENTICATE:
     return state.merge({
       isAuthenticated: false,
       authState: 'unauthenticated',
       authToken: null,
     })
-  case TYPE.LOGIN_REQUEST:
+  case LOGIN_REQUEST:
     return state.merge({
       authState: 'pending',
     })
-  case TYPE.LOGIN_SUCCESS:
+  case LOGIN_SUCCESS:
     return state.merge({
       authState: 'authenticated',
       isAUthenticated: true,
