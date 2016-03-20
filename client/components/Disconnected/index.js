@@ -1,9 +1,12 @@
 import { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
+import {
+  section as sectionClassName,
+} from './style.scss'
 
 function Disconnected({ username, connected }) {
   return <DocumentTitle title="Connection lost!">
-    <section className="section section--disconnected">
+    <section className={sectionClassName}>
       {connected && <h2>You got disconnected!</h2>}
       {!connected && <h2>Socket failed to connect!</h2>}
       {!!username && <p>You'll be logged back in as soon as the server is reached again.</p>}

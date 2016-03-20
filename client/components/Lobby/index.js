@@ -5,7 +5,7 @@ import FriendRow from './FriendRow'
 import Logoutbar from './Logoutbar'
 import { logoutUser } from '../../actions'
 import {
-  sectionLobby as sectionClassName,
+  section as sectionClassName,
   users as usersClassName,
 } from './style.scss'
 

@@ -19,9 +19,9 @@ const transitionName = Object.freeze({
   leave,
   leaveActive,
   appear,
-  appearActive
+  appearActive,
 })
-const transitionDuration = 10000
+const transitionDuration = 300
 
 function shouldCheckAuth ({
   maybeRedirectToLogin,
@@ -46,8 +46,9 @@ export default class App extends Component {
   
   render() {
     const { connected, disconnected, supportedBrowser, children } = this.props
-    return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration} transitionAppearTimeout={transitionDuration}>
-      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div> || <Loading />}
+    return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration / 2} transitionAppearTimeout={transitionDuration}>
+      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div>}
+      {!connected && supportedBrowser && <Loading />}
       {disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
     </ReactCSSTransitionGroup>

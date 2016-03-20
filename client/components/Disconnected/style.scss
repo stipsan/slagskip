@@ -2,4 +2,7 @@
 
 .section {
   composes: section from '../../style/_section.scss';
+
+  background: $bg-disconnected;
+  color: lighten($bg-disconnected, 33%);
 }

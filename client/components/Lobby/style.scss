@@ -1,13 +1,12 @@
-$bg-lobby: #263238 !default;
+@import '../../style/_config';
 
-:local .sectionLobby {
-  composes: section from '../../style/section.scss';
+.section {
+  composes: section from '../../style/_section.scss';
 
   background: $bg-lobby;
   color: lighten($bg-lobby, 40%);  
 }
-
-:local .sectionLobby header {
+.section header {
   text-align: center;
 }
 .users {
