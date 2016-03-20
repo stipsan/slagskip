@@ -85,6 +85,9 @@ var entry = process.env.NODE_ENV !== 'production' ? {
   ],
 }
 
+const localIdentName = 'production' !== process.env.NODE_ENV ?
+  '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
+
 module.exports = {
   devtool: 'production' !== process.env.NODE_ENV && 'eval',
   entry: entry,
@@ -108,7 +111,7 @@ module.exports = {
     ],
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1!autoprefixer!sass') },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', `css?modules&importLoaders=1&localIdentName=${localIdentName}!autoprefixer!sass`) },
       { test: /\.svg$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" }
     ],
   },
