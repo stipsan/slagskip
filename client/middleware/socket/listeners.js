@@ -1,4 +1,3 @@
-/*eslint no-console: 0 */
 import { 
   SOCKET_FAILURE,
   SUBSCRIBE_CHANNEL_REQUEST,
@@ -19,9 +18,6 @@ export const attachListeners = (store, next, action, socket) => {
   if(!shouldAttachListeners) {
     return false
   }
-  
-  // @TODO purely for debugging
-  if('production' !== process.env.NODE_ENV) socket.on('message', (...args) => console.log('message', args))
 
   // connect.js
   socket.on('disconnect', () => {

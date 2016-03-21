@@ -10,4 +10,6 @@ export const redirectToLogin = redirectAfterLogin => {
   return replace({ pathname: '/login', state: { redirectAfterLogin } })
 }
 
-export const restoreLocation = location => replace(location)
+export const restoreLocation = location => {
+  return replace(location.toJS())
+}
