@@ -1,3 +1,4 @@
+export * from './auth'
 export * from './redis'
 
 const INVITE_EXPIRE = 86400
@@ -148,22 +149,6 @@ function fetchUser(id, data, success, failure) {
         online: true,
       })
     })
-  })
-}
-
-function loginUser(data, success, failure) {
-  redis.hget('users', data.username).then(id => {
-    
-    if(id < 1) {
-      return createUser(data.username, id => fetchUser(id, data, success, failure), failure)
-    }
-    
-    fetchUser(id, data, success, failure)
-    //@TODO
-    //if(id < 1) return failure({message: `User '${data.username}' does not exist!`});
-    
-    
-    //console.log('loginUser', data.username, id);
   })
 }
 
