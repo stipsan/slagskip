@@ -1,5 +1,6 @@
 export * from './auth'
 export * from './redis'
+export * from './viewer'
 
 const INVITE_EXPIRE = 86400
 
@@ -104,53 +105,6 @@ for (var i = 0; i < 2; i++) {
    createUser(require('faker').name.firstName(), () => {}, () => {});
 }
 //*/
-
-
-function fetchUser(id, data, success, failure) {
-  redis.multi([
-    ['hgetall', 'users'],
-    ['smembers', `user:${id}:invites`],
-    ['smembers', `user:${id}:requests`],
-    ['hset', `user:${id}`, 'online', 1],
-  ]).exec((err, results) => {
-    // @TODO investigate if error handling is correct here
-    if(err) return failure(err)
-
-    const users    = results[0][1]
-    const invites  = results[1][1]
-    const requests = results[2][1]
-
-    // exclude our own user from the friends list
-    delete users[data.username]
-
-    const hgetallFriends = Object.keys(users).reduce(
-      (previousValue, currentValue) => [
-        ...previousValue,
-        ['hgetall', `user:${users[currentValue]}`],
-      ], [])
-    //console.log('hgetallFriends', hgetallFriends);
-    redis.multi(hgetallFriends).exec((err, hgetallFriendsResults) => {
-      // @TODO investigate if error handling is correct here
-      if(err) return failure(err)
-      
-      const friends = hgetallFriendsResults.reduce(
-        (previousValue, currentValue, index) => [
-          ...previousValue,
-          Object.assign(currentValue[1], {id: users[index]}),
-        ], [])
-      //console.log('hgetallFriends.multi', friends);
-      
-      success({
-        username: data.username,
-        id,
-        friends,
-        invites,
-        requests,
-        online: true,
-      })
-    })
-  })
-}
 
 function logoutUser(data, success, failure) {
   redis.hget('users', data.username).then(id => {
