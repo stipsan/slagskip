@@ -21,7 +21,6 @@ export const friends = (state = initialState, action) => {
       (state, friend) => state.set(friend.username, defaultFriend.merge(friend)),
       state
     )
-    return state.intersect(action.friends.map(mapFriendToState))
   case RECEIVE_FRIEND:
     return state.set(action.username, defaultFriend.merge({
       username: action.username,

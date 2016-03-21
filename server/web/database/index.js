@@ -1,5 +1,4 @@
-var Redis = require('ioredis')
-var redis = new Redis(process.env.REDIS_URL)
+export * from './redis'
 
 const INVITE_EXPIRE = 86400
 
@@ -185,16 +184,4 @@ function logoutUser(data, success, failure) {
       })
     })
   })
-}
-
-module.exports = {
-  getUserByID,
-  getUserByUsername,
-  loginUser,
-  logoutUser,
-  userInviteFriend,
-  userCancelInvite,
-  userDeclineInvite,
-  userAcceptInvite,
-  createUser,
 }

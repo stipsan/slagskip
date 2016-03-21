@@ -20,6 +20,7 @@ class Friends extends Component {
     const {
       friends,
       username,
+      dispatch,
     } = this.props
     const { handleLogout } = this
 
@@ -37,6 +38,7 @@ class Friends extends Component {
             {friends.map(friend => <FriendRow
               key={friend.get('username')}
               friend={friend}
+              dispatch={dispatch}
             />)}
           </tbody>
         </table>

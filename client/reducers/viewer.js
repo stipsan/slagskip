@@ -14,12 +14,12 @@ export const viewer = (state = initialState, action) => {
   case LOGIN_SUCCESS:
     return state.merge({
       isAuthenticated: true,
-      username: action.username,
+      username: action.username
     })
   case LOGOUT_SUCCESS:
     return state.merge({
       isAuthenticated: false,
-      username: '',
+      username: ''
     })
   default:
     return state
