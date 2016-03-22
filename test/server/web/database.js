@@ -1,6 +1,7 @@
 import expect from 'expect'
 import * as database from '../../../server/web/database'
 import Redis from 'ioredis'
+import mockRedis from '../../mockRedis'
 
 const successCredentials = { username: 'batman' }
 const successAuthToken = { 
@@ -9,51 +10,6 @@ const successAuthToken = {
   privateChannel: `user:3`
 }
 const failureCredentials = { username: 'wonderwoman' }
-
-const mockRedis = {
-  hget(key, value) {
-    return new Promise(resolve => {
-      switch (key) {
-        case 'users':
-          return resolve(value === 'batman' ? 3 : value === 'superman' ? 2 : null)
-      }
-    })
-  },
-  hgetall(key) {
-    return new Promise(resolve => {
-      switch (key) {
-        case 'users':
-          return resolve([2, 3, 4, 5])
-      }
-    })
-  },
-  smembers(key) {
-    return new Promise((resolve, reject) => {
-      switch (key) {
-        case 'user:2:invites':
-          return resolve([3])
-        case 'user:3:invites':
-          return resolve([4, 5])
-        default:
-          return reject(key)
-      }
-    })
-  },
-  hset() {
-    return new Promise(resolve => {
-      resolve('OK')
-    })
-  },
-  multi(batch) {
-    this.batch = batch.map(([command, ...options]) => this[command].bind(command, ...options))
-    
-    return this
-  },
-  exec() {
-    return Promise.all(this.batch.map(promise => promise()))
-      .then(results => results.map(result => [null, result]))
-  }
-}
 
 describe('database business logic', () => {
   it('can connect to redis',  () => {
@@ -87,6 +43,110 @@ describe('database business logic', () => {
         expect(viewer).toEqual({
           friends: [2, 4, 5],
           invites: [4, 5]
+        })
+      })
+  })
+  
+  it('fetches list of friends', () => {
+    return database.getFriends({
+      id: successAuthToken.id,
+      friends: [2, 4, 5],
+      invites: [4, 5]
+    }, mockRedis)
+      .then(friends => {
+        expect(friends).toEqual([
+          {
+            id: 2,
+            username: 'superman',
+            inviteIn: false,
+            inviteOut: false,
+            online: true,
+          },
+          {
+            id: 4,
+            username: 'spiderman',
+            inviteIn: true,
+            inviteOut: false,
+            online: false,
+          },
+          {
+            id: 5,
+            username: 'lex',
+            inviteIn: true,
+            inviteOut: true,
+            online: false,
+            lastVisit: '2016-03-22T00:15:46.757Z',
+          }
+        ])
+      })
+  })
+  
+  it('can create new users', () => {
+    return database.createUser({
+      username: 'logan'
+    }, mockRedis)
+      .then(user => {
+        expect(user).toEqual({
+          id: 6,
+          username: 'logan',
+          privateChannel: 'user:6'
+        })
+      })
+  })
+  
+  it('updates users online status', () => {
+    const lastVisit = new Date().toJSON()
+    return database.setViewerOffline(successAuthToken, lastVisit, mockRedis)
+      .then(user => {
+        expect(user).toEqual({
+          id: 3,
+          online: false,
+          lastVisit
+        })
+      })
+  })
+  
+  it('should send invites to friends', () => {
+    const friendId = 2
+    return database.viewerSendsInvite(successAuthToken, friendId, mockRedis)
+      .then(friend => {
+        expect(friend).toEqual({
+          id: friendId,
+          inviteIn: true,
+          inviteOut: true
+        })
+      })
+  })
+  
+  it('can cancel invites sent to friend', () => {
+    const friendId = 2
+    return database.viewerCancelsInvite(successAuthToken, friendId, mockRedis)
+      .then(friend => {
+        expect(friend).toEqual({
+          id: friendId,
+          inviteOut: false
+        })
+      })
+  })
+  
+  it('can accept received invites', () => {
+    const friendId = 4
+    return database.viewerAcceptsInvite(successAuthToken, friendId, mockRedis)
+      .then(friend => {
+        expect(friend).toEqual({
+          id: friendId,
+          inviteOut: true
+        })
+      })
+  })
+  
+  it('can decline received invites', () => {
+    const friendId = 5
+    return database.viewerDeclinesInvite(successAuthToken, friendId, mockRedis)
+      .then(friend => {
+        expect(friend).toEqual({
+          id: friendId,
+          inviteIn: true
         })
       })
   })
