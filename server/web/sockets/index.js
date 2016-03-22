@@ -1,5 +1,3 @@
-/*eslint no-console: [2, { allow: ["error"] }] */
-
 module.exports = function(worker){
   
   const scServer = worker.scServer

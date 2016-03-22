@@ -1,4 +1,3 @@
-/*eslint no-console: 1 */
 import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
