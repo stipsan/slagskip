@@ -17,21 +17,10 @@ plugins:
   - react
 rules:
   comma-dangle: 1
-  indent:
-    - 2
-    - 2
-  linebreak-style:
-    - 2
-    - unix
-  quotes:
-    - 2
-    - single
-  semi:
-    - 2
-    - never
+  indent: 2
+  linebreak-style: 2
+  quotes: 2
+  semi: 2
   no-unused-vars: 1
   react/react-in-jsx-scope: 0
-  react/prop-types: 
-    - 2
-    - ignore:
-      - dispatch
+  react/prop-types: 2

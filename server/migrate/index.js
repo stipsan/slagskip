@@ -1,4 +1,3 @@
-/*eslint no-console: 0, no-fallthrough: 0 */
 'use strict' // @TODO this is to allow let & const
 
 // @TODO could prove to be a useful reusable module on npm
