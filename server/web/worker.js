@@ -37,5 +37,7 @@ module.exports.run = function (worker) {
   
   worker.httpServer.on('request', app)
   
-  require('./sockets')(worker)
+  var redis = require('./database').createConnection(process.env.NODE_ENV || '127.0.0.1:6379')
+  
+  require('./sockets')(worker, redis)
 }
