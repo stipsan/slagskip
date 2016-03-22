@@ -1,5 +1,3 @@
-/*eslint no-console: 0 */
-
 module.exports = function(wsServer){
 
   const TYPES = require('../../constants/ActionTypes')

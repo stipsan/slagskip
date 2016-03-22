@@ -1,4 +1,3 @@
-/* eslint no-undef: 1 */
 import { connect } from 'react-redux'
 
 import UnsupportedBrowser from '../components/UnsupportedBrowser'

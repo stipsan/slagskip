@@ -1,4 +1,3 @@
-/*eslint no-console: 1 */
 //@TODO make this a reusable middleware tailored socketcluster?
 import { connect } from './connect'
 
