@@ -112,7 +112,6 @@ describe('database business logic', () => {
       .then(friend => {
         expect(friend).toEqual({
           id: friendId,
-          inviteIn: true,
           inviteOut: true
         })
       })
@@ -146,7 +145,7 @@ describe('database business logic', () => {
       .then(friend => {
         expect(friend).toEqual({
           id: friendId,
-          inviteIn: true
+          inviteIn: false
         })
       })
   })

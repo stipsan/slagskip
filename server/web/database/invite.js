@@ -16,70 +16,48 @@ export const viewerSendsInvite = (viewerAuthToken, friendId, redis) => {
     })
 }
 
-function userInviteFriend(data, success, failure) {
-  //console.log('userInviteFriend', data);
-  redis.hget('users', data.user.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
-    
-    redis.sadd(`user:${id}:requests`, data.friend.username)
-    redis.expire(`user:${id}:requests`, INVITE_EXPIRE)
-    redis.hget('users', data.friend.username).then(id => {
-      if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`})
+export const viewerCancelsInvite = (viewerAuthToken, friendId, redis) => {
+  invariant(viewerAuthToken.id, 'Invalid viewerAuthToken, missing `id` property')
+  invariant(friendId, 'Invalid `friendId` argument')
+  
+  return redis
+    .srem(`user:${friendId}:invites`, viewerAuthToken.id)
+    .then(didCancelInvite => {
+      invariant(didCancelInvite, 'Failed to cancel invite')
       
-      
-      redis.sadd(`user:${id}:invites`, data.user.username)
-      redis.expire(`user:${id}:invites`, INVITE_EXPIRE)
-      success(id)
+      return {
+        id: friendId,
+        inviteOut: false
+      }
     })
-  })
 }
-
-function userAcceptInvite(data, success, failure) {
-  //console.log('userInviteFriend', data);
-  redis.hget('users', data.user.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
-    
-    redis.sadd(`user:${id}:requests`, data.friend.username)
-    redis.expire(`user:${id}:requests`, INVITE_EXPIRE)
-    redis.hget('users', data.friend.username).then(id => {
-      if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`})
+export const viewerAcceptsInvite = (viewerAuthToken, friendId, redis) => {
+  invariant(viewerAuthToken.id, 'Invalid viewerAuthToken, missing `id` property')
+  invariant(friendId, 'Invalid `friendId` argument')
+  
+  return redis
+    .sadd(`user:${friendId}:invites`, viewerAuthToken.id)
+    .then(didAcceptInvite => {
+      invariant(didAcceptInvite, 'Failed to accept invite')
       
-      
-      redis.sadd(`user:${id}:invites`, data.user.username)
-      redis.expire(`user:${id}:invites`, INVITE_EXPIRE)
-      success(id)
+      return {
+        id: friendId,
+        inviteOut: true
+      }
     })
-  })
 }
-
-function userCancelInvite(data, success, failure) {
-  //console.log('userInviteFriend', data);
-  redis.hget('users', data.user.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
-    
-    redis.srem(`user:${id}:requests`, data.friend.username)
-    redis.hget('users', data.friend.username).then(id => {
-      if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`})
+export const viewerDeclinesInvite = (viewerAuthToken, friendId, redis) => {
+  invariant(viewerAuthToken.id, 'Invalid viewerAuthToken, missing `id` property')
+  invariant(friendId, 'Invalid `friendId` argument')
+  
+  return redis
+    .srem(`user:${viewerAuthToken.id}:invites`, friendId)
+    .then(didDeclineInvite => {
+      invariant(didDeclineInvite, 'Failed to decline invite')
       
-      
-      redis.srem(`user:${id}:invites`, data.user.username)
-      success(id)
+      return {
+        id: friendId,
+        inviteIn: false
+      }
     })
-  })
-}
-
-function userDeclineInvite(data, success, failure) {
-  //console.log('userInviteFriend', data);
-  redis.hget('users', data.user.username).then(id => {
-    if(id < 1) return failure({message: `User '${data.user.username}' does not exist!`})
-    
-    redis.srem(`user:${id}:invites`, data.friend.username)
-    redis.hget('users', data.friend.username).then(id => {
-      if(id < 1) return failure({message: `Friend '${data.friend.username}' does not exist!`})
-      
-      
-      redis.srem(`user:${id}:requests`, data.user.username)
-      success(id)
-    })
-  })
 }

@@ -53,6 +53,13 @@ const mockRedis = {
       resolve(1)
     })
   },
+  srem(key, val) {
+    return new Promise(resolve => {
+      const index = this.data[key].indexOf(val)
+      this.data[key].splice(index, 1)
+      resolve(1)
+    })
+  },
   hget(key, value) {
     return new Promise(resolve => {
       return resolve(this.data[key][value])
