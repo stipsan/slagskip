@@ -1,5 +1,5 @@
 import {
-  LOGIN_SUCCESS,
+  AUTHENTICATE_SUCCESS,
   RECEIVE_GAME_INVITE,
   RECEIVE_GAME_INVITE_ACCEPTED,
   DECLINE_GAME_INVITE_SUCCESS,
@@ -11,7 +11,7 @@ const initialState = ImmutableSet()
 
 export const invites = (state = initialState, action) => {
   switch (action.type) {
-  case LOGIN_SUCCESS:
+  case AUTHENTICATE_SUCCESS:
     return state.intersect(action.invites)
   case RECEIVE_GAME_INVITE:
   case RECEIVE_GAME_INVITE_ACCEPTED:

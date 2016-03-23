@@ -41,7 +41,8 @@ describe('database business logic', () => {
     return database.getViewer(successAuthToken, mockRedis)
       .then(viewer => {
         expect(viewer).toEqual({
-          friends: [2, 4, 5],
+          authToken: successAuthToken,
+          friendIds: [2, 4, 5],
           invites: [4, 5]
         })
       })
@@ -56,25 +57,25 @@ describe('database business logic', () => {
       .then(friends => {
         expect(friends).toEqual([
           {
-            id: 2,
+            id: '2',
             username: 'superman',
             inviteIn: false,
             inviteOut: false,
-            online: true,
+            online: '1',
           },
           {
-            id: 4,
+            id: '4',
             username: 'spiderman',
             inviteIn: true,
             inviteOut: false,
-            online: false,
+            online: '0',
           },
           {
-            id: 5,
+            id: '5',
             username: 'lex',
             inviteIn: true,
             inviteOut: true,
-            online: false,
+            online: '0',
             lastVisit: '2016-03-22T00:15:46.757Z',
           }
         ])

@@ -1,0 +1,11 @@
+@import '../../style/_config';
+
+.section {
+  composes: section from '../../style/_section.scss';
+  
+  align-items: center;
+  justify-content: center;
+  
+  color: white;
+  mix-blend-mode: overlay;
+}

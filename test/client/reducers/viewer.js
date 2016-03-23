@@ -14,11 +14,13 @@ describe('viewer reducer', () => {
       }
     )
   })
-  it('should handle LOGIN_SUCCESS', () => {
+  it('should handle AUTHENTICATE_SUCCESS', () => {
     expect(
       reducer(undefined, {
-        type: types.LOGIN_SUCCESS,
-        username: 'Foo'
+        type: types.AUTHENTICATE_SUCCESS,
+        authToken: {
+          username: 'Foo'
+        }
       }).toJS()
     ).toEqual(
       {

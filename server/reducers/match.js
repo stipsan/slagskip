@@ -1,27 +1,14 @@
 import {
   AUTHENTICATE_SUCCESS,
-  RECEIVE_VIEWER,
-  RECEIVE_FRIEND,
-  FRIENDS_SUCCESS,
-  RECEIVE_FRIEND_NETWORK_STATUS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutable'
+import { Map as ImmutableMap } from 'immutable'
 
-
-const defaultFriend = ImmutableMap({
-  online: '0',
-  lastVisit: '',
-  inviteIn: '0',
-  inviteOut: '0'
-})
 const initialState = ImmutableMap({
-  total: 0,
-  list: ImmutableOrderedMap({})
+  matchState: ,
+  list: 
 })
 
-const mapFriendToState = friend => defaultFriend.merge(friend)
-
-export const friends = (state = initialState, action) => {
+export const match = (state = initialState, action) => {
   switch (action.type) {
   case RECEIVE_VIEWER:
     return state.set('total', action.friendIds.length)

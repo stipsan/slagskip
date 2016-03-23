@@ -1,8 +1,8 @@
 import { CALL_SOCKET } from '../middleware/socket'
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_SUCCESS,
+  AUTHENTICATE_FAILURE,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
@@ -13,7 +13,7 @@ import {
 export function loginUser(username) {
   return {
     [CALL_SOCKET]: {
-      types: [ LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE ],
+      types: [ AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE ],
       data: {
         username: username,
       },

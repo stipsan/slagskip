@@ -13,13 +13,13 @@ export const getViewer = (authToken, redis) => {
     ])
     .exec()
     .then(results => {
-      const friends  = results[0][1]
-      const invites  = results[1][1]
+      const friendIds = results[0][1]
+      const invites   = results[1][1]
       
       // @FIXME
-      friends.splice(friends.indexOf(viewerId), 1)
-      
-      return { friends, invites }
+      friendIds.splice(friendIds.indexOf(viewerId), 1)
+
+      return { authToken, friendIds, invites }
     })
 }
 
