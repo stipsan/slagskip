@@ -17,6 +17,24 @@ const getItemType = type => {
   return itemTypes[type]
 }
 
+const validateStartPosition = ([x, y]) => {
+  return x < 0 || y < 0 || x > 9 || y > 9
+}
+
+const createCoordinates = (rotated, [x, y], itemType, [, ...itemState]) => {
+  const startIndex = (y * 10) + x
+  const coordinates = itemState.map((gridPoint, insertIndex) => {
+    return startIndex + (rotated ? (insertIndex * 10) : insertIndex)
+  })
+  
+  // check for grid overflow
+  if(coordinates[coordinates.length - 1] > 99) {
+    return false
+  }
+  
+  return coordinates
+}
+
 const initialState = fromJS({
   grid: [
 //      a  b  c  d  e  f  g  h  i  j  
@@ -43,22 +61,31 @@ const initialState = fromJS({
 export const board = (state = initialState, action) => {
   switch (action.type) {
   case ADD_ITEM:
+    // basic validation
+    if(validateStartPosition(action.position)) {
+      return state
+    }
+
     const itemType = getItemType(action.item)
     const item = state.get(action.item)
     const startIndex = (action.position[1] * 10) + action.position[0]
     
-    return item.reduce(
-      (previous, current, index) => {
-        if(index === 0) {
-          return previous.setIn([action.item, index], action.rotated ? 1 : 0)
-        }
-        const insertIndex = index - 1
-        const pos = startIndex + (action.rotated ? (insertIndex * 10) : insertIndex) 
-        return previous
-          .setIn([action.item, index], pos)
-          .setIn(['grid', pos], itemType.id)
+    if(state.get('grid').contains(itemType.id)) {
+      return state
+    }
+    
+    const coordinates = createCoordinates(action.rotated, action.position, itemType, item)
+    if(!coordinates) {
+      return state
+    }
+    
+    return coordinates.reduce(
+      (previousState, currentPosition, index) => {
+        return previousState
+          .setIn([action.item, index + 1], currentPosition)
+          .setIn(['grid', currentPosition], itemType.id)
       },
-      state
+      state.setIn([action.item, 0], action.rotated ? 1 : 0)
     )
   
   default:
