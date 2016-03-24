@@ -19,6 +19,7 @@ module.exports = () => {
       pipeline.setnx('user_next', 0)
     case 2:
       pipeline.setnx('user_next', 0)
+    }
 
     pipeline.exec((err, results) => {
       const migrations = results.filter(
