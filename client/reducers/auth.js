@@ -1,10 +1,10 @@
 import {
   SOCKET_SUCCESS,
   RECEIVE_AUTH_STATE_CHANGE,
-  LOGIN_FAILURE,
+  AUTHENTICATE_FAILURE,
   RECEIVE_DEAUTHENTICATE,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
+  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
 import {
   LOCATION_CHANGE
@@ -16,8 +16,7 @@ import { Map as ImmutableMap } from 'immutable'
 const initialState = ImmutableMap({
   isAuthenticated: false,
   authState: 'unauthenticated',
-  authToken: null,
-  redirectAfterLogin: '/',
+  authToken: null
 })
 
 export const auth = (state = initialState, action) => {
@@ -37,18 +36,18 @@ export const auth = (state = initialState, action) => {
     return state.merge({
       redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
     })
-  case LOGIN_FAILURE:
+  case AUTHENTICATE_FAILURE:
   case RECEIVE_DEAUTHENTICATE:
     return state.merge({
       isAuthenticated: false,
       authState: 'unauthenticated',
       authToken: null,
     })
-  case LOGIN_REQUEST:
+  case AUTHENTICATE_REQUEST:
     return state.merge({
       authState: 'pending',
     })
-  case LOGIN_SUCCESS:
+  case AUTHENTICATE_SUCCESS:
     return state.merge({
       authState: 'authenticated',
       isAUthenticated: true,

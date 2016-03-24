@@ -1,5 +1,4 @@
 import { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 import className from 'classnames'
 import TimeAgo from 'react-timeago'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
@@ -159,4 +158,4 @@ class FriendRow extends Component {
   }
 }
 
-export default connect()(FriendRow)
+export default FriendRow

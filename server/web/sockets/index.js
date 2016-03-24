@@ -1,4 +1,4 @@
-module.exports = function(worker){
+module.exports = function(worker, redis){
   
   const scServer = worker.scServer
 
@@ -6,6 +6,7 @@ module.exports = function(worker){
   
   const database = require('../database')
   const TYPES = require('../../constants/ActionTypes')
+  const invariant = require('invariant')
   
   //@TODO implement a persistent datastore, likely redis, for users and use dataloader
 
@@ -13,36 +14,67 @@ module.exports = function(worker){
     
     //console.log(process.pid, 'a user connected', authToken);
 
-    socket.on(TYPES.LOGIN_REQUEST, function (data, res) {
-      //console.log(TYPES.LOGIN_REQUEST, data);
+    socket.on(TYPES.AUTHENTICATE_REQUEST, function (data, res) {
+      //console.log(TYPES.AUTHENTICATE_REQUEST, data);
       
       // @TODO reuse http status code as error code for failed validation?
       if(data.username.length < 3) return res('USERNAME_TOO_SHORT', {message: 'Username too short'})
       
-      database.loginUser(
-        {username: data.username, socket: socket.id},
-        user => {          
-          //console.log(TYPES.LOGIN_SUCCESS, user);
-          socket.setAuthToken({username: data.username, channels: ['service', `user:${user.id}`], id: user.id})
-          res(null, Object.assign({type: TYPES.LOGIN_SUCCESS}, user, {authToken: socket.getAuthToken()}))
-          
-          //socket.broadcast.emit('join', data);
-          scServer.exchange.publish('service', {
-            type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
-            username: user.username,
-            id: user.id,
-            online: true,
-          })
-        },
-        error => {
-          //console.log(TYPES.LOGIN_FAILURE, error);
-          res(TYPES.LOGIN_FAILURE, error)
-        }
-      )
+      database.authenticate(
+        { username: data.username }, redis
+      ).then(authToken => {          
+        //console.log(TYPES.AUTHENTICATE_SUCCESS, user);
+        socket.setAuthToken(authToken)
+        res(null, Object.assign({type: TYPES.AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
+        
+        //socket.broadcast.emit('join', data);
+        scServer.exchange.publish('service', {
+          type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
+          username: authToken.username,
+          id: authToken.id,
+          online: true,
+        })
+        
+        return database.getViewer(authToken, redis)
+      }).then(viewer => {
+        invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
+        invariant(viewer.authToken.privateChannel, 'database.getViewer authToken did not contain the property `privateChannel`')
+
+        scServer.exchange.publish(viewer.authToken.privateChannel, {
+          type: TYPES.RECEIVE_VIEWER,
+          friendIds: viewer.friendIds,
+          invites: viewer.invites
+        })
+      }).catch(error => {
+        console.log(TYPES.AUTHENTICATE_FAILURE, error);
+        res(TYPES.AUTHENTICATE_FAILURE, error)
+      })
+    })
+    
+    socket.on(TYPES.FRIENDS_REQUEST, function (data, res) {
+      // @TODO implement dataloaders to reduce redis stress and duplicated data fetching
+      database.getViewer(
+        socket.getAuthToken(), redis
+      ).then(viewer => {
+        return database.getFriends({
+          id: viewer.authToken.id,
+          friends: viewer.friendIds,
+          invites: viewer.invites
+        }, redis)
+      }).then(friends => {
+        const authToken = socket.getAuthToken()
+        invariant(authToken, 'socket.getAuthToken() failed to return a valid token')
+        invariant(authToken.privateChannel, 'authToken did not contain the property `privateChannel`')
+
+        res(null, {type: TYPES.FRIENDS_SUCCESS, friends })
+      }).catch(error => {
+        console.log(TYPES.FRIENDS_FAILURE, error);
+        res(TYPES.FRIENDS_FAILURE, error)
+      })
     })
     
     /*
-    socket.on(TYPES.LOGIN_REQUEST, function(data) {
+    socket.on(TYPES.AUTHENTICATE_REQUEST, function(data) {
       
       console.log('join', data);
       if(data.username.length < 3) return socket.emit('failed login', {message: 'Username too short'});
@@ -165,19 +197,10 @@ module.exports = function(worker){
     
     socket.on('disconnect', () => {
       if(socket.authToken) {
-        database.logoutUser(socket.authToken, data => {
-          //console.log(TYPES.LOGOUT_SUCCESS, data);
-          scServer.exchange.publish(
-            'service',
-            Object.assign(
-              { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
-              data
-            )
-          )
-        },
-        error => {
-          //console.log(TYPES.LOGOUT_FAILURE, error);
-          console.error(TYPES.LOGOUT_FAILURE, error)
+        scServer.exchange.publish('service', {
+          type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
+          id: socket.authToken.id,
+          username: socket.authToken.username
         })
       }
     })

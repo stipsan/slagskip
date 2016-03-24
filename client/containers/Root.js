@@ -2,9 +2,9 @@ import { PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import Login from './Login'
 import App from './App'
-import Lobby from '../components/Lobby'
+import Lobby from './Lobby'
+import Setup from './Setup'
 import NotFound from '../components/NotFound'
 
 const Root = ({ store }) => {
@@ -16,9 +16,11 @@ const Root = ({ store }) => {
   
   return <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Lobby} />
-        <Route path="login" component={Login} />
+      <Route component={App}>
+        <Route path="/" component={Lobby}>
+          
+        </Route>
+        <Route path="setup" component={Setup} />
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

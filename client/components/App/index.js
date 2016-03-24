@@ -22,19 +22,7 @@ const transitionName = Object.freeze({
 })
 const transitionDuration = 300
 
-function shouldCheckAuth ({
-  maybeRedirectToLogin,
-  connected,
-  isAuthenticated,
-  location: redirectAfterLogin,
-} = this.props) {
-  return maybeRedirectToLogin(connected, isAuthenticated, redirectAfterLogin)
-}
-
 export default class App extends Component {
-
-  componentWillMount = shouldCheckAuth
-  componentWillReceiveProps = shouldCheckAuth
 
   static propTypes = {
     connected: PropTypes.bool.isRequired,

@@ -20,12 +20,12 @@ export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
 
 // attempt login
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST'
 // login succeeded, payload contains friends, invities and game matches
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
+export const AUTHENTICATE_FAILURE = 'AUTHENTICATE_FAILURE'
 // we got a valid authentication and don't need to login
-export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
+export const RECEIVE_VIEWER = 'RECEIVE_VIEWER'
 export const RECEIVE_AUTH_STATE_CHANGE = 'RECEIVE_AUTH_STATE_CHANGE'
 export const RECEIVE_AUTHENTICATE = 'RECEIVE_AUTHENTICATE'
 export const RECEIVE_DEAUTHENTICATE = 'RECEIVE_DEAUTHENTICATE'
@@ -39,6 +39,9 @@ export const RECEIVE_UNSUBSCRIBE_CHANNEL = 'RECEIVE_UNSUBSCRIBE_CHANNEL'
 export const RECEIVE_KICK_OUT = 'RECEIVE_KICK_OUT'
 
 // during alpha everybody is friends, friends lists will come later
+export const FRIENDS_REQUEST = 'FRIENDS_REQUEST'
+export const FRIENDS_SUCCESS = 'FRIENDS_SUCCESS'
+export const FRIENDS_FAILURE = 'FRIENDS_FAILURE'
 export const RECEIVE_FRIEND = 'RECEIVE_FRIEND'
 // user came online or disconnected/signed out
 export const RECEIVE_FRIEND_NETWORK_STATUS = 'RECEIVE_FRIEND_NETWORK_STATUS'
@@ -78,12 +81,12 @@ export const NEW_GAME_FAILURE = 'NEW_GAME_FAILURE'
 export const RECEIVE_GAME_JOIN = 'RECEIVE_GAME_JOIN'
 
 // actions for setting up our own battleship formation
-export const ADD_SHIP = 'ADD_SHIP'
-export const MOVE_SHIP = 'MOVE_SHIP'
-export const ROTATE_SHIP = 'ROTATE_SHIP'
-export const REMOVE_SHIP = 'REMOVE_SHIP'
-export const RESET_SHIPS = 'RESET_SHIPS'
-export const RANDOM_SHIPS = 'RANDOM_SHIPS'
+export const ADD_ITEM = 'ADD_ITEM'
+export const MOVE_ITEM = 'MOVE_ITEM'
+export const ROTATE_ITEM = 'ROTATE_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const RESET_ITEMS = 'RESET_ITEMS'
+export const LOAD_ITEMS = 'LOAD_ITEMS'
 
 // the opponent is ready and waiting for us to launch
 export const RECEIVE_GAME_READY = 'RECEIVE_GAME_READY'

@@ -5,12 +5,12 @@ module.exports = function(wsServer){
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
-      console.log('middleware.MIDDLEWARE_SUBSCRIBE', req.channel, authToken && authToken.username)
       if (req.authTokenExpiredError) {
         next(req.authTokenExpiredError) // Fail with a default auth token expiry error
-      } else if (authToken && authToken.channels.indexOf(req.channel) !== -1) {
+      } else if (authToken && authToken.privateChannel === req.channel) {
         next() // Allow
       } else {
+        console.log('middleware.MIDDLEWARE_SUBSCRIBE blocked', req.channel, authToken && authToken.privateChannel)
         next(true) // Block
         // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
       }
@@ -55,7 +55,7 @@ module.exports = function(wsServer){
   wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
-      // only LOGIN_REQUEST unless authToken
+      // only AUTHENTICATE_REQUEST unless authToken
       console.log('middleware.MIDDLEWARE_EMIT', req.event, req.data, authToken && authToken.username)
       
       next()
