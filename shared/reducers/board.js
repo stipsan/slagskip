@@ -1,5 +1,8 @@
 import {
   ADD_ITEM,
+  ROTATE_ITEM,
+  MOVE_ITEM,
+  REMOVE_ITEM,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 
@@ -21,14 +24,23 @@ const validateStartPosition = ([x, y]) => {
   return x < 0 || y < 0 || x > 9 || y > 9
 }
 
-const createCoordinates = (rotated, [x, y], itemType, [, ...itemState]) => {
-  const startIndex = (y * 10) + x
+const createStartIndex = ([x, y]) => (y * 10) + x
+
+const createCoordinates = (rotated, startIndex, itemType, [, ...itemState]) => {
   const coordinates = itemState.map((gridPoint, insertIndex) => {
     return startIndex + (rotated ? (insertIndex * 10) : insertIndex)
   })
   
-  // check for grid overflow
-  if(coordinates[coordinates.length - 1] > 99) {
+  
+  var firstCoordinate = coordinates[0]
+  var lastCoordinate = coordinates[coordinates.length - 1]
+  // check for x-axis overflow
+  if(!rotated && Math.floor(firstCoordinate / 10) !== Math.floor(lastCoordinate / 10)) {
+    return false
+  }
+  
+  // check for grid y-axis overflow
+  if(lastCoordinate > 99) {
     return false
   }
   
@@ -66,16 +78,27 @@ export const board = (state = initialState, action) => {
       return state
     }
 
-    const itemType = getItemType(action.item)
-    const item = state.get(action.item)
-    const startIndex = (action.position[1] * 10) + action.position[0]
+    var itemType = getItemType(action.item)
+    var item = state.get(action.item)
+    var startIndex = (action.position[1] * 10) + action.position[0]
     
     if(state.get('grid').contains(itemType.id)) {
       return state
     }
     
-    const coordinates = createCoordinates(action.rotated, action.position, itemType, item)
+    var startIndex = createStartIndex(action.position)
+    var coordinates = createCoordinates(action.rotated, startIndex, itemType, item)
     if(!coordinates) {
+      return state
+    }
+    
+    var isPositionsTaken = coordinates.reduce(
+      (positionsCheck, currentPosition, index) => {
+        return positionsCheck + state.getIn(['grid', currentPosition])
+      },
+      0
+    )
+    if(isPositionsTaken > 0) {
       return state
     }
     
@@ -87,7 +110,45 @@ export const board = (state = initialState, action) => {
       },
       state.setIn([action.item, 0], action.rotated ? 1 : 0)
     )
+  case ROTATE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.get(action.item)
+    var startIndex = item.get(1)
+    var coordinates = createCoordinates(action.rotated, startIndex, itemType, item)
+    if(!coordinates) {
+      return state
+    }
   
+    var isPositionsTaken = coordinates.reduce(
+      (positionsCheck, currentPosition, index) => {
+        const existingPosition = state.getIn(['grid', currentPosition])
+        if(existingPosition === itemType.id) {
+          return positionsCheck
+        }
+        return positionsCheck + existingPosition
+      },
+      0
+    )
+    if(isPositionsTaken > 0) {
+      console.log(isPositionsTaken)
+      return state
+    }
+    
+    state = item.unshift().reduce(
+      (previousState, previousPosition) => {
+        return previousState.setIn(['grid', previousPosition], 0)
+      },
+      state
+    )
+  
+    return coordinates.reduce(
+      (previousState, currentPosition, index) => {
+        return previousState
+          .setIn([action.item, index + 1], currentPosition)
+          .setIn(['grid', currentPosition], itemType.id)
+      },
+      state.setIn([action.item, 0], action.rotated ? 1 : 0)
+    )
   default:
     return state
   }

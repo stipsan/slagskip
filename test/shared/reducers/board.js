@@ -425,7 +425,7 @@ describe('board reducer', () => {
       reducer(undefined, {
         type: types.ADD_ITEM,
         item: 'xl',
-        position: [6,9]
+        position: [9,5]
       }).toJS()
     ).toEqual(
       {
@@ -517,6 +517,457 @@ describe('board reducer', () => {
         s1:  [0, -1, -1],
         s2:  [0, -1, -1],
         xs1: [0, 0],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent overlap on previous item on x-axis when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [0,0]
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [3,0]
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 0, 1, 2, 3, 4],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent overlap on next item on x-axis when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [5,0]
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [3,0]
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 5, 6, 7, 8, 9],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent overlap on previous item on y-axis when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [2,1],
+        rotated: 1
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [2,3],
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 12, 22, 32, 42, 52],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent overlap on previous item on y-axis when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [2,1],
+        rotated: 1
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [2,0],
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 12, 22, 32, 42, 52],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent x-axis overlap on y-axis items when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [2,1],
+        rotated: 1
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [0,2]
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 12, 22, 32, 42, 52],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should prevent y-axis overlap on x-axis items when adding items', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [0,2]
+      }), {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [2,0],
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 20, 21, 22, 23, 24],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should rotate items x to y', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [4,4]
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 44, 54, 64, 74, 84],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should not overflow when rotating items x to y', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [4,8]
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 84, 85, 86, 87, 88],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should rotate items y to x', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [4,4],
+        rotated: 1
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 0
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 44, 45, 46, 47, 48],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should not overflow when rotating items y to x', () => {
+    expect(
+      reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [8,4],
+        rotated: 1
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 0
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 48, 58, 68, 78, 88],
+        l:   [0, -1, -1, -1, -1],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should not overlap when rotating items x to y', () => {
+    expect(
+      reducer(reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [4,6],
+        rotated: 1
+      }), {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [4,4]
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 1
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+        ],
+        xl:  [0, 44, 45, 46, 47, 48],
+        l:   [1, 64, 74, 84, 94],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
+        xs2: [0, -1]
+      }
+    )
+  })
+  it('should not overlap when rotating items y to x', () => {
+    expect(
+      reducer(reducer(reducer(undefined, {
+        type: types.ADD_ITEM,
+        item: 'l',
+        position: [6,4],
+        rotated: 1
+      }), {
+        type: types.ADD_ITEM,
+        item: 'xl',
+        position: [4,4],
+        rotated: 1
+      }), {
+        type: types.ROTATE_ITEM,
+        item: 'xl',
+        rotated: 0
+      }).toJS()
+    ).toEqual(
+      {
+        grid: [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 2, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 2, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 2, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 2, 0, 0, 0,
+          0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        xl:  [1, 44, 54, 64, 74, 84],
+        l:   [1, 46, 56, 66, 76],
+        m1:  [0, -1, -1, -1],
+        m2:  [0, -1, -1, -1],
+        s1:  [0, -1, -1],
+        s2:  [0, -1, -1],
+        xs1: [0, -1],
         xs2: [0, -1]
       }
     )
