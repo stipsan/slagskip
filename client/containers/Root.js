@@ -4,6 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import App from './App'
 import Lobby from './Lobby'
+import Setup from './Setup'
 import NotFound from '../components/NotFound'
 
 const Root = ({ store }) => {
@@ -19,6 +20,7 @@ const Root = ({ store }) => {
         <Route path="/" component={Lobby}>
           
         </Route>
+        <Route path="setup" component={Setup} />
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

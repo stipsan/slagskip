@@ -9,8 +9,8 @@ module.exports = () => {
   const Redis = require('ioredis')
   const redis = new Redis(process.env.REDIS_URL)
 
-  redis.get('migration_next').then(migration_next => {
-    console.log(migration_next)
+  redis.get('migration_next').then(migration_next_raw => {
+    const migration_next = parseInt(migration_next_raw, 10)
     const pipeline = redis.pipeline()
     switch (migration_next) {
     case 0:
@@ -54,7 +54,7 @@ module.exports = () => {
         multi.set(key, (new Date).toJSON())
         console.log(key)
       }
-      multi.set('migration_next', i + migration_next)
+      multi.incr('migration_next', i + migration_next)
       multi.exec(() => redis.quit())
     })
   })
