@@ -86,7 +86,7 @@ export const MOVE_ITEM = 'MOVE_ITEM'
 export const ROTATE_ITEM = 'ROTATE_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
 export const RESET_ITEMS = 'RESET_ITEMS'
-export const RANDOM_ITEMS = 'RANDOM_ITEMS'
+export const LOAD_ITEMS = 'LOAD_ITEMS'
 
 // the opponent is ready and waiting for us to launch
 export const RECEIVE_GAME_READY = 'RECEIVE_GAME_READY'

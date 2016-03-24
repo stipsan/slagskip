@@ -3,6 +3,8 @@ import {
   ROTATE_ITEM,
   MOVE_ITEM,
   REMOVE_ITEM,
+  RESET_ITEMS,
+  LOAD_ITEMS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 
@@ -130,7 +132,6 @@ export const board = (state = initialState, action) => {
       0
     )
     if(isPositionsTaken > 0) {
-      console.log(isPositionsTaken)
       return state
     }
     
@@ -149,6 +150,61 @@ export const board = (state = initialState, action) => {
       },
       state.setIn([action.item, 0], action.rotated ? 1 : 0)
     )
+  case MOVE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.get(action.item)
+    var rotated = item.get(0)
+    var startIndex = createStartIndex(action.position)
+    var coordinates = createCoordinates(rotated, startIndex, itemType, item)
+    if(!coordinates) {
+      return state
+    }
+  
+    var isPositionsTaken = coordinates.reduce(
+      (positionsCheck, currentPosition, index) => {
+        const existingPosition = state.getIn(['grid', currentPosition])
+        if(existingPosition === itemType.id) {
+          return positionsCheck
+        }
+        return positionsCheck + existingPosition
+      },
+      0
+    )
+    if(isPositionsTaken > 0) {
+      return state
+    }
+    
+    state = item.shift().reduce(
+      (previousState, previousPosition) => {
+        return previousState.setIn(['grid', previousPosition], 0)
+      },
+      state
+    )
+  
+    return coordinates.reduce(
+      (previousState, currentPosition, index) => {
+        return previousState
+          .setIn([action.item, index + 1], currentPosition)
+          .setIn(['grid', currentPosition], itemType.id)
+      },
+      state.setIn([action.item, 0], action.rotated ? 1 : 0)
+    )
+  case REMOVE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.get(action.item)
+
+    return item.shift().reduce(
+      (previousState, previousPosition, index) => {
+        return previousState
+          .setIn([action.item, index + 1], -1)
+          .setIn(['grid', previousPosition], 0)
+      },
+      state
+    )
+  case RESET_ITEMS:
+    return initialState
+  case LOAD_ITEMS:
+    return state.merge(action.items)
   default:
     return state
   }
