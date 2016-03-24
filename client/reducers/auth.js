@@ -16,8 +16,7 @@ import { Map as ImmutableMap } from 'immutable'
 const initialState = ImmutableMap({
   isAuthenticated: false,
   authState: 'unauthenticated',
-  authToken: null,
-  redirectAfterLogin: '/',
+  authToken: null
 })
 
 export const auth = (state = initialState, action) => {

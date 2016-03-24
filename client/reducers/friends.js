@@ -1,7 +1,5 @@
 import {
-  AUTHENTICATE_SUCCESS,
   RECEIVE_VIEWER,
-  RECEIVE_FRIEND,
   FRIENDS_SUCCESS,
   RECEIVE_FRIEND_NETWORK_STATUS,
 } from '../constants/ActionTypes'
@@ -30,11 +28,6 @@ export const friends = (state = initialState, action) => {
       (state, friend) => state.setIn(['list', friend.id], defaultFriend.merge(friend)),
       state.set('total', action.friends.length)
     )
-  case RECEIVE_FRIEND:
-    return state.setIn(['list', action.username], defaultFriend.merge({
-      username: action.username,
-      online: action.online,
-    }))
   case RECEIVE_FRIEND_NETWORK_STATUS:
     return state.mergeIn(['list', action.id], {
       id: action.id,
