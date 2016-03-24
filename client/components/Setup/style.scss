@@ -1,5 +1,75 @@
 @import '../../style/_config';
+$default-color: rgb(81, 161, 26);
+$border-color: rgb(141, 200, 80);
+$active-color: rgb(152, 251, 152);
 
 .section {
   composes: section from '../../style/_section.scss';
+  
+  background: rgb(84, 103, 61);
+  padding: 0;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.grid {
+  height: 500px;
+  width: 500px;
+  //background: $default-color;
+  //border: 1px solid $border-color;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1px;
+}
+.yard {
+  composes: grid;
+  border-color: transparent;
+  background-color: rgba(red, 0);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  padding-top: 500px;
+  height: 800px;
+}
+
+.cell {
+  //border: 1px solid  $border-color;
+  background-color: $default-color;
+  box-shadow: $border-color 0 0 0 1px, inset $border-color 0 0 0 1px;
+  float: left;
+  height: 10%;
+  width: 10%;
+}
+.cellActive {
+  //border-color: $active-color;
+  box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
+  background-color: mix($default-color, $active-color, 66%);
+  position: relative;
+  z-index: 1;
+}
+
+@media (orientation: landscape) {
+  .grid {
+    height: 80vh;
+    width: 80vh;
+  }
+  .yard {
+    height: 100vh;
+    width: 80vh;
+    padding-top: 80vh;
+  }
+}
+@media (orientation: portrait) {
+  .grid {
+    height: 100vw;
+    width: 100vw;
+  }
+  .yard {
+    height: 100vw;
+    width: 100vw;
+    padding-top: 100vw;
+  }
 }

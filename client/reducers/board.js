@@ -1,1 +1,1 @@
-./shared/reducers/board.js
+../../shared/reducers/board.js

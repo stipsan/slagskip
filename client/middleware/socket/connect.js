@@ -33,7 +33,7 @@ export const connect = (store, next, action, callSocket) => {
       
       const authToken = socket.getAuthToken()
       const channels = authToken && authToken.channels || undefined
-      if(authToken.privateChannel) subscribeChannels(store, next, action, socket, [authToken.privateChannel])
+      if(authToken && authToken.privateChannel) subscribeChannels(store, next, action, socket, [authToken.privateChannel])
       
       next({ type: SOCKET_SUCCESS, ...data, socket })
       if(socket.authToken) {        
