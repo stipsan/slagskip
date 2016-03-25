@@ -3,6 +3,7 @@ import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
 import {
   section as sectionClassName,
   yard as yardClassName,
@@ -79,4 +80,4 @@ class Setup extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(Setup)
+export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(Setup)

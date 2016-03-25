@@ -71,12 +71,13 @@ $active-color: rgb(152, 251, 152);
     width: 100vw;
   }
   .yard {
-    top: 100vw;
+    padding-top: 70vh;
+    height: 100vh;
   }
 }
 
 .item {
-  height: 10px;
+  height: 50px;
   background: crimson;
 }
 .itemPreview {
@@ -88,5 +89,5 @@ $active-color: rgb(152, 251, 152);
 .xl {
   composes: item;
   
-  width: 100px;
+  width: 260px;
 }
