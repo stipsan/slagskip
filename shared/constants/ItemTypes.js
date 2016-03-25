@@ -1,0 +1,8 @@
+export const EXTRA_LARGE = 'xl'
+export const LARGE = 'l'
+export const MEDIUM_FIRST = 'm1'
+export const MEDIUM_SECOND = 'm2'
+export const SMALL_FIRST = 's1'
+export const SMALL_SECOND = 's2'
+export const EXTRA_SMALL_FIRST = 'xs1'
+export const EXTRA_SMALL_SECOND = 'xs2'

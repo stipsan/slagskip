@@ -1,8 +1,12 @@
 import { Component } from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import { grid as gridClassName } from './style.scss'
 import Cell from './Cell'
 
 class Grid extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
   render() {
     const { grid } = this.props
     
