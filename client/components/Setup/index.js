@@ -10,7 +10,16 @@ import {
   wrapper as wrapperClassName,
 } from './style.scss'
 import Grid from './Grid'
-import Item from './Item'
+import {
+  ExtraLarge,
+  Large,
+  Medium1,
+  Medium2,
+  Small1,
+  Small2,
+  ExtraSmall1,
+  ExtraSmall2,
+} from './Item'
 import ItemPreview from './ItemPreview'
 
 
@@ -25,7 +34,18 @@ class Setup extends Component {
         <div className={wrapperClassName}>
           <Grid grid={grid} />
           <div className={yardClassName}>
-            <Item type="xl" />
+            
+            <Large type="l" />
+            <ExtraSmall1 type="xs1" />
+            <ExtraSmall2 type="xs2" />
+            <Medium1 type="m1" />
+            
+            <Small1 type="s1" />
+            <Small2 type="s2" />
+            <Medium2 type="m2" />
+            <ExtraLarge type="xl" />
+            
+            
             <ItemPreview name="item" />
             <button onClick={event => this.props.dispatch({
               type: 'ADD_ITEM',

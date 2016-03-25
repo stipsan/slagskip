@@ -38,6 +38,7 @@ function collect(monitor) {
     return {
         id: item && item.id,
         name: item && item.name,
+        type: item && item.type,
         currentOffset: monitor.getSourceClientOffset(),
         isDragging: monitor.isDragging()
     };
@@ -79,13 +80,9 @@ class ItemPreview extends Component {
     return shallowCompare(this, nextProps, nextState)
   }
   render() {
-    if (!this.props.isDragging) {
-        return <div></div>;
-    }
-
     return (
         <div
-            className={className(itemPreview, xl)}
+            className={className(itemPreview, types[this.props.type])}
             style={getItemStyles(this.props.currentOffset)}
         >
             {this.props.id} {this.props.name}
