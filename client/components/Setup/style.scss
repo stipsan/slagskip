@@ -6,7 +6,7 @@ $active-color: rgb(152, 251, 152);
 .section {
   composes: section from '../../style/_section.scss';
   
-  background: rgb(84, 103, 61);
+  background: #1D1D1D;
   padding: 0;
 }
 
@@ -21,7 +21,6 @@ $active-color: rgb(152, 251, 152);
   //border: 1px solid $border-color;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1px;
 }
 .yard {
   composes: grid;
@@ -31,8 +30,7 @@ $active-color: rgb(152, 251, 152);
   top: 0px;
   left: 0px;
   right: 0px;
-  padding-top: 500px;
-  height: 800px;
+  bottom: 0px;
 }
 
 .cell {
@@ -53,23 +51,42 @@ $active-color: rgb(152, 251, 152);
 
 @media (orientation: landscape) {
   .grid {
-    height: 80vh;
-    width: 80vh;
+    max-height: 60vw;
+    max-width: 60vw;
+    height: 100vh;
+    width: 100vh;
+    margin-left: 0;
   }
   .yard {
-    height: 100vh;
-    width: 80vh;
-    padding-top: 80vh;
+    padding-left: 60vw;
+    max-width: 100vw;
+    width: 100vw;
   }
 }
 @media (orientation: portrait) {
   .grid {
+    max-height: 70vh;
+    max-width: 70vh;
     height: 100vw;
     width: 100vw;
   }
   .yard {
-    height: 100vw;
-    width: 100vw;
-    padding-top: 100vw;
+    top: 100vw;
   }
+}
+
+.item {
+  height: 10px;
+  background: crimson;
+}
+.itemPreview {
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.xl {
+  composes: item;
+  
+  width: 100px;
 }
