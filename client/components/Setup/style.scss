@@ -114,3 +114,7 @@ $active-color: rgb(152, 251, 152);
   composes: xl;
   width: 32px;
 }
+
+.isDragging {
+  opacity: 0;
+}

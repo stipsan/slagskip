@@ -21,7 +21,7 @@ import {
   s2,
   xs1,
   xs2,
-  isDragging
+  isDragging as isDraggingClassName
 } from './style.scss'
 
 const types = {
@@ -62,7 +62,7 @@ class Item extends Component {
     const { type, isDragging, connectDragSource } = this.props
     
     return connectDragSource(<div className={className(types[type], {
-      isDragging
+      [isDraggingClassName]: isDragging
     })} />)
   }
 }
