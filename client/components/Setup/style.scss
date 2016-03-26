@@ -77,6 +77,7 @@ $active-color: rgb(152, 251, 152);
   top: 0;
   left: 0;
   z-index: 2;
+  opacity: .8;
 }
 .xl {
   composes: item;
@@ -94,7 +95,7 @@ $active-color: rgb(152, 251, 152);
     bottom: 4px;
     display: block;
     position: absolute;
-    border-radius: 6px;
+    border-radius: 12px;
   }
 }
 .l {
@@ -116,4 +117,11 @@ $active-color: rgb(152, 251, 152);
 
 .isDragging {
   opacity: 0;
+}
+
+.isOver {
+  background: yellow;
+}
+.isOver:not(.canDrop) {
+  background: red;
 }

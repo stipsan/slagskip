@@ -8,7 +8,9 @@ class Grid extends Component {
     return shallowCompare(this, nextProps, nextState)
   }
   render() {
-    const { grid } = this.props
+    const {
+      grid,
+    } = this.props
     return <div className={gridClassName}>
       {grid.map((value, index) => <Cell key={index} index={index} value={value} />)}
     </div>

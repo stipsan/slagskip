@@ -3,50 +3,53 @@ import className from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import { DropTarget } from 'react-dnd'
 import { 
-  EXTRA_LARGE,
-  LARGE,
-  MEDIUM_FIRST,
-  MEDIUM_SECOND,
-  SMALL_FIRST,
-  SMALL_SECOND,
-  EXTRA_SMALL_FIRST,
-  EXTRA_SMALL_SECOND,
+  BOARD_ITEM
  } from '../../constants/ItemTypes'
-import { cell, cellActive } from './style.scss'
+import {
+  cell as cellClassName,
+  cellActive as cellActiveClassName,
+  isOver as isOverClassName,
+  canDrop as canDropClassName,
+} from './style.scss'
 
 class Cell extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
   render() {
-    const { index, value } = this.props
+    const {
+      index,
+      value,
+      isOver,
+      canDrop,
+      connectDropTarget,
+    } = this.props
     
-    return <div className={className(cell, {
-      [cellActive]: value > 0
-    })} />
+    return connectDropTarget(<div className={className(cellClassName, {
+      [cellActiveClassName]: value > 0,
+      [isOverClassName]: isOver,
+      [canDropClassName]: canDrop,
+    })} />)
   }
 }
 
 export default DropTarget(
-  [
-    EXTRA_LARGE,
-    LARGE,
-    MEDIUM_FIRST,
-    MEDIUM_SECOND,
-    SMALL_FIRST,
-    SMALL_SECOND,
-    EXTRA_SMALL_FIRST,
-    EXTRA_SMALL_SECOND,
-  ],
+  BOARD_ITEM,
   {
     drop: (props, monitor, component) => {
       console.log('drop', props, monitor, component)
+      const item = monitor.getItem()
+      
+      item.addItem(item.type, props.index)
+      console.log(monitor.getItem().addItem)
     },
     hover: (props, monitor, component) => {
       console.log('hover', props, monitor, component)
     },
     canDrop: (props, monitor) => {
-      console.log('canDrop', props, monitor.getItem())
+      //console.log('canDrop', props, monitor.getItem())
+      
+      return true
     }
   },
   (connect, monitor) => {

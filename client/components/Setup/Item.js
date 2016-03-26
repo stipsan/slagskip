@@ -10,6 +10,7 @@ import {
   SMALL_SECOND,
   EXTRA_SMALL_FIRST,
   EXTRA_SMALL_SECOND,
+  BOARD_ITEM,
  } from '../../constants/ItemTypes'
 import { DragSource } from 'react-dnd'
 import {
@@ -36,8 +37,8 @@ const types = {
 }
 
 const itemSource = {
-  beginDrag(props) {
-    return {type: props.type}
+  beginDrag({ type, coordinates, addItem }) {
+    return { type, coordinates: coordinates.toJS(), addItem, }
   }
 }
 
@@ -67,11 +68,4 @@ class Item extends Component {
   }
 }
 
-export const ExtraLarge = DragSource(EXTRA_LARGE, itemSource, collect)(Item)
-export const Large = DragSource(LARGE, itemSource, collect)(Item)
-export const Medium1 = DragSource(MEDIUM_FIRST, itemSource, collect)(Item)
-export const Medium2 = DragSource(MEDIUM_SECOND, itemSource, collect)(Item)
-export const Small1 = DragSource(SMALL_FIRST, itemSource, collect)(Item)
-export const Small2 = DragSource(SMALL_SECOND, itemSource, collect)(Item)
-export const ExtraSmall1 = DragSource(EXTRA_SMALL_FIRST, itemSource, collect)(Item)
-export const ExtraSmall2 = DragSource(EXTRA_SMALL_SECOND, itemSource, collect)(Item)
+export default DragSource(BOARD_ITEM, itemSource, collect)(Item)
