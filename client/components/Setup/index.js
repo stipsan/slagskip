@@ -28,7 +28,9 @@ class Setup extends Component {
     return shallowCompare(this, nextProps, nextState)
   }
   render() {
-    const { grid } = this.props
+    const { grid, items } = this.props
+    
+    console.log('grid', grid)
     return <DocumentTitle title="Setup New Game">
       <section className={sectionClassName}>
         <div className={wrapperClassName}>

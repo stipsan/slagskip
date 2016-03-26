@@ -46,7 +46,7 @@ export default DropTarget(
       console.log('hover', props, monitor, component)
     },
     canDrop: (props, monitor) => {
-      console.log('canDrop', props, monitor)
+      console.log('canDrop', props, monitor.getItem())
     }
   },
   (connect, monitor) => {
