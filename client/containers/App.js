@@ -10,12 +10,5 @@ export default connect(
       supportedBrowser: state.getIn(['capabilities', 'websocket']),
       isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
     }
-  },
-  dispatch => ({
-    maybeRedirectToLogin: (connected, isAuthenticated, { pathname, ...redirectAfterLogin }) => {
-      if (connected && !isAuthenticated && pathname !== '/login') {
-        dispatch(redirectToLogin({ pathname, ...redirectAfterLogin }))
-      }
-    },
-  }),
+  }
 )(App)
