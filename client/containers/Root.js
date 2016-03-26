@@ -5,6 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import App from './App'
 import Lobby from './Lobby'
 import Setup from './Setup'
+import Game from './Game'
 import NotFound from '../components/NotFound'
 
 const Root = ({ store }) => {
@@ -21,6 +22,7 @@ const Root = ({ store }) => {
           
         </Route>
         <Route path="setup" component={Setup} />
+        <Route path="game/:game" component={Game} />
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>
