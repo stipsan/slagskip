@@ -76,7 +76,7 @@ $active-color: rgb(152, 251, 152);
   position: absolute!important;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 10;
   opacity: .8;
 }
 .xl {
@@ -88,7 +88,8 @@ $active-color: rgb(152, 251, 152);
   
   &:before {
     content: '';
-    background: cyan;
+    border: 2px solid rgb(152, 251, 251);
+    background: rgba(152, 251, 251, .2);
     top: 4px;
     left: 4px;
     right: 4px;
@@ -120,7 +121,9 @@ $active-color: rgb(152, 251, 152);
 }
 
 .isOver {
-  background: yellow;
+  box-shadow: rgb(152, 251, 251) 0 0 0 1px, inset rgb(152, 251, 251) 0 0 0 1px;
+  z-index: 4;
+  position: relative;
 }
 .isOver:not(.canDrop) {
   background: red;
