@@ -2,11 +2,11 @@ import { Component, PropTypes } from 'react'
 
 class Game extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
+    
   };
   
   render(){
+    console.log(this.props)
     return <section className="section section--game">
       Loading game…
     </section>

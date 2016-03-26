@@ -1,20 +1,20 @@
 import { connect } from 'react-redux'
-import { resumeGame, pickSpot, checkSpot } from '../actions'
+import { loadGame, resumeGame, pickSpot, checkSpot } from '../actions'
 
 import Game from '../components/Game'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps)
   return ({
-  isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
-  redirectAfterLogin: state.getIn(['auth', 'redirectAfterLogin']),
-  isRequestPending: state.getIn(['auth', 'authState']) === 'pending',
+  gameState: state.getIn(['game', 'gameState']),
 })
 }
 
 const mapDispatchToProps = dispatch => ({
   resumeGame: id => {
     dispatch(resumeGame(id))
+  },
+  loadGame: id => {
+    dispatch(loadGame(id))
   },
   pickSpot: position => {
     dispatch(pickSpot(position))

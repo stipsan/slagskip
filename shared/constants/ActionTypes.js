@@ -88,13 +88,16 @@ export const REMOVE_ITEM = 'REMOVE_ITEM'
 export const RESET_ITEMS = 'RESET_ITEMS'
 export const LOAD_ITEMS = 'LOAD_ITEMS'
 
-// the opponent is ready and waiting for us to launch
-export const RECEIVE_GAME_READY = 'RECEIVE_GAME_READY'
 // attempting to start the game
-export const START_GAME_REQUEST = 'START_GAME_REQUEST'
+export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST'
 // payload contains who is to make the first move
-export const START_GAME_SUCCESS = 'START_GAME_SUCCESS'
-export const START_GAME_FAILURE = 'START_GAME_FAILURE'
+export const LOAD_GAME_SUCCESS = 'LOAD_GAME_SUCCESS'
+export const LOAD_GAME_FAILURE = 'LOAD_GAME_FAILURE'
+
+// Game has begun, not our turn
+export const RECEIVE_READY = 'RECEIVE_READY'
+// Game has begun, we got first move
+export const RECEIVE_WAITING = 'RECEIVE_WAITING'
 
 // aim our cannons!
 export const PLACE_CROSSHAIRS = 'PLACE_CROSSHAIRS'

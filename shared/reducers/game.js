@@ -1,4 +1,7 @@
 import {
+  LOAD_GAME_REQUEST,
+  LOAD_GAME_SUCCESS,
+  LOAD_GAME_FAILURE,
   PLACE_CROSSHAIRS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
@@ -19,12 +22,15 @@ const initialState = fromJS({
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ],
   turns: [],
-  gameState: 'waiting' // guessing | finished
+  scores: [0, 0],
+  gameState: 'loading' // loading | failed | setup | waiting | ready | victory | defeat
 })
 export const game = (state = initialState, action) => {
   switch (action.type) {
-  case PLACE_CROSSHAIRS:
+  case LOAD_GAME_REQUEST:
     return state
+      .set('id', action.id)
+      .set('gameState', 'loading')
   default:
     return state
   }

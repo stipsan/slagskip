@@ -6,6 +6,9 @@ import {
   RESUME_GAME_REQUEST,
   RESUME_GAME_SUCCESS,
   RESUME_GAME_FAILURE,
+  LOAD_GAME_REQUEST,
+  LOAD_GAME_SUCCESS,
+  LOAD_GAME_FAILURE,
 } from '../constants/ActionTypes'
 
 export function newGame(data) {
@@ -25,3 +28,13 @@ export function resumeGame(id) {
     },
   }
 }
+
+export function loadGame(id) {
+  return {
+    [CALL_SOCKET]: {
+      types: [ LOAD_GAME_REQUEST, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE ],
+      id,
+    },
+  }
+}
+
