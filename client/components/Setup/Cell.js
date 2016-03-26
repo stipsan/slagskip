@@ -37,14 +37,24 @@ export default DropTarget(
   BOARD_ITEM,
   {
     drop: (props, monitor, component) => {
-      console.log('drop', props, monitor, component)
+      //
+      //console.log('drop happen', monitor.getDropResult())
+      if(!monitor.getInitialClientOffset() || !monitor.getInitialSourceClientOffset()) {
+        console.error('what? no drop?', props, monitor, component)
+        return
+      }
+      
+      const indexOffset = monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x
+      const offsetFactor = Math.floor(indexOffset / 32)
+      console.log('indexOffset', offsetFactor)
+      //console.log('drop', props, monitor, component)
       const item = monitor.getItem()
       
-      item.addItem(item.type, props.index)
-      console.log(monitor.getItem().addItem)
+      item.addItem(item.type, props.index - offsetFactor)
+      //console.log(monitor.getItem().addItem)
     },
     hover: (props, monitor, component) => {
-      console.log('hover', props, monitor, component)
+      //console.log('hover', props, monitor, component)
     },
     canDrop: (props, monitor) => {
       //console.log('canDrop', props, monitor.getItem())

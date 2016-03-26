@@ -38,7 +38,11 @@ const types = {
 
 const itemSource = {
   beginDrag({ type, coordinates, addItem }) {
-    return { type, coordinates: coordinates.toJS(), addItem, }
+    return {
+      type,
+      coordinates,
+      addItem,
+    }
   }
 }
 
