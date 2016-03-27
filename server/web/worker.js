@@ -1,18 +1,23 @@
-module.exports.run = function (worker) {
-  const express = require('express')
-  const app = express()
-  
-  app.use(require('compression')())
-  
-  app.use(require('./origins')())
+import express from 'express'
+import compressionMiddleware from 'compression'
+import originsMiddleware from './middleware/origins'
+import htmlMiddleware from './middleware/html'
+import { createConnection } from '../database'
+import { createSocketServer, applySocketMiddleware } from './socket'
 
+export const run = worker => {
+  const app   = express()
+  const redis = createConnection(process.env.NODE_ENV || '127.0.0.1:6379')
+  
+  
   // Security reasons, this should be the default in express
   app.set('x-powered-by', false)
-
   // We are on Heroku after all, behind load balancers 
   // and want our https and wss to work properly with the IPs
   app.enable('trust proxy')
-
+  
+  app.use(compressionMiddleware())
+  app.use(originsMiddleware())
   /*
   if(process.env.NODE_ENV !== 'production') {
     const config   = require('../../webpack.config');
@@ -22,13 +27,10 @@ module.exports.run = function (worker) {
     app.use(require('webpack-hot-middleware')(compiler));
   }
   //*/
-
   app.use(express.static('public', { maxAge: 86400000 * 365, index: false }))
-  app.use(require('./html')())
+  app.use(htmlMiddleware())
   
   worker.httpServer.on('request', app)
   
-  var redis = require('./database').createConnection(process.env.NODE_ENV || '127.0.0.1:6379')
-  
-  require('./socket')(worker, redis)
+  createSocketServer(applySocketMiddleware(worker.scServer), redis)
 }

@@ -1,7 +1,6 @@
-module.exports = function(wsServer){
+import * as TYPES from '../../constants/ActionTypes'
 
-  const TYPES = require('../../constants/ActionTypes')
-
+export const applySocketMiddleware = wsServer => {
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
@@ -71,4 +70,5 @@ module.exports = function(wsServer){
     }
   )
 
+  return wsServer
 }
