@@ -4,8 +4,8 @@ import {
 import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
-  matchState: ,
-  list: 
+  matchState: [],
+  list: []
 })
 
 export const match = (state = initialState, action) => {

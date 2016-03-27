@@ -1,8 +1,7 @@
 
-import store from '../../store'
+//import store from '../../store'
 import * as database from '../../database'
 import * as TYPES from '../../constants/ActionTypes'
-import invariant from 'invariant'
 
 export const createSocketServer = (scServer, redis) => {
   

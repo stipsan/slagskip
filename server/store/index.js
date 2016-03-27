@@ -4,13 +4,8 @@ import { combineReducers } from 'redux-immutable'
 import { Map as ImmutableMap } from 'immutable'
 import * as reducers from '../reducers'
 
-const rootReducer = combineReducers(reducers)
-const initialState = ImmutableMap()
-
-const store = createStore(
-  rootReducer,
-  initialState,
+export default createStore(
+  combineReducers(reducers),
+  ImmutableMap(),
   applyMiddleware(thunk)
 )
-
-export default store

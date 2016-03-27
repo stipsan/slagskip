@@ -1,20 +1,21 @@
-const loginRequest = ({ username }, callback, socket, database, redis) => {
-  return database.authenticate({ username }, redis)
-    .then(authToken => {
-      socket.setAuthToken(authToken)
-      
-      callback(null, Object.assign({type: TYPES.AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
-    })
-}
+import {
+  LOGIN_REQUEST,
+} from '../../constants/ActionTypes'
+import {
+  loginRequest,
+} from '../../actions'
 
 const mapTypeToAction = {
-  [TYPES.LOGIN_REQUEST]: loginRequest
+  [LOGIN_REQUEST]: loginRequest,
 }
 
-socket.on('dispatch', ({ type, ...action }, callback) => {
-  return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
-})
-
 export const createDispatcher = (socket, database, redis) => {
-  
+  const handleDispatch = ({ type, ...action }, callback) => {
+    return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
+  }
+
+  socket.on('dispatch', handleDispatch)
+
+  // pass the handler so it can be used in socket.off('dispatch') in the caller
+  return handleDispatch
 }

@@ -1,6 +1,10 @@
 import * as TYPES from '../../constants/ActionTypes'
 
 export const applySocketMiddleware = wsServer => {
+  
+  // @FIXME
+  return wsServer
+  
   wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
     function (req, next) {
       const authToken = req.socket.getAuthToken()
