@@ -1,17 +1,16 @@
-import * as database from '../../database'
 
+import store from '../../store'
+import * as database from '../../database'
+import * as TYPES from '../../constants/ActionTypes'
+import invariant from 'invariant'
 
 export const createSocketServer = (scServer, redis) => {
   
-  const TYPES = require('../../constants/ActionTypes')
-  const invariant = require('invariant')
-  
-  //@TODO implement a persistent datastore, likely redis, for users and use dataloader
-
   scServer.on('connection', function(socket){
     
     //console.log(process.pid, 'a user connected', authToken);
 
+    /*
     socket.on(TYPES.AUTHENTICATE_REQUEST, function (data, res) {
       //console.log(TYPES.AUTHENTICATE_REQUEST, data);
       
@@ -48,6 +47,7 @@ export const createSocketServer = (scServer, redis) => {
         })
       })
     })
+    */
 /*
     const loginRequest = ({ username }, callback, socket, database, redis) => {
       return database.authenticate({ username }, redis)
@@ -66,7 +66,7 @@ export const createSocketServer = (scServer, redis) => {
       return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
     })
     */
-    
+    /*
     socket.on(TYPES.FRIENDS_REQUEST, function (data, res) {
       // @TODO implement dataloaders to reduce redis stress and duplicated data fetching
       database.getViewer(
@@ -88,14 +88,15 @@ export const createSocketServer = (scServer, redis) => {
         res(TYPES.FRIENDS_FAILURE, error)
       })
     })
-
+*/
+    /*
     socket.on(TYPES.LOAD_GAME_REQUEST, function(data, res) {
       console.log('load game debug', data)
       if(data.id !== '1') return res(TYPES.LOAD_GAME_FAILURE, 'game not found')
       
       
     })
-    
+    */
     /*
     socket.on(TYPES.AUTHENTICATE_REQUEST, function(data) {
       
@@ -121,6 +122,7 @@ export const createSocketServer = (scServer, redis) => {
     });
     //*/
 
+    /*
     socket.on(TYPES.GAME_INVITE_REQUEST, function(friend, res) {
       //console.log('invite', friend);
       // @TODO guard emits in middleware to ensure only authenticated requests come through
@@ -217,14 +219,15 @@ export const createSocketServer = (scServer, redis) => {
       )
       
     })
+    //*/
     
     socket.on('disconnect', () => {
       if(socket.authToken) {
-        scServer.exchange.publish('service', {
+        /*scServer.exchange.publish('service', {
           type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
           id: socket.authToken.id,
           username: socket.authToken.username
-        })
+        })*/
       }
     })
     
