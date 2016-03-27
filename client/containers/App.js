@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { redirectToLogin } from '../actions'
 import App from '../components/App'
 
 export default connect(

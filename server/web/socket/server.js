@@ -1,52 +1,14 @@
-
-//import store from '../../store'
+import { createDispatcher } from './dispatcher'
 import * as database from '../../database'
-import * as TYPES from '../../constants/ActionTypes'
 
 export const createSocketServer = (scServer, redis) => {
   
   scServer.on('connection', function(socket){
+    // @TODO handle .off to cleanup disconnected clients
+    const dispatchEventHandler = createDispatcher(socket, database, redis)
+    
     
     //console.log(process.pid, 'a user connected', authToken);
-
-    /*
-    socket.on(TYPES.AUTHENTICATE_REQUEST, function (data, res) {
-      //console.log(TYPES.AUTHENTICATE_REQUEST, data);
-      
-      // @TODO reuse http status code as error code for failed validation?
-      if(data.username.length < 3) return res('USERNAME_TOO_SHORT', {message: 'Username too short'})
-      
-      database.authenticate(
-        { username: data.username }, redis
-      ).then(authToken => {          
-        //console.log(TYPES.AUTHENTICATE_SUCCESS, user);
-        socket.setAuthToken(authToken)
-        res(null, Object.assign({type: TYPES.AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
-        
-        //socket.broadcast.emit('join', data);
-        scServer.exchange.publish('service', {
-          type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
-          username: authToken.username,
-          id: authToken.id,
-          online: true,
-        })
-        
-        return database.getViewer(authToken, redis)
-      }).catch(error => {
-        console.log(TYPES.AUTHENTICATE_FAILURE, error);
-        res(TYPES.AUTHENTICATE_FAILURE, error)
-      }).then(viewer => {
-        invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
-        invariant(viewer.authToken.privateChannel, 'database.getViewer authToken did not contain the property `privateChannel`')
-
-        scServer.exchange.publish(viewer.authToken.privateChannel, {
-          type: TYPES.RECEIVE_VIEWER,
-          friendIds: viewer.friendIds,
-          invites: viewer.invites
-        })
-      })
-    })
-    */
 /*
     const loginRequest = ({ username }, callback, socket, database, redis) => {
       return database.authenticate({ username }, redis)

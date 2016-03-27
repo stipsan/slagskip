@@ -5,7 +5,13 @@
 module.exports.run = () => {
   require('babel-register')({
     only: /shared|server/,
-    plugins: ['transform-es2015-modules-commonjs', 'transform-es2015-parameters', 'transform-object-rest-spread'],
+    plugins: [
+      'transform-es2015-modules-commonjs',
+      'transform-es2015-parameters',
+      'transform-es2015-spread',
+      'transform-es2015-destructuring',
+      'transform-object-rest-spread',
+    ],
     babelrc: false,
   })
 }

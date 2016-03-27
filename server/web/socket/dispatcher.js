@@ -1,17 +1,17 @@
-import {
-  LOGIN_REQUEST,
-} from '../../constants/ActionTypes'
-import {
-  loginRequest,
-} from '../../actions'
-
-const mapTypeToAction = {
-  [LOGIN_REQUEST]: loginRequest,
-}
+import createStore from '../../store'
+import { actions } from './actions'
+import invariant from 'invariant'
 
 export const createDispatcher = (socket, database, redis) => {
+  const store = createStore()
+
   const handleDispatch = ({ type, ...action }, callback) => {
-    return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
+    if(!actions.hasOwnProperty(type)) {
+      console.error(`Action type ${type} does not exist!`)
+      return callback(404, `Action type ${type} does not exist!`)
+    }
+
+    return store.dispatch(actions[type](action, callback, socket, database, redis))
   }
 
   socket.on('dispatch', handleDispatch)

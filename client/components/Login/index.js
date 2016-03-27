@@ -8,18 +8,9 @@ import {
 const placeholderLabel = 'Username'
 const buttonLabel = 'Enter'
 
-function shouldCheckAuth ({
-  maybeRestoreLocation,
-  isAuthenticated,
-  redirectAfterLogin,
-} = this.props) {
-  return maybeRestoreLocation(isAuthenticated, redirectAfterLogin)
-}
-
 export default class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
-    maybeRestoreLocation: PropTypes.func.isRequired,
     isRequestPending: PropTypes.bool.isRequired,
   };
 
@@ -28,9 +19,6 @@ export default class Login extends Component {
 
     this.props.onLogin(this._input.value)
   }
-  
-  componentWillMount = shouldCheckAuth
-  componentWillReceiveProps = shouldCheckAuth
   
   componentDidMount() {
     this._input.focus()

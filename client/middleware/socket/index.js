@@ -28,7 +28,7 @@ export const createCallSocket = (store, next, action, socket) => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return socket.emit(requestType, emitData, (err, data) => {
+  return socket.emit('dispatch', { type: requestType, ...emitData }, (err, data) => {
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({
