@@ -5,10 +5,16 @@ class Game extends Component {
     
   };
   
+  componentDidMount() {
+    this.props.loadGame(this.props.routeParams.game)
+  }
+  
   render(){
-    console.log(this.props)
+    const {
+      gameState
+    } = this.props
     return <section className="section section--game">
-      Loading game…
+      {gameState} game…
     </section>
   }
 }

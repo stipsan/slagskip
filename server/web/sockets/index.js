@@ -36,6 +36,9 @@ module.exports = function(worker, redis){
         })
         
         return database.getViewer(authToken, redis)
+      }).catch(error => {
+        console.log(TYPES.AUTHENTICATE_FAILURE, error);
+        res(TYPES.AUTHENTICATE_FAILURE, error)
       }).then(viewer => {
         invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
         invariant(viewer.authToken.privateChannel, 'database.getViewer authToken did not contain the property `privateChannel`')
@@ -45,10 +48,24 @@ module.exports = function(worker, redis){
           friendIds: viewer.friendIds,
           invites: viewer.invites
         })
-      }).catch(error => {
-        console.log(TYPES.AUTHENTICATE_FAILURE, error);
-        res(TYPES.AUTHENTICATE_FAILURE, error)
       })
+    })
+
+    const loginRequest = ({ username }, callback, socket, database, redis) => {
+      return database.authenticate({ username }, redis)
+        .then(authToken => {
+          socket.setAuthToken(authToken)
+          
+          callback(null, Object.assign({type: TYPES.AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
+        })
+    }
+    
+    const mapTypeToAction = {
+      [TYPES.LOGIN_REQUEST]: loginRequest
+    }
+    
+    socket.on('dispatch', ({ type, ...action }, callback) => {
+      return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
     })
     
     socket.on(TYPES.FRIENDS_REQUEST, function (data, res) {
@@ -71,6 +88,13 @@ module.exports = function(worker, redis){
         console.log(TYPES.FRIENDS_FAILURE, error);
         res(TYPES.FRIENDS_FAILURE, error)
       })
+    })
+
+    socket.on(TYPES.LOAD_GAME_REQUEST, function(data, res) {
+      console.log('load game debug', data)
+      if(data.id !== '1') return res(TYPES.LOAD_GAME_FAILURE, 'game not found')
+      
+      
     })
     
     /*

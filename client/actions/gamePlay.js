@@ -33,7 +33,7 @@ export function loadGame(id) {
   return {
     [CALL_SOCKET]: {
       types: [ LOAD_GAME_REQUEST, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE ],
-      id,
+      data: { id },
     },
   }
 }

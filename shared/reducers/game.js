@@ -8,7 +8,7 @@ import { fromJS } from 'immutable'
 
 const initialState = fromJS({
   id: null,
-  opponent: null,
+  versus: null,
   board: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -23,7 +23,7 @@ const initialState = fromJS({
   ],
   turns: [],
   scores: [0, 0],
-  gameState: 'loading' // loading | failed | setup | waiting | ready | victory | defeat
+  gameState: 'standby' // loading | failed | setup | waiting | ready | victory | defeat
 })
 export const game = (state = initialState, action) => {
   switch (action.type) {
@@ -31,6 +31,16 @@ export const game = (state = initialState, action) => {
     return state
       .set('id', action.id)
       .set('gameState', 'loading')
+  case LOAD_GAME_FAILURE:
+    return state
+      .set('gameState', 'failed')
+  case LOAD_GAME_SUCCESS:
+    return state
+      .merge({
+        versus: action.versus,
+        gameState: action.gameState,
+        board: action.board,
+      })
   default:
     return state
   }
