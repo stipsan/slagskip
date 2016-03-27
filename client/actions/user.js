@@ -3,9 +3,9 @@ import {
   AUTHENTICATE_REQUEST,
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
+  DEAUTHENTICATE_REQUEST,
+  DEAUTHENTICATE_SUCCESS,
+  DEAUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 
 // Fetches a single user from Github API unless it is cached.
@@ -24,7 +24,7 @@ export function loginUser(username) {
 export function logoutUser() {
   return { 
     [CALL_SOCKET]: {
-      types: [ LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE ],
+      types: [ DEAUTHENTICATE_REQUEST, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE ],
     },
   }
 }

@@ -9,47 +9,6 @@ export const createSocketServer = (scServer, redis) => {
     
     
     //console.log(process.pid, 'a user connected', authToken);
-/*
-    const loginRequest = ({ username }, callback, socket, database, redis) => {
-      return database.authenticate({ username }, redis)
-        .then(authToken => {
-          socket.setAuthToken(authToken)
-          
-          callback(null, Object.assign({type: TYPES.AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
-        })
-    }
-    
-    const mapTypeToAction = {
-      [TYPES.LOGIN_REQUEST]: loginRequest
-    }
-    
-    socket.on('dispatch', ({ type, ...action }, callback) => {
-      return store.dispatch(mapTypeToAction[type](action, callback, socket, database, redis))
-    })
-    */
-    /*
-    socket.on(TYPES.FRIENDS_REQUEST, function (data, res) {
-      // @TODO implement dataloaders to reduce redis stress and duplicated data fetching
-      database.getViewer(
-        socket.getAuthToken(), redis
-      ).then(viewer => {
-        return database.getFriends({
-          id: viewer.authToken.id,
-          friends: viewer.friendIds,
-          invites: viewer.invites
-        }, redis)
-      }).then(friends => {
-        const authToken = socket.getAuthToken()
-        invariant(authToken, 'socket.getAuthToken() failed to return a valid token')
-        invariant(authToken.privateChannel, 'authToken did not contain the property `privateChannel`')
-
-        res(null, {type: TYPES.FRIENDS_SUCCESS, friends })
-      }).catch(error => {
-        console.log(TYPES.FRIENDS_FAILURE, error);
-        res(TYPES.FRIENDS_FAILURE, error)
-      })
-    })
-*/
     /*
     socket.on(TYPES.LOAD_GAME_REQUEST, function(data, res) {
       console.log('load game debug', data)

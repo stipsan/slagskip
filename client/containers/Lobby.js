@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchFriends: () => dispatch(fetchFriends())
+  fetchFriends: () => dispatch(fetchFriends()),
+  dispatch
 })
 
 // move this to grandchildren so the root don't need to subscribe to Redux

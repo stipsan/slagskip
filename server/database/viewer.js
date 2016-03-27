@@ -39,7 +39,7 @@ export const setViewerOffline = (viewerAuthToken, lastVisit, redis) => {
       
       return {
         id: viewerAuthToken.id,
-        online: false,
+        online: '0',
         lastVisit
       }
     })

@@ -127,7 +127,7 @@ class FriendRow extends Component {
     return <tr className={className({  online })}>
       <td className={usernameClassName}>{username}</td>
       {
-        online && 
+        online === '1' && 
         <td className={onlineStatusClassName}>&bull;</td> ||
         <td className={lastVisitClassName}
             title={lastVisit && new Date(lastVisit).toLocaleString()}
