@@ -1,11 +1,3 @@
-/**
- * Heroku terminology labels a 'worker' process as a background task that do
- * not handle incoming web requests or do web server-y things.
- * SocketCluster terminology puts server work in a 'worker'.
- * This file is called web.js as it's what Heroku will run in  a 'web' dyno,
- * not a 'worker' dyno.
- */
-
 module.exports.run = function (worker) {
   const express = require('express')
   const app = express()
@@ -14,8 +6,7 @@ module.exports.run = function (worker) {
   
   app.use(require('./origins')())
 
-  // Security reasons, this should be the default in express, 
-  // at least when NODE_ENV = production
+  // Security reasons, this should be the default in express
   app.set('x-powered-by', false)
 
   // We are on Heroku after all, behind load balancers 
