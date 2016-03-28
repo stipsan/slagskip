@@ -33,11 +33,23 @@ export default class App extends Component {
   }
   
   render() {
-    const { connected, disconnected, supportedBrowser, isAuthenticated, children } = this.props
+    const {
+      connected,
+      disconnected,
+      supportedBrowser,
+      isAuthenticated,
+      isViewerLoaded,
+      children
+    } = this.props
+    
+    const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
+    const shouldOverlayLogin  = connected && supportedBrowser && !isAuthenticated
+    const isCurrentlyLoading  = supportedBrowser && (!connected || !isViewerLoaded)
+
     return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration / 2} transitionAppearTimeout={transitionDuration}>
-      {connected && supportedBrowser && isAuthenticated && <div key={children.props.route.path}>{children}</div>}
-      {connected && supportedBrowser && !isAuthenticated && <Login />}
-      {!connected && supportedBrowser && <Loading />}
+      {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
+      {shouldOverlayLogin && <Login />}
+      {isCurrentlyLoading && <Loading />}
       {disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
     </ReactCSSTransitionGroup>

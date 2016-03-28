@@ -8,6 +8,7 @@ export default connect(
       disconnected: state.get('disconnected'),
       supportedBrowser: state.getIn(['capabilities', 'websocket']),
       isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
+      isViewerLoaded: state.getIn(['viewer', 'isLoaded']),
     }
   }
 )(App)

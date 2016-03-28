@@ -8,7 +8,7 @@ class Loading extends Component {
   render() {    
     return <DocumentTitle title="Loading...">
       <section className={sectionClassName}>
-        <h1>Loading game…</h1>
+        <h1>Loading…</h1>
       </section>
     </DocumentTitle>
   }

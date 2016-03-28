@@ -32,24 +32,20 @@ export const authenticateRequest = (
       console.error(AUTHENTICATE_FAILURE, error);
       res(AUTHENTICATE_FAILURE, error)
     }).then(viewer => {
-      invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
-      invariant(viewer.authToken.privateChannel, 'database.getViewer authToken did not contain the property `privateChannel`')
+      invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
+      invariant(viewer.invites, 'database.getViewer failed to return invites')
 
-      const receiveViewerAction = {
-        type: RECEIVE_VIEWER,
-        friendIds: viewer.friendIds,
-        invites: viewer.invites
-      };
-      const result = dispatch({
+      dispatch({
         type: RECEIVE_VIEWER,
         friendIds: viewer.friendIds,
         invites: viewer.invites
       })
+      const friendIds = getState().getIn(['viewer', 'friendIds'])
       socket.emit('dispatch', {
         type: RECEIVE_VIEWER,
-        friendIds: viewer.friendIds,
-        invites: viewer.invites
+        friendIds
       })
+      return
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
         // @TODO username necessary?

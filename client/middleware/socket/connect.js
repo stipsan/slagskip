@@ -40,6 +40,8 @@ export const connect = (store, next, action, callSocket) => {
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })
+    
+    socket.on('dispatch', action => next(action))
   }
   
   return memoizedSocket
