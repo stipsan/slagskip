@@ -14,10 +14,12 @@ class Game extends Component {
   
   render(){
     const {
-      gameState
+      gameState,
+      reasonFailed
     } = this.props
     return <section className={sectionClassName}>
       <h1>{gameState === 'failed' ? 'Failed loading game!' : `${gameState} game…`}</h1>
+      {gameState === 'failed' && reasonFailed && <h2>Error: {reasonFailed}</h2>}
     </section>
   }
 }

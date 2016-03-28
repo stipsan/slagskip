@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react'
 import Disconnected from '../../containers/Disconnected'
 import Login from '../../containers/Login'
 import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import Loading from '../Loading'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {
@@ -31,6 +32,8 @@ export default class App extends Component {
     supportedBrowser: PropTypes.bool.isRequired,
     children: PropTypes.element.isRequired,
   }
+  
+  shouldComponentUpdate = shouldComponentUpdate
   
   render() {
     const {

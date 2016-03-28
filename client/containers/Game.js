@@ -4,8 +4,11 @@ import { loadGame, resumeGame, pickSpot, checkSpot } from '../actions'
 import Game from '../components/Game'
 
 const mapStateToProps = (state, ownProps) => {
+  const versusFriendId = state.getIn(['game', 'versus'])
   return ({
   gameState: state.getIn(['game', 'gameState']),
+  reasonFailed: state.getIn(['game', 'reasonFailed']),
+  versusFriend: state.getIn(['friends', versusFriendId])
 })
 }
 
