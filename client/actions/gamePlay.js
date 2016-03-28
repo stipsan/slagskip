@@ -9,6 +9,10 @@ import {
   LOAD_GAME_REQUEST,
   LOAD_GAME_SUCCESS,
   LOAD_GAME_FAILURE,
+  PLACE_CROSSHAIRS,
+  FIRE_CANNON_REQUEST,
+  FIRE_CANNON_SUCCESS,
+  FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
 
 export function newGame(data) {
@@ -38,3 +42,18 @@ export function loadGame(id) {
   }
 }
 
+export const selectCell = selectedCell => {
+  return {
+    type: PLACE_CROSSHAIRS,
+    selectedCell
+  }
+}
+
+export const fireCannon = selectedCell => {
+  return {
+    [CALL_SOCKET]: {
+      types: [ FIRE_CANNON_REQUEST, FIRE_CANNON_SUCCESS, FIRE_CANNON_FAILURE ],
+      data: { selectedCell },
+    },
+  }
+}

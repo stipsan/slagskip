@@ -5,6 +5,9 @@ import {
   RECEIVE_GAME,
   LOAD_ITEMS,
   PLACE_CROSSHAIRS,
+  RECEIVE_HIT,
+  RECEIVE_MISS,
+  FIRE_CANNON_SUCCESS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 import { board } from './board'
@@ -30,6 +33,7 @@ const initialState = fromJS({
   isViewerTurn: false,
   gameState: 'standby', // loading | failed | setup | waiting | ready | victory | defeat
   reasonFailed: null,
+  selectedCell: -1,
 })
 export const game = (state = initialState, action) => {
   switch (action.type) {
@@ -57,6 +61,20 @@ export const game = (state = initialState, action) => {
         isViewerFirst: action.isViewerFirst,
         isViewerTurn: action.isViewerFirst,
       })
+  case PLACE_CROSSHAIRS:
+    return state.set('selectedCell', action.selectedCell)
+  case RECEIVE_MISS:
+    return state
+      .set('isViewerTurn', true)
+      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
+  case RECEIVE_HIT:
+    return state
+      .set('isViewerTurn', false)
+      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
+  case FIRE_CANNON_SUCCESS:
+    return state
+      .set('isViewerTurn', action.isViewerTurn)
+      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
   default:
     return state
   }

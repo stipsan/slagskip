@@ -21,6 +21,12 @@ class Game extends Component {
       reasonFailed,
       versusFriend,
       viewer,
+      versusGrid,
+      viewerBoard,
+      selectedCell,
+      turns,
+      dispatch,
+      isViewerTurn,
     } = this.props
     
     return <section className={sectionClassName}>
@@ -28,8 +34,8 @@ class Game extends Component {
       {gameState === 'failed' && reasonFailed && <h2>Error: {reasonFailed}</h2>}
       {gameState !== 'failed' && gameState !== 'loading' && <div>
         <Navbar viewer={viewer} versus={versusFriend} />
-        <VersusGrid />
-        <ViewerBoard />
+        {isViewerTurn && <VersusGrid grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} />}
+        {!isViewerTurn && <ViewerBoard board={viewerBoard} turns={turns} versus={versusFriend} />}
       </div>}
     </section>
   }

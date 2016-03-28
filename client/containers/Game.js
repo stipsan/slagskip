@@ -18,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   viewer: state.get('viewer'),
   isViewerTurn: state.getIn(['game', 'isViewerTurn']),
   versusGrid: state.getIn(['game', 'versusGrid']),
+  selectedCell: state.getIn(['game', 'selectedCell']),
 })
 }
 
@@ -33,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
   pickSpot: position => {
     dispatch(pickSpot(position))
   },
+  dispatch,
 })
 
 // move this to grandchildren so the root don't need to subscribe to Redux

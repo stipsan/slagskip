@@ -1,5 +1,8 @@
 @import '../../style/_config';
 
+$default-color: hsla(0, 0%, 0%, .5);
+$active-color: rgb(152, 251, 152);
+
 .section {
   composes: section from '../../style/_section.scss';
   color: #263238;  
@@ -8,5 +11,24 @@
 .versusGrid {
   display: block;
   
-  
+  height: 320px;
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cell {
+  //border: 1px solid  $border-color;
+  background-color: $default-color;
+  box-shadow: $default-color 0 0 0 1px, inset $default-color 0 0 0 1px;
+  float: left;
+  height: 10%;
+  width: 10%;
+}
+.cellActive {
+  //border-color: $active-color;
+  box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
+  background-color: mix($default-color, $active-color, 66%);
+  position: relative;
+  z-index: 1;
 }
