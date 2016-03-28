@@ -44,7 +44,7 @@ export default class App extends Component {
     
     const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
     const shouldOverlayLogin  = connected && supportedBrowser && !isAuthenticated
-    const isCurrentlyLoading  = supportedBrowser && (!connected || !isViewerLoaded)
+    const isCurrentlyLoading  = supportedBrowser && isAuthenticated && (!connected || !isViewerLoaded)
 
     return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration / 2} transitionAppearTimeout={transitionDuration}>
       {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}

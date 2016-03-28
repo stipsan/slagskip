@@ -21,7 +21,7 @@ export const getFriends = (viewer, redis) => {
           currentValue[1].inviteIn = viewer.invites.indexOf(currentValue[1].id) !== -1
           previousValue[i++] = currentValue[1]
         } else {
-          previousValue[i - 1].inviteOut = currentValue[1]
+          previousValue[i - 1].inviteOut = !!currentValue[1]
         }
         return previousValue
       }, []

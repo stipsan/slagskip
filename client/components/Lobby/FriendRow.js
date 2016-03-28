@@ -46,17 +46,17 @@ const CAN_ACCEPT_INVITE = 'CAN_ACCEPT_INVITE'
 const CAN_CANCEL_PENDING = 'CAN_CANCEL_PENDING'
 const CAN_INVITE_FRIEND = 'CAN_INVITE_FRIEND'
 
-const getLocalState = (invited, pending) => {
-  if(invited && pending) {
+const getLocalState = (inviteOut, inviteIn) => {
+  if(inviteOut && inviteIn) {
     return CAN_LAUNCH_GAME
   }
-  if(!invited && pending) {
+  if(!inviteOut && inviteIn) {
     return CAN_ACCEPT_INVITE
   }
-  if(invited && !pending) {
+  if(inviteOut && !inviteIn) {
     return CAN_CANCEL_PENDING
   }
-  if(!invited && !pending) {
+  if(!inviteOut && !inviteIn) {
     return CAN_INVITE_FRIEND
   }
 }
@@ -65,8 +65,8 @@ class FriendRow extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
-    invited: PropTypes.bool,
-    pending: PropTypes.bool,
+    inviteOut: PropTypes.bool,
+    inviteIn: PropTypes.bool,
     online: PropTypes.bool,
     lastVisit: PropTypes.string,
   }
@@ -77,13 +77,13 @@ class FriendRow extends Component {
     const {
       id,
       username,
-      invited,
-      pending,
+      inviteOut,
+      inviteIn,
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
     
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     
     switch (localState) {
     case CAN_LAUNCH_GAME:
@@ -98,13 +98,13 @@ class FriendRow extends Component {
     const {
       id,
       username,
-      invited,
-      pending,
+      inviteOut,
+      inviteIn,
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
     
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     
     switch (localState) {
     case CAN_CANCEL_PENDING:
@@ -115,10 +115,10 @@ class FriendRow extends Component {
   };
   render() {
     // @FIXME
-    const { username, pending, invited, online, lastVisit } = this.props.friend.toJS()
+    const { username, inviteIn, inviteOut, online, lastVisit } = this.props.friend.toJS()
     const { handleYes, handleNo } = this
  
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     const canLaunchGame = localState === CAN_LAUNCH_GAME
     const canAcceptInvite = localState === CAN_ACCEPT_INVITE
     const canCancelPending = localState === CAN_CANCEL_PENDING
