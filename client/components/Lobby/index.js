@@ -17,8 +17,11 @@ class Lobby extends Component {
   handleLogout = () => this.props.dispatch(logoutUser());
   
   componentDidMount() {
-    console.warn(this.props)
-    this.props.fetchFriends()
+    const { friends, friendsTotal, fetchFriends } = this.props
+
+    if(friends.size !== friendsTotal) {
+      fetchFriends()
+    }
   }
   
   render() {

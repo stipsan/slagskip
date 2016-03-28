@@ -1,4 +1,3 @@
-import * as TYPE from '../constants/ActionTypes'
 export * from './auth'
 export * from './friends'
 export * from './gameInvite'

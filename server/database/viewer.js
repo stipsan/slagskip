@@ -19,13 +19,12 @@ export const getViewer = (authToken, redis) => {
       // @FIXME
       friendIds.splice(friendIds.indexOf(viewerId), 1)
 
-      return { authToken, friendIds, invites }
+      return { friendIds, invites }
     })
 }
 
 export const setViewerOffline = (viewerAuthToken, lastVisit, redis) => {
   invariant(viewerAuthToken.id, 'Invalid viewerAuthToken, missing `id` property')
-  invariant(viewerAuthToken.username, 'Invalid viewerAuthToken, missing `username` property')
   invariant(lastVisit, 'Invalid `lastVisit` argument')
 
   return redis
@@ -39,7 +38,7 @@ export const setViewerOffline = (viewerAuthToken, lastVisit, redis) => {
       
       return {
         id: viewerAuthToken.id,
-        online: false,
+        online: '0',
         lastVisit
       }
     })

@@ -1,14 +1,23 @@
 import { Component, PropTypes } from 'react'
+import {
+  section as sectionClassName,
+} from './style.scss'
 
 class Game extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
+    
   };
   
+  componentDidMount() {
+    this.props.loadGame(this.props.routeParams.game)
+  }
+  
   render(){
-    return <section className="section section--game">
-      Loading game…
+    const {
+      gameState
+    } = this.props
+    return <section className={sectionClassName}>
+      <h1>{gameState === 'failed' ? 'Failed loading game!' : `${gameState} game…`}</h1>
     </section>
   }
 }

@@ -33,7 +33,7 @@ if (process.env.NODE_ENV !== 'production' && module.hot) {
 
 if ('development' === process.env.NODE_ENV && global.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
   require.ensure([], function(){
-    var installDevTools = require('immutable-devtools').default
+    var installDevTools = require('immutable-devtools')
     installDevTools(require('immutable'))
   })
 }

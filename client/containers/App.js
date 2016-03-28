@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { redirectToLogin } from '../actions'
 import App from '../components/App'
 
 export default connect(
@@ -9,13 +8,7 @@ export default connect(
       disconnected: state.get('disconnected'),
       supportedBrowser: state.getIn(['capabilities', 'websocket']),
       isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
+      isViewerLoaded: state.getIn(['viewer', 'isLoaded']),
     }
-  },
-  dispatch => ({
-    maybeRedirectToLogin: (connected, isAuthenticated, { pathname, ...redirectAfterLogin }) => {
-      if (connected && !isAuthenticated && pathname !== '/login') {
-        dispatch(redirectToLogin({ pathname, ...redirectAfterLogin }))
-      }
-    },
-  }),
+  }
 )(App)

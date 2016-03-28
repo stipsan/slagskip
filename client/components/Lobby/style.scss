@@ -71,6 +71,8 @@
 
 .canLaunchGame {
   composes: button buttonPrimary from '../../style/_button.scss';
+  font-size: 11px;
+  text-decoration: none;
 }
 .canAcceptInvite {
   composes: button buttonAccept from '../../style/_button.scss';

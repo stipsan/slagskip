@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react'
 import Disconnected from '../../containers/Disconnected'
+import Login from '../../containers/Login'
 import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
 import Loading from '../Loading'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
@@ -32,10 +33,23 @@ export default class App extends Component {
   }
   
   render() {
-    const { connected, disconnected, supportedBrowser, children } = this.props
+    const {
+      connected,
+      disconnected,
+      supportedBrowser,
+      isAuthenticated,
+      isViewerLoaded,
+      children
+    } = this.props
+    
+    const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
+    const shouldOverlayLogin  = connected && supportedBrowser && !isAuthenticated
+    const isCurrentlyLoading  = supportedBrowser && isAuthenticated && (!connected || !isViewerLoaded)
+
     return <ReactCSSTransitionGroup component="div" transitionName={transitionName} transitionEnterTimeout={transitionDuration} transitionLeaveTimeout={transitionDuration / 2} transitionAppearTimeout={transitionDuration}>
-      {connected && supportedBrowser && <div key={children.props.route.path}>{children}</div>}
-      {!connected && supportedBrowser && <Loading />}
+      {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
+      {shouldOverlayLogin && <Login />}
+      {isCurrentlyLoading && <Loading />}
       {disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
     </ReactCSSTransitionGroup>

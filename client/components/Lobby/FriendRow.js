@@ -1,10 +1,10 @@
 import { Component, PropTypes } from 'react'
 import className from 'classnames'
 import TimeAgo from 'react-timeago'
+import { Link } from 'react-router'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {
-  newGame,
   gameInvite,
   acceptGameInvite,
   declineGameInvite,
@@ -46,17 +46,17 @@ const CAN_ACCEPT_INVITE = 'CAN_ACCEPT_INVITE'
 const CAN_CANCEL_PENDING = 'CAN_CANCEL_PENDING'
 const CAN_INVITE_FRIEND = 'CAN_INVITE_FRIEND'
 
-const getLocalState = (invited, pending) => {
-  if(invited && pending) {
+const getLocalState = (inviteOut, inviteIn) => {
+  if(inviteOut && inviteIn) {
     return CAN_LAUNCH_GAME
   }
-  if(!invited && pending) {
+  if(!inviteOut && inviteIn) {
     return CAN_ACCEPT_INVITE
   }
-  if(invited && !pending) {
+  if(inviteOut && !inviteIn) {
     return CAN_CANCEL_PENDING
   }
-  if(!invited && !pending) {
+  if(!inviteOut && !inviteIn) {
     return CAN_INVITE_FRIEND
   }
 }
@@ -65,8 +65,8 @@ class FriendRow extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
-    invited: PropTypes.bool,
-    pending: PropTypes.bool,
+    inviteOut: PropTypes.bool,
+    inviteIn: PropTypes.bool,
     online: PropTypes.bool,
     lastVisit: PropTypes.string,
   }
@@ -77,13 +77,13 @@ class FriendRow extends Component {
     const {
       id,
       username,
-      invited,
-      pending,
+      inviteOut,
+      inviteIn,
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
     
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     
     switch (localState) {
     case CAN_LAUNCH_GAME:
@@ -98,13 +98,13 @@ class FriendRow extends Component {
     const {
       id,
       username,
-      invited,
-      pending,
+      inviteOut,
+      inviteIn,
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
     
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     
     switch (localState) {
     case CAN_CANCEL_PENDING:
@@ -115,10 +115,10 @@ class FriendRow extends Component {
   };
   render() {
     // @FIXME
-    const { username, pending, invited, online, lastVisit } = this.props.friend.toJS()
+    const { username, inviteIn, inviteOut, online, lastVisit } = this.props.friend.toJS()
     const { handleYes, handleNo } = this
  
-    const localState = getLocalState(invited, pending)
+    const localState = getLocalState(inviteOut, inviteIn)
     const canLaunchGame = localState === CAN_LAUNCH_GAME
     const canAcceptInvite = localState === CAN_ACCEPT_INVITE
     const canCancelPending = localState === CAN_CANCEL_PENDING
@@ -127,7 +127,7 @@ class FriendRow extends Component {
     return <tr className={className({  online })}>
       <td className={usernameClassName}>{username}</td>
       {
-        online && 
+        online === '1' && 
         <td className={onlineStatusClassName}>&bull;</td> ||
         <td className={lastVisitClassName}
             title={lastVisit && new Date(lastVisit).toLocaleString()}
@@ -135,7 +135,13 @@ class FriendRow extends Component {
       }
       <td className={controlGroupClassName}>
       <div className={buttonGroupClassName}>
-        <button className={className({
+        {canLaunchGame && <Link
+          className={canLaunchGameClassName}
+          to={`game/1`}
+        >
+          <span>Start Game!</span>
+        </Link>}
+        {!canLaunchGame && <button className={className({
           [canLaunchGameClassName]: canLaunchGame,
           [canAcceptInviteClassName]: canAcceptInvite,
           [canAcceptInviteClassName]: canAcceptInvite,
@@ -148,7 +154,7 @@ class FriendRow extends Component {
             {canCancelPending && <span className={canCancelPendingTransitionClassName}>Pending</span>}
             {canInviteFriend && <span>Invite</span>}
           </ReactCSSTransitionGroup>
-        </button>
+        </button>}
         <button onClick={handleNo} className={className(
           canSayNoClassName, {[buttonDisabledClassName]: canLaunchGame || canInviteFriend}
         )}><strong>&times;</strong></button>
