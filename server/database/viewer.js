@@ -25,7 +25,6 @@ export const getViewer = (authToken, redis) => {
 
 export const setViewerOffline = (viewerAuthToken, lastVisit, redis) => {
   invariant(viewerAuthToken.id, 'Invalid viewerAuthToken, missing `id` property')
-  invariant(viewerAuthToken.username, 'Invalid viewerAuthToken, missing `username` property')
   invariant(lastVisit, 'Invalid `lastVisit` argument')
 
   return redis

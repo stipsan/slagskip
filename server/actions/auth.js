@@ -45,13 +45,12 @@ export const authenticateRequest = (
         type: RECEIVE_VIEWER,
         friendIds
       })
-      return
+      const authToken = socket.getAuthToken()
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
-        // @TODO username necessary?
-        username: viewer.authToken.username,
-        id: viewer.authToken.id,
+        id: authToken.id,
         online: '1',
+        lastVisit: new Date().toJSON()
       }
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
@@ -84,8 +83,6 @@ export const deauthenticateRequest = (
 
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
-        // @TODO username necessary?
-        username: authToken.username,
         id: viewer.authToken.id,
         online: '0',
         lastVisit
@@ -96,32 +93,30 @@ export const deauthenticateRequest = (
     })
 }
 
-/*
-socket.on(TYPES.LOGOUT_REQUEST, function (user, res) {
-  if(!socket.authToken) return res('NO_SESSION', {message: 'You can\'t logout without being logged in, buddy'})
-  const username = socket.authToken.username
-  //console.log(TYPES.LOGOUT_REQUEST, username);
-  database.setViewerOffline(
-    { username },
-    data => {
-      //console.log(TYPES.LOGOUT_SUCCESS, data);
-      res(null, { username })
-      scServer.exchange.publish(
-        'service',
-        Object.assign(
-          { type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS },
-          data
-        )
-      )
-      socket.deauthenticate()
-      //socket.kickOut([channel, message, callback])
-    },
-    error => {
-      //console.log(TYPES.LOGOUT_FAILURE, error);
-      res(TYPES.LOGOUT_FAILURE, error)
-      socket.deauthenticate()
-    }
-  )
-  
-})
-//*/
+export const broadcastNetworkStatus = (
+  action,
+  callback,
+  socket,
+  database,
+  redis
+) => (dispatch, getState) => {
+  const { id, lastVisit, online } = action
+  return database.getViewer({ id }, redis)
+    .then(viewer => {
+      invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
+      
+      const exchangeAction = {
+        type: RECEIVE_FRIEND_NETWORK_STATUS,
+        online,
+        lastVisit,
+        id
+      }
+      viewer.friendIds.forEach(friendId => {
+        socket.exchange.publish(`user:${friendId}`, exchangeAction)
+      })
+      
+      if(online === '0') {
+        return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
+      }
+    })
+}

@@ -6,6 +6,7 @@ import {
   ACCEPT_GAME_INVITE_REQUEST,
   DECLINE_GAME_INVITE_REQUEST,
   CANCEL_GAME_INVITE_REQUEST,
+  RECEIVE_FRIEND_NETWORK_STATUS,
 } from '../../constants/ActionTypes'
 import {
   authenticateRequest,
@@ -15,6 +16,7 @@ import {
   acceptGameInvite,
   declineGameInvite,
   cancelGameInvite,
+  broadcastNetworkStatus,
 } from '../../actions'
 
 // @TODO perhaps this belongs in a custom middleware
@@ -26,4 +28,5 @@ export const actions = {
   [ACCEPT_GAME_INVITE_REQUEST]: acceptGameInvite,
   [DECLINE_GAME_INVITE_REQUEST]: declineGameInvite,
   [CANCEL_GAME_INVITE_REQUEST]: cancelGameInvite,
+  [RECEIVE_FRIEND_NETWORK_STATUS]: broadcastNetworkStatus,
 }
