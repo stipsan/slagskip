@@ -1,7 +1,7 @@
 import { Component, PropTypes } from 'react'
 import className from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
-import { EXTRA_LARGE } from '../../constants/ItemTypes'
+import { BOARD_ITEM } from '../../constants/ItemTypes'
 import { DragLayer } from 'react-dnd'
 import {
   xl,

@@ -3,6 +3,7 @@ import {
   NEW_GAME_REQUEST,
   NEW_GAME_SUCCESS,
   NEW_GAME_FAILURE,
+  ADD_ITEM,
 } from '../constants/ActionTypes'
 
 export function validateSetup(data) {
@@ -11,5 +12,16 @@ export function validateSetup(data) {
       types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
       data,
     },
+  }
+}
+
+export const addItem = (item, startIndex) => {
+  const y = Math.floor( startIndex / 10 )
+  const x = startIndex - ( y * 10 )
+  const position = [x, y]
+  return {
+    type: ADD_ITEM,
+    item,
+    position
   }
 }
