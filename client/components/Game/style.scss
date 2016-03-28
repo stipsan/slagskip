@@ -1,0 +1,6 @@
+@import '../../style/_config';
+
+.section {
+  composes: section from '../../style/_section.scss';
+  color: #263238;  
+}

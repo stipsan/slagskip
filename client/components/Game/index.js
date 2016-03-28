@@ -1,4 +1,7 @@
 import { Component, PropTypes } from 'react'
+import {
+  section as sectionClassName,
+} from './style.scss'
 
 class Game extends Component {
   static propTypes = {
@@ -13,8 +16,8 @@ class Game extends Component {
     const {
       gameState
     } = this.props
-    return <section className="section section--game">
-      {gameState} game…
+    return <section className={sectionClassName}>
+      <h1>{gameState === 'failed' ? 'Failed loading game!' : `${gameState} game…`}</h1>
     </section>
   }
 }

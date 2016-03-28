@@ -1,10 +1,10 @@
 import { Component, PropTypes } from 'react'
 import className from 'classnames'
 import TimeAgo from 'react-timeago'
+import { Link } from 'react-router'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {
-  newGame,
   gameInvite,
   acceptGameInvite,
   declineGameInvite,
@@ -135,7 +135,13 @@ class FriendRow extends Component {
       }
       <td className={controlGroupClassName}>
       <div className={buttonGroupClassName}>
-        <button className={className({
+        {canLaunchGame && <Link
+          className={canLaunchGameClassName}
+          to={`game/1`}
+        >
+          <span>Start Game!</span>
+        </Link>}
+        {!canLaunchGame && <button className={className({
           [canLaunchGameClassName]: canLaunchGame,
           [canAcceptInviteClassName]: canAcceptInvite,
           [canAcceptInviteClassName]: canAcceptInvite,
@@ -148,7 +154,7 @@ class FriendRow extends Component {
             {canCancelPending && <span className={canCancelPendingTransitionClassName}>Pending</span>}
             {canInviteFriend && <span>Invite</span>}
           </ReactCSSTransitionGroup>
-        </button>
+        </button>}
         <button onClick={handleNo} className={className(
           canSayNoClassName, {[buttonDisabledClassName]: canLaunchGame || canInviteFriend}
         )}><strong>&times;</strong></button>
