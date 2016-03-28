@@ -17,18 +17,34 @@ export const authenticateRequest = (
 ) => (dispatch, getState) => {
   return database.authenticate({ username }, redis)
     .then(authToken => {
+      // sc will send this data to the client 
       socket.setAuthToken(authToken)
+      
+      const successAction = {
+        type: AUTHENTICATE_SUCCESS,
+        authToken: socket.getAuthToken()
+      }
 
-      callback(null, Object.assign({type: AUTHENTICATE_SUCCESS}, {authToken: socket.getAuthToken()}))
+      callback(null, successAction)
       
       return database.getViewer(authToken, redis)
     }).catch(error => {
-      console.log(AUTHENTICATE_FAILURE, error);
+      console.error(AUTHENTICATE_FAILURE, error);
       res(AUTHENTICATE_FAILURE, error)
     }).then(viewer => {
       invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
       invariant(viewer.authToken.privateChannel, 'database.getViewer authToken did not contain the property `privateChannel`')
 
+      const receiveViewerAction = {
+        type: RECEIVE_VIEWER,
+        friendIds: viewer.friendIds,
+        invites: viewer.invites
+      };
+      const result = dispatch({
+        type: RECEIVE_VIEWER,
+        friendIds: viewer.friendIds,
+        invites: viewer.invites
+      })
       socket.emit('dispatch', {
         type: RECEIVE_VIEWER,
         friendIds: viewer.friendIds,
