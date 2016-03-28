@@ -1,5 +1,11 @@
 import { connect } from 'react-redux'
-import { loadGame, resumeGame, pickSpot, checkSpot } from '../actions'
+import {
+  loadGame,
+  resumeGame,
+  pickSpot,
+  checkSpot,
+  fetchFriends,
+ } from '../actions'
 
 import Game from '../components/Game'
 
@@ -8,7 +14,10 @@ const mapStateToProps = (state, ownProps) => {
   return ({
   gameState: state.getIn(['game', 'gameState']),
   reasonFailed: state.getIn(['game', 'reasonFailed']),
-  versusFriend: state.getIn(['friends', versusFriendId])
+  versusFriend: state.getIn(['friends', 'list', versusFriendId]),
+  viewer: state.get('viewer'),
+  isViewerTurn: state.getIn(['game', 'isViewerTurn']),
+  versusGrid: state.getIn(['game', 'versusGrid']),
 })
 }
 
@@ -18,6 +27,8 @@ const mapDispatchToProps = dispatch => ({
   },
   loadGame: id => {
     dispatch(loadGame(id))
+    // @TODO temp measure this is 
+    dispatch(fetchFriends())
   },
   pickSpot: position => {
     dispatch(pickSpot(position))

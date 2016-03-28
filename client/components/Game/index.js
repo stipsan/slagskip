@@ -2,6 +2,9 @@ import { Component, PropTypes } from 'react'
 import {
   section as sectionClassName,
 } from './style.scss'
+import Navbar from './Navbar'
+import VersusGrid from './VersusGrid'
+import ViewerBoard from './ViewerBoard'
 
 class Game extends Component {
   static propTypes = {
@@ -15,11 +18,19 @@ class Game extends Component {
   render(){
     const {
       gameState,
-      reasonFailed
+      reasonFailed,
+      versusFriend,
+      viewer,
     } = this.props
+    
     return <section className={sectionClassName}>
-      <h1>{gameState === 'failed' ? 'Failed loading game!' : `${gameState} game…`}</h1>
+      {gameState === 'loading' && <h1>Loading game…</h1>}
       {gameState === 'failed' && reasonFailed && <h2>Error: {reasonFailed}</h2>}
+      {gameState !== 'failed' && gameState !== 'loading' && <div>
+        <Navbar viewer={viewer} versus={versusFriend} />
+        <VersusGrid />
+        <ViewerBoard />
+      </div>}
     </section>
   }
 }

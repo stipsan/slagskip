@@ -3,6 +3,7 @@ import {
   LOAD_GAME_SUCCESS,
   LOAD_GAME_FAILURE,
   RECEIVE_GAME,
+  LOAD_ITEMS,
   PLACE_CROSSHAIRS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
@@ -25,7 +26,8 @@ const initialState = fromJS({
   ],
   viewerBoard: board(undefined, {}),
   turns: [],
-  scores: [0, 0],
+  isViewerFirst: null,
+  isViewerTurn: false,
   gameState: 'standby', // loading | failed | setup | waiting | ready | victory | defeat
   reasonFailed: null,
 })
@@ -42,9 +44,18 @@ export const game = (state = initialState, action) => {
   case LOAD_GAME_SUCCESS:
     return state
       .merge({
+        id: action.id,
         versus: action.versus,
+        viewerBoard: board(undefined, {
+          type: LOAD_ITEMS, 
+          board: {
+            grid: action.viewerBoard
+          }
+        }),
+        turns: action.turns,
         gameState: action.gameState,
-        board: action.board,
+        isViewerFirst: action.isViewerFirst,
+        isViewerTurn: action.isViewerFirst,
       })
   default:
     return state

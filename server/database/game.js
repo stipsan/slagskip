@@ -7,7 +7,7 @@ export const loadGame = (authToken, gameId, redis) => {
   const tempGames = {
     1: {
       id: gameId,
-      players: [1, 2],
+      players: ['1', '2'],
       boards: [
         [
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -42,7 +42,7 @@ export const loadGame = (authToken, gameId, redis) => {
     const game = tempGames[gameId]
     invariant(game, '404 Game Not Found')
     
-    if(game.players.indexOf(Number(authToken.id)) === -1) {
+    if(game.players.indexOf(authToken.id) === -1) {
       reject('You are not in this game!')
     } else {
       resolve(game)
