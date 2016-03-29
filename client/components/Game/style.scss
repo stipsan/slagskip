@@ -2,6 +2,7 @@
 
 $default-color: hsla(0, 0%, 0%, .5);
 $active-color: rgb(152, 251, 152);
+$jackpot-color: crimson;
 
 .section {
   composes: section from '../../style/_section.scss';
@@ -31,4 +32,14 @@ $active-color: rgb(152, 251, 152);
   background-color: mix($default-color, $active-color, 66%);
   position: relative;
   z-index: 1;
+}
+.cellJackpot {
+  //border-color: $active-color;
+  box-shadow: $jackpot-color 0 0 0 1px, inset $jackpot-color 0 0 0 1px;
+  background-color: mix($default-color, $jackpot-color, 66%);
+  position: relative;
+  z-index: 1;
+}
+.cellEmpty {
+  opacity: .4;
 }

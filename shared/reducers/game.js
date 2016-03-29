@@ -7,6 +7,7 @@ import {
   PLACE_CROSSHAIRS,
   RECEIVE_HIT,
   RECEIVE_MISS,
+  FIRE_CANNON_REQUEST,
   FIRE_CANNON_SUCCESS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
@@ -75,6 +76,9 @@ export const game = (state = initialState, action) => {
     return state
       .set('isViewerTurn', action.isViewerTurn)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
+      .setIn(['versusGrid', action.turn.index], Number(action.turn.hit))
+  case FIRE_CANNON_REQUEST:
+    return state.set('selectedCell', -1)
   default:
     return state
   }

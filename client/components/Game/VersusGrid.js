@@ -14,7 +14,9 @@ class Cell extends Component {
   handleSelectCell = event => {
     const { index, cell, selectedCell } = this.props
   
-    this.props.dispatch(selectCell(index))
+    if(cell === -1 && selectedCell !== index) {
+      this.props.dispatch(selectCell(index))
+    }
   }
   
   shouldComponentUpdate(nextProps, nextState) {
@@ -27,7 +29,9 @@ class Cell extends Component {
     return <div onClick={this.handleSelectCell} className={classNames(
       cellClassName,
       {
-        [cellActiveClassName]: cellActive
+        [cellActiveClassName]: cellActive,
+        [cellEmptyClassName]: cell === 0,
+        [cellJackpotClassName]: cell === 1,
       }
     )} />
   }
