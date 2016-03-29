@@ -5,7 +5,7 @@ import {
   pendingMessage as pendingMessageClassName,
 } from './style.scss'
 
-const placeholderLabel = 'Username'
+const placeholderLabel = `Username, try 'Batman' or 'Superman'`
 const buttonLabel = 'Enter'
 
 export default class Login extends Component {

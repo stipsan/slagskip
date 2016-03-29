@@ -3,6 +3,11 @@
 $default-color: hsla(0, 0%, 0%, .5);
 $active-color: rgb(152, 251, 152);
 $jackpot-color: crimson;
+$xl-color: rgb(136, 14, 79);
+$l-color: rgb(69, 39, 160);
+$m-color: rgb(13, 71, 161);
+$s-color: rgb(0, 96, 100);
+$xs-color: rgb(123, 8, 0);
 
 .section {
   composes: section from '../../style/_section.scss';
@@ -16,10 +21,11 @@ $jackpot-color: crimson;
   width: 320px;
   margin-left: auto;
   margin-right: auto;
-  transition: opacity 100ms ease;
+  transition: all 150ms ease;
 }
 .versusGridWaiting {
   opacity: .4;
+  transform: scale(.9);
 }
 
 .cell {
@@ -46,4 +52,59 @@ $jackpot-color: crimson;
 }
 .cellEmpty {
   opacity: .4;
+}
+.navbar {
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.backLink {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: inherit;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-decoration: none;
+}
+.cellRemaining {
+  opacity: .8;
+}
+.cellTransition {
+  transition: all 150ms ease;
+}
+.cellXL {
+  composes: cellTransition;
+  background: mix($default-color, $xl-color, 75%) !important;
+  &.cellJackpot {
+    background: $xl-color !important;
+  }
+}
+.cellL {
+  composes: cellTransition;
+  background: mix($default-color, $l-color, 75%) !important;
+  &.cellJackpot {
+    background: $l-color !important;
+  }
+}
+.cellM {
+  composes: cellTransition;
+  background: mix($default-color, $m-color, 75%) !important;
+  &.cellJackpot {
+    background: $m-color !important;
+  }
+}
+.cellS {
+  composes: cellTransition;
+  background: mix($default-color, $s-color, 75%) !important;
+  &.cellJackpot {
+    background: $s-color !important;
+  }
+}
+.cellXS {
+  composes: cellTransition;
+  background: mix($default-color, $xs-color, 75%) !important;
+  &.cellJackpot {
+    background: $xs-color !important;
+  }
 }

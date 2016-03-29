@@ -44,11 +44,16 @@ class VersusGrid extends Component {
     this.props.dispatch(fireCannon(this.props.selectedCell))
   }
   
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
+  
   render() {
-    const { grid, turns, selectedCell, dispatch, isViewerTurn, versus } = this.props
+    const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score } = this.props
 
     return <div>
       {isViewerTurn ? (selectedCell === -1 ? <h5>Select a spot</h5> : <h5>Send it when you're ready<button onClick={this.handleFireCannon}>Send</button></h5>) : <h5>Waiting for {versus && versus.get('username') || 'opponent'} to make a move…</h5>}
+      <h6>Your score: {score}</h6>
       <div className={classNames(versusGridClassName, {
         [versusGridWaitingClassName]: !isViewerTurn
       })}>
