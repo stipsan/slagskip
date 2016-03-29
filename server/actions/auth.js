@@ -30,7 +30,7 @@ export const authenticateRequest = (
       return database.getViewer(authToken, redis)
     }).catch(error => {
       console.error(AUTHENTICATE_FAILURE, error);
-      res(AUTHENTICATE_FAILURE, error)
+      callback(AUTHENTICATE_FAILURE, error)
     }).then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
       invariant(viewer.invites, 'database.getViewer failed to return invites')
@@ -74,7 +74,7 @@ export const deauthenticateRequest = (
       return database.getViewer(offlineAuthToken, redis)
     }).catch(error => {
       console.error(DEAUTHENTICATE_FAILURE, error);
-      res(DEAUTHENTICATE_FAILURE, error)
+      callback(DEAUTHENTICATE_FAILURE, error)
     }).then(viewer => {
       socket.deauthenticate()
       
