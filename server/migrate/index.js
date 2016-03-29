@@ -10,7 +10,7 @@ module.exports = () => {
   const redis = new Redis(process.env.REDIS_URL)
 
   redis.get('migration_next').then(migration_next_raw => {
-    const migration_next = parseInt(migration_next_raw, 10)
+    const migration_next = Number(migration_next_raw)
     const pipeline = redis.pipeline()
     switch (migration_next) {
     case 0:
