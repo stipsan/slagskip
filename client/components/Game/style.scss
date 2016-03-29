@@ -21,10 +21,11 @@ $xs-color: rgb(123, 8, 0);
   width: 320px;
   margin-left: auto;
   margin-right: auto;
-  transition: opacity 100ms ease;
+  transition: all 150ms ease;
 }
 .versusGridWaiting {
   opacity: .4;
+  transform: scale(.9);
 }
 
 .cell {
@@ -69,38 +70,41 @@ $xs-color: rgb(123, 8, 0);
 .cellRemaining {
   opacity: .8;
 }
+.cellTransition {
+  transition: all 150ms ease;
+}
 .cellXL {
-  background: mix($default-color, $xl-color, 66%) !important;
+  composes: cellTransition;
+  background: mix($default-color, $xl-color, 75%) !important;
   &.cellJackpot {
     background: $xl-color !important;
-    box-shadow: mix($xl-color, $jackpot-color, 66%) 0 0 0 1px, inset mix($xl-color, $jackpot-color, 66%) 0 0 0 1px;
   }
 }
 .cellL {
-  background: mix($default-color, $l-color, 66%) !important;
+  composes: cellTransition;
+  background: mix($default-color, $l-color, 75%) !important;
   &.cellJackpot {
     background: $l-color !important;
-    box-shadow: mix($l-color, $jackpot-color, 66%) 0 0 0 1px, inset mix($l-color, $jackpot-color, 66%) 0 0 0 1px;
   }
 }
 .cellM {
-  background: mix($default-color, $m-color, 66%) !important;
+  composes: cellTransition;
+  background: mix($default-color, $m-color, 75%) !important;
   &.cellJackpot {
     background: $m-color !important;
-    box-shadow: mix($m-color, $jackpot-color, 66%) 0 0 0 1px, inset mix($m-color, $jackpot-color, 66%) 0 0 0 1px;
   }
 }
 .cellS {
-  background: mix($default-color, $s-color, 66%) !important;
+  composes: cellTransition;
+  background: mix($default-color, $s-color, 75%) !important;
   &.cellJackpot {
     background: $s-color !important;
-    box-shadow: mix($s-color, $jackpot-color, 66%) 0 0 0 1px, inset mix($s-color, $jackpot-color, 66%) 0 0 0 1px;
   }
 }
 .cellXS {
-  background: mix($default-color, $xs-color, 66%) !important;
+  composes: cellTransition;
+  background: mix($default-color, $xs-color, 75%) !important;
   &.cellJackpot {
     background: $xs-color !important;
-    box-shadow: mix($xs-color, $jackpot-color, 66%) 0 0 0 1px, inset mix($xs-color, $jackpot-color, 66%) 0 0 0 1px;
   }
 }

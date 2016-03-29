@@ -84,19 +84,22 @@ export const game = (state = initialState, action) => {
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
   case RECEIVE_HIT:
+    const versusScore = state.get('versusScore') + action.incVersusScore
     return state
       .set('isViewerTurn', false)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
-      .set('versusScore', state.get('versusScore') + action.incVersusScore)
+      .set('versusScore', versusScore)
+      .set('gameState', versusScore === 21 ? 'defeated' : state.get('gameState'))
   case FIRE_CANNON_SUCCESS:
-    const viewerScore = state.get('viewerScore')
+    const viewerScore = state.get('viewerScore') + action.incViewerScore
     
     return state
       .set('isViewerTurn', action.isViewerTurn)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['versusGrid', action.turn.index], Number(action.turn.hit))
-      .set('viewerScore', viewerScore + action.incViewerScore)
+      .set('viewerScore', viewerScore)
+      .set('gameState', viewerScore === 21 ? 'victory' : state.get('gameState'))
   case FIRE_CANNON_REQUEST:
     return state.set('selectedCell', -1)
   default:
