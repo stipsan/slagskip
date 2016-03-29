@@ -1,5 +1,6 @@
 export * from './auth'
 export * from './friends'
+export * from './game'
 export * from './invite'
 export * from './redis'
 export * from './user'
