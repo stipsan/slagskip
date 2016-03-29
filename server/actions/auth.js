@@ -31,6 +31,7 @@ export const authenticateRequest = (
     }).catch(error => {
       console.error(AUTHENTICATE_FAILURE, error);
       callback(AUTHENTICATE_FAILURE, error)
+      throw error
     }).then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
       invariant(viewer.invites, 'database.getViewer failed to return invites')
