@@ -8,7 +8,7 @@ import {
   users as usersClassName,
 } from './style.scss'
 
-class Lobby extends Component {
+class Dashboard extends Component {
   static propTypes = {
     friends: PropTypes.array.isRequired,
     username: PropTypes.string.isRequired,
@@ -33,7 +33,7 @@ class Lobby extends Component {
     } = this.props
     const { handleLogout } = this
 
-    return <DocumentTitle title={username ? `${username} - Lobby` : null}>
+    return <DocumentTitle title={username ? `Epic | ${username}` : null}>
       <section className={sectionClassName}>
         <Logoutbar username={username} handleLogout={handleLogout} />
         {!friendsTotal && <h3>Nobody here yet but you!</h3>}
@@ -56,4 +56,4 @@ class Lobby extends Component {
   }
 }
 
-export default Lobby
+export default Dashboard

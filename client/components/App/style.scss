@@ -1,16 +1,4 @@
-@import '../../style/_config';
-
-:global {
-  html {
-  	font-family: $font-family;
-  	font-size: $base-font-size;
-  	box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-}
-
+@import '../../style/_bulma';
 
 .enter, .appearActive {
   opacity: 0.01;
