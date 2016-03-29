@@ -34,8 +34,8 @@ class Game extends Component {
       {gameState === 'failed' && reasonFailed && <h2>Error: {reasonFailed}</h2>}
       {gameState !== 'failed' && gameState !== 'loading' && <div>
         <Navbar viewer={viewer} versus={versusFriend} />
-        {isViewerTurn && <VersusGrid grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} />}
-        {!isViewerTurn && <ViewerBoard board={viewerBoard} turns={turns} versus={versusFriend} />}
+        {<VersusGrid grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
+        {false && <ViewerBoard board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}
       </div>}
     </section>
   }

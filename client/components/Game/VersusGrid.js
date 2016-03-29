@@ -4,6 +4,7 @@ import shallowCompare from 'react-addons-shallow-compare'
 import { selectCell, fireCannon } from '../../actions'
 import {
   versusGrid as versusGridClassName,
+  versusGridWaiting as versusGridWaitingClassName,
   cell as cellClassName,
   cellActive as cellActiveClassName,
   cellEmpty as cellEmptyClassName,
@@ -12,9 +13,9 @@ import {
 
 class Cell extends Component {
   handleSelectCell = event => {
-    const { index, cell, selectedCell } = this.props
+    const { index, cell, selectedCell, isViewerTurn } = this.props
   
-    if(cell === -1 && selectedCell !== index) {
+    if(cell === -1 && selectedCell !== index && isViewerTurn) {
       this.props.dispatch(selectCell(index))
     }
   }
@@ -25,7 +26,7 @@ class Cell extends Component {
   
   render() {
     const { index, cell, cellActive } = this.props
-    console.log(cellClassName)
+
     return <div onClick={this.handleSelectCell} className={classNames(
       cellClassName,
       {
@@ -44,12 +45,14 @@ class VersusGrid extends Component {
   }
   
   render() {
-    const { grid, turns, selectedCell, dispatch } = this.props
+    const { grid, turns, selectedCell, dispatch, isViewerTurn, versus } = this.props
 
     return <div>
-      {selectedCell === -1 && <h1>Select a spot</h1> || <h1>Send it when you're ready<button onClick={this.handleFireCannon}>Send</button></h1>}
-      <div className={classNames(versusGridClassName)}>
-        {grid.map((cell, index) => <Cell key={index} index={index} cellActive={selectedCell === index} cell={cell} dispatch={dispatch} />)}
+      {isViewerTurn ? (selectedCell === -1 ? <h5>Select a spot</h5> : <h5>Send it when you're ready<button onClick={this.handleFireCannon}>Send</button></h5>) : <h5>Waiting for {versus && versus.get('username') || 'opponent'} to make a move…</h5>}
+      <div className={classNames(versusGridClassName, {
+        [versusGridWaitingClassName]: !isViewerTurn
+      })}>
+        {grid.map((cell, index) => <Cell key={index} isViewerTurn={isViewerTurn} index={index} cellActive={selectedCell === index} cell={cell} dispatch={dispatch} />)}
       </div>
     </div>
   }
