@@ -11,7 +11,7 @@ $family-serif: -apple-system, BlinkMacSystemFont,
              "Droid Sans", "Helvetica Neue", sans-serif !default; // Add a serif family
 
 // modular scaled font sizes
-// http://www.modularscale.com/?22&px&1.414&sass&text
+// http://www.modularscale.com/?22&px&1.333&sass&text
 $size-1: 92px;
 $size-2: 69px;
 $size-3: 52px;
@@ -26,8 +26,6 @@ $size-7: 16px;
 // Override generated variables here
 // For example, by default, the $danger color is $red and the font is sans-serif
 // You can change these values:
-
-$base-font-size: 22px !default;
 
 $column-gutter: 10px !default;
 
