@@ -7,7 +7,7 @@ import { createSocketServer, applySocketMiddleware } from './socket'
 
 export const run = worker => {
   const app   = express()
-  const redis = createConnection(process.env.NODE_ENV || '127.0.0.1:6379')
+  const redis = createConnection(process.env.REDIS_URL || '127.0.0.1:6379')
   
   
   // Security reasons, this should be the default in express
