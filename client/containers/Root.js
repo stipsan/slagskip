@@ -3,9 +3,11 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import App from './App'
-import Lobby from './Lobby'
+import Dashboard from './Dashboard'
 import Setup from './Setup'
 import Game from './Game'
+import Games from './Games'
+import Friends from './Friends'
 import NotFound from '../components/NotFound'
 
 const Root = ({ store }) => {
@@ -18,8 +20,9 @@ const Root = ({ store }) => {
   return <Provider store={store}>
     <Router history={history}>
       <Route component={App}>
-        <Route path="/" component={Lobby}>
-          
+        <Route path="/" component={Dashboard}>
+          <IndexRoute component={Games} />
+          <Route path="friends" component={Friends} />
         </Route>
         <Route path="setup" component={Setup} />
         <Route path="game/:game" component={Game} />

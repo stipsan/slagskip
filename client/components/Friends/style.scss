@@ -1,10 +1,7 @@
 @import '../../style/_config';
 
 .section {
-  composes: section from '../../style/_section.scss';
-
-  background: $bg-lobby;
-  color: lighten($bg-lobby, 40%);  
+  //composes: section from '../../style/_section.scss';
 }
 .section header {
   text-align: center;

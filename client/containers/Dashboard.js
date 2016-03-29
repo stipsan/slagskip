@@ -1,16 +1,13 @@
 import { connect } from 'react-redux'
 import { fetchFriends } from '../actions'
 
-import Lobby from '../components/Lobby'
+import Dashboard from '../components/Dashboard'
 
 const mapStateToProps = state => ({
-  friends: state.getIn(['friends', 'list']),
-  friendsTotal: state.getIn(['friends', 'total']),
   username: state.getIn(['viewer', 'username'])
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchFriends: () => dispatch(fetchFriends()),
   dispatch
 })
 
@@ -18,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Lobby)
+)(Dashboard)
