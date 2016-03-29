@@ -4,9 +4,6 @@ $border-color: rgb(141, 200, 80);
 $active-color: rgb(152, 251, 152);
 
 .section {
-  composes: section from '../../style/_section.scss';
-  
-  background: #1D1D1D;
   padding: 0;
 }
 
@@ -26,11 +23,6 @@ $active-color: rgb(152, 251, 152);
   composes: grid;
   border-color: transparent;
   background-color: rgba(red, 0);
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
 }
 
 .cell {
@@ -47,26 +39,6 @@ $active-color: rgb(152, 251, 152);
   background-color: mix($default-color, $active-color, 66%);
   position: relative;
   z-index: 1;
-}
-
-@media (orientation: landscape) {
-  .grid {
-    
-  }
-  .yard {
-    padding-left: 321px;
-    max-width: 100vw;
-    width: 100vw;
-  }
-}
-@media (orientation: portrait) {
-  .grid {
-    
-  }
-  .yard {
-    padding-top: 321px;
-    height: 100vh;
-  }
 }
 
 .item {

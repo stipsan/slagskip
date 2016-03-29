@@ -38,7 +38,7 @@ const transitionName = Object.freeze({
 
 const timeAgoFormatter = (value, unit) => {
   const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
-  return `${value}${formattedUnit}`
+  return `${value} ${formattedUnit}`
 }
 
 const CAN_LAUNCH_GAME = 'CAN_LAUNCH_GAME'
