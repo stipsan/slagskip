@@ -15,7 +15,7 @@ export const createUser = (userData, redis) => {
       return redis.multi([
         ['hsetnx', 'users', userData.username, userId],
         ['hsetnx', `user:${userId}`, 'id', userId],
-        ['hsetnx', 'username', userData.username],
+        ['hsetnx', `user:${userId}`, 'username', userData.username],
       ]).exec()
     })
     .then(results => {

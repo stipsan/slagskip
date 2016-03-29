@@ -18,7 +18,11 @@ const mapStateToProps = (state, ownProps) => {
   viewer: state.get('viewer'),
   isViewerTurn: state.getIn(['game', 'isViewerTurn']),
   versusGrid: state.getIn(['game', 'versusGrid']),
+  viewerGrid: state.getIn(['game', 'viewerGrid']),
   selectedCell: state.getIn(['game', 'selectedCell']),
+  versusScore: state.getIn(['game', 'versusScore']),
+  viewerScore: state.getIn(['game', 'viewerScore']),
+  viewerBoard: state.getIn(['game', 'viewerBoard']),
 })
 }
 
