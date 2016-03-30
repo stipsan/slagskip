@@ -23,10 +23,16 @@ class Setup extends Component {
       grid,
       items,
       addItem,
+      username,
+      versus,
     } = this.props
     
+    if(!versus) return <h1>Loading…</h1>
+    
+    const versusUsername = versus.get('username')
+    
     console.log('items', items)
-    return <DocumentTitle title="Setup New Game">
+    return <DocumentTitle title={`Epic | ${versusUsername} vs ${username}`}>
       <section className={sectionClassName}>
         <div className={wrapperClassName}>
           <Grid grid={grid} />

@@ -4,7 +4,9 @@ import Setup from '../components/Setup'
 
 const mapStateToProps = state => ({
   grid: state.getIn(['board', 'grid']),
-  items: state.getIn(['board', 'items'])
+  items: state.getIn(['board', 'items']),
+  username: state.getIn(['viewer', 'username']),
+  versus: state.getIn(['friends', 'list', "2"]),
 })
 
 const mapDispatchToProps = dispatch => ({

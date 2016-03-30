@@ -9,6 +9,7 @@ export default connect(
       supportedBrowser: state.getIn(['capabilities', 'websocket']),
       isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
       isViewerLoaded: state.getIn(['viewer', 'isLoaded']),
+      isGoingForwards: state.getIn(['navigation', 'isGoingForwards']),
     }
   }
 )(App)
