@@ -19,6 +19,12 @@ class NewGame extends Component {
     }
   }
   
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.friendsTotal !== this.props.friendsTotal) {
+      nextProps.fetchFriends()
+    }
+  }
+  
   render() {
     const {
       friends,

@@ -56,6 +56,8 @@ export const authenticateRequest = (
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
+    }).catch(error => {
+      console.error(error);
     })
 }
 

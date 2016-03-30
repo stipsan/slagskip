@@ -37,11 +37,16 @@ export const friends = (state = initialState, action) => {
       state.set('total', action.friends.length)
     )
   case RECEIVE_FRIEND_NETWORK_STATUS:
-    return state.mergeIn(['list', action.id], {
-      id: action.id,
-      online: action.online,
-      lastVisit: action.lastVisit
-    })
+    if(state.hasIn(['list', action.id])) {
+      return state.mergeIn(['list', action.id], {
+        id: action.id,
+        online: action.online,
+        lastVisit: action.lastVisit
+      })
+    } else {
+      return state.set('total', state.get('total') + 1)
+    }
+    
   case DECLINE_GAME_INVITE_SUCCESS:
   case RECEIVE_GAME_INVITE_ACCEPTED:
   case RECEIVE_GAME_INVITE_CANCELLED:
