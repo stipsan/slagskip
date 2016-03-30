@@ -15,6 +15,15 @@ export function validateSetup(data) {
   }
 }
 
+export const newGame = (board) => {
+  return {
+    [CALL_SOCKET]: {
+      types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
+      board,
+    },
+  }
+}
+
 export const addItem = (item, startIndex) => {
   const y = Math.floor( startIndex / 10 )
   const x = startIndex - ( y * 10 )

@@ -15,15 +15,6 @@ import {
   FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
 
-export function newGame(data) {
-  return {
-    [CALL_SOCKET]: {
-      types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
-      data,
-    },
-  }
-}
-
 export function resumeGame(id) {
   return {
     [CALL_SOCKET]: {

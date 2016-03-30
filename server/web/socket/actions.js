@@ -9,6 +9,7 @@ import {
   RECEIVE_FRIEND_NETWORK_STATUS,
   LOAD_GAME_REQUEST,
   FIRE_CANNON_REQUEST,
+  NEW_GAME_REQUEST,
 } from '../../constants/ActionTypes'
 import {
   authenticateRequest,
@@ -21,6 +22,7 @@ import {
   broadcastNetworkStatus,
   loadGame,
   fireCannon,
+  newGame,
 } from '../../actions'
 
 // @TODO perhaps this belongs in a custom middleware
@@ -35,4 +37,5 @@ export const actions = {
   [RECEIVE_FRIEND_NETWORK_STATUS]: broadcastNetworkStatus,
   [LOAD_GAME_REQUEST]: loadGame,
   [FIRE_CANNON_REQUEST]: fireCannon,
+  [NEW_GAME_REQUEST]: newGame,
 }

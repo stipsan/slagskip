@@ -1,10 +1,12 @@
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
+import Avatar from 'react-user-avatar'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
-import {
+import style, {
   section as sectionClassName,
   yard as yardClassName,
   wrapper as wrapperClassName,
@@ -12,28 +14,100 @@ import {
 import Grid from './Grid'
 import Item from './Item'
 import ItemPreview from './ItemPreview'
+import Loading from '../Loading'
 
+// @TODO merge duplicated code
+const defaultColors = [
+  '#1abc9c',
+  '#2ecc71',
+  '#3498db',
+  '#9b59b6',
+  '#34495e',
+  '#16a085',
+  '#27ae60',
+  '#2980b9',
+  '#8e44ad',
+  '#2c3e50',
+  '#f1c40f',
+  '#e67e22',
+  '#e74c3c',
+  '#ecf0f1',
+  '#95a5a6',
+  '#f39c12',
+  '#d35400',
+  '#c0392b',
+  '#bdc3c7',
+  '#7f8c8d'
+]
 
 class Setup extends Component {
+  
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  
+  handleNewGame = event => {
+    event.preventDefault()
+    
+    this.props.newGame(this.props.board)
+  }
+  
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
+  
+  componentDidMount() {
+    const { friends, friendsTotal, fetchFriends } = this.props
+
+    if(friends.size !== friendsTotal) {
+      fetchFriends()
+    }
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.friendsTotal !== this.props.friendsTotal) {
+      nextProps.fetchFriends()
+    }
+  }
+  
   render() {
     const {
       grid,
       items,
       addItem,
       username,
-      versus,
+      friends,
+      routeParams,
     } = this.props
     
-    if(!versus) return <h1>Loading…</h1>
+    if(!friends) return <Loading />
+
+    const versus = friends.get(routeParams.versus)
+    
+    if(!versus) return <Loading />
     
     const versusUsername = versus.get('username')
     
     console.log('items', items)
-    return <DocumentTitle title={`Epic | ${versusUsername} vs ${username}`}>
+    return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
+        <header className={style.header}>
+          <div className={style.headerLeft}>
+            <Link to="/new" className={style.linkToPrevous}>❮ Back</Link>
+          </div>
+          <div className={style.headerCenter}>
+            <h1 className={style.headerTitle}>
+              
+              <Avatar colors={defaultColors} size="39" name={username} title={username} />
+              <div className={style.headerVs}>vs</div>
+              <Avatar colors={defaultColors} size="39" name={versusUsername} />
+              
+            </h1>
+          </div>
+          <div className={style.headerRight}>
+            <button onClick={this.handleNewGame} className={style.startGame}>Start</button>
+          </div>
+        </header>
         <div className={wrapperClassName}>
           <Grid grid={grid} />
           <div className={yardClassName}>
