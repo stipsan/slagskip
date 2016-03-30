@@ -1,4 +1,5 @@
 import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import {
   section as sectionClassName,
 } from './style.scss'
@@ -10,6 +11,8 @@ class Game extends Component {
   static propTypes = {
     
   };
+  
+  shouldComponentUpdate = shouldComponentUpdate
   
   componentDidMount() {
     this.props.loadGame(this.props.routeParams.game)

@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import DocumentTitle from 'react-document-title'
 import { Link } from 'react-router'
 import style from './style.scss'
@@ -10,6 +11,8 @@ class NewGame extends Component {
     friends: ImmutablePropTypes.orderedMap.isRequired,
     friendsTotal: PropTypes.number.isRequired,
   }
+  
+  shouldComponentUpdate = shouldComponentUpdate
   
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props

@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 import Avatar from 'react-user-avatar'
 import style from './style.scss'
@@ -27,6 +28,9 @@ const defaultColors = [
 ]
 
 class Friend extends Component {
+  
+  shouldComponentUpdate = shouldComponentUpdate
+  
   render() {
     const { friend } = this.props
     const username = friend.get('username')
