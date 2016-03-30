@@ -31,9 +31,10 @@ class Friend extends Component {
     const { friend } = this.props
     const username = friend.get('username')
     const id = friend.get('id')
+    const online = friend.get('online') === '1'
     return <Link to={`setup/${id}`} className={style.friend}>
-      <span className={style.avatar}>
-        <span><Avatar colors={defaultColors} size="39" name={username} /></span>
+      <span className={online ? style.avatarOnline : style.avatar}>
+        <Avatar colors={defaultColors} size="39" name={username} />
       </span>
       <span className={style.username}>{friend.get('username')}</span>
       <span className={style.startGame}>❯</span>

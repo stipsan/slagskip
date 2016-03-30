@@ -41,6 +41,8 @@ export const connect = (store, next, action, callSocket) => {
       }
     })
     
+    socket.on('authenticate', () => subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel]))
+    
     socket.on('dispatch', action => next(action))
   }
   

@@ -49,11 +49,11 @@ class NewGame extends Component {
         </header>
         {friendsOnlineTotal > 0 && <div className={style.onlineContainer}>
           <h4 className={style.heading}>Online</h4>
-          {friendsOnline.map(friend => <Friend key={friend.get('id')} friend={friend} />)}
+          {friendsOnline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}
         {friendsOfflineTotal > 0 && <div className={style.friendsContainer}>
           <h4 className={style.heading}>Friends</h4>
-          {friendsOffline.map(friend => <Friend key={friend.get('id')} friend={friend} />)}
+          {friendsOffline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}
       </section>
     </DocumentTitle>

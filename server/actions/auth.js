@@ -70,27 +70,24 @@ export const deauthenticateRequest = (
   const lastVisit = new Date().toJSON()
   return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
     .then(offlineAuthToken => {
-      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
-      
-      return database.getViewer(offlineAuthToken, redis)
-    }).catch(error => {
-      console.error(DEAUTHENTICATE_FAILURE, error);
-      callback(DEAUTHENTICATE_FAILURE, error)
-    }).then(viewer => {
-      socket.deauthenticate()
-      
-      invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
-      invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
-
+      const friendIds = getState().getIn(['viewer', 'friendIds'])
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
-        id: viewer.authToken.id,
+        id: authToken.id,
         online: '0',
         lastVisit
       }
-      viewer.friendIds.forEach(friendId => {
+      friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
+      
+      socket.kickOut(`user:${authToken.id}`)
+      socket.deauthenticate()
+      
+      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
+    }).catch(error => {
+      console.error(DEAUTHENTICATE_FAILURE, error);
+      callback(DEAUTHENTICATE_FAILURE, error)
     })
 }
 
