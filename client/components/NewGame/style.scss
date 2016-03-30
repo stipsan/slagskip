@@ -4,6 +4,8 @@
   composes: columns is-mobile from '../../style/_bulma.scss';
   margin-left: 0;
   margin-right: 0;
+  position: sticky;
+  top: 0px;
 }
 .headerItem {
   composes: column is-flex from '../../style/_bulma.scss';
@@ -46,6 +48,7 @@
 
 .heading {
   composes: heading is-6 from '../../style/_bulma.scss';
+  text-indent: 49px;
 }
 .onlineContainer, .friendsContainer {
   padding: 0 20px;
@@ -54,9 +57,62 @@
   margin-right: auto;
 }
 
+.onlineContainer + .friendsContainer {
+  margin-top: 20px;
+}
+
 .friend {
-  composes: columns from '../../style/_bulma.scss';
+  composes: columns is-mobile from '../../style/_bulma.scss';
+  
+  &:hover, &:active {
+    .startGame {
+      opacity: 1;
+    }
+  }
 }
 .avatar, .username, .startGame {
   composes: column from '../../style/_bulma.scss';
+  align-items: center;
+  display: flex;
+}
+
+.avatar {
+  padding-right: 5px;
+  color: white;
+  font-size: 19px;
+  flex: 0;
+  
+  & > * {
+    width: 39px;
+  }
+}
+
+.username {
+  padding-left: 5px;
+  color: $grey-dark;
+  word-wrap: break-word;
+}
+
+.startGame {
+  font-size: $size-4;
+  color: $grey-light;
+  flex: 0;
+  opacity: 0;
+}
+
+:global .UserAvatar {
+  display: inline-block;
+}
+:global .UserAvatar--inner {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:global .UserAvatar--light {
+  color: rgba(black, .3);
+  
+  .UserAvatar--inner {
+    border: 1px solid rgba(black, .3);
+  }
 }
