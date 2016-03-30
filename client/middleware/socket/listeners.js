@@ -1,5 +1,6 @@
 import { 
   SOCKET_FAILURE,
+  SOCKET_ERROR,
   SUBSCRIBE_CHANNEL_REQUEST,
   SUBSCRIBE_CHANNEL_SUCCESS,
   SUBSCRIBE_CHANNEL_FAILURE,
@@ -24,7 +25,7 @@ export const attachListeners = (store, next, action, socket) => {
     next({ type: SOCKET_DISCONNECT, socket })
   })
   socket.on('error', data => {
-    next({ type: SOCKET_FAILURE, event: 'error', ...data, socket })
+    next({ type: SOCKET_ERROR, event: 'error', ...data, socket })
   })
   socket.on('connectAbort', () => {
     next({ type: SOCKET_FAILURE, event: 'connectAbort', socket })

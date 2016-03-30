@@ -1,0 +1,62 @@
+@import '../../style/_config';
+
+.header {
+  composes: columns is-mobile from '../../style/_bulma.scss';
+  margin-left: 0;
+  margin-right: 0;
+}
+.headerItem {
+  composes: column is-flex from '../../style/_bulma.scss';
+  align-items: center;
+}
+.headerLeft {
+  composes: headerItem;
+  composes: is-3 from '../../style/_bulma.scss';
+  text-align: left !important;
+}
+.headerCenter {
+  composes: headerItem;
+  text-align: center !important;
+  white-space: nowrap;
+}
+.headerRight {
+  composes: headerItem;
+  composes: is-3 from '../../style/_bulma.scss';
+  text-align: right !important;
+}
+
+.linkToPrevous {
+  flex: 1;
+  text-align: left;
+}
+.headerTitle {
+  composes: title is-6 from '../../style/_bulma.scss';
+  flex: 1;
+  width: 50vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.headerMenu {
+  composes: hamburger from '../../style/_bulma.scss';
+  flex: 1;
+  text-align: right;
+}
+
+.heading {
+  composes: heading is-6 from '../../style/_bulma.scss';
+}
+.onlineContainer, .friendsContainer {
+  padding: 0 20px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.friend {
+  composes: columns from '../../style/_bulma.scss';
+}
+.avatar, .username, .startGame {
+  composes: column from '../../style/_bulma.scss';
+}

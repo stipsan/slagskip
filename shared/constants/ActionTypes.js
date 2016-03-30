@@ -15,6 +15,7 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 // socket got disconnected, or maybe the user got bandwidth capped, a firewall
 // blocks the websocket but is letting http requests come through, etc.
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
+export const SOCKET_ERROR = 'SOCKET_ERROR'
 // allow manual trigger of reconnect w/o full page reload or waiting for timeout
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'

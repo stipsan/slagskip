@@ -10,7 +10,7 @@ class Games extends Component {
     const { children } = this.props
     
     return <ul>
-      <li><Link to="setup">New Game</Link></li>
+      <li><Link to="new">New Game</Link></li>
       <li>No games yet…</li>
     </ul>
   }

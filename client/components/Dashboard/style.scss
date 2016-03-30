@@ -1,9 +1,15 @@
 @import '../../style/_config';
 
+.dashboard {
+  composes: container is-text-centered from '../../style/_bulma.scss';
+}
+
 .tabscontainer {
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  composes: is-text-left from '../../style/_bulma.scss';
+  display: inline-block;
+  padding: 0 20px;
+  max-width: $container-width;
+  width: 100%;
 }
 
 .tabs {
