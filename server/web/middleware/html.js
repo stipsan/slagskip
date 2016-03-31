@@ -78,7 +78,7 @@ module.exports = function(){
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="${meta.description}" />
     <meta name="author" content="${meta.author}" />
-    <meta name="author" content="${meta.keywords.join(',')}" />
+    <meta name="keywords" content="${meta.keywords.join(',')}" />
     ${stylesheets}
   </head>
   <body>
