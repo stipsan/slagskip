@@ -1,5 +1,3 @@
-const title = process.env.APP_NAME || 'game'
-
 const webpackToAssets = config => {
   return Object.keys(config.entry).reduce((prev, curr) => {
     return Object.assign(prev, {[curr]: {js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}`}})
@@ -34,6 +32,8 @@ ga('send', 'pageview');
 module.exports = function(){
   var caniuse = require('caniuse-api')
   var meta = require('../../../package.json')
+
+  const title = process.env.APP_NAME || meta.title
 
   var fallback = require('@stipsan/express-history-api-fallback')
   var minify = require('html-minifier').minify
@@ -74,7 +74,7 @@ module.exports = function(){
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7, IE=9" />
     <meta charset="utf-8" />
 
-    <title>Loading ${title}…</title>
+    <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="${meta.description}" />
     <meta name="author" content="${meta.author}" />

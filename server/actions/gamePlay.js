@@ -191,7 +191,7 @@ export const fireCannon = (
     incViewerScore = 1
   }
   
-  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem }
+  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem, on: new Date().getTime() }
   
   return database.saveTurn(authToken, action.id, turn, redis)
     .then(game => {
