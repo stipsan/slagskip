@@ -33,6 +33,7 @@ ga('send', 'pageview');
 
 module.exports = function(){
   var caniuse = require('caniuse-api')
+  var meta = require('../../../package.json')
 
   var fallback = require('@stipsan/express-history-api-fallback')
   var minify = require('html-minifier').minify
@@ -75,6 +76,9 @@ module.exports = function(){
 
     <title>Loading ${title}…</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="${meta.description}" />
+    <meta name="author" content="${meta.author}" />
+    <meta name="keywords" content="${meta.keywords.join(',')}" />
     ${stylesheets}
   </head>
   <body>

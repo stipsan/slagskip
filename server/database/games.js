@@ -17,12 +17,13 @@ export const getGames = (viewer, redis) => {
     return results.reduce((previousValue, currentValue, currentIndex) => {
         const game = currentValue[1]
         try {
-          const [players, boards, turns] = JSON.parse(game.state)
+          const [players, boards, turns = [], scores = [0,0]] = JSON.parse(game.state)
           previousValue[i++] = {
             id: currentValue[1].id,
             players,
             boards,
-            turns
+            turns,
+            scores,
           }
         } catch(e) {
           console.error(e)
