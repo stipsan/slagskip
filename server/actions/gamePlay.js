@@ -53,6 +53,8 @@ export const loadGame = (
         turns: game.turns,
         gameState,
         isViewerFirst,
+        viewerScore: isViewerFirst ? game.scores[0] : game.scores[1],
+        versusScore: isViewerFirst ? game.scores[1] : game.scores[0],
         hits: []
       })
       callback(null, {

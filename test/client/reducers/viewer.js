@@ -9,8 +9,9 @@ describe('viewer reducer', () => {
       reducer(undefined, {}).toJS()
     ).toEqual(
       {
+        id: null,
+        isLoaded: false,
         username: '',
-        isAuthenticated: false,
       }
     )
   })
@@ -19,13 +20,15 @@ describe('viewer reducer', () => {
       reducer(undefined, {
         type: types.AUTHENTICATE_SUCCESS,
         authToken: {
+          id: "2",
           username: 'Foo'
         }
       }).toJS()
     ).toEqual(
       {
         username: 'Foo',
-        isAuthenticated: true,
+        isLoaded: false,
+        id: "2"
       }
     )
   })
@@ -35,7 +38,8 @@ describe('viewer reducer', () => {
     ).toEqual(
       {
         username: '',
-        isAuthenticated: false
+        id: null,
+        isLoaded: false,
       }
     )
   })
