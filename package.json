@@ -1,7 +1,7 @@
 {
   "name": "Epic",
   "version": "1.0.0",
-  "description": "Just a simple game to learn the ropes of redux, socket.io and sharpen my skills on react, js and node development in general",
+  "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
     "start": "nf start web=1",
@@ -20,7 +20,25 @@
     "type": "git",
     "url": "git+https://github.com/stipsan/epic.git"
   },
-  "author": "Stian Didriksen",
+  "keywords": [
+    "react",
+    "reactjs",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "flux",
+    "redux",
+    "example",
+    "game",
+    "socketcluster",
+    "heroku",
+    "immutable",
+    "redis",
+    "ioredis"
+  ],
+  "author": "Stian Didriksen <stipsan@gmail.com> (http://github.com/stipsan)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/stipsan/epic/issues"
