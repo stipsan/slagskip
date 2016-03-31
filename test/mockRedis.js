@@ -13,6 +13,7 @@ const mockRedis = {
     [`user:3`]: { id: 3, username: 'batman', online: '1' },
     [`user:4`]: { id: 4, username: 'spiderman', online: '0' },
     [`user:5`]: { id: 5, username: 'lex', online: '0', lastVisit: '2016-03-22T00:15:46.757Z' },
+    [`user:3:games`]: [],
     [`user:2:invites`]: [],
     [`user:3:invites`]: [4, 5],
     [`user:4:invites`]: [],

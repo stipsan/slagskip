@@ -1,8 +1,23 @@
 @import '../../style/_config';
 
-.section {
-  composes: section from '../../style/_section.scss';
+.hero {
+  composes: hero is-fullheight is-danger is-bold from '../../style/_bulma.scss';
+  position: relative;
+  z-index: 100;
+}
+.heroContent {
+  composes: hero-content from '../../style/_bulma.scss';
+}
+.container {
+  composes: container from '../../style/_bulma.scss';
+}
 
-  background: $bg-disconnected;
-  color: lighten($bg-disconnected, 33%);
+.title {
+  composes: title is-3 from '../../style/_bulma.scss';
+}
+.subtitle {
+  composes: subtitle is-5 from '../../style/_bulma.scss';
+}
+.retry {
+  composes: subtitle from '../../style/_bulma.scss';
 }

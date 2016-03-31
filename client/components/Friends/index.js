@@ -1,4 +1,5 @@
 import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import FriendRow from './FriendRow'
 import {
   section as sectionClassName,
@@ -10,6 +11,8 @@ class Dashboard extends Component {
     friends: PropTypes.array.isRequired,
     username: PropTypes.string.isRequired,
   }
+  
+  shouldComponentUpdate = shouldComponentUpdate
   
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props

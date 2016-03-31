@@ -34,16 +34,16 @@ describe('friends reducer', () => {
       reducer(undefined, {
         type: types.FRIENDS_SUCCESS,
         friends: [
-          {id: 2, username: 'batman', online: '1', inviteOut: '1'},
-          {id: 3, username: 'spiderman', inviteIn: '1', lastVisit}
+          {id: 2, username: 'batman', online: '1', inviteOut: true},
+          {id: 3, username: 'spiderman', inviteIn: true, lastVisit}
         ]
       }).toJS()
     ).toEqual(
       {
         total: 2,
         list: {
-          2: {id: 2, username: 'batman', online: '1', inviteIn: '0', inviteOut: '1', lastVisit: ''},
-          3: {id: 3, username: 'spiderman', online: '0', inviteIn: '1', inviteOut: '0', lastVisit}
+          2: {id: 2, username: 'batman', online: '1', inviteIn: false, inviteOut: true, lastVisit: ''},
+          3: {id: 3, username: 'spiderman', online: '0', inviteIn: true, inviteOut: false, lastVisit}
         },
       }
     )
@@ -84,8 +84,8 @@ describe('friends reducer', () => {
       {
         total: 2,
         list: {
-          2: {id: 2, username: 'batman', online: '1', inviteIn: '0', inviteOut: '0', lastVisit: ''},
-          3: {id: 3, username: 'spiderman', online: '1', inviteIn: '0', inviteOut: '0', lastVisit: newVisit}
+          2: {id: 2, username: 'batman', online: '1', inviteIn: false, inviteOut: false, lastVisit: ''},
+          3: {id: 3, username: 'spiderman', online: '1', inviteIn: false, inviteOut: false, lastVisit: newVisit}
         },
       }
     )
@@ -100,8 +100,8 @@ describe('friends reducer', () => {
       {
         total: 2,
         list: {
-          2: {id: 2, username: 'batman', online: '0', inviteIn: '0', inviteOut: '0', lastVisit: newVisit},
-          3: {id: 3, username: 'spiderman', online: '0', inviteIn: '0', inviteOut: '0', lastVisit}
+          2: {id: 2, username: 'batman', online: '0', inviteIn: false, inviteOut: false, lastVisit: newVisit},
+          3: {id: 3, username: 'spiderman', online: '0', inviteIn: false, inviteOut: false, lastVisit}
         },
       }
     )

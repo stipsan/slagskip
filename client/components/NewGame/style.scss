@@ -1,0 +1,134 @@
+@import '../../style/_config';
+
+.header {
+  composes: columns is-mobile from '../../style/_bulma.scss';
+  margin-left: 0;
+  margin-right: 0;
+}
+.headerItem {
+  composes: column is-flex from '../../style/_bulma.scss';
+  align-items: center;
+}
+.headerLeft {
+  composes: headerItem;
+  composes: is-3 from '../../style/_bulma.scss';
+  text-align: left !important;
+}
+.headerCenter {
+  composes: headerItem;
+  text-align: center !important;
+  white-space: nowrap;
+}
+.headerRight {
+  composes: headerItem;
+  composes: is-3 from '../../style/_bulma.scss';
+  text-align: right !important;
+}
+
+.linkToPrevous {
+  flex: 1;
+  text-align: left;
+}
+.headerTitle {
+  composes: title is-6 from '../../style/_bulma.scss';
+  flex: 1;
+  width: 50vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.headerMenu {
+  composes: hamburger from '../../style/_bulma.scss';
+  flex: 1;
+  text-align: right;
+}
+
+.heading {
+  composes: heading is-6 from '../../style/_bulma.scss';
+  text-indent: 49px;
+  background: $grey-lighter;
+  position: sticky;
+  top: 0px;
+}
+.onlineContainer, .friendsContainer {
+  padding: 0 20px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.onlineContainer + .friendsContainer {
+  margin-top: 20px;
+}
+
+.friend {
+  composes: media from '../../style/_bulma.scss';
+  align-items: center;
+  padding-top: 0px;
+  
+  &:hover, &:active {
+    .startGame {
+      opacity: 1;
+    }
+  }
+}
+.avatar {
+  composes: media-left from '../../style/_bulma.scss';
+  padding-right: 5px;
+  color: white;
+  font-size: 19px;
+  margin-right: 0px;
+  position: relative;
+  
+  & > * {
+    width: 39px;
+  }
+}
+.avatarOnline {
+  composes: avatar;
+  
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background: #2ecc71;
+    border-radius: 14px;
+    border: 2px solid $grey-lighter;
+  }
+}
+
+.username {
+  composes: media-content from '../../style/_bulma.scss';
+  padding-left: 5px;
+  color: $grey-dark;
+  word-wrap: break-word;
+}
+
+.startGame {
+  font-size: $size-4;
+  color: $grey-light;
+  flex: 0;
+  opacity: 0;
+}
+
+:global .UserAvatar {
+  display: block;
+}
+:global .UserAvatar--inner {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:global .UserAvatar--light {
+  color: rgba(black, .3);
+  
+  .UserAvatar--inner {
+    border: 1px solid rgba(black, .3);
+  }
+}

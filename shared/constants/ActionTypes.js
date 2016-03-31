@@ -15,6 +15,7 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 // socket got disconnected, or maybe the user got bandwidth capped, a firewall
 // blocks the websocket but is letting http requests come through, etc.
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
+export const SOCKET_ERROR = 'SOCKET_ERROR'
 // allow manual trigger of reconnect w/o full page reload or waiting for timeout
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
@@ -52,6 +53,10 @@ export const RECEIVE_FRIEND_NETWORK_STATUS = 'RECEIVE_FRIEND_NETWORK_STATUS'
 // friend got kicked or deleted their own account
 export const RECEIVE_FRIEND_DELETED = 'RECEIVE_FRIEND_DELETED'
 
+export const GAMES_REQUEST = 'GAMES_REQUEST'
+export const GAMES_SUCCESS = 'GAMES_SUCCESS'
+export const GAMES_FAILURE = 'GAMES_FAILURE'
+
 // send the invite to a friend, show spinner
 export const GAME_INVITE_REQUEST = 'GAME_INVITE_REQUEST'
 // friend received invite, show pending response label
@@ -81,8 +86,12 @@ export const NEW_GAME_REQUEST = 'NEW_GAME_REQUEST'
 export const NEW_GAME_SUCCESS = 'NEW_GAME_SUCCESS'
 // failed, allow retrying
 export const NEW_GAME_FAILURE = 'NEW_GAME_FAILURE'
+export const JOIN_GAME_REQUEST = 'JOIN_GAME_REQUEST'
+export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'
+export const JOIN_GAME_FAILURE = 'JOIN_GAME_FAILURE'
+export const RECEIVE_NEW_GAME = 'RECEIVE_NEW_GAME'
 // our opponent joined the game
-export const RECEIVE_GAME_JOIN = 'RECEIVE_GAME_JOIN'
+export const RECEIVE_JOIN_GAME = 'RECEIVE_JOIN_GAME'
 
 // actions for setting up our own battleship formation
 export const ADD_ITEM = 'ADD_ITEM'

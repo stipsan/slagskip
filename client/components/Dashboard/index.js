@@ -1,4 +1,5 @@
 import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import DocumentTitle from 'react-document-title'
 import classNames from 'classnames'
 import { Link } from 'react-router'
@@ -14,6 +15,8 @@ class Dashboard extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
   }
+  
+  shouldComponentUpdate = shouldComponentUpdate
   
   handleLogout = () => this.props.dispatch(logoutUser());
   

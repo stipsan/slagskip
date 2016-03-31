@@ -35,16 +35,20 @@ export const authenticateRequest = (
     }).then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
       invariant(viewer.invites, 'database.getViewer failed to return invites')
+      invariant(viewer.games, 'database.getViewer failed to return games')
 
       dispatch({
         type: RECEIVE_VIEWER,
         friendIds: viewer.friendIds,
-        invites: viewer.invites
+        invites: viewer.invites,
+        games: viewer.games,
       })
       const friendIds = getState().getIn(['viewer', 'friendIds'])
+      const games = getState().getIn(['viewer', 'games'])
       socket.emit('dispatch', {
         type: RECEIVE_VIEWER,
-        friendIds
+        friendIds,
+        games,
       })
       const authToken = socket.getAuthToken()
       const exchangeAction = {
@@ -56,6 +60,8 @@ export const authenticateRequest = (
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
+    }).catch(error => {
+      console.error(error);
     })
 }
 
@@ -70,27 +76,24 @@ export const deauthenticateRequest = (
   const lastVisit = new Date().toJSON()
   return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
     .then(offlineAuthToken => {
-      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
-      
-      return database.getViewer(offlineAuthToken, redis)
-    }).catch(error => {
-      console.error(DEAUTHENTICATE_FAILURE, error);
-      callback(DEAUTHENTICATE_FAILURE, error)
-    }).then(viewer => {
-      socket.deauthenticate()
-      
-      invariant(viewer.authToken, 'database.getViewer failed to return an authToken')
-      invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
-
+      const friendIds = getState().getIn(['viewer', 'friendIds'])
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
-        id: viewer.authToken.id,
+        id: authToken.id,
         online: '0',
         lastVisit
       }
-      viewer.friendIds.forEach(friendId => {
+      friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
+      
+      socket.kickOut(`user:${authToken.id}`)
+      socket.deauthenticate()
+      
+      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
+    }).catch(error => {
+      console.error(DEAUTHENTICATE_FAILURE, error);
+      callback(DEAUTHENTICATE_FAILURE, error)
     })
 }
 

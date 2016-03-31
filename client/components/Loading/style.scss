@@ -1,11 +1,18 @@
 @import '../../style/_config';
 
-.section {
-  composes: section from '../../style/_section.scss';
-  
-  align-items: center;
-  justify-content: center;
-  
-  color: white;
-  mix-blend-mode: overlay;
+.hero {
+  composes: hero is-fullheight from '../../style/_bulma.scss';
+  position: relative;
+  z-index: 100;
+  background: $grey-lighter;
+}
+.heroContent {
+  composes: hero-content from '../../style/_bulma.scss';
+}
+.container {
+  composes: container from '../../style/_bulma.scss';
+}
+
+.title {
+  composes: subtitle is-3 from '../../style/_bulma.scss';
 }

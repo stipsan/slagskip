@@ -45,6 +45,10 @@
     "TRACKING_ID": {
       "description": "Google Analytics Tracking ID",
       "required": false
+    },
+    "AUTH_TOKEN_NAME": {
+      "description": "Name of the authToken stored in the browsers localStorage",
+      "generator": "secret"
     }
   },
   "image": "heroku/nodejs",

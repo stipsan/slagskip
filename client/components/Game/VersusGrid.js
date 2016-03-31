@@ -41,7 +41,7 @@ class Cell extends Component {
 class VersusGrid extends Component {
   
   handleFireCannon = event => {
-    this.props.dispatch(fireCannon(this.props.selectedCell))
+    this.props.dispatch(fireCannon({ id: this.props.gameId, selectedCell: this.props.selectedCell }))
   }
   
   shouldComponentUpdate(nextProps, nextState) {
@@ -49,7 +49,7 @@ class VersusGrid extends Component {
   }
   
   render() {
-    const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score } = this.props
+    const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score, gameState } = this.props
 
     return <div>
       {isViewerTurn ? (selectedCell === -1 ? <h5>Select a spot</h5> : <h5>Send it when you're ready<button onClick={this.handleFireCannon}>Send</button></h5>) : <h5>Waiting for {versus && versus.get('username') || 'opponent'} to make a move…</h5>}

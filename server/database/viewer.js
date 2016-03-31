@@ -9,17 +9,19 @@ export const getViewer = (authToken, redis) => {
     .multi([
       ['hvals', 'users'],
       ['smembers', `user:${viewerId}:invites`],
+      ['smembers', `user:${viewerId}:games`],
       ['hset', `user:${viewerId}`, 'online', 1],
     ])
     .exec()
     .then(results => {
       const friendIds = results[0][1]
       const invites   = results[1][1]
+      const games     = results[2][1]
       
       // @FIXME
       friendIds.splice(friendIds.indexOf(viewerId), 1)
 
-      return { friendIds, invites }
+      return { friendIds, invites, games }
     })
 }
 

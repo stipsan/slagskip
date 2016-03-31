@@ -1,19 +1,43 @@
 @import '../../style/_bulma';
 
-.enter, .appearActive {
+.enter, .appear {
   opacity: 0.01;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(30px);
 }
 
 .enterActive, .appearActive {
   opacity: 1;
-  transition: opacity 300ms ease-out;
+  transform: translateY(0px);
+  transition: all 150ms ease;
 }
 
 .leave {
   opacity: 1;
+  transform: translateY(0px);
 }
 
 .leaveActive {
   opacity: 0.01;
-  transition: opacity 150ms ease-out;
+  transform: translateY(-30px);
+  transition: all 150ms ease;
+}
+
+.transitionBackwards {
+  .enter, .appear {
+    transform: translateY(-30px);
+  }
+  .enterActive, .appearActive {
+    transform: translateY(0px);
+  }
+  .leave {
+    transform: translateY(0px);
+  }
+  .leaveActive {
+    transform: translateY(30px);
+  }
 }

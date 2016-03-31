@@ -3,23 +3,20 @@ var webpack = require('webpack')
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
+const devServerPort = process.env.DEV_SERVER_PORT || '8080'
+
 // @TODO move this into env
-const autoReconnectOptions = {
-  initialDelay: 10000,
-  randomness: 10000,
-  multiplier: 1.5,
-  maxDelay: 60000,
-}
 const provideDefaults = {
-  'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify(
-    Object.assign({}, autoReconnectOptions, {
-      initialDelay: 1000,
-      randomness: 1000,
-      maxDelay: 10000,
-    })
-  ),
+  'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify({
+    initialDelay: 10000,
+    randomness: 10000,
+    multiplier: 1.5,
+    maxDelay: 60000,
+  }),
   'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
   'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
+  'process.env.AUTH_TOKEN_NAME': JSON.stringify(process.env.AUTH_TOKEN_NAME),
 }
 
 var plugins = process.env.NODE_ENV === 'production' ? [
@@ -75,7 +72,7 @@ plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.j
 
 var entry = process.env.NODE_ENV !== 'production' ? {
   client: [
-    'webpack-dev-server/client?http://localhost:8080/',
+    `webpack-dev-server/client?http://${devServerHostName}:${devServerPort}/`,
     'webpack/hot/dev-server',
     './client/index',
   ],
@@ -86,7 +83,7 @@ var entry = process.env.NODE_ENV !== 'production' ? {
 }
 
 const localIdentName = 'production' !== process.env.NODE_ENV ?
-  '[local]__[hash:base64:5]' : '[hash:base64]'
+  '[local]__[hash:base64:2]' : '[hash:base64:4]'
 // https://github.com/webpack/css-loader/blob/6ade74035c845978e3cf4026bdacb829fcf300d7/lib/processCss.js#L181
 const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&reduceIdents'
 
@@ -95,7 +92,7 @@ module.exports = {
   entry: entry,
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    publicPath: 'http://localhost:8080/',
+    publicPath: `http://${devServerHostName}:${devServerPort}/`,
     hot: true,
     noInfo: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
@@ -104,7 +101,7 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: 'production' === process.env.NODE_ENV ? '[hash].js' : '[name].js?[hash]',
     chunkFilename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[chunkhash]',
-    publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/',
+    publicPath: 'production' === process.env.NODE_ENV ? '/' : `http://${devServerHostName}:${devServerPort}/`,
   },
   plugins: plugins,
   module: {

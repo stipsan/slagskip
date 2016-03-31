@@ -21,7 +21,7 @@ export const connect = (store, next, action, callSocket) => {
       path: process.env.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
-      authTokenName: 'authToken',
+      authTokenName: process.env.AUTH_TOKEN_NAME,
     })
     
     attachListeners(store, next, action, socket, callSocket)
@@ -40,6 +40,8 @@ export const connect = (store, next, action, callSocket) => {
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })
+    
+    socket.on('authenticate', () => subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel]))
     
     socket.on('dispatch', action => next(action))
   }
