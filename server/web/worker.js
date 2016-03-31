@@ -1,27 +1,23 @@
-/**
- * Heroku terminology labels a 'worker' process as a background task that do
- * not handle incoming web requests or do web server-y things.
- * SocketCluster terminology puts server work in a 'worker'.
- * This file is called web.js as it's what Heroku will run in  a 'web' dyno,
- * not a 'worker' dyno.
- */
+import express from 'express'
+import compressionMiddleware from 'compression'
+import originsMiddleware from './middleware/origins'
+import htmlMiddleware from './middleware/html'
+import { createConnection } from '../database'
+import { createSocketServer, applySocketMiddleware } from './socket'
 
-module.exports.run = function (worker) {
-  const express = require('express')
-  const app = express()
+export const run = worker => {
+  const app   = express()
+  const redis = createConnection(process.env.REDIS_URL || '127.0.0.1:6379')
   
-  app.use(require('compression')())
   
-  app.use(require('./origins')())
-
-  // Security reasons, this should be the default in express, 
-  // at least when NODE_ENV = production
+  // Security reasons, this should be the default in express
   app.set('x-powered-by', false)
-
   // We are on Heroku after all, behind load balancers 
   // and want our https and wss to work properly with the IPs
   app.enable('trust proxy')
-
+  
+  app.use(compressionMiddleware())
+  app.use(originsMiddleware())
   /*
   if(process.env.NODE_ENV !== 'production') {
     const config   = require('../../webpack.config');
@@ -31,11 +27,10 @@ module.exports.run = function (worker) {
     app.use(require('webpack-hot-middleware')(compiler));
   }
   //*/
-
   app.use(express.static('public', { maxAge: 86400000 * 365, index: false }))
-  app.use(require('./html')())
+  app.use(htmlMiddleware())
   
   worker.httpServer.on('request', app)
   
-  require('./sockets')(worker)
+  createSocketServer(applySocketMiddleware(worker.scServer), redis)
 }

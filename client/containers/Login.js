@@ -1,27 +1,17 @@
 import { connect } from 'react-redux'
-import { loginUser, restoreLocation } from '../actions'
+import { loginUser } from '../actions'
+import { Map as ImmutableMap } from 'immutable'
 
 import Login from '../components/Login'
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  redirectAfterLogin: state.auth.redirectAfterLogin,
-  isRequestPending: state.auth.authState === 'pending',
+  isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
+  isRequestPending: state.getIn(['auth', 'authState']) === 'pending',
 })
 
 const mapDispatchToProps = dispatch => ({
   onLogin: (username) => {
     dispatch(loginUser(username))
-  },
-  maybeRestoreLocation: (isAuthenticated, redirectAfterLogin = {}) => {
-    const location = {
-      pathname: '/',
-      ...redirectAfterLogin,
-    }
-    
-    if (isAuthenticated && location.pathname !== '/login') {
-      dispatch(restoreLocation(location))
-    }
   },
 })
 

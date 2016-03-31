@@ -1,21 +1,16 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import {
+  section as sectionClassName,
+  pendingMessage as pendingMessageClassName,
+} from './style.scss'
 
-const placeholderLabel = 'Username'
+const placeholderLabel = `Username, try 'Batman' or 'Superman'`
 const buttonLabel = 'Enter'
-
-function shouldCheckAuth ({
-  maybeRestoreLocation,
-  isAuthenticated,
-  redirectAfterLogin,
-} = this.props) {
-  return maybeRestoreLocation(isAuthenticated, redirectAfterLogin)
-}
 
 export default class Login extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
-    maybeRestoreLocation: PropTypes.func.isRequired,
     isRequestPending: PropTypes.bool.isRequired,
   };
 
@@ -25,9 +20,6 @@ export default class Login extends Component {
     this.props.onLogin(this._input.value)
   }
   
-  componentWillMount = shouldCheckAuth
-  componentWillReceiveProps = shouldCheckAuth
-  
   componentDidMount() {
     this._input.focus()
   }
@@ -35,8 +27,8 @@ export default class Login extends Component {
   render(){
     const { handleSubmit } = this
     const { isRequestPending } = this.props
-    return <section className="section section--login">
-      <h1 className="request-pending-message" style={{opacity: isRequestPending ? 1 : 0}}>
+    return <section className={sectionClassName}>
+      <h1 className={pendingMessageClassName} style={{opacity: isRequestPending ? 1 : 0}}>
         Logging in…
       </h1>
       <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>

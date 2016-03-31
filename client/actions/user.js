@@ -1,11 +1,11 @@
 import { CALL_SOCKET } from '../middleware/socket'
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
+  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_SUCCESS,
+  AUTHENTICATE_FAILURE,
+  DEAUTHENTICATE_REQUEST,
+  DEAUTHENTICATE_SUCCESS,
+  DEAUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 
 // Fetches a single user from Github API unless it is cached.
@@ -13,7 +13,7 @@ import {
 export function loginUser(username) {
   return {
     [CALL_SOCKET]: {
-      types: [ LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE ],
+      types: [ AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE ],
       data: {
         username: username,
       },
@@ -24,7 +24,7 @@ export function loginUser(username) {
 export function logoutUser() {
   return { 
     [CALL_SOCKET]: {
-      types: [ LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE ],
+      types: [ DEAUTHENTICATE_REQUEST, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE ],
     },
   }
 }

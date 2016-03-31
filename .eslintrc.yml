@@ -2,11 +2,11 @@ env:
   browser: true
   commonjs: true
   node: true
-  shared-node-browser: true
   es6: true
 extends: 
   - 'eslint:recommended'
   - 'plugin:react/recommended'
+  - 'airbnb'
 parser: babel-eslint
 parserOptions:
   ecmaVersion: 7
@@ -17,24 +17,30 @@ parserOptions:
 plugins:
   - react
 rules:
-  comma-dangle:
-    - error
-    - always-multiline
-  indent:
-    - error
-    - 2
-  linebreak-style:
-    - error
-    - unix
-  quotes:
-    - error
-    - single
+  comma-dangle: 1
+  indent: 2
+  linebreak-style: 2
+  quotes: 2
   semi:
     - error
     - never
   no-unused-vars: 1
   react/react-in-jsx-scope: 0
-  react/prop-types: 
-    - error
-    - ignore:
-      - dispatch
+  react/prop-types: 2
+  
+  no-trailing-spaces: 0
+  max-len: 0
+  keyword-spacing: 0
+  spaced-comment: 0
+  padded-blocks: 0
+  eol-last: 0
+  no-multi-spaces: 0
+  space-before-function-paren: 0
+  object-curly-spacing: 0
+  no-var: 0
+  no-new: 0
+  prefer-template: 0
+  yoda: 0
+  arrow-body-style: 0
+  array-bracket-spacing: 0
+  space-before-blocks: 0

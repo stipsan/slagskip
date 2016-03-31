@@ -1,0 +1,18 @@
+@import '../../style/_config';
+
+.hero {
+  composes: hero is-fullheight from '../../style/_bulma.scss';
+  position: relative;
+  z-index: 100;
+  background: $grey-lighter;
+}
+.heroContent {
+  composes: hero-content from '../../style/_bulma.scss';
+}
+.container {
+  composes: container from '../../style/_bulma.scss';
+}
+
+.title {
+  composes: subtitle is-3 from '../../style/_bulma.scss';
+}

@@ -9,7 +9,7 @@ new SocketCluster({
   workerController: __dirname + '/worker.js',
   initController: __dirname + '/init.js',
   path: process.env.SOCKET_PATH || '/ws',
-  logLevel: 'production' === process.env.NODE_ENV ? 1 : 3,
+  logLevel: process.env.LOG_LEVEL ? Number(process.env.LOG_LEVEL ) : 3,
   authKey: process.env.AUTH_KEY,
   origins: process.env.ORIGINS || '*:*',
 })

@@ -1,4 +1,3 @@
-/*eslint no-console: 1 */
 import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
@@ -22,7 +21,7 @@ export const connect = (store, next, action, callSocket) => {
       path: process.env.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
-      authTokenName: 'authToken',
+      authTokenName: process.env.AUTH_TOKEN_NAME,
     })
     
     attachListeners(store, next, action, socket, callSocket)
@@ -34,13 +33,17 @@ export const connect = (store, next, action, callSocket) => {
       
       const authToken = socket.getAuthToken()
       const channels = authToken && authToken.channels || undefined
-      subscribeChannels(store, next, action, socket, channels)
+      if(authToken && authToken.privateChannel) subscribeChannels(store, next, action, socket, [authToken.privateChannel])
       
       next({ type: SOCKET_SUCCESS, ...data, socket })
       if(socket.authToken) {        
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
     })
+    
+    socket.on('authenticate', () => subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel]))
+    
+    socket.on('dispatch', action => next(action))
   }
   
   return memoizedSocket

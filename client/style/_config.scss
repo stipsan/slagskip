@@ -1,0 +1,40 @@
+@import "~bulma/bulma/config/variables";
+
+// Override variables here
+// You can add new ones or update existing ones:
+
+$blue: #72d0eb; // Update blue
+$pink: #ffb3b3; // Add pink
+$family-sans-serif: -apple-system, BlinkMacSystemFont, 
+             "Segoe UI", "Roboto", "Oxygen", 
+             "Ubuntu", "Cantarell", "Fira Sans", 
+             "Droid Sans", "Helvetica Neue", sans-serif; // Add a serif family
+
+// modular scaled font sizes
+// http://www.modularscale.com/?22&px&1.333&sass&text
+$size-1: 92px;
+$size-2: 69px;
+$size-3: 52px;
+$size-4: 39px;
+$size-5: 29px;
+$size-6: 22px;
+$size-7: 16px;
+
+@import "~bulma/bulma/config/generated-variables";
+
+
+// Override generated variables here
+// For example, by default, the $danger color is $red and the font is sans-serif
+// You can change these values:
+
+$column-gutter: 10px !default;
+$container-width: 500px !default;
+
+$bg-disconnected: #C62828 !default;
+$bg-lobby: #263238 !default;
+$bg-unsupported-browser: #eee6e1 !default;
+
+$bg-default: white !default;
+$bg-login: hsl(200, 18%, 46%) !default;
+
+$button-bg: hsl(202, 4%, 51%) !default;

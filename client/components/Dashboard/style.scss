@@ -1,0 +1,41 @@
+@import '../../style/_config';
+
+.dashboard {
+  composes: container is-text-centered from '../../style/_bulma.scss';
+}
+
+.tabscontainer {
+  composes: is-text-left from '../../style/_bulma.scss';
+  display: inline-block;
+  padding: 0 20px;
+  max-width: $container-width;
+  width: 100%;
+}
+
+.tabs {
+  composes: tabs is-centered from '../../style/_bulma.scss';
+  
+  font-size: $size-small;
+}
+.isActive {
+  composes: is-active from '../../style/_bulma.scss';
+}
+
+.logoutButton {
+  composes: button is-danger is-outlined is-small from '../../style/_bulma.scss';
+  
+  margin: 20px;
+}
+
+.navbar {
+  composes: navbar from '../../style/_bulma.scss';
+}
+.usernameItem {
+  composes: navbar-item is-text-centered from '../../style/_bulma.scss';
+}
+.placeholderItem {
+  composes: navbar-item is-text-left from '../../style/_bulma.scss';
+}
+.logoutItem {
+  composes: navbar-item is-text-right from '../../style/_bulma.scss';
+}

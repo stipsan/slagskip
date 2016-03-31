@@ -15,19 +15,24 @@ export const SOCKET_SUCCESS = 'SOCKET_SUCCESS'
 // socket got disconnected, or maybe the user got bandwidth capped, a firewall
 // blocks the websocket but is letting http requests come through, etc.
 export const SOCKET_FAILURE = 'SOCKET_FAILURE'
+export const SOCKET_ERROR = 'SOCKET_ERROR'
 // allow manual trigger of reconnect w/o full page reload or waiting for timeout
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
 
 // attempt login
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST'
 // login succeeded, payload contains friends, invities and game matches
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
+export const AUTHENTICATE_FAILURE = 'AUTHENTICATE_FAILURE'
 // we got a valid authentication and don't need to login
-export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
+export const RECEIVE_VIEWER = 'RECEIVE_VIEWER'
 export const RECEIVE_AUTH_STATE_CHANGE = 'RECEIVE_AUTH_STATE_CHANGE'
 export const RECEIVE_AUTHENTICATE = 'RECEIVE_AUTHENTICATE'
+// attempt logout
+export const DEAUTHENTICATE_REQUEST = 'DEAUTHENTICATE_REQUEST'
+export const DEAUTHENTICATE_SUCCESS = 'DEAUTHENTICATE_SUCCESS'
+export const DEAUTHENTICATE_FAILURE = 'DEAUTHENTICATE_FAILURE'
 export const RECEIVE_DEAUTHENTICATE = 'RECEIVE_DEAUTHENTICATE'
 
 // setup private and public service channel subs
@@ -39,11 +44,18 @@ export const RECEIVE_UNSUBSCRIBE_CHANNEL = 'RECEIVE_UNSUBSCRIBE_CHANNEL'
 export const RECEIVE_KICK_OUT = 'RECEIVE_KICK_OUT'
 
 // during alpha everybody is friends, friends lists will come later
+export const FRIENDS_REQUEST = 'FRIENDS_REQUEST'
+export const FRIENDS_SUCCESS = 'FRIENDS_SUCCESS'
+export const FRIENDS_FAILURE = 'FRIENDS_FAILURE'
 export const RECEIVE_FRIEND = 'RECEIVE_FRIEND'
 // user came online or disconnected/signed out
 export const RECEIVE_FRIEND_NETWORK_STATUS = 'RECEIVE_FRIEND_NETWORK_STATUS'
 // friend got kicked or deleted their own account
 export const RECEIVE_FRIEND_DELETED = 'RECEIVE_FRIEND_DELETED'
+
+export const GAMES_REQUEST = 'GAMES_REQUEST'
+export const GAMES_SUCCESS = 'GAMES_SUCCESS'
+export const GAMES_FAILURE = 'GAMES_FAILURE'
 
 // send the invite to a friend, show spinner
 export const GAME_INVITE_REQUEST = 'GAME_INVITE_REQUEST'
@@ -74,24 +86,31 @@ export const NEW_GAME_REQUEST = 'NEW_GAME_REQUEST'
 export const NEW_GAME_SUCCESS = 'NEW_GAME_SUCCESS'
 // failed, allow retrying
 export const NEW_GAME_FAILURE = 'NEW_GAME_FAILURE'
+export const JOIN_GAME_REQUEST = 'JOIN_GAME_REQUEST'
+export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'
+export const JOIN_GAME_FAILURE = 'JOIN_GAME_FAILURE'
+export const RECEIVE_NEW_GAME = 'RECEIVE_NEW_GAME'
 // our opponent joined the game
-export const RECEIVE_GAME_JOIN = 'RECEIVE_GAME_JOIN'
+export const RECEIVE_JOIN_GAME = 'RECEIVE_JOIN_GAME'
 
 // actions for setting up our own battleship formation
-export const ADD_SHIP = 'ADD_SHIP'
-export const MOVE_SHIP = 'MOVE_SHIP'
-export const ROTATE_SHIP = 'ROTATE_SHIP'
-export const REMOVE_SHIP = 'REMOVE_SHIP'
-export const RESET_SHIPS = 'RESET_SHIPS'
-export const RANDOM_SHIPS = 'RANDOM_SHIPS'
+export const ADD_ITEM = 'ADD_ITEM'
+export const MOVE_ITEM = 'MOVE_ITEM'
+export const ROTATE_ITEM = 'ROTATE_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const RESET_ITEMS = 'RESET_ITEMS'
+export const LOAD_ITEMS = 'LOAD_ITEMS'
 
-// the opponent is ready and waiting for us to launch
-export const RECEIVE_GAME_READY = 'RECEIVE_GAME_READY'
 // attempting to start the game
-export const START_GAME_REQUEST = 'START_GAME_REQUEST'
+export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST'
 // payload contains who is to make the first move
-export const START_GAME_SUCCESS = 'START_GAME_SUCCESS'
-export const START_GAME_FAILURE = 'START_GAME_FAILURE'
+export const LOAD_GAME_SUCCESS = 'LOAD_GAME_SUCCESS'
+export const LOAD_GAME_FAILURE = 'LOAD_GAME_FAILURE'
+
+// Game has begun, not our turn
+export const RECEIVE_READY = 'RECEIVE_READY'
+// Game has begun, we got first move
+export const RECEIVE_WAITING = 'RECEIVE_WAITING'
 
 // aim our cannons!
 export const PLACE_CROSSHAIRS = 'PLACE_CROSSHAIRS'

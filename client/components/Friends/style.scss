@@ -1,0 +1,92 @@
+@import '../../style/_config';
+
+.section {
+  //composes: section from '../../style/_section.scss';
+}
+.section header {
+  text-align: center;
+}
+.users {
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.users td {
+  vertical-align: middle;
+}
+.users th {
+  font-size: .8em;
+}
+.onlineStatus {
+  width: 1px;
+  padding: 0 .4rem;
+  color: hsl(88, 50%, 53%);
+  text-align: right;
+}
+.username, .sectionLobby th {
+  text-align: left;
+  padding: .2rem 1rem;
+}
+.lastVisit {
+  font-size: .5em;
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 1em;
+}
+.controlGroup {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 5rem;
+  position: relative;
+}
+          
+.buttonGroup {
+  position: relative;
+}
+
+.enter {
+  opacity: 0.01;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 150ms 150ms ease-in;
+}
+
+.leave {
+  opacity: 1;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+}
+
+.leaveActive {
+  opacity: 0.01;
+  transition: opacity 150ms ease-out;
+}
+
+.canLaunchGame {
+  composes: button buttonPrimary from '../../style/_button.scss';
+  font-size: 11px;
+  text-decoration: none;
+}
+.canAcceptInvite {
+  composes: button buttonAccept from '../../style/_button.scss';
+}
+.canCancelPending {
+  composes: button buttonPending from '../../style/_button.scss';
+}
+.canCancelPendingTransition {
+  composes: fadeInOut from '../../style/_transition.scss';
+}
+.canInviteFriend {
+  composes: button buttonInvite from '../../style/_button.scss';
+}
+.canSayNo {
+  composes: button buttonDecline from '../../style/_button.scss';
+}
+/* @TODO refactor to use the disabled attribute instead */
+.buttonDisabled {
+  composes: buttonDisabled from '../../style/_button.scss';
+}

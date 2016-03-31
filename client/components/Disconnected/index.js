@@ -1,17 +1,53 @@
-import { PropTypes } from 'react'
+import { PropTypes, Component } from 'react'
 import DocumentTitle from 'react-document-title'
+import TimeAgo from 'react-timeago'
+import style from './style.scss'
 
-function Disconnected({ username, connected }) {
-  return <DocumentTitle title="Connection lost!">
-    <section className="section section--disconnected">
-      {connected && <h2>You got disconnected!</h2>}
-      {!connected && <h2>Socket failed to connect!</h2>}
-      {!!username && <p>You'll be logged back in as soon as the server is reached again.</p>}
-      {connected && !username && <p>Attempting to reconnect.</p>}
-      {connected && <p>You don't need to refresh the page.</p>}
-      {!connected && <p>Try reloading the page.</p>}
-    </section>
-  </DocumentTitle>
+const timeAgoFormatter = (value, unit, suffix) => {
+  if(suffix === 'ago' || value === 0) {
+    return 'Reconnecting…'
+  }
+  
+  if(value !== 1){
+    unit += 's'
+  }
+ 
+  return `Reconnect in ${value} ${unit}…`
+}
+
+function getTimeAgo(pendingReconnect = false) {
+  if(!pendingReconnect) return false
+    
+  return <TimeAgo date={pendingReconnect} formatter={timeAgoFormatter} />
+}
+
+class Disconnected extends Component {
+  
+  handleRetry = () => location.reload()
+  
+  render() {
+  
+    const { username, connected, pendingReconnect } = this.props
+    
+    const title = 'Service Unavailable'
+    const failedConnect = 'Try reloading the page in a few moments'
+    const lostConnection = <a onClick={this.handleRetry} className={style.retry}>Retry?</a>
+    const afterTooManyAttempts = connected ? lostConnection : failedConnect
+    
+    return <DocumentTitle title={`Epic | ${title}`}>
+      <section className={style.hero}>
+        <div className={style.heroContent}>
+          <div className={style.container}>
+            <h1 className={style.title}>{title}</h1>
+            <h2 className={style.subtitle}>
+              {pendingReconnect && getTimeAgo(pendingReconnect) || afterTooManyAttempts}
+            </h2>
+          </div>
+        </div>
+        
+      </section>
+    </DocumentTitle>
+  }
 }
 Disconnected.propTypes = {
   username: PropTypes.string,
