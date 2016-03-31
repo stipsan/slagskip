@@ -22,9 +22,17 @@ export const gamesRequest = (
         const isViewerFirst = game.players[0] === authToken.id
         const isFriendFirst = game.players[1] === authToken.id
 
-        const gameState = isViewerFirst ? 
+        let gameState = isViewerFirst ? 
           (game.boards.length > 1 ? 'ready' : 'waiting') :
           (game.boards.length > 1 ? 'ready' : 'setup')
+
+        if(game.scores.indexOf(21) !== -1) {
+          if(isViewerFirst) {
+            gameState = game.scores[0] === 21 ? 'victory' : 'defeat'
+          } else {
+            gameState = game.scores[1] === 21 ? 'victory' : 'defeat'
+          }
+        }
 
         return {
           id: game.id,

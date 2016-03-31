@@ -17,6 +17,13 @@ const Root = ({ store }) => {
   const history = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: state => state.get('routing').toJS()
   })
+
+  if('ga' in global) {
+    history.listen(location => {
+      global.ga('set', 'page', location.pathname);
+      global.ga('send', 'pageview');
+    })
+  }
   
   return <Provider store={store}>
     <Router history={history}>

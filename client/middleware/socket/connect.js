@@ -41,7 +41,13 @@ export const connect = (store, next, action, callSocket) => {
       }
     })
     
-    socket.on('authenticate', () => subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel]))
+    socket.on('authenticate', () => {
+      subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel])
+      
+      if('ga' in global) {
+        global.ga('set', 'userId', socket.getAuthToken().id); 
+      }
+    })
     
     socket.on('dispatch', action => next(action))
   }
