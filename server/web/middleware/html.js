@@ -33,7 +33,7 @@ module.exports = function(){
   var caniuse = require('caniuse-api')
   var meta = require('../../../package.json')
 
-  const title = process.env.APP_NAME || meta.title
+  const title = process.env.APP_NAME || meta.name
 
   var fallback = require('@stipsan/express-history-api-fallback')
   var minify = require('html-minifier').minify
@@ -42,14 +42,6 @@ module.exports = function(){
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
   const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
-  const browsersList = supportedBrowsers.map(browser => `<a 
-    href="http://lmgtfy.com/?q=${browser.name}"
-    title="${browser.y}"
-    target="_blank"
-  >
-      <img src="/browser/${browser.name}.svg" style="height: 64px; width: 64px;" />
-      <span>${browser.name}</span>
-  </a>`).join('')
 
   return fallback(function(req, res){
     if(!assets) {
@@ -84,12 +76,17 @@ module.exports = function(){
   <body>
     <div id="app">
       <noscript>
-        <div class="page">
-          <div class="section section--unsupported-browser">
-            <h2>${title} requires JavaScript and a modern browser to function correctly.</h2>
-            <p>Recommended browsers:</p>
-            <p>${browsersList}</p>
-          </div>
+        <div style="
+          background-image: linear-gradient(141deg, #ffbd3d 0%, #fce473 71%, #fffe8a 100%);
+          backgound-color: #fce473;
+          color: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        ">
+          <h2 style="text-align: center; margin-top: 45vh;">${title} requires JavaScript and a modern browser to function correctly</h2>
         </div>
       </noscript>
     </div>
