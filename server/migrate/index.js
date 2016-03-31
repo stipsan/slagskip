@@ -18,7 +18,7 @@ module.exports = () => {
     case 1:
       pipeline.setnx('user_next', 0)
     case 2:
-      pipeline.setnx('user_next', 0)
+      pipeline.setnx('game_next', 0)
     }
 
     pipeline.exec((err, results) => {
@@ -52,10 +52,10 @@ module.exports = () => {
         }
         const key = `migration:${ i + migration_next }`
         multi.set(key, (new Date).toJSON())
+        multi.incr('migration_next')
         console.log(key)
       }
-      multi.incr('migration_next', i + migration_next)
-      multi.exec(() => redis.quit())
+      multi.exec()
     })
   })
 }

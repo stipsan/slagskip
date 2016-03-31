@@ -10,6 +10,8 @@ import {
   LOAD_GAME_REQUEST,
   FIRE_CANNON_REQUEST,
   NEW_GAME_REQUEST,
+  GAMES_REQUEST,
+  JOIN_GAME_REQUEST,
 } from '../../constants/ActionTypes'
 import {
   authenticateRequest,
@@ -23,6 +25,8 @@ import {
   loadGame,
   fireCannon,
   newGame,
+  gamesRequest,
+  joinGame,
 } from '../../actions'
 
 // @TODO perhaps this belongs in a custom middleware
@@ -38,4 +42,6 @@ export const actions = {
   [LOAD_GAME_REQUEST]: loadGame,
   [FIRE_CANNON_REQUEST]: fireCannon,
   [NEW_GAME_REQUEST]: newGame,
+  [GAMES_REQUEST]: gamesRequest,
+  [JOIN_GAME_REQUEST]: joinGame,
 }

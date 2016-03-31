@@ -26,6 +26,7 @@ const Root = ({ store }) => {
           <Route path="friends" component={Friends} />
         </Route>
         <Route path="/setup/:versus" component={Setup} />
+        <Route path="/join/:game" component={Setup} />
         <Route path="/new" component={NewGame} />
         <Route path="/game/:game" component={Game} />
         <Route path="*" component={NotFound}/>

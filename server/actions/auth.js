@@ -35,16 +35,20 @@ export const authenticateRequest = (
     }).then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
       invariant(viewer.invites, 'database.getViewer failed to return invites')
+      invariant(viewer.games, 'database.getViewer failed to return games')
 
       dispatch({
         type: RECEIVE_VIEWER,
         friendIds: viewer.friendIds,
-        invites: viewer.invites
+        invites: viewer.invites,
+        games: viewer.games,
       })
       const friendIds = getState().getIn(['viewer', 'friendIds'])
+      const games = getState().getIn(['viewer', 'games'])
       socket.emit('dispatch', {
         type: RECEIVE_VIEWER,
-        friendIds
+        friendIds,
+        games,
       })
       const authToken = socket.getAuthToken()
       const exchangeAction = {

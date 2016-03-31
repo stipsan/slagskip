@@ -3,6 +3,9 @@ var webpack = require('webpack')
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
+const devServerPort = process.env.DEV_SERVER_PORT || '8080'
+
 // @TODO move this into env
 const provideDefaults = {
   'process.env.AUTO_RECONNECT_OPTIONS': JSON.stringify({
@@ -69,7 +72,7 @@ plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.j
 
 var entry = process.env.NODE_ENV !== 'production' ? {
   client: [
-    'webpack-dev-server/client?http://localhost:8080/',
+    `webpack-dev-server/client?http://${devServerHostName}:${devServerPort}/`,
     'webpack/hot/dev-server',
     './client/index',
   ],
@@ -89,7 +92,7 @@ module.exports = {
   entry: entry,
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    publicPath: 'http://localhost:8080/',
+    publicPath: `http://${devServerHostName}:${devServerPort}/`,
     hot: true,
     noInfo: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
@@ -98,7 +101,7 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: 'production' === process.env.NODE_ENV ? '[hash].js' : '[name].js?[hash]',
     chunkFilename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[chunkhash]',
-    publicPath: 'production' === process.env.NODE_ENV ? '/' : 'http://localhost:8080/',
+    publicPath: 'production' === process.env.NODE_ENV ? '/' : `http://${devServerHostName}:${devServerPort}/`,
   },
   plugins: plugins,
   module: {

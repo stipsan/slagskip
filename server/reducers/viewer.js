@@ -5,7 +5,8 @@ import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   friendIds: [],
-  invites: []
+  invites: [],
+  games: [],
 })
 
 export const viewer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ export const viewer = (state = initialState, action) => {
     return state.merge({
       friendIds: action.friendIds,
       invites: action.invites,
+      games: action.games,
     })
   default:
     return state

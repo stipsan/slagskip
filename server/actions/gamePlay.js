@@ -1,5 +1,12 @@
 import invariant from 'invariant'
+import { LOCATION_CHANGE } from 'react-router-redux'
 import {
+  NEW_GAME_SUCCESS,
+  NEW_GAME_FAILURE,
+  RECEIVE_NEW_GAME,
+  JOIN_GAME_SUCCESS,
+  JOIN_GAME_FAILURE,
+  RECEIVE_JOIN_GAME,
   LOAD_GAME_SUCCESS,
   LOAD_GAME_FAILURE,
   RECEIVE_HIT,
@@ -31,6 +38,12 @@ export const loadGame = (
         authToken.id
       )
 
+      const gameState = game.boards.length > 1 ? 'ready' : (
+        isViewerFirst ?
+        'waiting' :
+        'setup'
+      )
+
       dispatch({
         type: LOAD_GAME_SUCCESS,
         id: game.id,
@@ -38,7 +51,7 @@ export const loadGame = (
         viewerBoard: isViewerFirst ? game.boards[0] : game.boards[1],
         versusBoard: isViewerFirst ? game.boards[1] : game.boards[0],
         turns: game.turns,
-        gameState: 'ready',
+        gameState,
         isViewerFirst,
         hits: []
       })
@@ -48,13 +61,74 @@ export const loadGame = (
         versus: isViewerFirst ? game.players[1] : game.players[0],
         viewerBoard: isViewerFirst ? game.boards[0] : game.boards[1],
         turns: game.turns,
-        gameState: 'ready',
+        viewerScore: isViewerFirst ? game.scores[0] : game.scores[1],
+        versusScore: isViewerFirst ? game.scores[1] : game.scores[0],
+        gameState,
         isViewerFirst,
         isFriendFirst,
       })
     }).catch(error => {
       console.error(LOAD_GAME_FAILURE, error)
       callback(LOAD_GAME_FAILURE, error.message || error)
+    })
+}
+
+export const newGame = (
+  action,
+  callback,
+  socket,
+  database,
+  redis
+) => (dispatch, getState) => {
+  const authToken = socket.getAuthToken()
+  return database.newGame(authToken, action.versus, action.board, redis)
+    .then(gameId => {
+      invariant(gameId, 'Failed to create new game')
+
+      callback(null, {
+        type: NEW_GAME_SUCCESS,
+        id: gameId,
+        versus: action.versus,
+      })
+      
+      socket.exchange.publish(`user:${action.versus}`, {
+        type: RECEIVE_NEW_GAME,
+        id: gameId,
+        versus: authToken.id,
+      })
+    }).catch(error => {
+      console.error(NEW_GAME_FAILURE, error)
+      callback(NEW_GAME_FAILURE, error.message || error)
+    })
+}
+
+export const joinGame = (
+  action,
+  callback,
+  socket,
+  database,
+  redis
+) => (dispatch, getState) => {
+  const authToken = socket.getAuthToken()
+  return database.joinGame(authToken, action.game, action.board, redis)
+    .then(game => {
+      invariant(game.id, 'Failed to join game')
+
+      const isViewerFirst = game.players[0] === authToken.id
+      const versus = isViewerFirst ? game.players[1] : game.players[0]
+
+      callback(null, {
+        type: JOIN_GAME_SUCCESS,
+        id: game.id,
+      })
+      
+      socket.exchange.publish(`user:${versus}`, {
+        type: RECEIVE_JOIN_GAME,
+        id: game.id,
+      })
+    }).catch(error => {
+      console.error(JOIN_GAME_FAILURE, error)
+      callback(JOIN_GAME_FAILURE, error.message || error)
     })
 }
 
@@ -108,21 +182,28 @@ export const fireCannon = (
   }
   
   const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem }
-  callback(null, {
-    type: FIRE_CANNON_SUCCESS,
-    isViewerTurn: hit !== 0,
-    incViewerScore,
-    turn,
-  })
-  dispatch({
-    type: FIRE_CANNON_SUCCESS,
-    incViewerScore,
-    turn,
-    hit,
-  })
-  socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
-    type: hit !== 0 ? RECEIVE_HIT : RECEIVE_MISS,
-    incVersusScore: incViewerScore,
-    turn,
-  })
+  
+  return database.saveTurn(authToken, action.id, turn, redis)
+    .then(game => {
+      callback(null, {
+        type: FIRE_CANNON_SUCCESS,
+        isViewerTurn: hit !== 0,
+        viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        turn,
+      })
+      dispatch({
+        type: FIRE_CANNON_SUCCESS,
+        incViewerScore,
+        turn,
+        hit,
+      })
+      socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
+        type: hit !== 0 ? RECEIVE_HIT : RECEIVE_MISS,
+        versusScore: game.players[0] === authToken.id ? game.scores[1] : game.scores[0],
+        turn,
+      })
+    }).catch(error => {
+      console.error(FIRE_CANNON_FAILURE, error)
+      callback(FIRE_CANNON_FAILURE, error.message || error)
+    })
 }

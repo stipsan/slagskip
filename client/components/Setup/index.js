@@ -49,7 +49,13 @@ class Setup extends Component {
   handleNewGame = event => {
     event.preventDefault()
     
-    this.props.newGame(this.props.board)
+    this.props.newGame(this.props.routeParams.versus, this.props.board)
+  }
+  
+  handleJoinGame = event => {
+    event.preventDefault()
+    
+    this.props.joinGame(this.props.routeParams.game, this.props.board)
   }
   
   shouldComponentUpdate(nextProps, nextState) {
@@ -62,11 +68,22 @@ class Setup extends Component {
     if(friends.size !== friendsTotal) {
       fetchFriends()
     }
+    
+    if(this.props.routeParams.game) {
+      this.props.loadGame(this.props.routeParams.game)
+    }
   }
   
   componentWillReceiveProps(nextProps) {
     if(nextProps.friendsTotal !== this.props.friendsTotal) {
       nextProps.fetchFriends()
+    }
+    
+    if(nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
+      this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
+    }
+    if(nextProps.gameState === 'ready' && nextProps.gameId > 0) {
+      this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
   }
   
@@ -82,7 +99,7 @@ class Setup extends Component {
     
     if(!friends) return <Loading />
 
-    const versus = friends.get(routeParams.versus)
+    const versus = friends.get(routeParams.game ? this.props.versus : routeParams.versus)
     
     if(!versus) return <Loading />
     
@@ -97,15 +114,12 @@ class Setup extends Component {
           </div>
           <div className={style.headerCenter}>
             <h1 className={style.headerTitle}>
-              
-              <Avatar colors={defaultColors} size="39" name={username} title={username} />
-              <div className={style.headerVs}>vs</div>
-              <Avatar colors={defaultColors} size="39" name={versusUsername} />
-              
+              You vs {versusUsername}
             </h1>
           </div>
           <div className={style.headerRight}>
-            <button onClick={this.handleNewGame} className={style.startGame}>Start</button>
+            {routeParams.game && <button onClick={this.handleJoinGame} className={style.startGame}>Join</button>}
+            {routeParams.versus && <button onClick={this.handleNewGame} className={style.startGame}>Start</button>}
           </div>
         </header>
         <div className={wrapperClassName}>

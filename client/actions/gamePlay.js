@@ -40,11 +40,11 @@ export const selectCell = selectedCell => {
   }
 }
 
-export const fireCannon = selectedCell => {
+export const fireCannon = data => {
   return {
     [CALL_SOCKET]: {
       types: [ FIRE_CANNON_REQUEST, FIRE_CANNON_SUCCESS, FIRE_CANNON_FAILURE ],
-      data: { selectedCell },
+      data,
     },
   }
 }

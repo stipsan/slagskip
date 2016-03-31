@@ -3,6 +3,9 @@ import {
   NEW_GAME_REQUEST,
   NEW_GAME_SUCCESS,
   NEW_GAME_FAILURE,
+  JOIN_GAME_REQUEST,
+  JOIN_GAME_SUCCESS,
+  JOIN_GAME_FAILURE,
   ADD_ITEM,
 } from '../constants/ActionTypes'
 
@@ -15,11 +18,20 @@ export function validateSetup(data) {
   }
 }
 
-export const newGame = (board) => {
+export const newGame = data => {
   return {
     [CALL_SOCKET]: {
       types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
-      board,
+      data,
+    },
+  }
+}
+
+export const joinGame = data => {
+  return {
+    [CALL_SOCKET]: {
+      types: [ JOIN_GAME_REQUEST, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE ],
+      data,
     },
   }
 }
