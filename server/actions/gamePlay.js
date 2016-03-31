@@ -38,11 +38,19 @@ export const loadGame = (
         authToken.id
       )
 
-      const gameState = game.boards.length > 1 ? 'ready' : (
+      let gameState = game.boards.length > 1 ? 'ready' : (
         isViewerFirst ?
         'waiting' :
         'setup'
       )
+      
+      if(game.scores.indexOf(21) !== -1) {
+        if(isViewerFirst) {
+          gameState = game.scores[0] === 21 ? 'victory' : 'defeat'
+        } else {
+          gameState = game.scores[1] === 21 ? 'victory' : 'defeat'
+        }
+      }
 
       dispatch({
         type: LOAD_GAME_SUCCESS,
@@ -195,13 +203,13 @@ export const fireCannon = (
       })
       dispatch({
         type: FIRE_CANNON_SUCCESS,
-        incViewerScore,
+        viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
         turn,
         hit,
       })
       socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
         type: hit !== 0 ? RECEIVE_HIT : RECEIVE_MISS,
-        versusScore: game.players[0] === authToken.id ? game.scores[1] : game.scores[0],
+        versusScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
         turn,
       })
     }).catch(error => {
