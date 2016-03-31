@@ -35,6 +35,12 @@ export const createCallSocket = (store, next, action, socket) => {
         type: failureType,
         error: {type: err, message: data || 'Something bad happened'},
       }))
+      if('ga' in global) {
+        ga('send', 'exception', {
+          'exDescription': failureType,
+          'exFatal': false
+        })
+      }
     } else {
       next(actionWith({
         ...data,
