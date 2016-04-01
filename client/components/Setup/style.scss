@@ -111,8 +111,8 @@ $active-color: rgb(152, 251, 152);
   
   &:before {
     content: '';
-    border: 2px solid rgb(152, 251, 251);
-    background: rgba(152, 251, 251, .2);
+    border: 2px solid hsla(180,93%,42%,1);
+    background: hsla(180,93%,42%,.2);
     top: 4px;
     left: 4px;
     right: 4px;

@@ -1,6 +1,7 @@
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import GameRow from './GameRow'
+import style from './style.scss'
 
 class Games extends Component {
   static propTypes = {
@@ -24,11 +25,16 @@ class Games extends Component {
     
     if(!friends) return <h1>Loading…</h1>
     
-    return <ul>
-      <li><Link to="new">New Game</Link></li>
-      
-      {gamesTotal > 0 && games.toArray().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} />) || <li>No games yet…</li>}
-    </ul>
+    return <div>
+      <Link to="new" className={style.game}>
+        <span className={style.newGame}>
+          +
+        </span>
+        <span className={style.username}>New Game</span>
+        <span className={style.startGame}>❯</span>
+      </Link>
+      {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} />) || <li>No games yet…</li>}
+    </div>
   }
 }
 

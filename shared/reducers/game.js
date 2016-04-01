@@ -123,11 +123,15 @@ export const game = (state = initialState, action) => {
   case PLACE_CROSSHAIRS:
     return state.set('selectedCell', action.selectedCell)
   case RECEIVE_MISS:
+    if(action.id !== state.get('id')) return state
+  
     return state
       .set('isViewerTurn', true)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
   case RECEIVE_HIT:
+    if(action.id !== state.get('id')) return state
+  
     return state
       .set('isViewerTurn', false)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))

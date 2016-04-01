@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import classNames from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
-import {
+import style, {
   versusGrid as versusGridClassName,
   versusGridWaiting as versusGridWaitingClassName,
   cell as cellClassName,
@@ -49,8 +49,7 @@ class ViewerBoard extends Component {
     const { board, grid, turns, versus, score, isViewerTurn } = this.props
     
     return <div>
-      <h6>{versus && versus.get('username') || 'Their'} score: {score}</h6>
-      <h4>Your board:</h4>
+      <h6 className={style.header}>{versus && versus.get('username') || 'Their'}'s score: {score}</h6>
       <div className={classNames(versusGridClassName, {
         [versusGridWaitingClassName]: isViewerTurn
       })}>
