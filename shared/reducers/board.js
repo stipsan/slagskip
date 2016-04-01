@@ -4,6 +4,7 @@ import {
   MOVE_ITEM,
   REMOVE_ITEM,
   RESET_ITEMS,
+  LOAD_GAME_SUCCESS,
   LOAD_ITEMS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
@@ -203,6 +204,7 @@ export const board = (state = initialState, action) => {
       },
       state
     )
+  case LOAD_GAME_SUCCESS:
   case RESET_ITEMS:
     return initialState
   case LOAD_ITEMS:

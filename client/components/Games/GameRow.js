@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import classNames from 'classnames'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 import Avatar from 'react-user-avatar'
@@ -41,12 +42,36 @@ class GameRow extends Component {
     
     const id = game.get('id')
     const online = friends.getIn([game.get('versus'), 'online']) === '1'
-    const setupOrPlay = game.get('gameState') === 'setup' ? 'join' : 'game'
-    return <Link to={`/${setupOrPlay}/${id}`} className={style.game}>
+    const gameState = game.get('gameState')
+    const setupOrPlay = gameState === 'setup' ? 'join' : 'game'
+    
+    let title = ''
+    if(gameState === 'defeat') {
+      title = `${username} defeated you!`
+    }
+    if(gameState === 'victory') {
+      title = `You won in a game with ${username}!`
+    }
+    if(gameState === 'setup') {
+      title = `${username} invited you to play`
+    }
+    if(gameState === 'waiting') {
+      title = `Waiting for ${username} to join`
+    }
+    if(gameState === 'ready' && game.get('isViewerTurn')) {
+      title = `Your turn against ${username}`
+    }
+    if(gameState === 'ready' && !game.get('isViewerTurn')) {
+      title = `Waiting for ${username} to make a move`
+    }
+    console.log(gameState)
+    return <Link to={`/${setupOrPlay}/${id}`} className={classNames(style.game, {
+      [style.gameWaiting]: gameState === 'setup' || gameState === 'ready'
+    })}>
       <span className={online ? style.avatarOnline : style.avatar}>
         <Avatar colors={defaultColors} size="39" name={username} />
       </span>
-      <span className={style.username}>{game.get('username')}</span>
+      <span className={style.username}>{title}</span>
       <span className={style.startGame}>❯</span>
     </Link>
   }

@@ -1,0 +1,71 @@
+@import '../../style/_config';
+
+.game {
+  composes: media from '../../style/_bulma.scss';
+  align-items: center;
+  padding-top: 0px;
+  
+  &:hover, &:active {
+    .startGame {
+      opacity: 1;
+    }
+  }
+}
+.gameWaiting {
+  .username {
+    font-weight: bolder;
+  }
+}
+.newGame {
+  composes: button is-outlined from '../../style/_bulma.scss';
+  
+  font-size: 32px;
+  line-height: 27px;
+  display: block;
+  border-radius: 30px;
+  height: 39px;
+  width: 39px;
+  margin-right: 5px;
+}
+.avatar {
+  composes: media-left from '../../style/_bulma.scss';
+  padding-right: 5px;
+  color: white;
+  font-size: 19px;
+  margin-right: 0px;
+  position: relative;
+  
+  & > * {
+    width: 39px;
+  }
+}
+.avatarOnline {
+  composes: avatar;
+  
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background: #2ecc71;
+    border-radius: 14px;
+    border: 2px solid $grey-lighter;
+  }
+}
+
+.username {
+  composes: media-content from '../../style/_bulma.scss';
+  padding-left: 5px;
+  color: $grey-dark;
+  word-wrap: break-word;
+}
+
+.startGame {
+  font-size: $size-4;
+  color: $grey-light;
+  flex: 0;
+  opacity: 0;
+}

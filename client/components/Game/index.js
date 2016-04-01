@@ -36,16 +36,16 @@ class Game extends Component {
     } = this.props
     
     return <section className={sectionClassName}>
+      <Navbar viewer={viewer} versus={versusFriend} />
       {gameState === 'loading' && <h1>Loading game…</h1>}
       {gameState === 'defeated' && <h1>You lost!</h1>}
       {gameState === 'victory' && <h1>You won!</h1>}
       {gameState === 'failed' && reasonFailed && <h2>Error: {reasonFailed}</h2>}
-      {gameState === 'ready' && <div>
-        <Navbar viewer={viewer} versus={versusFriend} />
-        
+      {gameState === 'ready' && !isViewerTurn && <div>
+        <h5>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to make a move…</h5>
       </div>}
       {gameState === 'waiting' && <h5>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</h5>}
-      {<VersusGrid gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
+      {<VersusGrid gameState={gameState} gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
       {<ViewerBoard score={versusScore} grid={viewerGrid} board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}
       Legends:<ul style={{textAlign: 'left'}}>
       <li style={{color: '#880e4f'}}>XL : 5 points</li>
