@@ -15,9 +15,10 @@ class Games extends Component {
       fetchFriends()
     }
 
-    if(games.size !== gamesTotal) {
+    // @FIXME poor mans push sync
+    //if(games.size !== gamesTotal) {
       fetchGames()
-    }
+    //}
   }
   
   render() {

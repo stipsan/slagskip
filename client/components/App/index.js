@@ -64,7 +64,7 @@ export default class App extends Component {
       {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
       {shouldOverlayLogin && <Login />}
       {isCurrentlyLoading && <Loading />}
-      {disconnected && <Disconnected />}
+      {!connected && disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
     </ReactCSSTransitionGroup>
   }
