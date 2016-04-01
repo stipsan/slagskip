@@ -18,10 +18,15 @@ const Root = ({ store }) => {
     selectLocationState: state => state.get('routing').toJS()
   })
 
-  if('ga' in global) {
+  if('ga' in global || 'Raygun' in global) {
     history.listen(location => {
-      global.ga('set', 'page', location.pathname);
-      global.ga('send', 'pageview');
+      if('ga' in global) {
+        global.ga('set', 'page', location.pathname);
+        global.ga('send', 'pageview');
+      }
+      if('Raygun' in global) {
+        global.Raygun.trackEvent('pageView', { path: '/' + location.pathname });
+      }      
     })
   }
   
