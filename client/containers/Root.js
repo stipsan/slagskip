@@ -25,7 +25,7 @@ const Root = ({ store }) => {
         global.ga('send', 'pageview');
       }
       if('Raygun' in global) {
-        global.Raygun.trackEvent('pageView', { path: '/' + location.pathname });
+        global.Raygun.trackEvent('pageView', { path: location.pathname });
       }      
     })
   }
