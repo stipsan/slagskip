@@ -78,6 +78,7 @@
     "lodash": "4.7.0",
     "node-sass": "3.4.2",
     "raw-loader": "0.5.1",
+    "raygun": "0.8.5",
     "react": "15.0.0-rc.2",
     "react-addons-css-transition-group": "15.0.0-rc.2",
     "react-addons-pure-render-mixin": "0.14.8",
