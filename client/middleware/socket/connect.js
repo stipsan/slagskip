@@ -47,6 +47,13 @@ export const connect = (store, next, action, callSocket) => {
       if('ga' in global) {
         global.ga('set', 'userId', socket.getAuthToken().id); 
       }
+      if('rg4js' in global) {
+        global.rg4js('setUser', {
+          identifier: socket.getAuthToken().id,
+          isAnonymous: false,
+          firstName: socket.getAuthToken().username,
+        })
+      }
     })
     
     socket.on('dispatch', action => next(action))
