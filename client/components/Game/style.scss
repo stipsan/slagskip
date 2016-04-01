@@ -14,6 +14,22 @@ $xs-color: rgb(123, 8, 0);
   color: #263238;  
 }
 
+.header {
+  composes: tag is-primary from '../../style/_bulma.scss';
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.navbar {
+  composes: subtitle from '../../style/_bulma.scss';
+  font-size: 16px;
+}
+.state {
+  composes: title is-5 from '../../style/_bulma.scss';
+}
+.sendButton {
+  composes: button is-success from '../../style/_bulma.scss';
+}
+
 .versusGrid {
   display: block;
   
@@ -41,7 +57,7 @@ $xs-color: rgb(123, 8, 0);
   box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
   background-color: mix($default-color, $active-color, 66%);
   position: relative;
-  z-index: 1;
+  z-index: 100;
 }
 .cellJackpot {
   //border-color: $active-color;

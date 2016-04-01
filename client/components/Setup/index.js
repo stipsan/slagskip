@@ -82,7 +82,7 @@ class Setup extends Component {
     if(nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
-    if(nextProps.gameState === 'ready' && nextProps.gameId > 0) {
+    if(nextProps.gameState === 'ready' && !this.props.routeParams.versus && nextProps.gameId > 0) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
   }
@@ -95,6 +95,7 @@ class Setup extends Component {
       username,
       friends,
       routeParams,
+      isValid,
     } = this.props
     
     if(!friends) return <Loading />
@@ -118,8 +119,8 @@ class Setup extends Component {
             </h1>
           </div>
           <div className={style.headerRight}>
-            {routeParams.game && <button onClick={this.handleJoinGame} className={style.startGame}>Join</button>}
-            {routeParams.versus && <button onClick={this.handleNewGame} className={style.startGame}>Start</button>}
+            {routeParams.game && <button disabled={!isValid} onClick={this.handleJoinGame} className={style.startGame}>Join</button>}
+            {routeParams.versus && <button disabled={!isValid} onClick={this.handleNewGame} className={style.startGame}>Start</button>}
           </div>
         </header>
         <div className={wrapperClassName}>

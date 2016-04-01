@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   versus: state.getIn(['setup', 'versus']),
   gameId: state.getIn(['game', 'id']),
   gameState: state.getIn(['game', 'gameState']),
+  isValid: state.getIn(['board', 'grid']).count(item => item === 0) === 79,
 })
 
 const mapDispatchToProps = dispatch => ({

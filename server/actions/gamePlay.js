@@ -191,7 +191,7 @@ export const fireCannon = (
     incViewerScore = 1
   }
   
-  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem }
+  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem, on: new Date().getTime() }
   
   return database.saveTurn(authToken, action.id, turn, redis)
     .then(game => {
@@ -199,17 +199,20 @@ export const fireCannon = (
         type: FIRE_CANNON_SUCCESS,
         isViewerTurn: hit !== 0,
         viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: action.id,
         turn,
       })
       dispatch({
         type: FIRE_CANNON_SUCCESS,
         viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: action.id,
         turn,
         hit,
       })
       socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
         type: hit !== 0 ? RECEIVE_HIT : RECEIVE_MISS,
         versusScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: action.id,
         turn,
       })
     }).catch(error => {

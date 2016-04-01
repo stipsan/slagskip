@@ -2,7 +2,7 @@ import { Component } from 'react'
 import classNames from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import { selectCell, fireCannon } from '../../actions'
-import {
+import style, {
   versusGrid as versusGridClassName,
   versusGridWaiting as versusGridWaitingClassName,
   cell as cellClassName,
@@ -50,10 +50,10 @@ class VersusGrid extends Component {
   
   render() {
     const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score, gameState } = this.props
-
+console.log(gameState)
     return <div>
-      {isViewerTurn ? (selectedCell === -1 ? <h5>Select a spot</h5> : <h5>Send it when you're ready<button onClick={this.handleFireCannon}>Send</button></h5>) : <h5>Waiting for {versus && versus.get('username') || 'opponent'} to make a move…</h5>}
-      <h6>Your score: {score}</h6>
+      <h5 className={style.state}>{isViewerTurn && gameState !== 'waiting' && (selectedCell === -1 ? 'Select a spot' : <span>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></span>)}</h5>
+      <h6 className={style.header}>Your score: {score}</h6>
       <div className={classNames(versusGridClassName, {
         [versusGridWaitingClassName]: !isViewerTurn
       })}>
