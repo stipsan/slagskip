@@ -3,76 +3,64 @@
     <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
     <title>icon</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <linearGradient x1="51.5752912%" y1="-18.3559999%" x2="51.5752912%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#3023AE" offset="0%"></stop>
-            <stop stop-color="#DC79EE" offset="100%"></stop>
-        </linearGradient>
-        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-            <feMorphology radius="11" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter1"></feMorphology>
-            <feOffset dx="0" dy="11" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.188235294   0 0 0 0 0.137254902   0 0 0 0 0.682352941  0 0 0 0.7 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
-            <feMorphology radius="10" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter2"></feMorphology>
-            <feOffset dx="0" dy="10" in="shadowSpreadOuter2" result="shadowOffsetOuter2"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.265533333   0 0 0 0 0.168   0 0 0 0 0.7  0 0 0 0.7 0" in="shadowBlurOuter2" type="matrix" result="shadowMatrixOuter2"></feColorMatrix>
-            <feMorphology radius="9" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter3"></feMorphology>
-            <feOffset dx="0" dy="9" in="shadowSpreadOuter3" result="shadowOffsetOuter3"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter3" result="shadowBlurOuter3"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.33456   0 0 0 0 0.1944   0 0 0 0 0.72  0 0 0 0.7 0" in="shadowBlurOuter3" type="matrix" result="shadowMatrixOuter3"></feColorMatrix>
-            <feMorphology radius="8" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter4"></feMorphology>
-            <feOffset dx="0" dy="8" in="shadowSpreadOuter4" result="shadowOffsetOuter4"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter4" result="shadowBlurOuter4"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.402595   0 0 0 0 0.2263   0 0 0 0 0.73  0 0 0 0.7 0" in="shadowBlurOuter4" type="matrix" result="shadowMatrixOuter4"></feColorMatrix>
-            <feMorphology radius="7" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter5"></feMorphology>
-            <feOffset dx="0" dy="7" in="shadowSpreadOuter5" result="shadowOffsetOuter5"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter5" result="shadowBlurOuter5"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.4695   0 0 0 0 0.255   0 0 0 0 0.75  0 0 0 0.7 0" in="shadowBlurOuter5" type="matrix" result="shadowMatrixOuter5"></feColorMatrix>
-            <feMorphology radius="6" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter6"></feMorphology>
-            <feOffset dx="0" dy="6" in="shadowSpreadOuter6" result="shadowOffsetOuter6"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter6" result="shadowBlurOuter6"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.547213333   0 0 0 0 0.2926   0 0 0 0 0.77  0 0 0 0.7 0" in="shadowBlurOuter6" type="matrix" result="shadowMatrixOuter6"></feColorMatrix>
-            <feMorphology radius="5" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter7"></feMorphology>
-            <feOffset dx="0" dy="5" in="shadowSpreadOuter7" result="shadowOffsetOuter7"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter7" result="shadowBlurOuter7"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.611328333   0 0 0 0 0.3239   0 0 0 0 0.79  0 0 0 0.7 0" in="shadowBlurOuter7" type="matrix" result="shadowMatrixOuter7"></feColorMatrix>
-            <feMorphology radius="4" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter8"></feMorphology>
-            <feOffset dx="0" dy="4" in="shadowSpreadOuter8" result="shadowOffsetOuter8"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter8" result="shadowBlurOuter8"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.668   0 0 0 0 0.36   0 0 0 0 0.8  0 0 0 0.7 0" in="shadowBlurOuter8" type="matrix" result="shadowMatrixOuter8"></feColorMatrix>
-            <feMorphology radius="3" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter9"></feMorphology>
-            <feOffset dx="0" dy="3" in="shadowSpreadOuter9" result="shadowOffsetOuter9"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter9" result="shadowBlurOuter9"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.69208   0 0 0 0 0.3936   0 0 0 0 0.82  0 0 0 0.7 0" in="shadowBlurOuter9" type="matrix" result="shadowMatrixOuter9"></feColorMatrix>
-            <feMorphology radius="2" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter10"></feMorphology>
-            <feOffset dx="0" dy="2" in="shadowSpreadOuter10" result="shadowOffsetOuter10"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter10" result="shadowBlurOuter10"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.72225   0 0 0 0 0.405   0 0 0 0 0.81  0 0 0 0.7 0" in="shadowBlurOuter10" type="matrix" result="shadowMatrixOuter10"></feColorMatrix>
-            <feMorphology radius="1" in="SourceAlpha" operator="dilate" result="shadowSpreadOuter11"></feMorphology>
-            <feOffset dx="0" dy="1" in="shadowSpreadOuter11" result="shadowOffsetOuter11"></feOffset>
-            <feGaussianBlur stdDeviation="0" in="shadowOffsetOuter11" result="shadowBlurOuter11"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.784313725   0 0 0 0 0.42745098   0 0 0 0 0.843137255  0 0 0 0.7 0" in="shadowBlurOuter11" type="matrix" result="shadowMatrixOuter11"></feColorMatrix>
-            <feMerge>
-                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter3"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter4"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter5"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter6"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter7"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter8"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter9"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter10"></feMergeNode>
-                <feMergeNode in="shadowMatrixOuter11"></feMergeNode>
-                <feMergeNode in="SourceGraphic"></feMergeNode>
-            </feMerge>
-        </filter>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter="url(#filter-2)">
-        <g id="icon" fill="url(#linearGradient-1)">
-            <g id="Art" transform="translate(56.000000, -85.000000)">
-                <path d="M0.390992091,438 L36.8089587,349.308033 L103.457209,140.51236 L293.103355,140.51236 L298.585178,145.593671 L309.264573,192.249341 L224.230689,189.939654 L160.698593,190.401591 L150.122777,262.001878 L224.253263,262.925752 L294.159601,261.53994 L300.640812,266.159313 L305.473751,312.814984 L219.680151,311.429172 L142.398274,311.891109 L137.51225,343.764785 L134.333546,388.572706 L233.614488,389.034643 L372.480801,386.263019 L381.214518,391.34433 L388.524686,438 L0.390992091,438 Z" id="E-Copy"></path>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon">
+            <g id="art" transform="translate(-32.000000, -32.000000)">
+                <rect id="Rectangle-2" fill="#1FC8DB" x="192" y="128" width="64" height="320"></rect>
+                <rect id="cell" fill="#95A5A6" x="128" y="64" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="128" y="448" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="384" y="448" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="384" y="64" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="64" y="64" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="64" y="448" width="64" height="64"></rect>
+                <rect id="cell" fill="#95A5A6" x="64" y="128" width="64" height="320"></rect>
+                <rect id="Rectangle-13" fill="#95A5A6" x="448" y="64" width="64" height="448"></rect>
+                <rect id="s2" fill="#1FC8DB" x="256" y="128" width="128" height="64"></rect>
+                <rect id="s1" fill="#1FC8DB" x="256" y="384" width="128" height="64"></rect>
+                <rect id="xs1" fill="#1FC8DB" x="256" y="256" width="64" height="64"></rect>
+                <g id="border-symmetric">
+                    <g id="left" transform="translate(0.000000, 64.000000)">
+                        <rect id="left-8" fill="#E74C3C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="left-7" fill="#E67E22" x="0" y="64" width="64" height="64"></rect>
+                        <rect id="left-6" fill="#F1C40F" x="0" y="128" width="64" height="64"></rect>
+                        <rect id="left-5" fill="#34495E" x="0" y="192" width="64" height="64"></rect>
+                        <rect id="left-4" fill="#9B59B6" x="0" y="256" width="64" height="64"></rect>
+                        <rect id="left-3" fill="#3498DB" x="0" y="320" width="64" height="64"></rect>
+                        <rect id="left-2" fill="#2ECC71" x="0" y="384" width="64" height="64"></rect>
+                        <rect id="left-1" fill="#1ABC9C" x="0" y="448" width="64" height="64"></rect>
+                    </g>
+                    <g id="bottom" transform="translate(64.000000, 512.000000)">
+                        <rect id="bottom-8" fill="#E74C3C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-7" fill="#E67E22" x="64" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-6" fill="#F1C40F" x="128" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-5" fill="#34495E" x="192" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-4" fill="#9B59B6" x="256" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-3" fill="#3498DB" x="320" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-2" fill="#2ECC71" x="384" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-1" fill="#1ABC9C" x="448" y="0" width="64" height="64"></rect>
+                    </g>
+                    <g id="right" transform="translate(512.000000, 0.000000)">
+                        <rect id="right-1" fill="#1ABC9C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="right-2" fill="#2ECC71" x="0" y="64" width="64" height="64"></rect>
+                        <rect id="right-3" fill="#3498DB" x="0" y="128" width="64" height="64"></rect>
+                        <rect id="right-4" fill="#9B59B6" x="0" y="192" width="64" height="64"></rect>
+                        <rect id="right-5" fill="#34495E" x="0" y="256" width="64" height="64"></rect>
+                        <rect id="right-6" fill="#F1C40F" x="0" y="320" width="64" height="64"></rect>
+                        <rect id="right-7" fill="#E67E22" x="0" y="384" width="64" height="64"></rect>
+                        <rect id="right-8" fill="#E74C3C" x="0" y="448" width="64" height="64"></rect>
+                    </g>
+                    <g id="top">
+                        <rect id="top-8" fill="#E74C3C" x="448" y="0" width="64" height="64"></rect>
+                        <rect id="top-7" fill="#E67E22" x="384" y="0" width="64" height="64"></rect>
+                        <rect id="top-6" fill="#F1C40F" x="320" y="0" width="64" height="64"></rect>
+                        <rect id="top-5" fill="#34495E" x="256" y="0" width="64" height="64"></rect>
+                        <rect id="top-4" fill="#9B59B6" x="192" y="0" width="64" height="64"></rect>
+                        <rect id="top-3" fill="#3498DB" x="128" y="0" width="64" height="64"></rect>
+                        <rect id="top-2" fill="#2ECC71" x="64" y="0" width="64" height="64"></rect>
+                        <rect id="top-1" fill="#1ABC9C" x="0" y="0" width="64" height="64"></rect>
+                    </g>
+                </g>
             </g>
         </g>
     </g>

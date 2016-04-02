@@ -49,16 +49,6 @@ class Game extends Component {
         {gameState === 'waiting' && <h5>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</h5>}
         {<VersusGrid gameState={gameState} gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
         {<ViewerBoard score={versusScore} grid={viewerGrid} board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}
-        Legends:<ul style={{textAlign: 'left'}}>
-        <li style={{color: '#880e4f'}}>XL : 5 points</li>
-        <li style={{color: '#4527a0'}}>L  : 4  points</li>
-        <li style={{color: '#0d47a1'}}>M1 : 3  points</li>
-        <li style={{color: '#0d47a1'}}>M2 : 3  points</li>
-        <li style={{color: '#006064'}}>S1 : 2  points</li>
-        <li style={{color: '#006064'}}>S2 : 2  points</li>
-        <li style={{color: '#7b0800'}}>XS1: 1  point</li>
-        <li style={{color: '#7b0800'}}>XS2: 1  point</li>
-      </ul>
       </section>
     </DocumentTitle>
   }
