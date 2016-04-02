@@ -32,6 +32,7 @@ class NewGame extends Component {
     const {
       friends,
       friendsTotal,
+      bots,
     } = this.props
     
     const friendsOnline = friends.filter(friend => friend.get('online') === '1')
@@ -56,11 +57,15 @@ class NewGame extends Component {
             </span>
           </div>
         </header>
-        {friendsOnlineTotal > 0 && <div className={style.onlineContainer}>
+        <div className={style.container}>
+          <h4 className={style.heading}>Bots</h4>
+          {bots.toArray().map(bot => <Friend key={bot.get('id')} friend={bot} />)}
+        </div>
+        {friendsOnlineTotal > 0 && <div className={style.container}>
           <h4 className={style.heading}>Online</h4>
           {friendsOnline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}
-        {friendsOfflineTotal > 0 && <div className={style.friendsContainer}>
+        {friendsOfflineTotal > 0 && <div className={style.container}>
           <h4 className={style.heading}>Friends</h4>
           {friendsOffline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}

@@ -82,6 +82,8 @@ const raygunInit = `<script type="text/javascript">
 
     <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="description" content="${meta.description}" />
     <meta name="author" content="${meta.author}" />
     <meta name="keywords" content="${meta.keywords.join(',')}" />

@@ -96,17 +96,18 @@ class Setup extends Component {
       friends,
       routeParams,
       isValid,
+      bots,
     } = this.props
     
     if(!friends) return <Loading />
 
-    const versus = friends.get(routeParams.game ? this.props.versus : routeParams.versus)
+    const versusId = routeParams.game ? this.props.versus : routeParams.versus
+    const versus = friends.get(versusId) || bots.find(bot => bot.get('id') === versusId)
     
     if(!versus) return <Loading />
     
     const versusUsername = versus.get('username')
-    
-    console.log('items', items)
+
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
         <header className={style.header}>

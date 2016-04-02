@@ -6,6 +6,7 @@ import {
   RESET_ITEMS,
   LOAD_GAME_SUCCESS,
   LOAD_ITEMS,
+  RANDOM_ITEMS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 
