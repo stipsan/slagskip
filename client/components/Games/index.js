@@ -22,7 +22,7 @@ class Games extends Component {
   }
   
   render() {
-    const { children, games, gamesTotal, friends, friendsTotal } = this.props
+    const { children, games, gamesTotal, friends, friendsTotal, bots } = this.props
     
     if(!friends) return <h1>Loading…</h1>
     
@@ -34,7 +34,7 @@ class Games extends Component {
         <span className={style.username}>New Game</span>
         <span className={style.startGame}>❯</span>
       </Link>
-      {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} />) || <li>No games yet…</li>}
+      {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} bots={bots} />) || <li>No games yet…</li>}
     </div>
   }
 }

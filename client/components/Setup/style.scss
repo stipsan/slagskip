@@ -52,7 +52,12 @@ $active-color: rgb(152, 251, 152);
 }
 
 .startGame {
-  composes: button is-outlined is-primary from '../../style/_bulma.scss';
+  composes: button is-primary from '../../style/_bulma.scss';
+  
+  touch-action: manipulation;
+}
+.startGameDisabled {
+  composes: is-outlined from '../../style/_bulma.scss';
 }
 
 .heading {
@@ -94,6 +99,7 @@ $active-color: rgb(152, 251, 152);
 
 .item {
   height: 32px;
+  touch-action: manipulation;
 }
 .itemPreview {
   position: absolute!important;

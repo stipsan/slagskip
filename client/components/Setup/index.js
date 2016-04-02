@@ -5,6 +5,7 @@ import shallowCompare from 'react-addons-shallow-compare'
 import Avatar from 'react-user-avatar'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import classNames from 'classnames'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 import style, {
   section as sectionClassName,
@@ -107,6 +108,9 @@ class Setup extends Component {
     if(!versus) return <Loading />
     
     const versusUsername = versus.get('username')
+    const startGameButtonClassName = classNames(style.startGame, {
+      [style.startGameDisabled]: !isValid
+    })
 
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
@@ -120,8 +124,8 @@ class Setup extends Component {
             </h1>
           </div>
           <div className={style.headerRight}>
-            {routeParams.game && <button disabled={!isValid} onClick={this.handleJoinGame} className={style.startGame}>Join</button>}
-            {routeParams.versus && <button disabled={!isValid} onClick={this.handleNewGame} className={style.startGame}>Start</button>}
+            {routeParams.game && <button disabled={!isValid} onClick={this.handleJoinGame} className={startGameButtonClassName}>Join</button>}
+            {routeParams.versus && <button disabled={!isValid} onClick={this.handleNewGame} className={startGameButtonClassName}>Start</button>}
           </div>
         </header>
         <div className={wrapperClassName}>
