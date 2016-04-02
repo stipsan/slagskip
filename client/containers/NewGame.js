@@ -5,7 +5,8 @@ import NewGame from '../components/NewGame'
 
 const mapStateToProps = state => ({
   friends: state.getIn(['friends', 'list']),
-  friendsTotal: state.getIn(['friends', 'total'])
+  friendsTotal: state.getIn(['friends', 'total']),
+  bots: state.get('bots'),
 })
 
 const mapDispatchToProps = dispatch => ({

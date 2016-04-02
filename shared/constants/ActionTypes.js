@@ -100,6 +100,7 @@ export const ROTATE_ITEM = 'ROTATE_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
 export const RESET_ITEMS = 'RESET_ITEMS'
 export const LOAD_ITEMS = 'LOAD_ITEMS'
+export const RANDOM_ITEMS = 'RANDOM_ITEMS'
 
 // attempting to start the game
 export const LOAD_GAME_REQUEST = 'LOAD_GAME_REQUEST'

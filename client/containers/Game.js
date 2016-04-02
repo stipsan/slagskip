@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   return ({
   gameState: state.getIn(['game', 'gameState']),
   reasonFailed: state.getIn(['game', 'reasonFailed']),
-  versusFriend: state.getIn(['friends', 'list', versusFriendId]),
+  versusFriend: state.getIn(['friends', 'list', versusFriendId]) || versusFriendId === '-1' && state.getIn(['bots', 0]),
   viewer: state.get('viewer'),
   isViewerTurn: state.getIn(['game', 'isViewerTurn']),
   versusGrid: state.getIn(['game', 'versusGrid']),

@@ -82,9 +82,30 @@ const raygunInit = `<script type="text/javascript">
 
     <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="description" content="${meta.description}" />
     <meta name="author" content="${meta.author}" />
     <meta name="keywords" content="${meta.keywords.join(',')}" />
+    
+    <link rel="apple-touch-icon" sizes="58x58" href="/favicons/icon-58.png">
+    <link rel="apple-touch-icon" sizes="80x80" href="/favicons/icon-80.png">
+    <link rel="apple-touch-icon" sizes="87x87" href="/favicons/icon-87.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/icon-114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/icon-120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/icon-144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/icon-180.png">
+    <link rel="icon" type="image/png" href="/favicons/icon-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/icon-192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicons/icon-96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicons/icon-16.png" sizes="16x16">
+    <link rel="manifest" href="/favicons/manifest.json">
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    
+    <meta name="theme-color" content="#ECF0F1">
+    
     ${stylesheets}
     ${shouldLoadRaygun ? raygunClient : ''}
   </head>

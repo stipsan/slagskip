@@ -1253,4 +1253,19 @@ describe('board reducer', () => {
       }).toJS()
     ).toEqual(board)
   })
+  
+  it('can generate random items', () => {
+    const { items } = reducer(undefined, {
+      type: types.RANDOM_ITEMS,
+    }).toJS()
+    
+    expect(items.xl).toNotEqual([0, -1, -1, -1, -1, -1])
+    expect(items.l).toNotEqual([0, -1, -1, -1, -1])
+    expect(items.m1).toNotEqual([0, -1, -1, -1])
+    expect(items.m2).toNotEqual([0, -1, -1, -1])
+    expect(items.s1).toNotEqual([0, -1, -1])
+    expect(items.s2).toNotEqual([0, -1, -1])
+    expect(items.xs1).toNotEqual([0, -1])
+    expect(items.xs2).toNotEqual([0, -1])
+  })
 })

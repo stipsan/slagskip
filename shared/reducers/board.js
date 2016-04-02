@@ -6,6 +6,7 @@ import {
   RESET_ITEMS,
   LOAD_GAME_SUCCESS,
   LOAD_ITEMS,
+  RANDOM_ITEMS,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 
@@ -50,6 +51,46 @@ const createCoordinates = (rotated, startIndex, itemType, [, ...itemState]) => {
   return coordinates
 }
 
+const addItem = (state, action) => {
+  // basic validation
+  if(validateStartPosition(action.position)) {
+    return state
+  }
+
+  var itemType = getItemType(action.item)
+  var item = state.getIn(['items', action.item])
+  var startIndex = (action.position[1] * 10) + action.position[0]
+  
+  if(state.get('grid').contains(itemType.id)) {
+    return state
+  }
+  
+  var startIndex = createStartIndex(action.position)
+  var coordinates = createCoordinates(action.rotated, startIndex, itemType, item)
+  if(!coordinates) {
+    return state
+  }
+  
+  var isPositionsTaken = coordinates.reduce(
+    (positionsCheck, currentPosition, index) => {
+      return positionsCheck + state.getIn(['grid', currentPosition])
+    },
+    0
+  )
+  if(isPositionsTaken > 0) {
+    return state
+  }
+  
+  return coordinates.reduce(
+    (previousState, currentPosition, index) => {
+      return previousState
+        .setIn(['items', action.item, index + 1], currentPosition)
+        .setIn(['grid', currentPosition], itemType.id)
+    },
+    state.setIn(['items', action.item, 0], action.rotated ? 1 : 0)
+  )
+}
+
 const initialState = fromJS({
   grid: [
 //      a  b  c  d  e  f  g  h  i  j  
@@ -78,43 +119,7 @@ const initialState = fromJS({
 export const board = (state = initialState, action) => {
   switch (action.type) {
   case ADD_ITEM:
-    // basic validation
-    if(validateStartPosition(action.position)) {
-      return state
-    }
-
-    var itemType = getItemType(action.item)
-    var item = state.getIn(['items', action.item])
-    var startIndex = (action.position[1] * 10) + action.position[0]
-    
-    if(state.get('grid').contains(itemType.id)) {
-      return state
-    }
-    
-    var startIndex = createStartIndex(action.position)
-    var coordinates = createCoordinates(action.rotated, startIndex, itemType, item)
-    if(!coordinates) {
-      return state
-    }
-    
-    var isPositionsTaken = coordinates.reduce(
-      (positionsCheck, currentPosition, index) => {
-        return positionsCheck + state.getIn(['grid', currentPosition])
-      },
-      0
-    )
-    if(isPositionsTaken > 0) {
-      return state
-    }
-    
-    return coordinates.reduce(
-      (previousState, currentPosition, index) => {
-        return previousState
-          .setIn(['items', action.item, index + 1], currentPosition)
-          .setIn(['grid', currentPosition], itemType.id)
-      },
-      state.setIn(['items', action.item, 0], action.rotated ? 1 : 0)
-    )
+    return addItem(state, action)
   case ROTATE_ITEM:
     var itemType = getItemType(action.item)
     var item = state.getIn(['items', action.item])
@@ -209,6 +214,40 @@ export const board = (state = initialState, action) => {
     return initialState
   case LOAD_ITEMS:
     return state.merge(action.board)
+  case RANDOM_ITEMS:
+  
+    let newRandomState = state
+    let keys = [...state.get('items').keys()]
+    let m = true
+    let safeguard = 0
+
+    // @TODO randomize MOVE_ITEM and ROTATE_ITEM as well
+    // @TODO see if assigning to newRandomState in a loop is better done with withMutable instead
+
+    while(m) {
+      let randomKey = keys[Math.floor(Math.random() * keys.length)]
+
+      let randomX = Math.floor(Math.random() * 9)
+      let randomY = Math.floor(Math.random() * 9)
+      let randomRotated = Math.floor(Math.random()*1)
+
+      newRandomState = addItem(newRandomState, {
+        item: randomKey,
+        position: [randomX, randomY],
+        rotated: randomRotated
+      })
+      
+      m = newRandomState.getIn(['items', 'xl', 1]) === -1 ||
+          newRandomState.getIn(['items', 'l', 1]) === -1 ||
+          newRandomState.getIn(['items', 'm1', 1]) === -1 ||
+          newRandomState.getIn(['items', 'm2', 1]) === -1 ||
+          newRandomState.getIn(['items', 's1', 1]) === -1 ||
+          newRandomState.getIn(['items', 's2', 1]) === -1 ||
+          newRandomState.getIn(['items', 'xs1', 1]) === -1 ||
+          newRandomState.getIn(['items', 'xs2', 1]) === -1
+    }
+  
+    return newRandomState
   default:
     return state
   }
