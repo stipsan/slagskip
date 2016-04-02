@@ -61,46 +61,46 @@
                         <use fill="none" xlink:href="#path-10"></use>
                     </g>
                 </g>
-                <g id="border-symmetric">
+                <g id="border-evenly-distributed">
                     <g id="left" transform="translate(0.000000, 64.000000)">
-                        <rect id="left-8" fill="#E74C3C" x="0" y="0" width="64" height="64"></rect>
-                        <rect id="left-7" fill="#E67E22" x="0" y="64" width="64" height="64"></rect>
-                        <rect id="left-6" fill="#F1C40F" x="0" y="128" width="64" height="64"></rect>
-                        <rect id="left-5" fill="#34495E" x="0" y="192" width="64" height="64"></rect>
-                        <rect id="left-4" fill="#9B59B6" x="0" y="256" width="64" height="64"></rect>
-                        <rect id="left-3" fill="#3498DB" x="0" y="320" width="64" height="64"></rect>
+                        <rect id="left-8" fill="#1ABC9C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="left-7" fill="#E74C3C" x="0" y="64" width="64" height="64"></rect>
+                        <rect id="left-6" fill="#3498DB" x="0" y="128" width="64" height="64"></rect>
+                        <rect id="left-5" fill="#F1C40F" x="0" y="192" width="64" height="64"></rect>
+                        <rect id="left-4" fill="#E67E22" x="0" y="256" width="64" height="64"></rect>
+                        <rect id="left-3" fill="#34495E" x="0" y="320" width="64" height="64"></rect>
                         <rect id="left-2" fill="#2ECC71" x="0" y="384" width="64" height="64"></rect>
-                        <rect id="left-1" fill="#1ABC9C" x="0" y="448" width="64" height="64"></rect>
+                        <rect id="left-1" fill="#9B59B6" x="0" y="448" width="64" height="64"></rect>
                     </g>
                     <g id="bottom" transform="translate(64.000000, 512.000000)">
                         <rect id="bottom-8" fill="#E74C3C" x="0" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-7" fill="#E67E22" x="64" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-6" fill="#F1C40F" x="128" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-7" fill="#F1C40F" x="64" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-6" fill="#E67E22" x="128" y="0" width="64" height="64"></rect>
                         <rect id="bottom-5" fill="#34495E" x="192" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-4" fill="#9B59B6" x="256" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-3" fill="#3498DB" x="320" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-2" fill="#2ECC71" x="384" y="0" width="64" height="64"></rect>
-                        <rect id="bottom-1" fill="#1ABC9C" x="448" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-4" fill="#3498DB" x="256" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-3" fill="#1ABC9C" x="320" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-2" fill="#9B59B6" x="384" y="0" width="64" height="64"></rect>
+                        <rect id="bottom-1" fill="#2ECC71" x="448" y="0" width="64" height="64"></rect>
                     </g>
                     <g id="right" transform="translate(512.000000, 0.000000)">
-                        <rect id="right-1" fill="#1ABC9C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="right-1" fill="#E67E22" x="0" y="0" width="64" height="64"></rect>
                         <rect id="right-2" fill="#2ECC71" x="0" y="64" width="64" height="64"></rect>
-                        <rect id="right-3" fill="#3498DB" x="0" y="128" width="64" height="64"></rect>
-                        <rect id="right-4" fill="#9B59B6" x="0" y="192" width="64" height="64"></rect>
-                        <rect id="right-5" fill="#34495E" x="0" y="256" width="64" height="64"></rect>
-                        <rect id="right-6" fill="#F1C40F" x="0" y="320" width="64" height="64"></rect>
-                        <rect id="right-7" fill="#E67E22" x="0" y="384" width="64" height="64"></rect>
-                        <rect id="right-8" fill="#E74C3C" x="0" y="448" width="64" height="64"></rect>
+                        <rect id="right-3" fill="#9B59B6" x="0" y="128" width="64" height="64"></rect>
+                        <rect id="right-4" fill="#F1C40F" x="0" y="192" width="64" height="64"></rect>
+                        <rect id="right-5" fill="#E74C3C" x="0" y="256" width="64" height="64"></rect>
+                        <rect id="right-6" fill="#34495E" x="0" y="320" width="64" height="64"></rect>
+                        <rect id="right-7" fill="#3498DB" x="0" y="384" width="64" height="64"></rect>
+                        <rect id="right-8" fill="#1ABC9C" x="0" y="448" width="64" height="64"></rect>
                     </g>
                     <g id="top">
                         <rect id="top-8" fill="#E74C3C" x="448" y="0" width="64" height="64"></rect>
-                        <rect id="top-7" fill="#E67E22" x="384" y="0" width="64" height="64"></rect>
-                        <rect id="top-6" fill="#F1C40F" x="320" y="0" width="64" height="64"></rect>
-                        <rect id="top-5" fill="#34495E" x="256" y="0" width="64" height="64"></rect>
-                        <rect id="top-4" fill="#9B59B6" x="192" y="0" width="64" height="64"></rect>
-                        <rect id="top-3" fill="#3498DB" x="128" y="0" width="64" height="64"></rect>
-                        <rect id="top-2" fill="#2ECC71" x="64" y="0" width="64" height="64"></rect>
-                        <rect id="top-1" fill="#1ABC9C" x="0" y="0" width="64" height="64"></rect>
+                        <rect id="top-7" fill="#34495E" x="384" y="0" width="64" height="64"></rect>
+                        <rect id="top-6" fill="#1ABC9C" x="320" y="0" width="64" height="64"></rect>
+                        <rect id="top-5" fill="#3498DB" x="256" y="0" width="64" height="64"></rect>
+                        <rect id="top-4" fill="#E67E22" x="192" y="0" width="64" height="64"></rect>
+                        <rect id="top-3" fill="#F1C40F" x="128" y="0" width="64" height="64"></rect>
+                        <rect id="top-2" fill="#9B59B6" x="64" y="0" width="64" height="64"></rect>
+                        <rect id="top-1" fill="#2ECC71" x="0" y="0" width="64" height="64"></rect>
                     </g>
                 </g>
             </g>
