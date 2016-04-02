@@ -13,7 +13,9 @@ import {
   RECEIVE_MISS,
   FIRE_CANNON_SUCCESS,
   FIRE_CANNON_FAILURE,
+  RANDOM_ITEMS,
 } from '../constants/ActionTypes'
+import { board as boardReducer } from '../actions'
 
 export const loadGame = (
   action,
@@ -95,6 +97,51 @@ export const newGame = (
     .then(gameId => {
       invariant(gameId, 'Failed to create new game')
 
+      // We have a game versus a bot!
+      if(action.versus === '-1') {
+        const botToken = {
+          id: "-1"
+        }
+        const botBoard = boardReducer(undefined, { type: RANDOM_ITEMS })
+        
+        return database.joinGame(botToken, gameId, botBoard.toJS(), redis)
+          .then(game => {
+            invariant(game.id, 'Bot failed to join game')
+
+            const isViewerFirst = true
+            const versus = isViewerFirst ? game.players[1] : game.players[0]
+
+            // notify human
+            callback(null, {
+              type: NEW_GAME_SUCCESS,
+              id: gameId,
+              versus: action.versus,
+            })
+            
+            // notify bot
+            socket.exchange.publish(`user:${action.versus}`, {
+              type: RECEIVE_NEW_GAME,
+              id: gameId,
+              versus: authToken.id,
+            })
+
+            // robot joins 
+            callback(null, {
+              type: JOIN_GAME_SUCCESS,
+              id: game.id,
+            })
+            
+            // notify human
+            socket.exchange.publish(`user:${versus}`, {
+              type: RECEIVE_JOIN_GAME,
+              id: game.id,
+            })
+        }).catch(error => {
+          console.error(JOIN_GAME_FAILURE, error)
+          callback(JOIN_GAME_FAILURE, error.message || error)
+        })
+      }
+
       callback(null, {
         type: NEW_GAME_SUCCESS,
         id: gameId,
@@ -107,10 +154,7 @@ export const newGame = (
         versus: authToken.id,
       })
       
-      // We have a game versus a bot!
-      if(action.versus === '-1') {
-        
-      }
+      
     }).catch(error => {
       console.error(NEW_GAME_FAILURE, error)
       callback(NEW_GAME_FAILURE, error.message || error)

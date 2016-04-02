@@ -1255,35 +1255,17 @@ describe('board reducer', () => {
   })
   
   it('can generate random items', () => {
-    expect(
-      reducer(undefined, {
-        type: types.RANDOM_ITEMS,
-      }).toJS()
-    ).toNotEqual(
-      {
-        grid: [
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ],
-        items: {
-          xl:  [0, -1, -1, -1, -1, -1],
-          l:   [0, -1, -1, -1, -1],
-          m1:  [0, -1, -1, -1],
-          m2:  [0, -1, -1, -1],
-          s1:  [0, -1, -1],
-          s2:  [0, -1, -1],
-          xs1: [0, -1],
-          xs2: [0, -1]
-        }
-      }
-    )
+    const { items } = reducer(undefined, {
+      type: types.RANDOM_ITEMS,
+    }).toJS()
+    
+    expect(items.xl).toNotEqual([0, -1, -1, -1, -1, -1])
+    expect(items.l).toNotEqual([0, -1, -1, -1, -1])
+    expect(items.m1).toNotEqual([0, -1, -1, -1])
+    expect(items.m2).toNotEqual([0, -1, -1, -1])
+    expect(items.s1).toNotEqual([0, -1, -1])
+    expect(items.s2).toNotEqual([0, -1, -1])
+    expect(items.xs1).toNotEqual([0, -1])
+    expect(items.xs2).toNotEqual([0, -1])
   })
 })
