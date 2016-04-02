@@ -236,6 +236,13 @@ export const fireCannon = (
             botTurns.push({ id: botToken.id, index: botSelectedCell, hit: botHit !== 0, foundItem: botHit !== 0 > 0 && botHit, on: new Date().getTime() })
             if(botHit === 0) {
               lookForAvailableSpot = false
+            } else {
+              // check neighbors, start by creating plausible next moves
+              const moveUp = botSelectedCell - 10
+              const moveRight = botSelectedCell + 1
+              const moveDown = botSelectedCell + 10
+              const moveLeft = botSelectedCell - 1
+              
             }
           }
           

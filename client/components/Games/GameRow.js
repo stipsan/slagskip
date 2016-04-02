@@ -33,8 +33,10 @@ class GameRow extends Component {
   shouldComponentUpdate = shouldComponentUpdate
   
   render() {
-    const { game, friends } = this.props
-    const username = friends.getIn([game.get('versus'), 'username'])
+    const { game, friends, bots } = this.props
+    const friend = friends.get(game.get('versus')) ||
+      bots.find(bot => bot.get('id') === game.get('versus'))
+    const username = friend && friend.get('username') 
     
     if(!username) return false
     

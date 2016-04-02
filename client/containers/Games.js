@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   gamesTotal: state.getIn(['games', 'total']),
   friends: state.getIn(['friends', 'list']),
   friendsTotal: state.getIn(['friends', 'total']),
+  bots: state.get('bots'),
 })
 
 const mapDispatchToProps = dispatch => ({
