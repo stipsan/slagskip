@@ -3,22 +3,64 @@
     <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
     <title>icon</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <rect id="path-1" x="64" y="0" width="64" height="64"></rect>
+        <rect id="path-2" x="128" y="0" width="64" height="64"></rect>
+        <rect id="path-3" x="128" y="256" width="64" height="64"></rect>
+        <rect id="path-4" x="64" y="256" width="64" height="64"></rect>
+        <rect id="path-5" x="64" y="128" width="64" height="64"></rect>
+        <rect id="path-6" x="0" y="64" width="64" height="64"></rect>
+        <rect id="path-7" x="0" y="128" width="64" height="64"></rect>
+        <rect id="path-8" x="0" y="192" width="64" height="64"></rect>
+        <rect id="path-9" x="0" y="256" width="64" height="64"></rect>
+        <rect id="path-10" x="0" y="0" width="64" height="64"></rect>
+    </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="icon">
             <g id="art" transform="translate(-32.000000, -32.000000)">
-                <rect id="Rectangle-2" fill="#1FC8DB" x="192" y="128" width="64" height="320"></rect>
-                <rect id="cell" fill="#95A5A6" x="128" y="64" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="128" y="448" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="384" y="448" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="384" y="64" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="64" y="64" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="64" y="448" width="64" height="64"></rect>
-                <rect id="cell" fill="#95A5A6" x="64" y="128" width="64" height="320"></rect>
-                <rect id="Rectangle-13" fill="#95A5A6" x="448" y="64" width="64" height="448"></rect>
-                <rect id="s2" fill="#1FC8DB" x="256" y="128" width="128" height="64"></rect>
-                <rect id="s1" fill="#1FC8DB" x="256" y="384" width="128" height="64"></rect>
-                <rect id="xs1" fill="#1FC8DB" x="256" y="256" width="64" height="64"></rect>
+                <rect id="backdrop" fill="#ECF0F1" x="64" y="64" width="448" height="448"></rect>
+                <g id="jackpot" transform="translate(192.000000, 128.000000)">
+                    <g id="s2">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <use fill="none" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="s2">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <use fill="none" xlink:href="#path-2"></use>
+                    </g>
+                    <g id="s1">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <use fill="none" xlink:href="#path-3"></use>
+                    </g>
+                    <g id="s1">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <use fill="none" xlink:href="#path-4"></use>
+                    </g>
+                    <g id="xs1">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        <use fill="none" xlink:href="#path-5"></use>
+                    </g>
+                    <g id="xl">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        <use fill="none" xlink:href="#path-6"></use>
+                    </g>
+                    <g id="xl">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <use fill="none" xlink:href="#path-7"></use>
+                    </g>
+                    <g id="xl">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-8"></use>
+                        <use fill="none" xlink:href="#path-8"></use>
+                    </g>
+                    <g id="xl">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-9"></use>
+                        <use fill="none" xlink:href="#path-9"></use>
+                    </g>
+                    <g id="xl">
+                        <use fill="#1FC8DB" fill-rule="evenodd" xlink:href="#path-10"></use>
+                        <use fill="none" xlink:href="#path-10"></use>
+                    </g>
+                </g>
                 <g id="border-symmetric">
                     <g id="left" transform="translate(0.000000, 64.000000)">
                         <rect id="left-8" fill="#E74C3C" x="0" y="0" width="64" height="64"></rect>
