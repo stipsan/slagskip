@@ -226,10 +226,11 @@ export const board = (state = initialState, action) => {
 
     while(m) {
       let randomKey = keys[Math.floor(Math.random() * keys.length)]
-      console.log(randomKey, keys.length, state.getIn(['items', 'xl', 1]) === -1)
+
       let randomX = Math.floor(Math.random() * 9)
       let randomY = Math.floor(Math.random() * 9)
-      let randomRotated = Math.floor(Math.random())
+      let randomRotated = Math.floor(Math.random()*1)
+
       newRandomState = addItem(newRandomState, {
         item: randomKey,
         position: [randomX, randomY],

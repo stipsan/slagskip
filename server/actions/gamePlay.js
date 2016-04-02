@@ -15,7 +15,7 @@ import {
   FIRE_CANNON_FAILURE,
   RANDOM_ITEMS,
 } from '../constants/ActionTypes'
-import { board as boardReducer } from '../actions'
+import { board as boardReducer } from '../reducers/board'
 
 export const loadGame = (
   action,
@@ -115,26 +115,13 @@ export const newGame = (
             callback(null, {
               type: NEW_GAME_SUCCESS,
               id: gameId,
-              versus: action.versus,
-            })
-            
-            // notify bot
-            socket.exchange.publish(`user:${action.versus}`, {
-              type: RECEIVE_NEW_GAME,
-              id: gameId,
-              versus: authToken.id,
+              versus: botToken.id,
             })
 
-            // robot joins 
-            callback(null, {
-              type: JOIN_GAME_SUCCESS,
-              id: game.id,
-            })
-            
-            // notify human
-            socket.exchange.publish(`user:${versus}`, {
+            // notify human that game is ready
+            socket.exchange.publish(`user:${authToken.id}`, {
               type: RECEIVE_JOIN_GAME,
-              id: game.id,
+              id: gameId,
             })
         }).catch(error => {
           console.error(JOIN_GAME_FAILURE, error)
@@ -203,44 +190,7 @@ export const fireCannon = (
   
   const hit = getState().getIn(['match', 'versusBoard', selectedCell])
   
-  const hits = getState().getIn(['match', 'hits']).count(previousHit => previousHit === hit)
-  
-  let foundItem = false, incViewerScore = 0
-  
-  if(hit === 1 && hits === 4) {
-    foundItem = 1
-    incViewerScore = 5
-  }
-  if(hit === 2 && hits === 3) {
-    foundItem = 2
-    incViewerScore = 4
-  }
-  if(hit === 3 && hits === 2) {
-    foundItem = 3
-    incViewerScore = 3
-  }
-  if(hit === 4 && hits === 2) {
-    foundItem = 4
-    incViewerScore = 3
-  }
-  if(hit === 5 && hits === 1) {
-    foundItem = 5
-    incViewerScore = 2
-  }
-  if(hit === 6 && hits === 1) {
-    foundItem = 6
-    incViewerScore = 2
-  }
-  if(hit === 7) {
-    foundItem = 7
-    incViewerScore = 1
-  }
-  if(hit === 8) {
-    foundItem = 8
-    incViewerScore = 1
-  }
-  
-  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem, on: new Date().getTime() }
+  const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem: hit !== 0 > 0 && hit, on: new Date().getTime() }
   
   return database.saveTurn(authToken, action.id, turn, redis)
     .then(game => {
@@ -257,6 +207,7 @@ export const fireCannon = (
         id: action.id,
         turn,
         hit,
+        hits: [],
       })
       socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
         type: hit !== 0 ? RECEIVE_HIT : RECEIVE_MISS,
@@ -264,6 +215,62 @@ export const fireCannon = (
         id: action.id,
         turn,
       })
+      
+      if(game.players[1] === '-1') {
+        const botToken = { id: '-1' }
+        console.log('bot move!')
+        const state = getState()
+        let turnsPlayedByBot = game.turns.reduce((turnsByBot, turn) => {
+          return turn.id === '-1' ? [...turnsByBot, turn.index] : turnsByBot
+        }, [])
+        
+        console.log(turnsPlayedByBot)
+        if(turnsPlayedByBot.length === 99) return false // game over
+        
+        let lookForAvailableSpot = true
+        let botTurns = []
+        let botSelectedCell = false
+        while(lookForAvailableSpot) {
+          let randomSpot = Math.floor(Math.random() * 100)
+          if(turnsPlayedByBot.indexOf(randomSpot) === -1) {
+            botSelectedCell = randomSpot
+            const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
+            botTurns.push({ id: botToken.id, index: botSelectedCell, hit: botHit !== 0, foundItem: botHit !== 0 > 0 && botHit, on: new Date().getTime() })
+            if(botHit === 0) {
+              lookForAvailableSpot = false
+            }
+          }
+          
+          // safeguarding against fatal infinite loops
+          if(botTurns.length + turnsPlayedByBot.length > 98) {
+            lookForAvailableSpot = false
+          }
+        }
+                
+        botTurns.forEach((botTurn, index) => {
+          database.saveTurn(botToken, action.id, botTurn, redis).then(game => {
+            
+            // lets timeout the response so the user is able to notice the bot already responded
+            setTimeout(() => {
+              socket.exchange.publish(`user:${authToken.id}`, {
+                type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
+                versusScore: game.scores[1],
+                id: action.id,
+                turn: botTurn,
+              })
+            }, 500 * index)
+            
+          }).catch(error => {
+            // @TODO type should be RECEIVE_BOT_FAILURE
+            console.error(FIRE_CANNON_FAILURE, error)
+
+            socket.exchange.publish(`user:${authToken.id}`, {
+              type: FIRE_CANNON_FAILURE,
+              data: error.message || error
+            })
+          })
+        })
+      }
     }).catch(error => {
       console.error(FIRE_CANNON_FAILURE, error)
       callback(FIRE_CANNON_FAILURE, error.message || error)
