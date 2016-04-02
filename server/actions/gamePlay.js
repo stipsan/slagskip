@@ -106,6 +106,11 @@ export const newGame = (
         id: gameId,
         versus: authToken.id,
       })
+      
+      // We have a game versus a bot!
+      if(action.versus === '-1') {
+        
+      }
     }).catch(error => {
       console.error(NEW_GAME_FAILURE, error)
       callback(NEW_GAME_FAILURE, error.message || error)

@@ -3,6 +3,7 @@ import { addItem, fetchFriends, newGame, loadGame, joinGame } from '../actions'
 import Setup from '../components/Setup'
 
 const mapStateToProps = state => ({
+  bots: state.get('bots'),
   friends: state.getIn(['friends', 'list']),
   friendsTotal: state.getIn(['friends', 'total']),
   grid: state.getIn(['board', 'grid']),

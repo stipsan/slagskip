@@ -26,6 +26,10 @@
   height: 39px;
   width: 39px;
   margin-right: 5px;
+  text-align: center;
+  padding-left: 0px;
+  padding-right: 0px;
+  color: $grey-dark;
 }
 .avatar {
   composes: media-left from '../../style/_bulma.scss';

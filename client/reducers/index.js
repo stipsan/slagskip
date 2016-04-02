@@ -1,5 +1,6 @@
 export * from './auth'
 export * from './board'
+export * from './bots'
 export * from './capabilities'
 export * from './connected'
 export * from './disconnected'

@@ -9,6 +9,23 @@ $m-color: rgb(13, 71, 161);
 $s-color: rgb(0, 96, 100);
 $xs-color: rgb(123, 8, 0);
 
+$cell-remaining-color-from: hsl(184, 9%, 62%);
+$cell-remaining-color-middle: hsl(194, 9%, 52%);
+$cell-remaining-color-to: #7f8c8d;
+
+$cell-empty-color-from: #bdc3c7;
+$cell-empty-color-middle: hsl(202, 5%, 84%);
+$cell-empty-color-to: #ecf0f1;
+
+$cell-active-color-from: hsl(97, 47%, 60%);
+$cell-active-color-middle: hsl(107, 37%, 70%);
+$cell-active-color-to: hsl(117, 42%, 75%);
+
+$cell-jackpot-color-from: hsl(186, 75%, 49%);
+$cell-jackpot-color-middle: hsl(196, 65%, 59%);
+$cell-jackpot-color-to: hsl(206, 70%, 64%);
+
+
 .section {
   composes: section from '../../style/_section.scss';
   color: #263238;  
@@ -31,13 +48,16 @@ $xs-color: rgb(123, 8, 0);
 }
 
 .versusGrid {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   
   height: 320px;
   width: 320px;
   margin-left: auto;
   margin-right: auto;
   transition: all 150ms ease;
+  box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1);
+  overflow: hidden;
 }
 .versusGridWaiting {
   opacity: .4;
@@ -46,28 +66,54 @@ $xs-color: rgb(123, 8, 0);
 
 .cell {
   //border: 1px solid  $border-color;
-  background-color: $default-color;
-  box-shadow: $default-color 0 0 0 1px, inset $default-color 0 0 0 1px;
-  float: left;
+  //background-color: $default-color;
+  //box-shadow: $default-color 0 0 0 1px, inset $default-color 0 0 0 1px;
+  background: linear-gradient(
+    141deg,
+    $cell-remaining-color-from 0%,
+    $cell-remaining-color-middle 71%,
+    $cell-remaining-color-to 100%
+  );
+  border: 1px hsla(0, 0%, 0%, .2) solid;
+  //box-shadow: -1px -1px 0 hsla(0, 0%, 0%, .2), 1px 1px 0 hsla(0, 0%, 0%, .2);
+  border-left-width: 0px;
+  border-top-width: 0px;
   height: 10%;
   width: 10%;
 }
 .cellActive {
   //border-color: $active-color;
-  box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
-  background-color: mix($default-color, $active-color, 66%);
+  //box-shadow: $success 0 0 0 1px, inset $success 0 0 0 1px;
+  background: linear-gradient(
+    141deg,
+    $cell-active-color-from 0%,
+    $cell-active-color-middle 71%,
+    $cell-active-color-to 100%
+  );
+  //background-color: mix($default-color, $active-color, 66%);
   position: relative;
   z-index: 100;
 }
 .cellJackpot {
   //border-color: $active-color;
-  box-shadow: $jackpot-color 0 0 0 1px, inset $jackpot-color 0 0 0 1px;
-  background-color: mix($default-color, $jackpot-color, 66%);
+  background: linear-gradient(
+    141deg,
+    $cell-jackpot-color-from 0%,
+    $cell-jackpot-color-middle 71%,
+    $cell-jackpot-color-to 100%
+  );
   position: relative;
   z-index: 1;
 }
 .cellEmpty {
-  opacity: .4;
+  background: linear-gradient(
+    141deg,
+    $cell-empty-color-from 0%,
+    $cell-empty-color-middle 51%,
+    $cell-empty-color-to 100%
+  );
+  background-image: none;
+  border: none;
 }
 .navbar {
   position: relative;
