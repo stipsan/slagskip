@@ -16,6 +16,11 @@ class Cell extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
+  
+  handleClick = () => {
+    this.props.rotateItem(this.props)
+  }
+  
   render() {
     const {
       index,
@@ -24,6 +29,8 @@ class Cell extends Component {
       canDrop,
       connectDropTarget,
     } = this.props
+    
+    console.log(this.props.value)
     
     return connectDropTarget(<div className={className(cellClassName, {
       [cellActiveClassName]: value > 0,
