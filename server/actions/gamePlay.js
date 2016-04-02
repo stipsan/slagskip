@@ -216,15 +216,13 @@ export const fireCannon = (
         turn,
       })
       
-      if(game.players[1] === '-1') {
+      if(game.players[1] === '-1' && hit === 0) {
         const botToken = { id: '-1' }
-        console.log('bot move!')
         const state = getState()
         let turnsPlayedByBot = game.turns.reduce((turnsByBot, turn) => {
           return turn.id === '-1' ? [...turnsByBot, turn.index] : turnsByBot
         }, [])
         
-        console.log(turnsPlayedByBot)
         if(turnsPlayedByBot.length === 99) return false // game over
         
         let lookForAvailableSpot = true
@@ -248,27 +246,28 @@ export const fireCannon = (
         }
                 
         botTurns.forEach((botTurn, index) => {
-          database.saveTurn(botToken, action.id, botTurn, redis).then(game => {
-            
-            // lets timeout the response so the user is able to notice the bot already responded
-            setTimeout(() => {
-              socket.exchange.publish(`user:${authToken.id}`, {
-                type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
-                versusScore: game.scores[1],
-                id: action.id,
-                turn: botTurn,
-              })
-            }, 500 * index)
-            
-          }).catch(error => {
-            // @TODO type should be RECEIVE_BOT_FAILURE
-            console.error(FIRE_CANNON_FAILURE, error)
+          // lets timeout the response so the user is able to notice the bot already responded
+          setTimeout(function(botTurn) {
+            database.saveTurn(botToken, action.id, botTurn, redis).then(game => {
 
-            socket.exchange.publish(`user:${authToken.id}`, {
-              type: FIRE_CANNON_FAILURE,
-              data: error.message || error
+                socket.exchange.publish(`user:${authToken.id}`, {
+                  type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
+                  versusScore: game.scores[1],
+                  id: action.id,
+                  turn: botTurn,
+                })
+              
+              
+            }).catch(error => {
+              // @TODO type should be RECEIVE_BOT_FAILURE
+              console.error(FIRE_CANNON_FAILURE, error)
+
+              socket.exchange.publish(`user:${authToken.id}`, {
+                type: FIRE_CANNON_FAILURE,
+                data: error.message || error
+              })
             })
-          })
+          }.bind(this, botTurn), 1000 * (index + 1))
         })
       }
     }).catch(error => {
