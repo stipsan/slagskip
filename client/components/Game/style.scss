@@ -3,11 +3,11 @@
 $default-color: hsla(0, 0%, 0%, .5);
 $active-color: rgb(152, 251, 152);
 $jackpot-color: crimson;
-$xl-color: rgb(136, 14, 79);
-$l-color: rgb(69, 39, 160);
-$m-color: rgb(13, 71, 161);
-$s-color: rgb(0, 96, 100);
-$xs-color: rgb(123, 8, 0);
+$xl-color: #e91e63;
+$l-color: #9b59b6;
+$m-color: #f1c40f;
+$s-color: #e67e22;
+$xs-color: #e74c3c;
 
 $cell-remaining-color-from: hsl(184, 9%, 62%);
 $cell-remaining-color-middle: hsl(194, 9%, 52%);
@@ -25,6 +25,18 @@ $cell-jackpot-color-from: hsl(186, 75%, 49%);
 $cell-jackpot-color-middle: hsl(196, 65%, 59%);
 $cell-jackpot-color-to: hsl(206, 70%, 64%);
 
+
+@mixin gradient($color) {
+  //176  75  49
+  //186  65  59
+  //196  70  64
+  background-image: linear-gradient(
+    141deg,
+    adjust-color($color, $hue: -10deg, $saturation: 10%, $lightness: -10%) 0%,
+    $color 71%,
+    adjust-color($color, $hue: 10deg, $saturation: 5%, $lightness: 5%) 100%
+  );
+}
 
 .section {
   composes: section from '../../style/_section.scss';
@@ -56,7 +68,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-left: auto;
   margin-right: auto;
   transition: all 150ms ease;
-  box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1);
+  box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1), inset -1px -1px 0 hsla(0, 0%, 0%, .1);
   overflow: hidden;
 }
 .versusGridWaiting {
@@ -137,36 +149,41 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
 }
 .cellXL {
   composes: cellTransition;
-  background: mix($default-color, $xl-color, 75%) !important;
+  opacity: .6;
+  @include gradient($xl-color);
   &.cellJackpot {
-    background: $xl-color !important;
+    opacity: 1;
   }
 }
 .cellL {
   composes: cellTransition;
-  background: mix($default-color, $l-color, 75%) !important;
+  opacity: .6;
+  @include gradient($l-color);
   &.cellJackpot {
-    background: $l-color !important;
+    opacity: 1;
   }
 }
 .cellM {
   composes: cellTransition;
-  background: mix($default-color, $m-color, 75%) !important;
+  opacity: .6;
+  @include gradient($m-color);
   &.cellJackpot {
-    background: $m-color !important;
+    opacity: 1;
   }
 }
 .cellS {
   composes: cellTransition;
-  background: mix($default-color, $s-color, 75%) !important;
+  opacity: .6;
+  @include gradient($s-color);
   &.cellJackpot {
-    background: $s-color !important;
+    opacity: 1;
   }
 }
 .cellXS {
   composes: cellTransition;
-  background: mix($default-color, $xs-color, 75%) !important;
+  opacity: .6;
+  @include gradient($xs-color);
   &.cellJackpot {
-    background: $xs-color !important;
+    opacity: 1;
   }
 }
