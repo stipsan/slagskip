@@ -6,7 +6,7 @@ const initialState = fromJS([
   { id: "-3", username: 'K-9', online: '1', avatar: '/bot/k9.png', description: `Sniffs out your hiding spots` },
   { id: "-4", username: 'Marvin', online: '1', avatar: '/bot/marvin.png', description: `Gets depressed if he beats you` },
   { id: "-5", username: 'HAL 9000', online: '1', avatar: '/bot/hal.png', description: `Makes very few mistakes` },
-  //{ id: "-6", username: 'GLaDOS', online: '1', avatar: '/bot/glados.png', description: `She'll give you cake if you win` },
+  { id: "-6", username: 'GLaDOS', online: '1', avatar: '/bot/glados.png', description: `She'll give you cake if you win` },
 ])
 
 export const bots = (state = initialState) => {
