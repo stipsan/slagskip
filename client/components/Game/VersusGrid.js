@@ -40,10 +40,6 @@ class Cell extends Component {
 
 class VersusGrid extends Component {
   
-  handleFireCannon = event => {
-    this.props.dispatch(fireCannon({ id: this.props.gameId, selectedCell: this.props.selectedCell }))
-  }
-  
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
@@ -51,12 +47,10 @@ class VersusGrid extends Component {
   render() {
     const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score, gameState } = this.props
 
-    return <div className={style.versusGridContainer}>
-      <h5 className={style.state}>{isViewerTurn && gameState !== 'waiting' && (selectedCell === -1 ? 'Select a spot' : <span>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></span>)}</h5>
-      <h6 className={style.header}>Your score: {score}</h6>
-      <div className={classNames(versusGridClassName, {
-        [versusGridWaitingClassName]: !isViewerTurn
-      })}>
+    return <div className={classNames(style.versusGridContainer, {
+      [versusGridWaitingClassName]: !isViewerTurn
+    })}>
+      <div className={versusGridClassName}>
         {grid.map((cell, index) => <Cell key={index} isViewerTurn={isViewerTurn} index={index} cellActive={selectedCell === index} cell={cell} dispatch={dispatch} />)}
       </div>
     </div>

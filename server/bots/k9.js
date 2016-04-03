@@ -1,37 +1,24 @@
 const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot) => {
   
-  const continuePreviousHits = new Set()
+  const continuePreviousHits = []
 
   successfullTurnsPlayedByBot.forEach(turnIndex => {
+    if(turnsPlayedByBot.indexOf(turnIndex) !== -1) {
+      return
+    }
     // up
     if(turnIndex > 9) {
-        continuePreviousHits.add(turnIndex - 10)
-    }
-    if(turnIndex > 19) {
-        continuePreviousHits.add(turnIndex - 20)
+        continuePreviousHits.push(turnIndex - 10)
     }
     if((turnIndex % 10) < 9) {
-        continuePreviousHits.add(turnIndex + 1)
-    }
-    if((turnIndex % 10) < 8) {
-        continuePreviousHits.add(turnIndex + 2)
+        continuePreviousHits.push(turnIndex + 1)
     }
     if(turnIndex < 90) {
-        continuePreviousHits.add(turnIndex + 10)
-    }
-    if(turnIndex < 80) {
-        continuePreviousHits.add(turnIndex + 20)
+        continuePreviousHits.push(turnIndex + 10)
     }
     if((turnIndex % 10) > 0) {
-        continuePreviousHits.add(turnIndex - 1)
+        continuePreviousHits.push(turnIndex - 1)
     }
-    if((turnIndex % 10) > 1) {
-        continuePreviousHits.add(turnIndex - 2)
-    }
-  })
-  // remove already played turns
-  turnsPlayedByBot.forEach(turnIndex => {
-    continuePreviousHits.delete(turnIndex)
   })
   
   let lookForAvailableSpot = true
@@ -42,9 +29,6 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
     
     const guessPool = [...continuePreviousHits]
     const smartGuess = guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false
-    if(smartGuess) {
-      continuePreviousHits.delete(smartGuess)
-    }
     
     let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess || Math.floor(Math.random() * 100)
     if(turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
