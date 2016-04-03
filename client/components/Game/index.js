@@ -59,7 +59,7 @@ class Game extends Component {
           {gameState === 'victory' && <div>You won!</div>}
           {gameState === 'defeated' && <div>You lost!</div>}
           {gameState === 'loading' && <div>Loading game…</div>}
-          {isViewerTurn && gameState !== 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && (selectedCell === -1 ? 'Select a spot' : <div className={style.readyToFire}>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></div>)}
+          {isViewerTurn && gameState !== 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && (selectedCell === -1 ? 'Select a spot' : (gameState !== 'victory' && gameState !== 'defeat' && <div className={style.readyToFire}>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></div>))}
           {gameState === 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && <div className={style.waitingForOpponent}>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</div>}
           {gameState === 'ready' && !isViewerTurn && <div className={style.waitingForTurn}>{versusFriend && versusFriend.get('username') || 'opponent'}'s turn</div>}
         </div>
