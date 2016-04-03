@@ -100,25 +100,33 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   touch-action: manipulation;
 }
 .versusGridContainer, .viewerGridContainer {
-  transition: all 500ms cubic-bezier(0.18, 0.89, 0.32, 1.1);
+  //transition: all 500ms cubic-bezier(0.18, 0.89, 0.32, 1.1);
+  transition: opacity 150ms ease-in-out;
 }
 .viewerGridContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
   //transition-delay: 3s;
-  transform: scale(.8);
+  transform: scale(.5);
+  opacity: .5;
+  transform-origin: top right;
+  margin-top: 10px;
 }
 .versusGridContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
   //transition-delay: 3s;
 }
 
 .versusGridWaiting {
   opacity: .5;
   transition-delay: 0s;
-  transform: scale(0.8) translate(0px, 125%);
 }
 .viewerGridWaiting {
   opacity: 1;
   transition-delay: 0s;
-  transform: scale(1) translate(0px, -100%);
 }
 
 .cell {
