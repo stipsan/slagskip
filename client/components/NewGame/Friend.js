@@ -3,6 +3,7 @@ import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 import Avatar from 'react-user-avatar'
 import style from './style.scss'
+import TimeAgo from 'react-timeago'
 
 const defaultColors = [
   '#1abc9c',
@@ -27,6 +28,11 @@ const defaultColors = [
   '#7f8c8d'
 ]
 
+const timeAgoFormatter = (value, unit) => {
+  const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
+  return `${value} ${formattedUnit}`
+}
+
 class Friend extends Component {
   
   shouldComponentUpdate = shouldComponentUpdate
@@ -41,7 +47,11 @@ class Friend extends Component {
       <span className={online ? style.avatarOnline : style.avatar}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
-      <span className={style.username}>{friend.get('username')}</span>
+      <span className={style.username}>
+      {friend.get('username')}
+      {friend.has('description') && <small>{friend.get('description')}</small>}
+      {!online && friend.has('lastVisit') && <small><TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} /></small>}
+      </span>
       <span className={style.startGame}>❯</span>
     </Link>
   }
