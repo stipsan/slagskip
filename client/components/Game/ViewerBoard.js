@@ -48,11 +48,10 @@ class ViewerBoard extends Component {
   render() {
     const { board, grid, turns, versus, score, isViewerTurn } = this.props
     
-    return <div>
-      <h6 className={style.header}>{versus && versus.get('username') || 'Their'}'s score: {score}</h6>
-      <div className={classNames(versusGridClassName, {
-        [versusGridWaitingClassName]: isViewerTurn
-      })}>
+    return <div className={classNames(style.viewerGridContainer, {
+      [style.viewerGridWaiting]: !isViewerTurn
+    })}>
+      <div className={versusGridClassName}>
         {grid.map((cell, index) => <Cell key={index} type={board.getIn(['grid', index])} index={index} cellActive={false} cell={cell} />)}
       </div>
     </div>
