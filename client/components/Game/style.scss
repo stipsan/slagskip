@@ -58,6 +58,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
 }
 .sendButton {
   composes: button is-success from '../../style/_bulma.scss';
+  touch-action: manipulation;
 }
 
 .versusGrid {
@@ -71,6 +72,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   transition: all 150ms ease;
   box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1), inset -1px -1px 0 hsla(0, 0%, 0%, .1);
   overflow: hidden;
+  touch-action: manipulation;
 }
 .versusGridWaiting {
   opacity: .5;
