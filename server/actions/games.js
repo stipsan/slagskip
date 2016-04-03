@@ -28,7 +28,7 @@ export const gamesRequest = (
 
         if(game.scores.indexOf(21) !== -1) {
           if(isViewerFirst) {
-            gameState = game.scores[0] === 21 ? 'victory' : 'defeat'
+            gameState = game.scores[0] === 21 && game.scores[1] !== 21 ? 'victory' : 'defeat'
           } else {
             gameState = game.scores[1] === 21 ? 'victory' : 'defeat'
           }

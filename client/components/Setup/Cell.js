@@ -30,7 +30,7 @@ class Cell extends Component {
       connectDropTarget,
     } = this.props
     
-    console.log(this.props.value)
+    //console.log(this.props.value)
     
     return connectDropTarget(<div className={className(cellClassName, {
       [cellActiveClassName]: value > 0,
