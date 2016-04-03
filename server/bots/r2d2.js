@@ -32,8 +32,9 @@ const R2D2 = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot)
   let pendingMoves = []
   let botSelectedCell = false
   while(lookForAvailableSpot) {
-    let randomSpot = smartGuess !== false && smartGuess || Math.floor(Math.random() * 100)
-    if(turnsPlayedByBot.indexOf(randomSpot) === -1) {
+    
+    let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess || Math.floor(Math.random() * 100)
+    if(turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
       botSelectedCell = randomSpot
       const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
       pendingMoves.push(botSelectedCell)
