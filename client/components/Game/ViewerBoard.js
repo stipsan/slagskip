@@ -24,7 +24,7 @@ class Cell extends Component {
   render() {
     const { index, cell, cellActive, type } = this.props
 
-    return <div onClick={this.handleSelectCell} className={classNames(
+    return <div onClick={this.handleSelectCell} id={`index-${index}`} className={classNames(
       cellClassName,
       {
         [cellRemainingClassName]: cell === -1,
