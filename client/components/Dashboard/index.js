@@ -44,9 +44,9 @@ class Dashboard extends Component {
               <li className={classNames({
                 [style.isActive]: !isFriendsTabActive
                })}><Link to="/">Games</Link></li>
-              <li className={classNames({
+              {/*<li className={classNames({
                 [style.isActive]: isFriendsTabActive
-               })}><Link to="/friends">Friends</Link></li>
+              })}><Link to="/friends">Friends</Link></li>*/}
             </ul>
           </div>
           {children}
