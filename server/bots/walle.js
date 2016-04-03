@@ -5,7 +5,7 @@ const WallE = (botToken, getState, turnsPlayedByBot) => {
   let botSelectedCell = false
   while(lookForAvailableSpot) {
     let randomSpot = Math.floor(Math.random() * 100)
-    if(turnsPlayedByBot.indexOf(randomSpot) === -1) {
+    if(turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
       botSelectedCell = randomSpot
       const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
       pendingMoves.push(botSelectedCell)
