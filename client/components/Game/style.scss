@@ -54,7 +54,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
 }
 .state {
   composes: title is-5 from '../../style/_bulma.scss';
-  height: 40px;
+  height: 30px;
 }
 .sendButton {
   composes: button is-success from '../../style/_bulma.scss';
