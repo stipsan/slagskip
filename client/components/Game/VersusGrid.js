@@ -50,8 +50,8 @@ class VersusGrid extends Component {
   
   render() {
     const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score, gameState } = this.props
-console.log(gameState)
-    return <div>
+
+    return <div className={style.versusGridContainer}>
       <h5 className={style.state}>{isViewerTurn && gameState !== 'waiting' && (selectedCell === -1 ? 'Select a spot' : <span>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></span>)}</h5>
       <h6 className={style.header}>Your score: {score}</h6>
       <div className={classNames(versusGridClassName, {

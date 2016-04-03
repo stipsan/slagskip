@@ -85,17 +85,17 @@ export const saveTurn = (authToken, gameId, turn, redis) => {
     
     turns.push(turn)
     
-    const scores = turns.reduce((previousScores, turn) => {
+    const scoresSets = turns.reduce((previousScores, turn) => {
       // Versus opponent moves
-      if(turn.id === players[0]) {
-        previousScores[0] += Number(turn.hit)
-      } else {
-        previousScores[1] += Number(turn.hit)
+      if(turn.id === players[0] && turn.hit) {
+        previousScores[0].add(turn.index)
+      } else if(turn.id === players[1] && turn.hit) {
+        previousScores[1].add(turn.index)
       }
       
       return previousScores
-    }, [0,0])
-    
+    }, [new Set(),new Set()])
+    const scores = [scoresSets[0].size, scoresSets[1].size]
     return redis.hset(`game:${gameId}`, 'state', JSON.stringify([players, boards, turns, scores]))      
   })
   .then(() => redis.hgetall(`game:${gameId}`))

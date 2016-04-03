@@ -12,6 +12,7 @@ import {
   FIRE_CANNON_REQUEST,
   FIRE_CANNON_SUCCESS,
   JOIN_GAME_SUCCESS,
+  FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
 import { fromJS } from 'immutable'
 import { board } from './board'
@@ -93,7 +94,6 @@ export const game = (state = initialState, action) => {
         versusScore: action.versusScore,
       })
       .update(state => {
-        console.log('state', state.get('turns'))
         return state.get('turns').reduce((previousState, turn) => {
           // Versus opponent moves
           if(turn.get('id') === state.get('versus')) {
@@ -145,6 +145,12 @@ export const game = (state = initialState, action) => {
       .setIn(['versusGrid', action.turn.index], Number(action.turn.hit))
       .set('viewerScore', action.viewerScore)
       .set('gameState', action.viewerScore === 21 ? 'victory' : state.get('gameState'))
+    case FIRE_CANNON_FAILURE:
+      // @TODO here be a side-effect
+      if(state.get('gameState') === 'failed') location.reload()
+      return state
+        .set('gameState', 'failed')
+        .set('reasonFailed', action.error.message)
   case FIRE_CANNON_REQUEST:
     return state.set('selectedCell', -1)
   default:
