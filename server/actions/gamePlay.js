@@ -238,7 +238,8 @@ export const fireCannon = (
         
         if(turnsPlayedByBot.length === 99) return false // game over
         
-        const botTurns = getBotTurns(botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot)
+        const viewerBoard = getState().getIn(['match', 'viewerBoard'])
+        const botTurns = getBotTurns(botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot, viewerBoard)
                 
         botTurns.forEach((botTurn, index) => {
           // lets timeout the response so the user is able to notice the bot already responded
