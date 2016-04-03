@@ -33,14 +33,18 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
   turnsPlayedByBot.forEach(turnIndex => {
     continuePreviousHits.delete(turnIndex)
   })
-  const guessPool = [...continuePreviousHits]
-  const smartGuess = guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false
   
   let lookForAvailableSpot = true
   let botTurns = []
   let pendingMoves = []
   let botSelectedCell = false
   while(lookForAvailableSpot) {
+    
+    const guessPool = [...continuePreviousHits]
+    const smartGuess = guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false
+    if(smartGuess) {
+      continuePreviousHits.delete(smartGuess)
+    }
     
     let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess || Math.floor(Math.random() * 100)
     if(turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
