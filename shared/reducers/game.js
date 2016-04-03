@@ -94,7 +94,6 @@ export const game = (state = initialState, action) => {
         versusScore: action.versusScore,
       })
       .update(state => {
-        console.log('state', state.get('turns'))
         return state.get('turns').reduce((previousState, turn) => {
           // Versus opponent moves
           if(turn.get('id') === state.get('versus')) {
