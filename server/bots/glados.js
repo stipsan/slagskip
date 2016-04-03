@@ -37,7 +37,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
       (guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false)
     //console.log(smartGuess, Math.floor(Math.random() * 20) < turnsPlayedByBot.length)
     let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess
-    if(smartGuess === false) {
+    if(randomSpot === false) {
       randomSpot = Math.floor(Math.random() * 100)
     }
     if(turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
