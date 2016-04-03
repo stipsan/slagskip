@@ -51,6 +51,10 @@ const createCoordinates = (rotated, startIndex, itemType, [, ...itemState]) => {
   return coordinates
 }
 
+const getRandomRotated = () => {
+  return Math.floor(Math.random()*1)
+}
+
 const addItem = (state, action) => {
   // basic validation
   if(validateStartPosition(action.position)) {
@@ -216,6 +220,7 @@ export const board = (state = initialState, action) => {
     return state.merge(action.board)
   case RANDOM_ITEMS:
   
+    const getRotated = action.getRotated || getRandomRotated
     let newRandomState = state
     let keys = [...state.get('items').keys()]
     let m = true
@@ -229,7 +234,7 @@ export const board = (state = initialState, action) => {
 
       let randomX = Math.floor(Math.random() * 9)
       let randomY = Math.floor(Math.random() * 9)
-      let randomRotated = Math.floor(Math.random()*1)
+      let randomRotated = getRotated()
 
       newRandomState = addItem(newRandomState, {
         item: randomKey,

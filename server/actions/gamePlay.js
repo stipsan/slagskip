@@ -103,7 +103,7 @@ export const newGame = (
         const botToken = {
           id: action.versus
         }
-        const botBoard = boardReducer(undefined, { type: RANDOM_ITEMS })
+        const botBoard = boardReducer(undefined, { type: RANDOM_ITEMS, getRotated: bots[action.versus].getRotated })
         
         return database.joinGame(botToken, gameId, botBoard.toJS(), redis)
           .then(game => {
@@ -226,7 +226,7 @@ export const fireCannon = (
       
       if(bots.hasOwnProperty(game.players[1]) && hit === 0 && game.scores[0] < 21) {
         
-        const getBotTurns = bots[game.players[1]]
+        const getBotTurns = bots[game.players[1]].getTurns
         const botToken = { id: game.players[1] }
         console.log('starting bot turn', botToken)
         let turnsPlayedByBot = game.turns.reduce((turnsByBot, turn) => {

@@ -7,25 +7,34 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
     if(turnIndex > 9) {
         continuePreviousHits.add(turnIndex - 10)
     }
+    if(turnIndex > 19) {
+        continuePreviousHits.add(turnIndex - 20)
+    }
     if((turnIndex % 10) < 9) {
         continuePreviousHits.add(turnIndex + 1)
+    }
+    if((turnIndex % 10) < 8) {
+        continuePreviousHits.add(turnIndex + 2)
     }
     if(turnIndex < 90) {
         continuePreviousHits.add(turnIndex + 10)
     }
+    if(turnIndex < 80) {
+        continuePreviousHits.add(turnIndex + 20)
+    }
     if((turnIndex % 10) > 0) {
         continuePreviousHits.add(turnIndex - 1)
     }
+    if((turnIndex % 10) > 1) {
+        continuePreviousHits.add(turnIndex - 2)
+    }
   })
-  console.log('before cleanup', [...continuePreviousHits])
   // remove already played turns
   turnsPlayedByBot.forEach(turnIndex => {
     continuePreviousHits.delete(turnIndex)
   })
-  console.log('after cleanup', [...continuePreviousHits])
   const guessPool = [...continuePreviousHits]
   const smartGuess = guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false
-  console.log('smartGuess', smartGuess, guessPool)
   
   let lookForAvailableSpot = true
   let botTurns = []
@@ -146,8 +155,10 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
   return botTurns
 }
 
-const R2D2 = {
-  getTurns
+const K9 = {
+  getTurns,
+  // k9 loves to have everything in vertical
+  getRotated: () => Math.floor(Math.random() * 100) > 20,
 }
 
-export default R2D2
+export default K9
