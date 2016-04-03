@@ -1,5 +1,10 @@
 @import '../../style/_bulma';
 
+:global #app {
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
 .enter, .appear {
   opacity: 0.01;
   position: absolute;

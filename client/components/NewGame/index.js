@@ -58,6 +58,7 @@ class NewGame extends Component {
           </div>
         </header>
         <div className={style.container}>
+          <p className={style.tip}>Wall-E is a very friendly robot, he will let you win. R2-D2 is a <em>bit</em> tougher.</p>
           <h4 className={style.heading}>Bots</h4>
           {bots.toArray().map(bot => <Friend key={bot.get('id')} friend={bot} />)}
         </div>

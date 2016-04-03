@@ -53,7 +53,7 @@ class ViewerBoard extends Component {
       <div className={classNames(versusGridClassName, {
         [versusGridWaitingClassName]: isViewerTurn
       })}>
-        {grid.map((cell, index) => <Cell key={index} type={board.getIn(['grid', index])} isViewerTurn={isViewerTurn} index={index} cellActive={false} cell={cell} />)}
+        {grid.map((cell, index) => <Cell key={index} type={board.getIn(['grid', index])} index={index} cellActive={false} cell={cell} />)}
       </div>
     </div>
   }
