@@ -1,4 +1,4 @@
-const WallE = (botToken, getState, turnsPlayedByBot) => {
+const getTurns = (botToken, getState, turnsPlayedByBot) => {
   let lookForAvailableSpot = true
   let botTurns = []
   let pendingMoves = []
@@ -115,6 +115,10 @@ const WallE = (botToken, getState, turnsPlayedByBot) => {
   }
   
   return botTurns
+}
+
+const WallE = {
+  getTurns
 }
 
 export default WallE
