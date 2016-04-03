@@ -31,18 +31,12 @@ var plugins = process.env.NODE_ENV === 'production' ? [
   }),
   new webpack.optimize.UglifyJsPlugin({
     screw_ie8: true,
-    wrap: true,
     compress: {
       unsafe: true, // could use Bugsnag in case we get trouble when live
       drop_console: true,
       warnings: false,
     },
-    mangle: {
-      toplevel: true,
-      eval: true,
-    },
     comments: false,
-    mangleProps: true,
   }),
 ] : [
   new webpack.HotModuleReplacementPlugin(),
