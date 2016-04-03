@@ -5,6 +5,9 @@
   margin-left: 0;
   margin-right: 0;
 }
+.tip {
+  composes: message from '../../style/_bulma.scss';
+}
 .headerItem {
   composes: column is-flex from '../../style/_bulma.scss';
   align-items: center;

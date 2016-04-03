@@ -36,7 +36,8 @@ class GameRow extends Component {
     const { game, friends, bots } = this.props
     const friend = friends.get(game.get('versus')) ||
       bots.find(bot => bot.get('id') === game.get('versus'))
-    const username = friend && friend.get('username') 
+    const username = friend && friend.get('username')
+    const avatar = friend && friend.get('avatar') 
     
     if(!username) return false
     
@@ -66,12 +67,12 @@ class GameRow extends Component {
     if(gameState === 'ready' && !game.get('isViewerTurn')) {
       title = `Waiting for ${username} to make a move`
     }
-    console.log(gameState)
+    console.log(gameState, avatar, username)
     return <Link to={`/${setupOrPlay}/${id}`} className={classNames(style.game, {
       [style.gameWaiting]: gameState === 'setup' || gameState === 'ready'
     })}>
       <span className={online ? style.avatarOnline : style.avatar}>
-        <Avatar colors={defaultColors} size="39" name={username} />
+        <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
       <span className={style.username}>{title}</span>
       <span className={style.startGame}>❯</span>

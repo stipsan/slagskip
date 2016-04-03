@@ -97,7 +97,7 @@ export const newGame = (
     .then(gameId => {
       invariant(gameId, 'Failed to create new game')
 
-      // We have a game versus a bot!
+      // We have a game versus Wall-E!
       if(action.versus === '-1') {
         const botToken = {
           id: "-1"
