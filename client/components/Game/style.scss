@@ -38,27 +38,52 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   );
 }
 
-.section {
-  composes: section from '../../style/_section.scss';
-  color: #263238;  
-}
-
-.header {
-  composes: tag is-primary from '../../style/_bulma.scss';
+.scores {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  composes: columns is-mobile is-text-centered from '../../style/_bulma.scss';
+}
+.score {
+  composes: column from '../../style/_bulma.scss';
+}
+.header {
+  composes: heading from '../../style/_bulma.scss';
+}
+.viewerScore {
+  font-size: 1.2em;
+  break: both;
+  composes: tag is-primary from '../../style/_bulma.scss';
+}
+.versusScore {
+  font-size: 1.2em;
+  composes: tag is-danger from '../../style/_bulma.scss';
 }
 .navbar {
-  composes: subtitle from '../../style/_bulma.scss';
+  composes: columns is-mobile from '../../style/_bulma.scss';
   font-size: 16px;
+  min-height: 16px;
 }
+.navbarTitle {
+  composes: column is-8 is-text-centered from '../../style/_bulma.scss';
+}
+
 .state {
-  composes: title is-5 from '../../style/_bulma.scss';
-  height: 30px;
+  composes: title is-6 from '../../style/_bulma.scss';
+  min-height: 30px;
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px!important;
+  margin-top: 20px;
 }
 .sendButton {
   composes: button is-success from '../../style/_bulma.scss';
   touch-action: manipulation;
+  float: right;
+  transform: translateY(-4px);
 }
 
 .versusGrid {
@@ -74,9 +99,26 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   overflow: hidden;
   touch-action: manipulation;
 }
+.versusGridContainer, .viewerGridContainer {
+  transition: all 500ms cubic-bezier(0.18, 0.89, 0.32, 1.1);
+}
+.viewerGridContainer {
+  //transition-delay: 3s;
+  transform: scale(.8);
+}
+.versusGridContainer {
+  //transition-delay: 3s;
+}
+
 .versusGridWaiting {
   opacity: .5;
-  transform: scale(.9);
+  transition-delay: 0s;
+  transform: scale(0.8) translate(0px, 125%);
+}
+.viewerGridWaiting {
+  opacity: 1;
+  transition-delay: 0s;
+  transform: scale(1) translate(0px, -100%);
 }
 
 .cell {
@@ -134,15 +176,15 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   position: relative;
   padding-left: 30px;
   padding-right: 30px;
+  padding-top: 10px;
 }
 .backLink {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  composes: column is-2 from '../../style/_bulma.scss';
   color: inherit;
   padding-left: 2px;
   padding-right: 2px;
   text-decoration: none;
+  white-space: nowrap;
 }
 .cellRemaining {
   opacity: .8;
@@ -150,44 +192,34 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
 .cellTransition {
   transition: all 150ms ease;
 }
-.cellXL {
+
+.cellXL, .cellL , .cellM, .cellS , .cellXS {
   composes: cellTransition;
   opacity: .3;
-  @include gradient($xl-color);
   &.cellJackpot {
     opacity: 1;
   }
 }
-.cellL {
-  composes: cellTransition;
-  opacity: .3;
-  filter: grayscale(0%);
-  @include gradient($l-color);
-  &.cellJackpot {
-    opacity: 1;
+.viewerGridContainer {
+  .cellXL, .cellL , .cellM, .cellS , .cellXS {
+    @include gradient($danger);
   }
+  
 }
-.cellM {
-  composes: cellTransition;
-  opacity: .3;
-  @include gradient($m-color);
-  &.cellJackpot {
-    opacity: 1;
+.viewerGridContainer:active {
+  .cellXL {
+    @include gradient($xl-color);
   }
-}
-.cellS {
-  composes: cellTransition;
-  opacity: .3;
-  @include gradient($s-color);
-  &.cellJackpot {
-    opacity: 1;
+  .cellL {
+    @include gradient($l-color);
   }
-}
-.cellXS {
-  composes: cellTransition;
-  opacity: .3;
-  @include gradient($xs-color);
-  &.cellJackpot {
-    opacity: 1;
+  .cellM {
+    @include gradient($m-color);
+  }
+  .cellS {
+    @include gradient($s-color);
+  }
+  .cellXS {
+    @include gradient($xs-color);
   }
 }
