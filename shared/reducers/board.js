@@ -128,8 +128,10 @@ export const board = (state = initialState, action) => {
     var itemType = getItemType(action.item)
     var item = state.getIn(['items', action.item])
     var startIndex = item.get(1)
-    var coordinates = createCoordinates(action.rotated, startIndex, itemType, item)
-    if(!coordinates) {
+    var rotated = action.rotated || !item.get(0)
+
+    var coordinates = createCoordinates(rotated, startIndex, itemType, item)
+    if(!coordinates || startIndex === -1) {
       return state
     }
   
@@ -147,7 +149,7 @@ export const board = (state = initialState, action) => {
       return state
     }
     
-    state = item.unshift().reduce(
+    state = item.shift().reduce(
       (previousState, previousPosition) => {
         return previousState.setIn(['grid', previousPosition], 0)
       },
@@ -160,7 +162,7 @@ export const board = (state = initialState, action) => {
           .setIn(['items', action.item, index + 1], currentPosition)
           .setIn(['grid', currentPosition], itemType.id)
       },
-      state.setIn(['items', action.item, 0], action.rotated ? 1 : 0)
+      state.setIn(['items', action.item, 0], rotated ? 1 : 0)
     )
   case MOVE_ITEM:
     var itemType = getItemType(action.item)
@@ -199,7 +201,7 @@ export const board = (state = initialState, action) => {
           .setIn(['items', action.item, index + 1], currentPosition)
           .setIn(['grid', currentPosition], itemType.id)
       },
-      state.setIn(['items', action.item, 0], action.rotated ? 1 : 0)
+      state.setIn(['items', action.item, 0], rotated)
     )
   case REMOVE_ITEM:
     var itemType = getItemType(action.item)

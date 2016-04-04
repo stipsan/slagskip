@@ -3,6 +3,7 @@ import className from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { DragLayer } from 'react-dnd'
+import { XL, L, M, S, XS } from './index'
 import {
   xl,
   l,
@@ -36,10 +37,20 @@ const types = {
   xs1,
   xs2,
 }
+const typeToComponent = {
+  xl: XL,
+  l: XL,
+  m1: XL,
+  m2: XL,
+  s1: XL,
+  s2: XL,
+  xs1: XL,
+  xs2: XL
+}
 
 const itemSource = {
   beginDrag(props) {
-    return {}
+    return props
   }
 }
 
@@ -50,6 +61,7 @@ function collect(monitor) {
         id: item && item.id,
         name: item && item.name,
         type: item && item.type,
+        rotated: item && item.rotated,
         currentOffset: monitor.getSourceClientOffset(),
         isDragging: monitor.isDragging()
     };
@@ -91,16 +103,36 @@ class ItemPreview extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
+  
+  renderItem(type, rotated) {
+    switch(type) {
+      case 'xl':
+        return <XL rotated={rotated} />
+      case 'l':
+        return <L rotated={rotated} />
+      case 'm1':
+      case 'm2':
+        return <M rotated={rotated} />
+      case 's1':
+      case 's2':
+        return <S rotated={rotated} />
+      case 'xs1':
+      case 'xs2':
+        return <XS rotated={rotated} />
+    }
+  }
+  
   render() {
     
+    const { type, rotated } = this.props
     
-    
+    console.log('drag preview component', type, rotated)
     return <div style={layerStyles}>
         <div
-            className={className(itemPreview, types[this.props.type])}
+            className={className(itemPreview)}
             style={getItemStyles(this.props.currentOffset)}
         >
-            {this.props.id} {this.props.name}
+          {this.renderItem(type, rotated)}
         </div>
     </div>;
   }

@@ -4,42 +4,45 @@ $border-color: rgb(141, 200, 80);
 $active-color: rgb(152, 251, 152);
 
 .header {
-  composes: columns is-mobile from '../../style/_bulma.scss';
-  margin-left: 0;
-  margin-right: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 .headerItem {
-  composes: column is-flex from '../../style/_bulma.scss';
-  align-items: center;
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  flex-basis: 0%;
+  white-space: nowrap;
+  flex-grow: 1;
+  align-self: flex-start;
 }
 .headerLeft {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
-  text-align: left !important;
+  text-align: left;
+  
+  & > * {
+    margin-left: .6rem;
+  }
 }
 .headerCenter {
-  composes: headerItem;
-  text-align: center !important;
-  white-space: nowrap;
+  text-align: center;
+  word-break: break-word;
 }
 .headerRight {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
-  text-align: right !important;
-  width: auto!important;
+  text-align: right;
+  & > * {
+    margin-right: .6rem;
+  }
 }
 
 .linkToPrevous {
-  flex: 1;
-  text-align: left;
+  composes: button from '../../style/_bulma.scss';
 }
 .headerTitle {
   composes: title is-6 from '../../style/_bulma.scss';
-  flex: 1;
-  width: 50vw;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  text-align: center;
+  word-break: break-word;
   
   & > div {
     display: inline-block;

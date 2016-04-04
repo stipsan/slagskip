@@ -31,9 +31,11 @@
 }
 
 .draggable {
+  touch-action: manipulation;
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
 }
 .item {
   display: flex;
@@ -45,7 +47,15 @@
     width: 10%;
     height: 10vmin;
     width: 10vmin;
+    
+    border: 1px hsla(0, 0%, 0%, .2) solid;
+    //box-shadow: -1px -1px 0 hsla(0, 0%, 0%, .2), 1px 1px 0 hsla(0, 0%, 0%, .2);
+    border-left-width: 0px;
+    border-top-width: 0px;
   }
+}
+.rotated {
+  flex-direction: column;
 }
 
 .XL {

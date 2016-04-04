@@ -40,22 +40,22 @@ export const joinGame = data => {
 
 // @TODO maybe move this to a shared utility
 const indexToCoordinates = index => {
-  const y = Math.floor( startIndex / 10 )
-  const x = startIndex - ( y * 10 )
+  const y = Math.floor( index / 10 )
+  const x = index - ( y * 10 )
   return [x, y]
 }
 
-export const addItem = (item, startIndex) => {
+export const addItem = (item, startIndex, y) => {
   return {
     type: ADD_ITEM,
-    position: indexToCoordinates(startIndex),
+    position: y && [startIndex, y] || indexToCoordinates(startIndex),
     item,
   }
 }
-export const moveItem = (item, startIndex) => {
+export const moveItem = (item, startIndex, y) => {
   return {
     type: MOVE_ITEM,
-    position: indexToCoordinates(startIndex),
+    position: y && [startIndex, y] || indexToCoordinates(startIndex),
     item,
   }
 }

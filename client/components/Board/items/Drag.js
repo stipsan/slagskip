@@ -1,6 +1,7 @@
-import { Component, PropTypes } from 'react'
+import { Children, Component, PropTypes } from 'react'
 import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { DragSource } from 'react-dnd'
+import classNames from 'classnames'
 import { indexToCSSTranslate } from '../util'
 import style from '../style.scss'
 
@@ -13,8 +14,8 @@ const defaultStyle = {
 };
 
 const itemSource = {
-  beginDrag({ type, index, defaultIndex, addItem }) {
-    return { type, index, defaultIndex, addItem }
+  beginDrag({ type, index, defaultIndex, rotated, addItem }) {
+    return { type, index, defaultIndex, rotated, addItem }
   }
 };
 
@@ -35,18 +36,23 @@ class Item extends Component {
     top: PropTypes.number.isRequired,
     hideSourceOnDrag: PropTypes.bool.isRequired,
     children: PropTypes.node
-  };
+  }
+  
+  handleRotate = () => {
+    const { type } = this.props
+    this.props.rotateItem(type)
+  }
 
   render() {
-    const { hideSourceOnDrag, type, index, defaultIndex, connectDragSource, isDragging, children } = this.props;
-    if (isDragging && hideSourceOnDrag) {
+    const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props;
+    if (isDragging) {
       return null;
     }
 
-    const CSSTranslate = indexToCSSTranslate(index > -1 ? index : defaultIndex)
+    const CSSTranslate = indexToCSSTranslate(index > -1 ? index : defaultIndex, size, rotated)
 
     return connectDragSource(
-      <div className={style.draggable} style={{ transform: CSSTranslate}}>
+      <div className={classNames(style.draggable, rotated && style.rotated)} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
         {children}
       </div>
     );

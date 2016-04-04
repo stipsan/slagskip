@@ -91,6 +91,8 @@ class Setup extends Component {
       grid,
       items,
       addItem,
+      moveItem,
+      rotateItem,
       username,
       friends,
       routeParams,
@@ -127,42 +129,102 @@ class Setup extends Component {
           </div>
         </header>
         <div className={wrapperClassName}>
-          <SetupCanvas>
+          <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              <Item.Drag type="xl" index={items.getIn(['xl', 1])} defaultIndex={110}>
+              <Item.Drag
+                type="xl"
+                index={items.getIn(['xl', 1])}
+                defaultIndex={120}
+                size={5}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['xl', 0])}
+              >
                 <Item.XL
                   rotated={items.getIn(['xl', 0])}
                 />
               </Item.Drag>
-              <Item.L
-                rotated={items.getIn(['l', 0])}
+              <Item.Drag
+                type="l"
                 index={items.getIn(['l', 1])}
-                defaultIndex={121}
-              />
-              <Item.M
-                rotated={items.getIn(['m1', 0])}
+                defaultIndex={126}
+                size={4}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['l', 0])}
+              >
+                <Item.L
+                  rotated={items.getIn(['l', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="m1"
                 index={items.getIn(['m1', 1])}
-              />
-              <Item.M
-                rotated={items.getIn(['m2', 0])}
+                defaultIndex={115}
+                size={3}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['m1', 0])}
+              >
+                <Item.M
+                  rotated={items.getIn(['m1', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="m2"
                 index={items.getIn(['m2', 1])}
-              />
-              <Item.S
-                rotated={items.getIn(['s1', 0])}
+                defaultIndex={115}
+                size={3}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['m2', 0])}
+              >
+                <Item.M
+                  rotated={items.getIn(['m2', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="s1"
                 index={items.getIn(['s1', 1])}
-              />
-              <Item.S
-                rotated={items.getIn(['s2', 0])}
+                defaultIndex={112}
+                size={2}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['s1', 0])}
+              >
+                <Item.S
+                  rotated={items.getIn(['s1', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="s2"
                 index={items.getIn(['s2', 1])}
-              />
-              <Item.XS
-                rotated={items.getIn(['xs1', 0])}
+                defaultIndex={112}
+                size={2}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['s2', 0])}
+              >
+                <Item.S
+                  rotated={items.getIn(['s2', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="xs1"
                 index={items.getIn(['xs1', 1])}
-              />
-              <Item.XS
-                rotated={items.getIn(['xs2', 0])}
+                defaultIndex={110}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['xs1', 0])}
+              >
+                <Item.XS
+                  rotated={items.getIn(['xs1', 0])}
+                />
+              </Item.Drag>
+              <Item.Drag
+                type="xs2"
                 index={items.getIn(['xs2', 1])}
-              />
+                defaultIndex={110}
+                rotateItem={rotateItem}
+                rotated={items.getIn(['xs2', 0])}
+              >
+                <Item.XS
+                  rotated={items.getIn(['xs2', 0])}
+                />
+              </Item.Drag>
               <Item.DragPreview name="item" />
             </Grid>
           </SetupCanvas>

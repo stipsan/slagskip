@@ -25,11 +25,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addItem: (type, startIndex) => {
-    dispatch(addItem(type, startIndex))
+  addItem: (type, startIndex, y) => {
+    dispatch(addItem(type, startIndex, y))
   },
-  moveItem: (type, startIndex) => {
-    dispatch(moveItem(type, startIndex))
+  moveItem: (type, startIndex, y) => {
+    dispatch(moveItem(type, startIndex, y))
   },
   rotateItem: (type) => {
     dispatch(rotateItem(type))
