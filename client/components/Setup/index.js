@@ -15,6 +15,16 @@ import { Grid, SetupCanvas, Item } from '../Board'
 import Cell from './Cell'
 import Loading from '../Loading'
 
+const {
+  Drag,
+  XL,
+  L,
+  M,
+  S,
+  XS,
+  DragPreview
+} = Item
+
 // @TODO merge duplicated code
 const defaultColors = [
   '#1abc9c',
@@ -131,7 +141,7 @@ class Setup extends Component {
         <div className={wrapperClassName}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              <Item.Drag
+              <Drag
                 type="xl"
                 index={items.getIn(['xl', 1])}
                 defaultIndex={120}
@@ -139,11 +149,11 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['xl', 0])}
               >
-                <Item.XL
+                <XL
                   rotated={items.getIn(['xl', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="l"
                 index={items.getIn(['l', 1])}
                 defaultIndex={126}
@@ -151,11 +161,11 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['l', 0])}
               >
-                <Item.L
+                <L
                   rotated={items.getIn(['l', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="m1"
                 index={items.getIn(['m1', 1])}
                 defaultIndex={115}
@@ -163,11 +173,11 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['m1', 0])}
               >
-                <Item.M
+                <M
                   rotated={items.getIn(['m1', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="m2"
                 index={items.getIn(['m2', 1])}
                 defaultIndex={115}
@@ -175,11 +185,11 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['m2', 0])}
               >
-                <Item.M
+                <M
                   rotated={items.getIn(['m2', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="s1"
                 index={items.getIn(['s1', 1])}
                 defaultIndex={112}
@@ -187,11 +197,11 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['s1', 0])}
               >
-                <Item.S
+                <S
                   rotated={items.getIn(['s1', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="s2"
                 index={items.getIn(['s2', 1])}
                 defaultIndex={112}
@@ -199,33 +209,33 @@ class Setup extends Component {
                 rotateItem={rotateItem}
                 rotated={items.getIn(['s2', 0])}
               >
-                <Item.S
+                <S
                   rotated={items.getIn(['s2', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="xs1"
                 index={items.getIn(['xs1', 1])}
                 defaultIndex={110}
                 rotateItem={rotateItem}
                 rotated={items.getIn(['xs1', 0])}
               >
-                <Item.XS
+                <XS
                   rotated={items.getIn(['xs1', 0])}
                 />
-              </Item.Drag>
-              <Item.Drag
+              </Drag>
+              <Drag
                 type="xs2"
                 index={items.getIn(['xs2', 1])}
                 defaultIndex={110}
                 rotateItem={rotateItem}
                 rotated={items.getIn(['xs2', 0])}
               >
-                <Item.XS
+                <XS
                   rotated={items.getIn(['xs2', 0])}
                 />
-              </Item.Drag>
-              <Item.DragPreview name="item" />
+              </Drag>
+              <DragPreview name="item" />
             </Grid>
           </SetupCanvas>
         </div>
