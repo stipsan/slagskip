@@ -7,6 +7,8 @@ import {
   JOIN_GAME_SUCCESS,
   JOIN_GAME_FAILURE,
   ADD_ITEM,
+  ROTATE_ITEM,
+  MOVE_ITEM,
 } from '../constants/ActionTypes'
 
 export function validateSetup(data) {
@@ -36,13 +38,31 @@ export const joinGame = data => {
   }
 }
 
-export const addItem = (item, startIndex) => {
-  const y = Math.floor( startIndex / 10 )
-  const x = startIndex - ( y * 10 )
-  const position = [x, y]
+// @TODO maybe move this to a shared utility
+const indexToCoordinates = index => {
+  const y = Math.floor( index / 10 )
+  const x = index - ( y * 10 )
+  return [x, y]
+}
+
+export const addItem = (item, startIndex, y) => {
   return {
     type: ADD_ITEM,
+    position: y && [startIndex, y] || indexToCoordinates(startIndex),
     item,
-    position
+  }
+}
+export const moveItem = (item, startIndex, y) => {
+  return {
+    type: MOVE_ITEM,
+    position: y && [startIndex, y] || indexToCoordinates(startIndex),
+    item,
+  }
+}
+
+export const rotateItem = item => {
+  return {
+    type: ROTATE_ITEM,
+    item,
   }
 }
