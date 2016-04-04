@@ -4,6 +4,7 @@ import { authenticate } from './auth'
 export const createUser = (userData, redis) => {
   invariant(userData.username, 'Invalid userData, missing `username` property')
   
+  //const usernameKey = userData.username.toLowerCase()
   return redis.hget('users', userData.username)
     .then(usernameTaken => {
       

@@ -36,7 +36,7 @@ class Cell extends Component {
       [cellActiveClassName]: value > 0,
       [isOverClassName]: isOver,
       [canDropClassName]: canDrop,
-    })} />)
+    })} style={{transform: `translate(${ (index % 10) * 100 }%, ${ (index - (index % 10)) * 10 }%)`}} />)
   }
 }
 

@@ -4,42 +4,45 @@ $border-color: rgb(141, 200, 80);
 $active-color: rgb(152, 251, 152);
 
 .header {
-  composes: columns is-mobile from '../../style/_bulma.scss';
-  margin-left: 0;
-  margin-right: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 .headerItem {
-  composes: column is-flex from '../../style/_bulma.scss';
-  align-items: center;
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  flex-basis: 0%;
+  white-space: nowrap;
+  flex-grow: 1;
+  align-self: flex-start;
 }
 .headerLeft {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
-  text-align: left !important;
+  text-align: left;
+  
+  & > * {
+    margin-left: .6rem;
+  }
 }
 .headerCenter {
-  composes: headerItem;
-  text-align: center !important;
-  white-space: nowrap;
+  text-align: center;
+  word-break: break-word;
 }
 .headerRight {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
-  text-align: right !important;
-  width: auto!important;
+  text-align: right;
+  & > * {
+    margin-right: .6rem;
+  }
 }
 
 .linkToPrevous {
-  flex: 1;
-  text-align: left;
+  composes: button from '../../style/_bulma.scss';
 }
 .headerTitle {
   composes: title is-6 from '../../style/_bulma.scss';
-  flex: 1;
-  width: 50vw;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  text-align: center;
+  word-break: break-word;
   
   & > div {
     display: inline-block;
@@ -68,12 +71,18 @@ $active-color: rgb(152, 251, 152);
   top: 0px;
 }
 .grid {
-  height: 320px;
-  width: 320px;
+  $grid-size: 340px;
+  max-height: $grid-size;
+  max-width: $grid-size;
+  height: 100%;
+  width: 100%;
+  height: 100vmin;
+  width: 100vmin;
   //background: $default-color;
   //border: 1px solid $border-color;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 .yard {
   composes: grid;
@@ -85,15 +94,18 @@ $active-color: rgb(152, 251, 152);
   //border: 1px solid  $border-color;
   background-color: $default-color;
   box-shadow: $border-color 0 0 0 1px, inset $border-color 0 0 0 1px;
-  float: left;
   height: 10%;
   width: 10%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  
 }
 .cellActive {
   //border-color: $active-color;
   box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
   background-color: mix($default-color, $active-color, 66%);
-  position: relative;
+
   z-index: 1;
 }
 
