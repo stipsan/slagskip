@@ -16,6 +16,16 @@ import {
   itemPreview,
 } from './style.scss'
 
+const layerStyles = {
+  position: 'fixed',
+  pointerEvents: 'none',
+  zIndex: 100,
+  left: 0,
+  top: 0,
+  width: '100%',
+  height: '100%'
+};
+
 const types = {
   xl,
   l,
@@ -56,6 +66,7 @@ function getItemStyles (currentOffset) {
     // http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
     var x = currentOffset.x;
     var y = currentOffset.y;
+
     var transform = `translate(${x}px, ${y}px)`;
 
     return {
@@ -80,14 +91,14 @@ class ItemPreview extends Component {
     return shallowCompare(this, nextProps, nextState)
   }
   render() {
-    return (
+    return <div style={layerStyles}>
         <div
             className={className(itemPreview, types[this.props.type])}
             style={getItemStyles(this.props.currentOffset)}
         >
             {this.props.id} {this.props.name}
         </div>
-    );
+    </div>;
   }
 }
 

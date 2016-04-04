@@ -1,11 +1,13 @@
 import { Component } from 'react'
-import { DragDropContext } from 'react-dnd'
-import { default as TouchBackend } from 'react-dnd-touch-backend'
+import { DropTarget, DragDropContext } from 'react-dnd'
+import TouchBackend from 'react-dnd-touch-backend'
+import { BOARD_ITEM } from '../../constants/ItemTypes'
+import style from './style.scss'
 
 class Canvas extends Component {
   render() {
     const { children } = this.props
-    return <div>
+    return <div className={style.setupCanvas}>
       { children }
     </div>
   }

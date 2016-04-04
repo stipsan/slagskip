@@ -11,11 +11,13 @@ import style, {
   yard as yardClassName,
   wrapper as wrapperClassName,
 } from './style.scss'
-import { Grid, SetupCanvas } from '../Board'
+import { Grid, SetupCanvas, Item as ItemTest } from '../Board'
 import Cell from './Cell'
 import Item from './Item'
 import ItemPreview from './ItemPreview'
 import Loading from '../Loading'
+
+console.log(ItemTest)
 
 // @TODO merge duplicated code
 const defaultColors = [
@@ -129,9 +131,17 @@ class Setup extends Component {
           </div>
         </header>
         <div className={wrapperClassName}>
-          <Setup>
+          <SetupCanvas>
             <Grid>
-              
+              <ItemTest.XL rotated={items.getIn(['xl', 0])} index={items.getIn(['xl', 1])} />
+              <ItemTest.L rotated={items.getIn(['l', 0])} index={items.getIn(['l', 1])} />
+              <ItemTest.M1 rotated={items.getIn(['m1', 0])} index={items.getIn(['m1', 1])} />
+              <ItemTest.M2 rotated={items.getIn(['m2', 0])} index={items.getIn(['m2', 1])} />
+              <ItemTest.S1 rotated={items.getIn(['s1', 0])} index={items.getIn(['s1', 1])} />
+              <ItemTest.S2 rotated={items.getIn(['s2', 0])} index={items.getIn(['s2', 1])} />
+              <ItemTest.XS1 rotated={items.getIn(['xs1', 0])} index={items.getIn(['xs1', 1])} />
+              <ItemTest.XS2 rotated={items.getIn(['xs2', 0])} index={items.getIn(['xs2', 1])} />
+              {JSON.stringify(items.toJS())}
               {items.filter(item => item.get(1) === -1).map((item, type) => <Item
                 key={type}
                 type={type}
@@ -140,7 +150,7 @@ class Setup extends Component {
               />)}
               <ItemPreview name="item" />
             </Grid>
-          </Setup>
+          </SetupCanvas>
         </div>
         <div></div>
       </section>

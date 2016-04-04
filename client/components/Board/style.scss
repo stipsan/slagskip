@@ -1,7 +1,22 @@
+@import '../../style/_config';
 
+@mixin gradient($color) {
+  //176  75  49
+  //186  65  59
+  //196  70  64
+  background-image: linear-gradient(
+    141deg,
+    adjust-color($color, $hue: -10deg, $saturation: 10%, $lightness: -10%) 0%,
+    $color 71%,
+    adjust-color($color, $hue: 10deg, $saturation: 5%, $lightness: 5%) 100%
+  );
+}
+
+.setupCanvas {
+  
+}
 
 .grid {
-  $grid-size: 340px;
   max-height: $grid-size;
   max-width: $grid-size;
   height: 100%;
@@ -14,4 +29,56 @@
   margin-right: auto;
   position: relative;
   box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1), inset -1px -1px 0 hsla(0, 0%, 0%, .1);
+}
+
+.item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+
+  div {
+    max-height: $grid-size / 10;
+    max-width: $grid-size / 10;
+    height: 10%;
+    width: 10%;
+    height: 10vmin;
+    width: 10vmin;
+  }
+}
+
+.XL {
+  composes: item;
+  
+  div {
+    @include gradient($xl-color);
+  }
+}
+.L {
+  composes: item;
+  
+  div {
+    @include gradient($l-color);
+  }
+}
+.M {
+  composes: item;
+  
+  div {
+    @include gradient($m-color);
+  }
+}
+.S {
+  composes: item;
+  
+  div {
+    @include gradient($s-color);
+  }
+}
+.XS {
+  composes: item;
+  
+  div {
+    @include gradient($xs-color);
+  }
 }

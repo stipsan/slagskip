@@ -1,5 +1,13 @@
 import { connect } from 'react-redux'
-import { addItem, fetchFriends, newGame, loadGame, joinGame } from '../actions'
+import {
+  addItem,
+  moveItem,
+  rotateItem,
+  fetchFriends,
+  newGame,
+  loadGame,
+  joinGame
+} from '../actions'
 import Setup from '../components/Setup'
 
 const mapStateToProps = state => ({
@@ -19,6 +27,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addItem: (type, startIndex) => {
     dispatch(addItem(type, startIndex))
+  },
+  moveItem: (type, startIndex) => {
+    dispatch(moveItem(type, startIndex))
+  },
+  rotateItem: (type) => {
+    dispatch(rotateItem(type))
   },
   loadGame: id => {
     dispatch(loadGame(id))
