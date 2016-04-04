@@ -1,7 +1,7 @@
 import { Component, PropTypes } from 'react'
 import className from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
-import { BOARD_ITEM } from '../../constants/ItemTypes'
+import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { DragLayer } from 'react-dnd'
 import {
   xl,
@@ -14,7 +14,7 @@ import {
   xs2,
   isDragging,
   itemPreview,
-} from './style.scss'
+} from '../style.scss'
 
 const layerStyles = {
   position: 'fixed',
@@ -106,4 +106,4 @@ class ItemPreview extends Component {
   }
 }
 
-export default DragLayer(collect)(ItemPreview)
+export const DragPreview = DragLayer(collect)(ItemPreview)

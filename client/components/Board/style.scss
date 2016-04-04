@@ -13,28 +13,29 @@
 }
 
 .setupCanvas {
-  
-}
-
-.grid {
   max-height: $grid-size;
   max-width: $grid-size;
   height: 100%;
   width: 100%;
   height: 100vmin;
   width: 100vmin;
-  //background: $default-color;
-  //border: 1px solid $border-color;
   margin-left: auto;
   margin-right: auto;
+}
+
+.grid {
+  height: 100%;
+  width: 100%;
   position: relative;
   box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1), inset -1px -1px 0 hsla(0, 0%, 0%, .1);
 }
 
-.item {
+.draggable {
   position: absolute;
   top: 0;
   left: 0;
+}
+.item {
   display: flex;
 
   div {
