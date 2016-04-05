@@ -32,7 +32,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
   while(lookForAvailableSpot) {
     //console.log(turnsPlayedByBot.length, validPositions)
     const guessPool = [...continuePreviousHits]
-    const smartGuess = Math.floor(Math.random() * 20) < turnsPlayedByBot.length ?
+    const smartGuess = Math.floor(Math.random() * 30) < turnsPlayedByBot.length ?
       validPositions[Math.floor(Math.random() * validPositions.length)] : 
       (guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false)
     //console.log(smartGuess, Math.floor(Math.random() * 20) < turnsPlayedByBot.length)
