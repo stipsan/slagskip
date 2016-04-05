@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
 import Avatar from 'react-user-avatar'
-
+import { shuffle } from 'lodash'
 import classNames from 'classnames'
 
 import style, {
@@ -60,7 +60,32 @@ const types = [
   ['xs2', 1, <XS />],
 ]
 
-const getDefaultIndex = (type, items, size) => {
+const incDefaultIndex = (previousIndex, type, items, size) => {
+
+  if(items.getIn([type, 1]) !== -1) {
+    return [previousIndex, 0]
+  }
+
+  const nextIndex = previousIndex + size
+
+  const previousRemainder = previousIndex % 10
+  const nextRemainder = previousRemainder + size
+  if(nextRemainder > 8) console.warn('shit', type, (Math.floor(nextIndex / 10) * 10) + 11, nextRemainder)
+  console.log('test', type, nextRemainder, previousRemainder > nextRemainder, nextIndex + nextRemainder)
+  const incrementedIndex = nextRemainder > (10 - size) ?
+    previousIndex + (nextRemainder - 8) :
+    previousIndex
+  return [incrementedIndex, size]
+  const sanitizedIndex = incrementedIndex + (
+    incrementedIndex % 10 < 1 ?
+    1 :
+    incrementedIndex % 10 > 8 ? 
+    2 :
+    0
+  )
+
+  return sanitizedIndex
+  /*
   
   let defaultIndex = 111
   let insertOffset = 0
@@ -108,16 +133,15 @@ const getDefaultIndex = (type, items, size) => {
       defaultIndex += items.getIn(['xl', 1]) === -1 ? 5 : 0
     case 'xs1':
       defaultIndex += items.getIn(['s2', 1]) === -1 ? 2 : 0
-    //*/
+    
     default:
       defaultIndex += defaultIndex % 10 > 8 ? 1 : 0
       defaultIndex += defaultIndex % 10 < 1 ? 1 : 0
   }
   
-  
-  
   console.log('offset', defaultIndex % 10, 'type', type, 'items', items, 'size', size, 'defaultIndex', defaultIndex)
   return defaultIndex
+  */
 }
 
 class Setup extends Component {
@@ -140,6 +164,10 @@ class Setup extends Component {
   
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
+  }
+  
+  componentWillMount() {
+    this.types = shuffle(types)
   }
   
   componentDidMount() {
@@ -192,6 +220,8 @@ class Setup extends Component {
     const startGameButtonClassName = classNames(style.startGame, {
       [style.startGameDisabled]: !isValid
     })
+    
+    let defaultIndex = 111
 
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
@@ -212,12 +242,14 @@ class Setup extends Component {
         <div className={wrapperClassName}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              {types.map(([type, size, component], index) => {
+              {this.types.map(([type, size, component], index) => {
+                const [previousIndex, nextSize] = incDefaultIndex(defaultIndex, type, items, size)
+                defaultIndex += nextSize
                 return <Drag
                   key={type}
                   type={type}
                   index={items.getIn([type, 1])}
-                  defaultIndex={getDefaultIndex(type, items, size)}
+                  defaultIndex={previousIndex}
                   size={size}
                   rotateItem={rotateItem}
                   rotated={items.getIn([type, 0])}
