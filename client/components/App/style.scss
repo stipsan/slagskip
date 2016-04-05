@@ -1,7 +1,9 @@
 @import '../../style/_bulma';
 
 :global #app {
-  min-height: 100vh;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-color: #f5f7fa;
 }
 

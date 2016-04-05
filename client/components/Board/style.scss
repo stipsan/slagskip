@@ -36,6 +36,10 @@
   top: 0;
   left: 0;
   display: flex;
+  transition: all 300ms;
+}
+.dropped {
+  transition: none;
 }
 .item {
   display: flex;
@@ -54,7 +58,7 @@
     border-top-width: 0px;
   }
 }
-.rotated {
+.rotated, .draggable.rotated .item  {
   flex-direction: column;
 }
 
