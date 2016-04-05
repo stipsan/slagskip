@@ -49,10 +49,11 @@ class Item extends Component {
       return null;
     }
 
-    const CSSTranslate = indexToCSSTranslate(index > -1 ? index : defaultIndex, size, rotated)
+    const dropped = index > -1
+    const CSSTranslate = indexToCSSTranslate(dropped ? index : defaultIndex, size, rotated)
 
     return connectDragSource(
-      <div className={classNames(style.draggable, rotated && style.rotated)} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
+      <div className={classNames(style.draggable, rotated && style.rotated, dropped && style.dropped)} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
         {children}
       </div>
     );

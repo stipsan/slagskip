@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { Link } from 'react-router'
 import style from './style.scss'
 import { logoutUser } from '../../actions'
+import Navbar from '../Navbar'
 
 class Dashboard extends Component {
   

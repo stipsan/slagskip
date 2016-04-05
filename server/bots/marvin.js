@@ -31,7 +31,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
   let botSelectedCell = false
   while(lookForAvailableSpot) {
     const guessPool = [...continuePreviousHits]
-    const smartGuess = Math.floor(Math.random() * 60) < turnsPlayedByBot.length ?
+    const smartGuess = Math.floor(Math.random() * 70) < turnsPlayedByBot.length ?
       validPositions[Math.floor(Math.random() * validPositions.length)] : 
       (guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false)
     let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess
