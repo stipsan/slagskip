@@ -72,8 +72,9 @@ const incDefaultIndex = (previousIndex, type, items, size) => {
   const nextRemainder = previousRemainder + size
   if(nextRemainder > 8) console.warn('shit', type, (Math.floor(nextIndex / 10) * 10) + 11, nextRemainder)
   console.log('test', type, nextRemainder, previousRemainder > nextRemainder, nextIndex + nextRemainder)
-  const incrementedIndex = nextRemainder > (10 - size) ?
-    previousIndex + (nextRemainder - 8) :
+  const nextRow = (Math.floor(previousIndex / 10) * 10) + 11
+  const incrementedIndex = nextRemainder > 9 ?
+    nextRow :
     previousIndex
   return [incrementedIndex, size]
   const sanitizedIndex = incrementedIndex + (
@@ -244,7 +245,7 @@ class Setup extends Component {
             <Grid>
               {this.types.map(([type, size, component], index) => {
                 const [previousIndex, nextSize] = incDefaultIndex(defaultIndex, type, items, size)
-                defaultIndex += nextSize
+                defaultIndex = previousIndex + nextSize
                 return <Drag
                   key={type}
                   type={type}
