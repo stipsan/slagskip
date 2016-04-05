@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
 import Avatar from 'react-user-avatar'
-
+import { shuffle } from 'lodash'
 import classNames from 'classnames'
 
 import style, {
@@ -49,6 +49,102 @@ const defaultColors = [
   '#7f8c8d'
 ]
 
+const types = [
+  ['xl', 5, <XL />],
+  ['l', 4, <L />],
+  ['m1', 3, <M />],
+  ['m2', 3, <M />],
+  ['s1', 2, <S />],
+  ['s2', 2, <S />],
+  ['xs1', 1, <XS />],
+  ['xs2', 1, <XS />],
+]
+
+const incDefaultIndex = (previousIndex, type, items, size) => {
+
+  if(items.getIn([type, 1]) !== -1) {
+    return [previousIndex, 0]
+  }
+
+  const nextIndex = previousIndex + size
+
+  const previousRemainder = previousIndex % 10
+  const nextRemainder = previousRemainder + size
+  if(nextRemainder > 8) console.warn('shit', type, (Math.floor(nextIndex / 10) * 10) + 11, nextRemainder)
+  console.log('test', type, nextRemainder, previousRemainder > nextRemainder, nextIndex + nextRemainder)
+  const nextRow = (Math.floor(previousIndex / 10) * 10) + 11
+  const incrementedIndex = nextRemainder > 9 ?
+    nextRow :
+    previousIndex
+  return [incrementedIndex, size]
+  const sanitizedIndex = incrementedIndex + (
+    incrementedIndex % 10 < 1 ?
+    1 :
+    incrementedIndex % 10 > 8 ? 
+    2 :
+    0
+  )
+
+  return sanitizedIndex
+  /*
+  
+  let defaultIndex = 111
+  let insertOffset = 0
+  
+  console.warn(types)
+  switch(type) {
+    case 'xs1':
+      defaultIndex += items.getIn(['s1', 1]) === -1 ? 2 : 0
+    case 's1':
+      defaultIndex += items.getIn(['m1', 1]) === -1 ? 3 : 0
+    case 'm1':
+      defaultIndex += items.getIn(['xl', 1]) === -1 ? 5 : 0
+      insertOffset = 10 - ((defaultIndex % 10) + size)
+      console.error(type, insertOffset)
+    case 'xl':
+      insertOffset = (defaultIndex % 10) + 5
+    //  console.error(type, defaultIndex, insertOffset, size)
+      defaultIndex += items.getIn(['l', 1]) === -1 ? 4 : 0
+    case 'l':
+      defaultIndex += items.getIn(['m2', 1]) === -1 ? 3 : 0
+      
+      insertOffset = (defaultIndex % 10) + 4
+      console.error(type, size, (defaultIndex % 10), defaultIndex, insertOffset)
+      console.error((10 - (defaultIndex % 10)), (defaultIndex % 10) > 4, defaultIndex)
+      //defaultIndex += (defaultIndex % 10) > 4 ? (10 - (defaultIndex % 10)) : 0
+      
+      
+    case 'm2':
+      defaultIndex += items.getIn(['s2', 1]) === -1 ? 2 : 0
+    case 's2':
+      defaultIndex += items.getIn(['xs2', 1]) === -1 ? 1 : 0
+  
+    /*  
+    case 'xs2':
+      defaultIndex += items.getIn(['xs1', 1]) === -1 ? 1 : 0
+    case 's2':
+      defaultIndex += items.getIn(['s1', 1]) === -1 ? 2 : 0
+    case 's1':
+      defaultIndex += items.getIn(['m2', 1]) === -1 ? 3 : 0
+    case 'm2':
+      defaultIndex += items.getIn(['m1', 1]) === -1 ? 3 : 0
+    case 'm1':
+      defaultIndex += items.getIn(['l', 1]) === -1 ? 4 : 0
+    case 'l':
+      defaultIndex += items.getIn(['xl', 1]) === -1 ? 5 : 0
+    case 'xs1':
+      defaultIndex += items.getIn(['s2', 1]) === -1 ? 2 : 0
+    
+    default:
+      defaultIndex += defaultIndex % 10 > 8 ? 1 : 0
+      defaultIndex += defaultIndex % 10 < 1 ? 1 : 0
+  }
+  
+  console.log('offset', defaultIndex % 10, 'type', type, 'items', items, 'size', size, 'defaultIndex', defaultIndex)
+  return defaultIndex
+  */
+}
+
 class Setup extends Component {
   
   static contextTypes = {
@@ -69,6 +165,10 @@ class Setup extends Component {
   
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
+  }
+  
+  componentWillMount() {
+    this.types = shuffle(types)
   }
   
   componentDidMount() {
@@ -121,6 +221,8 @@ class Setup extends Component {
     const startGameButtonClassName = classNames(style.startGame, {
       [style.startGameDisabled]: !isValid
     })
+    
+    let defaultIndex = 111
 
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
@@ -141,100 +243,20 @@ class Setup extends Component {
         <div className={wrapperClassName}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              <Drag
-                type="xl"
-                index={items.getIn(['xl', 1])}
-                defaultIndex={120}
-                size={5}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['xl', 0])}
+              {this.types.map(([type, size, component], index) => {
+                const [previousIndex, nextSize] = incDefaultIndex(defaultIndex, type, items, size)
+                defaultIndex = previousIndex + nextSize
+                return <Drag
+                  key={type}
+                  type={type}
+                  index={items.getIn([type, 1])}
+                  defaultIndex={previousIndex}
+                  size={size}
+                  rotateItem={rotateItem}
+                  rotated={items.getIn([type, 0])}
               >
-                <XL
-                  rotated={items.getIn(['xl', 0])}
-                />
-              </Drag>
-              <Drag
-                type="l"
-                index={items.getIn(['l', 1])}
-                defaultIndex={126}
-                size={4}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['l', 0])}
-              >
-                <L
-                  rotated={items.getIn(['l', 0])}
-                />
-              </Drag>
-              <Drag
-                type="m1"
-                index={items.getIn(['m1', 1])}
-                defaultIndex={115}
-                size={3}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['m1', 0])}
-              >
-                <M
-                  rotated={items.getIn(['m1', 0])}
-                />
-              </Drag>
-              <Drag
-                type="m2"
-                index={items.getIn(['m2', 1])}
-                defaultIndex={115}
-                size={3}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['m2', 0])}
-              >
-                <M
-                  rotated={items.getIn(['m2', 0])}
-                />
-              </Drag>
-              <Drag
-                type="s1"
-                index={items.getIn(['s1', 1])}
-                defaultIndex={112}
-                size={2}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['s1', 0])}
-              >
-                <S
-                  rotated={items.getIn(['s1', 0])}
-                />
-              </Drag>
-              <Drag
-                type="s2"
-                index={items.getIn(['s2', 1])}
-                defaultIndex={112}
-                size={2}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['s2', 0])}
-              >
-                <S
-                  rotated={items.getIn(['s2', 0])}
-                />
-              </Drag>
-              <Drag
-                type="xs1"
-                index={items.getIn(['xs1', 1])}
-                defaultIndex={110}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['xs1', 0])}
-              >
-                <XS
-                  rotated={items.getIn(['xs1', 0])}
-                />
-              </Drag>
-              <Drag
-                type="xs2"
-                index={items.getIn(['xs2', 1])}
-                defaultIndex={110}
-                rotateItem={rotateItem}
-                rotated={items.getIn(['xs2', 0])}
-              >
-                <XS
-                  rotated={items.getIn(['xs2', 0])}
-                />
-              </Drag>
+                {component}
+              </Drag>})}
               <DragPreview name="item" />
             </Grid>
           </SetupCanvas>
