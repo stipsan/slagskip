@@ -1,4 +1,6 @@
-@import '../../style/_bulma';
+@import '../../style/_config';
+@import "~bulma/bulma/utilities/reset";
+@import "~bulma/bulma/base/base";
 
 :global #app {
   position: absolute;

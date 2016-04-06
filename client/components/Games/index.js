@@ -26,7 +26,7 @@ class Games extends Component {
     
     if(!friends) return <h1>Loading…</h1>
     
-    return <div>
+    return <div className={style.gamesList}>
       <Link to="new" className={style.game}>
         <span className={style.newGame}>
           +

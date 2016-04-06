@@ -1,11 +1,11 @@
 @import '../../style/_config';
 
 .dashboard {
-  composes: container is-text-centered from '../../style/_bulma.scss';
+  composes: container is-text-centered from '../../style/bulma.scss';
 }
 
 .tabscontainer {
-  composes: is-text-left from '../../style/_bulma.scss';
+  composes: is-text-left from '../../style/bulma.scss';
   display: inline-block;
   padding: 0 20px;
   max-width: $container-width;
@@ -13,29 +13,30 @@
 }
 
 .tabs {
-  composes: tabs is-centered from '../../style/_bulma.scss';
+  composes: tabs is-centered from '../../style/bulma.scss';
   
   font-size: $size-small;
+  padding-top: 10px;
 }
 .isActive {
-  composes: is-active from '../../style/_bulma.scss';
+  composes: is-active from '../../style/bulma.scss';
 }
 
 .logoutButton {
-  composes: button is-danger is-outlined is-small from '../../style/_bulma.scss';
+  composes: button is-danger is-outlined is-small from '../../style/bulma.scss';
   
   margin: 20px;
 }
 
 .navbar {
-  composes: navbar from '../../style/_bulma.scss';
+  composes: navbar from '../../style/bulma.scss';
 }
 .usernameItem {
-  composes: navbar-item is-text-centered from '../../style/_bulma.scss';
+  composes: navbar-item is-text-centered from '../../style/bulma.scss';
 }
 .placeholderItem {
-  composes: navbar-item is-text-left from '../../style/_bulma.scss';
+  composes: navbar-item is-text-left from '../../style/bulma.scss';
 }
 .logoutItem {
-  composes: navbar-item is-text-right from '../../style/_bulma.scss';
+  composes: navbar-item is-text-right from '../../style/bulma.scss';
 }

@@ -9,7 +9,7 @@
     "heroku-postbuild": "npm run bundle",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:babel-register,js:./test/css-modules-compiler.js --recursive -t 10000",
-    "test:watch": "npm test -- --watch",
+    "test:watch": "npm test -- --watch --growl",
     "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 10000 --compilers js:./test/css-modules-compiler.js -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "reboot-workers": "kill -SIGUSR2",
     "favicon": "cd assets/export && convert icon-16.png icon-32.png favicon.ico"
@@ -77,6 +77,7 @@
     "ioredis": "2.0.0-rc1",
     "json-loader": "0.5.4",
     "lodash": "4.7.0",
+    "module-alias": "1.0.5",
     "node-sass": "3.4.2",
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",

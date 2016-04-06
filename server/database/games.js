@@ -16,6 +16,7 @@ export const getGames = (viewer, redis) => {
     let i = 0
     return results.reduce((previousValue, currentValue, currentIndex) => {
         const game = currentValue[1]
+        if(!game.state) return previousValue
         try {
           const [players, boards, turns = [], scores = [0,0]] = JSON.parse(game.state)
           previousValue[i++] = {
@@ -26,7 +27,7 @@ export const getGames = (viewer, redis) => {
             scores,
           }
         } catch(e) {
-          console.error(e)
+          console.error('failed to decode state', e)
         }
         return previousValue
       }, []

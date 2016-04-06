@@ -1,17 +1,17 @@
 @import '../../style/_config';
 
 .header {
-  composes: columns is-mobile from '../../style/_bulma.scss';
+  composes: columns is-mobile from '../../style/bulma.scss';
   margin-left: 0;
   margin-right: 0;
 }
 .headerItem {
-  composes: column is-flex from '../../style/_bulma.scss';
+  composes: column is-flex from '../../style/bulma.scss';
   align-items: center;
 }
 .headerLeft {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
+  composes: is-3 from '../../style/bulma.scss';
   text-align: left !important;
 }
 .headerCenter {
@@ -21,7 +21,7 @@
 }
 .headerRight {
   composes: headerItem;
-  composes: is-3 from '../../style/_bulma.scss';
+  composes: is-3 from '../../style/bulma.scss';
   text-align: right !important;
 }
 
@@ -30,7 +30,7 @@
   text-align: left;
 }
 .headerTitle {
-  composes: title is-6 from '../../style/_bulma.scss';
+  composes: title is-6 from '../../style/bulma.scss';
   flex: 1;
   width: 50vw;
   text-overflow: ellipsis;
@@ -39,13 +39,13 @@
 }
 
 .headerMenu {
-  composes: hamburger from '../../style/_bulma.scss';
+  composes: hamburger from '../../style/bulma.scss';
   flex: 1;
   text-align: right;
 }
 
 .heading {
-  composes: heading is-6 from '../../style/_bulma.scss';
+  composes: heading is-6 from '../../style/bulma.scss';
   text-indent: 49px;
   background: $grey-lighter;
   position: sticky;
@@ -63,7 +63,7 @@
 }
 
 .friend {
-  composes: media from '../../style/_bulma.scss';
+  composes: media from '../../style/bulma.scss';
   align-items: center;
   padding-top: 0px;
   
@@ -74,7 +74,7 @@
   }
 }
 .avatar {
-  composes: media-left from '../../style/_bulma.scss';
+  composes: media-left from '../../style/bulma.scss';
   padding-right: 5px;
   color: white;
   font-size: 19px;
@@ -103,7 +103,7 @@
 }
 
 .username {
-  composes: media-content from '../../style/_bulma.scss';
+  composes: media-content from '../../style/bulma.scss';
   padding-left: 5px;
   color: $grey-dark;
   word-wrap: break-word;
