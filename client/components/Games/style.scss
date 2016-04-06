@@ -1,9 +1,13 @@
 @import '../../style/_config';
 
+.gamesList {
+  padding-top: 10px;
+}
+
 .game {
   composes: media from '../../style/bulma.scss';
   align-items: center;
-  padding-top: 0px;
+  //padding-top: 0px;
   
   &:hover, &:active {
     .startGame {

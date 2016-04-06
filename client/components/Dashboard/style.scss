@@ -16,6 +16,7 @@
   composes: tabs is-centered from '../../style/bulma.scss';
   
   font-size: $size-small;
+  padding-top: 10px;
 }
 .isActive {
   composes: is-active from '../../style/bulma.scss';
