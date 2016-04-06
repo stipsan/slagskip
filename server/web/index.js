@@ -1,7 +1,7 @@
 var SocketCluster = require('socketcluster').SocketCluster
 
 // running the migration right away, so the server don't start serving until we're ready
-require('../migrate')()
+require('../migrate')
 
 new SocketCluster({
   workers: Number(process.env.WEB_CONCURRENCY) || 1,
