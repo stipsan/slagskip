@@ -35,34 +35,34 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  composes: columns is-mobile is-text-centered from '../../style/_bulma.scss';
+  composes: columns is-mobile is-text-centered from '../../style/bulma.scss';
 }
 .score {
-  composes: column from '../../style/_bulma.scss';
+  composes: column from '../../style/bulma.scss';
 }
 .header {
-  composes: heading from '../../style/_bulma.scss';
+  composes: heading from '../../style/bulma.scss';
 }
 .viewerScore {
   font-size: 1.2em;
   break: both;
-  composes: tag is-primary from '../../style/_bulma.scss';
+  composes: tag is-primary from '../../style/bulma.scss';
 }
 .versusScore {
   font-size: 1.2em;
-  composes: tag is-danger from '../../style/_bulma.scss';
+  composes: tag is-danger from '../../style/bulma.scss';
 }
 .navbar {
-  composes: columns is-mobile from '../../style/_bulma.scss';
+  composes: columns is-mobile from '../../style/bulma.scss';
   font-size: 16px;
   min-height: 16px;
 }
 .navbarTitle {
-  composes: column is-8 is-text-centered from '../../style/_bulma.scss';
+  composes: column is-8 is-text-centered from '../../style/bulma.scss';
 }
 
 .state {
-  composes: title is-6 from '../../style/_bulma.scss';
+  composes: title is-6 from '../../style/bulma.scss';
   min-height: 30px;
   width: 320px;
   margin-left: auto;
@@ -71,7 +71,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-top: 20px;
 }
 .sendButton {
-  composes: button is-success from '../../style/_bulma.scss';
+  composes: button is-success from '../../style/bulma.scss';
   touch-action: manipulation;
   float: right;
   transform: translateY(-4px);
@@ -178,7 +178,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   padding-top: 10px;
 }
 .backLink {
-  composes: column is-2 from '../../style/_bulma.scss';
+  composes: column is-2 from '../../style/bulma.scss';
   color: inherit;
   padding-left: 2px;
   padding-right: 2px;

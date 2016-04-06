@@ -37,10 +37,10 @@ $active-color: rgb(152, 251, 152);
 }
 
 .linkToPrevous {
-  composes: button from '../../style/_bulma.scss';
+  composes: button from '../../style/bulma.scss';
 }
 .headerTitle {
-  composes: title is-6 from '../../style/_bulma.scss';
+  composes: title is-6 from '../../style/bulma.scss';
   text-align: center;
   word-break: break-word;
   
@@ -55,16 +55,16 @@ $active-color: rgb(152, 251, 152);
 }
 
 .startGame {
-  composes: button is-primary from '../../style/_bulma.scss';
+  composes: button is-primary from '../../style/bulma.scss';
   
   touch-action: manipulation;
 }
 .startGameDisabled {
-  composes: is-outlined from '../../style/_bulma.scss';
+  composes: is-outlined from '../../style/bulma.scss';
 }
 
 .heading {
-  composes: heading is-6 from '../../style/_bulma.scss';
+  composes: heading is-6 from '../../style/bulma.scss';
   text-indent: 49px;
   background: $grey-lighter;
   position: sticky;
