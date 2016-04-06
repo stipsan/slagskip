@@ -22,6 +22,7 @@ export const newGame = (authToken, versusId, board, redis) => {
       }],
       ['sadd', `user:${authToken.id}:games`, gameId],
       ['sadd', `user:${versusId}:games`, gameId],
+      ['expire', `game:${gameId}`, 72 * 60 * 60],
     ]).exec()
   }).then(() => newGameId)
 }
@@ -54,6 +55,9 @@ export const joinGame = (authToken, gameId, board, redis) => {
       invariant(players.indexOf(authToken.id) !== -1, 'You are not in this game!')
       
       boards[1] = board.grid
+
+      // @TODO move to multi block
+      redis.expire(`game:${gameId}`, 72 * 60 * 60)
 
       return redis.hset(`game:${gameId}`, 'state', JSON.stringify([players, boards, turns]))      
     })
@@ -96,6 +100,10 @@ export const saveTurn = (authToken, gameId, turn, redis) => {
       return previousScores
     }, [new Set(),new Set()])
     const scores = [scoresSets[0].size, scoresSets[1].size]
+    
+    // @TODO move to multi block
+    redis.expire(`game:${gameId}`, 72 * 60 * 60)
+    
     return redis.hset(`game:${gameId}`, 'state', JSON.stringify([players, boards, turns, scores]))      
   })
   .then(() => redis.hgetall(`game:${gameId}`))
