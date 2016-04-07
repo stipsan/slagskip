@@ -70,7 +70,23 @@ const raygunInit = `<script type="text/javascript">
         if(bundle.hasOwnProperty('js')) js.push(bundle.js)
       })
       const scripts     = js.map(script => `<script async src="${script}"></script>`).join('')
-      const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
+      //const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
+      const stylesheets = css.map((href, index) => `
+      var l${index} = document.createElement('link'); l${index}.rel = 'stylesheet';
+      l${index}.href = '${href}';
+      h.parentNode.insertBefore(l${index}, h);`).join('')
+      const loadCSS = stylesheets && `
+      <script>
+        var cb = function() {
+          var h = document.getElementsByTagName('head')[0];
+          ${stylesheets}
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+            webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) raf(cb);
+        else window.addEventListener('load', cb);
+      </script>
+      ` || ''
       
       const analytics = process.env.TRACKING_ID ? getAnalyticsSnippet(process.env.TRACKING_ID) : ''
       
@@ -105,8 +121,7 @@ const raygunInit = `<script type="text/javascript">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
     
     <meta name="theme-color" content="#ECF0F1">
-    
-    ${stylesheets}
+
     ${shouldLoadRaygun ? raygunClient : ''}
   </head>
   <body>
@@ -131,6 +146,7 @@ const raygunInit = `<script type="text/javascript">
       SUPPORTED_BROWSERS = ${SUPPORTED_BROWSERS};
     </script>
     ${scripts}
+    ${loadCSS}
     ${shouldLoadRaygun ? raygunInit : ''}
   </body>
 </html>`
