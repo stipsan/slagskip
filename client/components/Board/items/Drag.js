@@ -45,9 +45,6 @@ class Item extends Component {
 
   render() {
     const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props;
-    if (isDragging) {
-      return null;
-    }
 
     const dropped = index > -1
     const CSSTranslate = indexToCSSTranslate(dropped ? index : defaultIndex, size, rotated)

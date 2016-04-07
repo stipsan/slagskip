@@ -86,9 +86,6 @@ return;
     item.addItem(item.type, props.index - offsetFactor)
     //console.log(monitor.getItem().addItem)
   },
-  hover: (props, monitor, component) => {
-    //console.log('hover', props, monitor, component)
-  },
   canDrop: (props, monitor) => {
     //console.log('canDrop', props, monitor.getItem())
     
@@ -101,9 +98,6 @@ return;
     // to let React DnD handle the drag events:
     connectDropTarget: connect.dropTarget(),
     // You can ask the monitor about the current drag state:
-    isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true }),
-    canDrop: monitor.canDrop(),
     itemType: monitor.getItemType()
   };
 })(Canvas)

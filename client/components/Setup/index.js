@@ -12,7 +12,7 @@ import style, {
   wrapper as wrapperClassName,
 } from './style.scss'
 import { Grid, SetupCanvas, Item } from '../Board'
-import Cell from './Cell'
+import Navbar from '../Navbar'
 import Loading from '../Loading'
 
 const {
@@ -70,8 +70,7 @@ const incDefaultIndex = (previousIndex, type, items, size) => {
 
   const previousRemainder = previousIndex % 10
   const nextRemainder = previousRemainder + size
-  if(nextRemainder > 8) console.warn('shit', type, (Math.floor(nextIndex / 10) * 10) + 11, nextRemainder)
-  console.log('test', type, nextRemainder, previousRemainder > nextRemainder, nextIndex + nextRemainder)
+
   const nextRow = (Math.floor(previousIndex / 10) * 10) + 11
   const incrementedIndex = nextRemainder > 9 ?
     nextRow :
@@ -86,63 +85,6 @@ const incDefaultIndex = (previousIndex, type, items, size) => {
   )
 
   return sanitizedIndex
-  /*
-  
-  let defaultIndex = 111
-  let insertOffset = 0
-  
-  console.warn(types)
-  switch(type) {
-    case 'xs1':
-      defaultIndex += items.getIn(['s1', 1]) === -1 ? 2 : 0
-    case 's1':
-      defaultIndex += items.getIn(['m1', 1]) === -1 ? 3 : 0
-    case 'm1':
-      defaultIndex += items.getIn(['xl', 1]) === -1 ? 5 : 0
-      insertOffset = 10 - ((defaultIndex % 10) + size)
-      console.error(type, insertOffset)
-    case 'xl':
-      insertOffset = (defaultIndex % 10) + 5
-    //  console.error(type, defaultIndex, insertOffset, size)
-      defaultIndex += items.getIn(['l', 1]) === -1 ? 4 : 0
-    case 'l':
-      defaultIndex += items.getIn(['m2', 1]) === -1 ? 3 : 0
-      
-      insertOffset = (defaultIndex % 10) + 4
-      console.error(type, size, (defaultIndex % 10), defaultIndex, insertOffset)
-      console.error((10 - (defaultIndex % 10)), (defaultIndex % 10) > 4, defaultIndex)
-      //defaultIndex += (defaultIndex % 10) > 4 ? (10 - (defaultIndex % 10)) : 0
-      
-      
-    case 'm2':
-      defaultIndex += items.getIn(['s2', 1]) === -1 ? 2 : 0
-    case 's2':
-      defaultIndex += items.getIn(['xs2', 1]) === -1 ? 1 : 0
-  
-    /*  
-    case 'xs2':
-      defaultIndex += items.getIn(['xs1', 1]) === -1 ? 1 : 0
-    case 's2':
-      defaultIndex += items.getIn(['s1', 1]) === -1 ? 2 : 0
-    case 's1':
-      defaultIndex += items.getIn(['m2', 1]) === -1 ? 3 : 0
-    case 'm2':
-      defaultIndex += items.getIn(['m1', 1]) === -1 ? 3 : 0
-    case 'm1':
-      defaultIndex += items.getIn(['l', 1]) === -1 ? 4 : 0
-    case 'l':
-      defaultIndex += items.getIn(['xl', 1]) === -1 ? 5 : 0
-    case 'xs1':
-      defaultIndex += items.getIn(['s2', 1]) === -1 ? 2 : 0
-    
-    default:
-      defaultIndex += defaultIndex % 10 > 8 ? 1 : 0
-      defaultIndex += defaultIndex % 10 < 1 ? 1 : 0
-  }
-  
-  console.log('offset', defaultIndex % 10, 'type', type, 'items', items, 'size', size, 'defaultIndex', defaultIndex)
-  return defaultIndex
-  */
 }
 
 class Setup extends Component {
@@ -223,23 +165,33 @@ class Setup extends Component {
     })
     
     let defaultIndex = 111
+    
+    const navbarLeft = <Link to="/new" className={style.linkToPrevous}>❮ Back</Link>
+    const navbarRight = routeParams.game ?
+      <button
+        disabled={!isValid}
+        onClick={this.handleJoinGame}
+        className={startGameButtonClassName}
+      >
+        Join
+      </button> : 
+      routeParams.versus ?
+      <button
+        disabled={!isValid}
+        onClick={this.handleNewGame}
+        className={startGameButtonClassName}
+      >
+        Start
+      </button> :
+      false
 
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={sectionClassName}>
-        <header className={style.header}>
-          <div className={style.headerLeft}>
-            <Link to="/new" className={style.linkToPrevous}>❮ Back</Link>
-          </div>
-          <div className={style.headerCenter}>
-            <h1 className={style.headerTitle}>
-              You vs {versusUsername}
-            </h1>
-          </div>
-          <div className={style.headerRight}>
-            {routeParams.game && <button disabled={!isValid} onClick={this.handleJoinGame} className={startGameButtonClassName}>Join</button>}
-            {routeParams.versus && <button disabled={!isValid} onClick={this.handleNewGame} className={startGameButtonClassName}>Start</button>}
-          </div>
-        </header>
+        <Navbar left={navbarLeft} right={navbarRight}>
+          <h1 className={style.headerTitle}>
+            You vs {versusUsername}
+          </h1>
+        </Navbar>
         <div className={wrapperClassName}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>

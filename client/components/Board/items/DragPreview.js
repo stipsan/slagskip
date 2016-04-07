@@ -124,7 +124,12 @@ class ItemPreview extends Component {
   
   render() {
     
-    const { type, rotated } = this.props
+    const { type, rotated, isDragging } = this.props
+    
+    if (!isDragging) {
+      return null;
+    }
+    
     
     console.log('drag preview component', type, rotated)
     return <div style={layerStyles}>

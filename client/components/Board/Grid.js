@@ -6,7 +6,7 @@ import style from './style.scss'
 export class Grid extends Component {
   
   static propTypes = {
-    className: PropTypes.string.isRequired
+    children: PropTypes.node.isRequired
   }
   
   shouldComponentUpdate(nextProps, nextState) {
