@@ -8,6 +8,10 @@ $active-color: rgb(152, 251, 152);
   border-color: transparent;
   background-color: transparent;
 }
+.buttonLabel {
+  composes: is-hidden-mobile from '../../style/bulma.scss';
+  margin-left: .2em;
+}
 
 .headerVs {
   transform: translateY(-12px);

@@ -5,6 +5,7 @@ import DocumentTitle from 'react-document-title'
 import { Link } from 'react-router'
 import cx from './style.scss'
 import Friend from './Friend'
+import Navbar from '../Navbar'
 
 class NewGame extends Component {
   static propTypes = {
@@ -40,23 +41,15 @@ class NewGame extends Component {
     const friendsOffline = friends.filter(friend => friend.get('online') !== '1')
     const friendsOfflineTotal = friendsOffline.size
 
+    const navbarLeft = <Link to="/" className={cx('linkToPrevous')}>
+      ❮ <span className={cx('buttonLabel')}>Back</span>
+    </Link>
+
     return <DocumentTitle title="Epic | New game">
       <section>
-        <header className={cx('header')}>
-          <div className={cx('headerLeft')}>
-            <Link to="/" className={cx('linkToPrevous')}>❮ Back</Link>
-          </div>
-          <div className={cx('headerCenter')}>
-            <h1 className={cx('headerTitle')}>Select your opponent</h1>
-          </div>
-          <div className={cx('headerRight')}>
-            <span className={cx('headerMenu')}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </div>
-        </header>
+        <Navbar left={navbarLeft}>
+          Select your opponent
+        </Navbar>
         <div className={cx('container')}>
           <h4 className={cx('heading')}>Bots</h4>
           {bots.toArray().map(bot => <Friend key={bot.get('id')} friend={bot} />)}

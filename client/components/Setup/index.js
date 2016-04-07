@@ -161,7 +161,9 @@ class Setup extends Component {
     
     let defaultIndex = 111
     
-    const navbarLeft = <Link to="/new" className={cx('linkToPrevous')}>❮ Back</Link>
+    const navbarLeft = <Link to="/new" className={cx('linkToPrevous')}>
+      ❮ <span className={cx('buttonLabel')}>Back</span>
+    </Link>
     const navbarRight = routeParams.game ?
       <button
         disabled={!isValid}

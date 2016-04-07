@@ -34,7 +34,7 @@ class Games extends Component {
         <span className={cx('username')}>New Game</span>
         <span className={cx('startGame')}>❯</span>
       </Link>
-      {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} bots={bots} />) || <li>No games yet…</li>}
+      {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} bots={bots} />)}
     </div>
   }
 }

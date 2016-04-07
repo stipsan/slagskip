@@ -2,9 +2,10 @@ import { Component, PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import cx from './style.scss'
-import Navbar from './Navbar'
+import Navbar from '../Navbar'
 import VersusGrid from './VersusGrid'
 import ViewerBoard from './ViewerBoard'
+import { Link } from 'react-router'
 import { selectCell, fireCannon } from '../../actions'
 
 class Game extends Component {
@@ -39,9 +40,11 @@ class Game extends Component {
       versusScore,
     } = this.props
     
+    const navbarLeft = <Link to="/" className={cx('backLink')}>❮ Games</Link>
+    
     return <DocumentTitle title={viewer ? `Epic | ${viewer.get('username')} vs. ${versusFriend && versusFriend.get('username')}` : null}>
       <section className={cx('section')}>
-        <Navbar viewer={viewer} versus={versusFriend} />
+        <Navbar left={navbarLeft} />
         <div className={cx('scores')}>
           <div className={cx('score')}>
             <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>

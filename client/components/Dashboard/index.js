@@ -25,19 +25,13 @@ class Dashboard extends Component {
     const { router } = this.context
     const isFriendsTabActive = router.isActive({ pathname: 'friends' })
 
+    const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>Logout</a>
+
     return <DocumentTitle title={username ? `Epic | ${username}` : null}>
       <div className={cx('dashboard')}>
-        <nav className={cx('navbar')}>
-          <p className={cx('placeholderItem')}>
-            
-          </p>
-          <p className={cx('usernameItem')}>
-            {username}
-          </p>
-          <p className={cx('logoutItem')}>
-            <a className={cx('logoutButton')} onClick={this.handleLogout}>Logout</a>
-          </p>
-        </nav>
+        <Navbar right={navbarRight}>
+          {username}
+        </Navbar>
         <div className={cx('tabscontainer')}>
           <div className={cx('tabs')}>
             <ul>

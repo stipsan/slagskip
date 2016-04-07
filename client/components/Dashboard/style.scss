@@ -24,8 +24,7 @@
 
 .logoutButton {
   composes: button is-danger is-outlined is-small from '../../style/bulma.scss';
-  
-  margin: 20px;
+  margin-top: .3em;
 }
 
 .navbar {
