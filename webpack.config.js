@@ -104,7 +104,7 @@ module.exports = {
     ],
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', `css?modules${cssnanoOptIn}&importLoaders=2&localIdentName=${localIdentName}!autoprefixer!sass`) },
+      { test: /\.scss$/, loaders: ['classnames', ExtractTextPlugin.extract('style', `css?modules${cssnanoOptIn}&importLoaders=2&localIdentName=${localIdentName}!autoprefixer!sass`)] },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },

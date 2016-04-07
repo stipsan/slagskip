@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 import Avatar from 'react-user-avatar'
-import style from './style.scss'
+import cx from './style.scss'
 
 const defaultColors = [
   '#1abc9c',
@@ -67,15 +67,15 @@ class GameRow extends Component {
     if(gameState === 'ready' && !game.get('isViewerTurn')) {
       title = `Waiting for ${username} to make a move`
     }
-    console.log(gameState, avatar, username)
-    return <Link to={`/${setupOrPlay}/${id}`} className={classNames(style.game, {
-      [style.gameWaiting]: gameState === 'setup' || gameState === 'ready'
+  
+    return <Link to={`/${setupOrPlay}/${id}`} className={cx('game', {
+      gameWaiting: gameState === 'setup' || gameState === 'ready'
     })}>
-      <span className={online ? style.avatarOnline : style.avatar}>
+      <span className={cx(online ? 'avatarOnline' : 'avatar')}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
-      <span className={style.username}>{title}</span>
-      <span className={style.startGame}>❯</span>
+      <span className={cx('username')}>{title}</span>
+      <span className={cx('startGame')}>❯</span>
     </Link>
   }
 }

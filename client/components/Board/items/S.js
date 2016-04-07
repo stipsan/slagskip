@@ -1,20 +1,17 @@
 import { Component } from 'react'
-import classNames from 'classnames'
-import shallowCompare from 'react-addons-shallow-compare'
-import { DropTarget } from 'react-dnd'
-import { 
-  BOARD_ITEM
-} from '../../../constants/ItemTypes'
-import style from '../style.scss'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import cx from '../style.scss'
 
 export class S extends Component {
+  
+  shouldComponentUpdate = shouldComponentUpdate
+  
   render() {
     const { rotated, index, defaultIndex } = this.props
-    const className = classNames(style.S, rotated && style.rotated)
 
-    return <div className={className}>
-      <div className={style.cell}></div>
-      <div className={style.cell}></div>
+    return <div className={cx('S', { rotated })}>
+      <div className={cx('cell')}></div>
+      <div className={cx('cell')}></div>
     </div>
   }
 }

@@ -1,18 +1,17 @@
 import { Component, PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
-import style, {
-  section as sectionClassName,
-} from './style.scss'
-import Navbar from './Navbar'
+import cx from './style.scss'
+import Navbar from '../Navbar'
 import VersusGrid from './VersusGrid'
 import ViewerBoard from './ViewerBoard'
+import { Link } from 'react-router'
 import { selectCell, fireCannon } from '../../actions'
 
 class Game extends Component {
   static propTypes = {
     
-  };
+  }
   
   shouldComponentUpdate = shouldComponentUpdate
   
@@ -41,27 +40,29 @@ class Game extends Component {
       versusScore,
     } = this.props
     
+    const navbarLeft = <Link to="/" className={cx('backLink')}>❮ Games</Link>
+    
     return <DocumentTitle title={viewer ? `Epic | ${viewer.get('username')} vs. ${versusFriend && versusFriend.get('username')}` : null}>
-      <section className={sectionClassName}>
-        <Navbar viewer={viewer} versus={versusFriend} />
-        <div className={style.scores}>
-          <div className={style.score}>
-            <h6 className={style.header}>{viewer && viewer.get('username') || 'You'}</h6>
-            <strong className={style.viewerScore}>{viewerScore}</strong>
+      <section className={cx('section')}>
+        <Navbar left={navbarLeft} />
+        <div className={cx('scores')}>
+          <div className={cx('score')}>
+            <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>
+            <strong className={cx('viewerScore')}>{viewerScore}</strong>
           </div>
-          <div className={style.score}>
-            <h6 className={style.header}>{versusFriend && versusFriend.get('username') || 'Versus'}</h6>
-            <strong className={style.versusScore}>{versusScore}</strong>
+          <div className={cx('score')}>
+            <h6 className={cx('header')}>{versusFriend && versusFriend.get('username') || 'Versus'}</h6>
+            <strong className={cx('versusScore')}>{versusScore}</strong>
           </div>
         </div>
-        <div className={style.state}>
+        <div className={cx('state')}>
           {gameState === 'failed' && reasonFailed && <div>Error: {reasonFailed}</div>}
           {gameState === 'victory' && <div>You won!</div>}
           {gameState === 'defeated' && <div>You lost!</div>}
           {gameState === 'loading' && <div>Loading game…</div>}
-          {isViewerTurn && gameState !== 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && (selectedCell === -1 ? 'Select a spot' : (gameState !== 'victory' && gameState !== 'defeated' && <div className={style.readyToFire}>Ready? <button className={style.sendButton} onClick={this.handleFireCannon}>Send</button></div>))}
-          {gameState === 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && <div className={style.waitingForOpponent}>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</div>}
-          {gameState === 'ready' && !isViewerTurn && <div className={style.waitingForTurn}>{versusFriend && versusFriend.get('username') || 'opponent'}'s turn</div>}
+          {isViewerTurn && gameState !== 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && (selectedCell === -1 ? 'Select a spot' : (gameState !== 'victory' && gameState !== 'defeated' && <div className={cx('readyToFire')}>Ready? <button className={cx('sendButton')} onClick={this.handleFireCannon}>Send</button></div>))}
+          {gameState === 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && <div className={cx('waitingForOpponent')}>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</div>}
+          {gameState === 'ready' && !isViewerTurn && <div className={cx('waitingForTurn')}>{versusFriend && versusFriend.get('username') || 'opponent'}'s turn</div>}
         </div>
         {gameState !== 'loading' && <VersusGrid gameState={gameState} gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
         {gameState !== 'loading' && <ViewerBoard score={versusScore} grid={viewerGrid} board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}

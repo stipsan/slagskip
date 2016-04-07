@@ -2,14 +2,7 @@ import { Component } from 'react'
 import classNames from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import { selectCell, fireCannon } from '../../actions'
-import style, {
-  versusGrid as versusGridClassName,
-  versusGridWaiting as versusGridWaitingClassName,
-  cell as cellClassName,
-  cellActive as cellActiveClassName,
-  cellEmpty as cellEmptyClassName,
-  cellJackpot as cellJackpotClassName,
-} from './style.scss'
+import cx from './style.scss'
 
 class Cell extends Component {
   handleSelectCell = event => {
@@ -27,12 +20,12 @@ class Cell extends Component {
   render() {
     const { index, cell, cellActive } = this.props
 
-    return <div onClick={this.handleSelectCell} className={classNames(
-      cellClassName,
+    return <div onClick={this.handleSelectCell} className={cx(
+      'cell',
       {
-        [cellActiveClassName]: cellActive,
-        [cellEmptyClassName]: cell === 0,
-        [cellJackpotClassName]: cell === 1,
+        cellActive,
+        cellEmpty: cell === 0,
+        cellJackpot: cell === 1,
       }
     )} />
   }
@@ -47,10 +40,10 @@ class VersusGrid extends Component {
   render() {
     const { grid, turns, selectedCell, dispatch, isViewerTurn, versus, score, gameState } = this.props
 
-    return <div className={classNames(style.versusGridContainer, {
-      [versusGridWaitingClassName]: !isViewerTurn
+    return <div className={cx('versusGridContainer', {
+      versusGridWaiting: !isViewerTurn
     })}>
-      <div className={versusGridClassName}>
+      <div className={cx('versusGrid')}>
         {grid.map((cell, index) => <Cell key={index} isViewerTurn={isViewerTurn} index={index} cellActive={selectedCell === index} cell={cell} dispatch={dispatch} />)}
       </div>
     </div>

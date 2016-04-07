@@ -26,8 +26,13 @@
 }
 
 .linkToPrevous {
-  flex: 1;
-  text-align: left;
+  composes: button from '../../style/bulma.scss';
+  border-color: transparent;
+  background-color: transparent;
+}
+.buttonLabel {
+  composes: is-hidden-mobile from '../../style/bulma.scss';
+  margin-left: .2em;
 }
 .headerTitle {
   composes: title is-6 from '../../style/bulma.scss';

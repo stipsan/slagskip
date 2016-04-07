@@ -1,21 +1,8 @@
 import { Component, PropTypes } from 'react'
-import className from 'classnames'
-import shallowCompare from 'react-addons-shallow-compare'
-import { BOARD_ITEM } from '../../../constants/ItemTypes'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { DragLayer } from 'react-dnd'
 import { XL, L, M, S, XS } from './index'
-import {
-  xl,
-  l,
-  m1,
-  m2,
-  s1,
-  s2,
-  xs1,
-  xs2,
-  isDragging,
-  itemPreview,
-} from '../style.scss'
+import cx from '../style.scss'
 
 const layerStyles = {
   position: 'fixed',
@@ -27,72 +14,37 @@ const layerStyles = {
   height: '100%'
 };
 
-const types = {
-  xl,
-  l,
-  m1,
-  m2,
-  s1,
-  s2,
-  xs1,
-  xs2,
-}
-const typeToComponent = {
-  xl: XL,
-  l: XL,
-  m1: XL,
-  m2: XL,
-  s1: XL,
-  s2: XL,
-  xs1: XL,
-  xs2: XL
-}
-
-const itemSource = {
-  beginDrag(props) {
-    return props
+const collect = monitor => {
+  var item = monitor.getItem()
+  return {
+      type: item && item.type,
+      rotated: item && item.rotated,
+      currentOffset: monitor.getSourceClientOffset(),
+      isDragging: monitor.isDragging()
   }
 }
 
-function collect(monitor) {
-  var item = monitor.getItem();
-  console.log('DragPreview collect', item)
-    return {
-        id: item && item.id,
-        name: item && item.name,
-        type: item && item.type,
-        rotated: item && item.rotated,
-        currentOffset: monitor.getSourceClientOffset(),
-        isDragging: monitor.isDragging()
-    };
-}
-
-
-
-function getItemStyles (currentOffset) {
+const getItemStyles = currentOffset => {
     if (!currentOffset) {
-        return {
-            display: 'none'
-        };
+        return { display: 'none' }
     }
 
     // http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
-    var x = currentOffset.x;
-    var y = currentOffset.y;
+    const { x, y } = currentOffset
 
-    var transform = `translate(${x}px, ${y}px)`;
+    const transform = `translate(${x}px, ${y}px)`
 
     return {
         pointerEvents: 'none',
-        transform: transform,
-        WebkitTransform: transform
-    };
+        WebkitTransform: transform,
+        transform,
+    }
 }
 
 class ItemPreview extends Component {
   static propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
+    type: PropTypes.string,
+    rotated: PropTypes.number,
     currentOffset: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
@@ -100,9 +52,7 @@ class ItemPreview extends Component {
     isDragging: PropTypes.bool
   }
   
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  }
+  shouldComponentUpdate = shouldComponentUpdate
   
   renderItem(type, rotated) {
     switch(type) {
@@ -124,17 +74,17 @@ class ItemPreview extends Component {
   
   render() {
     
-    const { type, rotated } = this.props
-    
-    console.log('drag preview component', type, rotated)
+    const { type, rotated, isDragging, currentOffset } = this.props
+
+    if (!isDragging) {
+      return null
+    }
+
     return <div style={layerStyles}>
-        <div
-            className={className(itemPreview)}
-            style={getItemStyles(this.props.currentOffset)}
-        >
-          {this.renderItem(type, rotated)}
-        </div>
-    </div>;
+      <div className={cx('itemPreview')} style={getItemStyles(currentOffset)}>
+        {this.renderItem(type, rotated)}
+      </div>
+    </div>
   }
 }
 

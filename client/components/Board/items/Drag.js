@@ -1,9 +1,8 @@
 import { Children, Component, PropTypes } from 'react'
 import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { DragSource } from 'react-dnd'
-import classNames from 'classnames'
 import { indexToCSSTranslate } from '../util'
-import style from '../style.scss'
+import cx from '../style.scss'
 
 const defaultStyle = {
   position: 'absolute',
@@ -45,15 +44,12 @@ class Item extends Component {
 
   render() {
     const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props;
-    if (isDragging) {
-      return null;
-    }
 
     const dropped = index > -1
     const CSSTranslate = indexToCSSTranslate(dropped ? index : defaultIndex, size, rotated)
 
     return connectDragSource(
-      <div className={classNames(style.draggable, rotated && style.rotated, dropped && style.dropped)} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
+      <div className={cx('draggable', { rotated , dropped, hidden: isDragging })} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
         {children}
       </div>
     );

@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd'
 import TouchBackend from 'react-dnd-touch-backend'
 import { BOARD_ITEM } from '../../constants/ItemTypes'
-import style from './style.scss'
+import cx from './style.scss'
 
 // @TODO maybe move this to a shared utility
 const indexToCoordinates = index => {
@@ -50,7 +50,7 @@ class Canvas extends Component {
   
   render() {
     const { children, connectDropTarget } = this.props
-    return connectDropTarget(<div className={style.setupCanvas} ref={node => {
+    return connectDropTarget(<div className={cx('setupCanvas')} ref={node => {
       if(node) {
         this.itemSize = node.getBoundingClientRect().width / 10
       }
@@ -86,9 +86,6 @@ return;
     item.addItem(item.type, props.index - offsetFactor)
     //console.log(monitor.getItem().addItem)
   },
-  hover: (props, monitor, component) => {
-    //console.log('hover', props, monitor, component)
-  },
   canDrop: (props, monitor) => {
     //console.log('canDrop', props, monitor.getItem())
     
@@ -101,9 +98,6 @@ return;
     // to let React DnD handle the drag events:
     connectDropTarget: connect.dropTarget(),
     // You can ask the monitor about the current drag state:
-    isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true }),
-    canDrop: monitor.canDrop(),
     itemType: monitor.getItemType()
   };
 })(Canvas)

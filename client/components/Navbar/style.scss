@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.headerItem {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  flex-basis: 0%;
+  white-space: nowrap;
+  flex-grow: 1;
+  align-self: flex-start;
+}
+.headerLeft {
+  composes: headerItem;
+  text-align: left;
+  
+  & > * {
+    margin-left: .6rem;
+  }
+}
+.headerCenter {
+  text-align: center;
+  word-break: break-word;
+}
+.headerRight {
+  composes: headerItem;
+  text-align: right;
+  & > * {
+    margin-right: .6rem;
+  }
+}
+.headerTitle {
+  composes: title is-6 from '../../style/bulma.scss';
+  text-align: center;
+  word-break: break-word;
+  
+  & > div {
+    display: inline-block;
+  }
+}

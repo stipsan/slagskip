@@ -6,24 +6,16 @@ import UnsupportedBrowser from '../../containers/UnsupportedBrowser'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import Loading from '../Loading'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import {
-  enter,
-  enterActive,
-  leave,
-  leaveActive,
-  appear,
-  appearActive,
-  transitionBackwards,
-} from './style.scss'
+import cx from './style.scss'
 
-const transitionName = Object.freeze({
-  enter,
-  enterActive,
-  leave,
-  leaveActive,
-  appear,
-  appearActive,
-})
+const transitionName = {
+  enter: cx('enter'),
+  enterActive: cx('enterActive'),
+  leave: cx('leave'),
+  leaveActive: cx('leaveActive'),
+  appear: cx('appear'),
+  appearActive: cx('appearActive'),
+}
 const transitionDuration = 150
 
 export default class App extends Component {
@@ -55,7 +47,7 @@ export default class App extends Component {
 
     return <ReactCSSTransitionGroup
       component="div"
-      className={classNames({ [transitionBackwards]: !isGoingForwards })}
+      className={cx({ transitionBackwards: !isGoingForwards })}
       transitionName={transitionName}
       transitionEnterTimeout={transitionDuration}
       transitionLeaveTimeout={transitionDuration}
