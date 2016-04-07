@@ -69,7 +69,7 @@ const raygunInit = `<script type="text/javascript">
         if(bundle.hasOwnProperty('css')) css.push(bundle.css)
         if(bundle.hasOwnProperty('js')) js.push(bundle.js)
       })
-      const scripts     = js.map(script => `<script src="${script}"></script>`).join('')
+      const scripts     = js.map(script => `<script async src="${script}"></script>`).join('')
       const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
       
       const analytics = process.env.TRACKING_ID ? getAnalyticsSnippet(process.env.TRACKING_ID) : ''
