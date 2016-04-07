@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd'
 import TouchBackend from 'react-dnd-touch-backend'
 import { BOARD_ITEM } from '../../constants/ItemTypes'
-import style from './style.scss'
+import cx from './style.scss'
 
 // @TODO maybe move this to a shared utility
 const indexToCoordinates = index => {
@@ -50,7 +50,7 @@ class Canvas extends Component {
   
   render() {
     const { children, connectDropTarget } = this.props
-    return connectDropTarget(<div className={style.setupCanvas} ref={node => {
+    return connectDropTarget(<div className={cx('setupCanvas')} ref={node => {
       if(node) {
         this.itemSize = node.getBoundingClientRect().width / 10
       }

@@ -1,7 +1,6 @@
 import { Component, PropTypes } from 'react'
-import classNames from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
-import style from './style.scss'
+import cx from './style.scss'
 
 export class Grid extends Component {
   
@@ -16,6 +15,6 @@ export class Grid extends Component {
   render() {
     const { children } = this.props
     
-    return <div className={style.grid}>{children}</div>
+    return <div className={cx('grid')}>{children}</div>
   }
 }

@@ -4,13 +4,8 @@ import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
 import Avatar from 'react-user-avatar'
 import { shuffle } from 'lodash'
-import classNames from 'classnames'
 
-import style, {
-  section as sectionClassName,
-  yard as yardClassName,
-  wrapper as wrapperClassName,
-} from './style.scss'
+import cx from './style.scss'
 import { Grid, SetupCanvas, Item } from '../Board'
 import Navbar from '../Navbar'
 import Loading from '../Loading'
@@ -160,13 +155,13 @@ class Setup extends Component {
     if(!versus) return <Loading />
     
     const versusUsername = versus.get('username')
-    const startGameButtonClassName = classNames(style.startGame, {
-      [style.startGameDisabled]: !isValid
+    const startGameButtonClassName = cx('startGame', {
+      startGameDisabled: !isValid
     })
     
     let defaultIndex = 111
     
-    const navbarLeft = <Link to="/new" className={style.linkToPrevous}>❮ Back</Link>
+    const navbarLeft = <Link to="/new" className={cx('linkToPrevous')}>❮ Back</Link>
     const navbarRight = routeParams.game ?
       <button
         disabled={!isValid}
@@ -186,13 +181,13 @@ class Setup extends Component {
       false
 
     return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
-      <section className={sectionClassName}>
+      <section className={cx('section')}>
         <Navbar left={navbarLeft} right={navbarRight}>
-          <h1 className={style.headerTitle}>
+          <h1 className={cx('headerTitle')}>
             You vs {versusUsername}
           </h1>
         </Navbar>
-        <div className={wrapperClassName}>
+        <div className={cx('wrapper')}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
               {this.types.map(([type, size, component], index) => {

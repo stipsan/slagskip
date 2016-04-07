@@ -1,9 +1,8 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import DocumentTitle from 'react-document-title'
-import classNames from 'classnames'
 import { Link } from 'react-router'
-import style from './style.scss'
+import cx from './style.scss'
 import { logoutUser } from '../../actions'
 import Navbar from '../Navbar'
 
@@ -27,26 +26,26 @@ class Dashboard extends Component {
     const isFriendsTabActive = router.isActive({ pathname: 'friends' })
 
     return <DocumentTitle title={username ? `Epic | ${username}` : null}>
-      <div className={style.dashboard}>
-        <nav className={style.navbar}>
-          <p className={style.placeholderItem}>
+      <div className={cx('dashboard')}>
+        <nav className={cx('navbar')}>
+          <p className={cx('placeholderItem')}>
             
           </p>
-          <p className={style.usernameItem}>
+          <p className={cx('usernameItem')}>
             {username}
           </p>
-          <p className={style.logoutItem}>
-            <a className={style.logoutButton} onClick={this.handleLogout}>Logout</a>
+          <p className={cx('logoutItem')}>
+            <a className={cx('logoutButton')} onClick={this.handleLogout}>Logout</a>
           </p>
         </nav>
-        <div className={style.tabscontainer}>
-          <div className={style.tabs}>
+        <div className={cx('tabscontainer')}>
+          <div className={cx('tabs')}>
             <ul>
-              <li className={classNames({
-                [style.isActive]: !isFriendsTabActive
+              <li className={cx({
+                isActive: !isFriendsTabActive
                })}><Link to="/">Games</Link></li>
-              {/*<li className={classNames({
-                [style.isActive]: isFriendsTabActive
+              {/*<li className={cx({
+                isActive: isFriendsTabActive
               })}><Link to="/friends">Friends</Link></li>*/}
             </ul>
           </div>

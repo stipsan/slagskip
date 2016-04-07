@@ -1,7 +1,7 @@
 import { PropTypes, Component } from 'react'
 import DocumentTitle from 'react-document-title'
 import TimeAgo from 'react-timeago'
-import style from './style.scss'
+import cx from './style.scss'
 
 const timeAgoFormatter = (value, unit, suffix) => {
   if(suffix === 'ago' || value === 0) {
@@ -31,20 +31,19 @@ class Disconnected extends Component {
     
     const title = 'Service Unavailable'
     const failedConnect = 'Try reloading the page in a few moments'
-    const lostConnection = <a onClick={this.handleRetry} className={style.retry}>Retry?</a>
+    const lostConnection = <a onClick={this.handleRetry} className={cx('retry')}>Retry?</a>
     const afterTooManyAttempts = connected ? lostConnection : failedConnect
     
     return <DocumentTitle title={`Epic | ${title}`}>
-      <section className={style.hero}>
-        <div className={style.heroContent}>
-          <div className={style.container}>
-            <h1 className={style.title}>{title}</h1>
-            <h2 className={style.subtitle}>
+      <section className={cx('hero')}>
+        <div className={cx('heroContent')}>
+          <div className={cx('container')}>
+            <h1 className={cx('title')}>{title}</h1>
+            <h2 className={cx('subtitle')}>
               {pendingReconnect && getTimeAgo(pendingReconnect) || afterTooManyAttempts}
             </h2>
           </div>
         </div>
-        
       </section>
     </DocumentTitle>
   }

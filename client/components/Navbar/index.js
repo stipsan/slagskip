@@ -1,18 +1,18 @@
 import { Component } from 'react'
-import style from './style.scss'
+import cx from './style.scss'
 
 export default class Navbar extends Component {
   render() {
     const { left, children, right } = this.props
     
-    return <header className={style.header}>
-      <div className={style.headerLeft}>
+    return <header className={cx('header')}>
+      <div className={cx('headerLeft')}>
         {left}
       </div>
-      <div className={style.headerCenter}>
+      <div className={cx('headerCenter')}>
         {children}
       </div>
-      <div className={style.headerRight}>
+      <div className={cx('headerRight')}>
         {right}
       </div>
     </header>
