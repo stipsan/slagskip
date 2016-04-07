@@ -1,9 +1,6 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {
-  section as sectionClassName,
-  pendingMessage as pendingMessageClassName,
-} from './style.scss'
+import cx from './style.scss'
 
 const placeholderLabel = `Username, try 'Batman' or 'Superman'`
 const buttonLabel = 'Enter'
@@ -27,8 +24,8 @@ export default class Login extends Component {
   render(){
     const { handleSubmit } = this
     const { isRequestPending } = this.props
-    return <section className={sectionClassName}>
-      <h1 className={pendingMessageClassName} style={{opacity: isRequestPending ? 1 : 0}}>
+    return <section className={cx('section')}>
+      <h1 className={cx('pendingMessage')} style={{opacity: isRequestPending ? 1 : 0}}>
         Logging in…
       </h1>
       <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>

@@ -1,10 +1,7 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import FriendRow from './FriendRow'
-import {
-  section as sectionClassName,
-  users as usersClassName,
-} from './style.scss'
+import cx from './style.scss'
 
 class Dashboard extends Component {
   static propTypes = {
@@ -31,9 +28,9 @@ class Dashboard extends Component {
     } = this.props
     const { handleLogout } = this
 
-    return <section className={sectionClassName}>
+    return <section className={cx('section')}>
       {!friendsTotal && <h3>Nobody here yet but you!</h3>}
-      <table className={usersClassName}>
+      <table className={cx('users')}>
         <thead>
           <tr>
             <th colSpan={3}>{friendsTotal} Online friends</th>

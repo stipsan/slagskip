@@ -10,30 +10,13 @@ import {
   declineGameInvite,
   cancelGameInvite,
 } from '../../actions'
-import {
-  username as usernameClassName,
-  lastVisit as lastVisitClassName,
-  controlGroup as controlGroupClassName,
-  onlineStatus as onlineStatusClassName,
-  buttonGroup as buttonGroupClassName,
-  enter,
-  enterActive,
-  leave,
-  leaveActive,
-  canLaunchGame as canLaunchGameClassName,
-  canAcceptInvite as canAcceptInviteClassName,
-  canCancelPending as canCancelPendingClassName,
-  canCancelPendingTransition as canCancelPendingTransitionClassName,
-  canInviteFriend as canInviteFriendClassName,
-  canSayNo as canSayNoClassName,
-  buttonDisabled as buttonDisabledClassName,
-} from './style.scss'
+import cx from './style.scss'
 
 const transitionName = Object.freeze({
-  enter,
-  enterActive,
-  leave,
-  leaveActive,
+  enter: cx('enter'),
+  enterActive: cx('enterActive'),
+  leave: cx('leave'),
+  leaveActive: cx('leaveActive'),
 })
 
 const timeAgoFormatter = (value, unit) => {
@@ -124,39 +107,38 @@ class FriendRow extends Component {
     const canCancelPending = localState === CAN_CANCEL_PENDING
     const canInviteFriend = localState === CAN_INVITE_FRIEND
  
-    return <tr className={className({  online })}>
-      <td className={usernameClassName}>{username}</td>
+    return <tr className={cx({ online })}>
+      <td className={cx('username')}>{username}</td>
       {
         online === '1' && 
-        <td className={onlineStatusClassName}>&bull;</td> ||
-        <td className={lastVisitClassName}
+        <td className={cx('onlineStatus')}>&bull;</td> ||
+        <td className={cx('lastVisit')}
             title={lastVisit && new Date(lastVisit).toLocaleString()}
         >{lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} />}</td>
       }
-      <td className={controlGroupClassName}>
-      <div className={buttonGroupClassName}>
+      <td className={cx('controlGroup')}>
+      <div className={cx('buttonGroup')}>
         {canLaunchGame && <Link
-          className={canLaunchGameClassName}
+          className={cx('canLaunchGame')}
           to={`game/1`}
         >
           <span>Start Game!</span>
         </Link>}
-        {!canLaunchGame && <button className={className({
-          [canLaunchGameClassName]: canLaunchGame,
-          [canAcceptInviteClassName]: canAcceptInvite,
-          [canAcceptInviteClassName]: canAcceptInvite,
-          [canCancelPendingClassName]: canCancelPending,
-          [canInviteFriendClassName]: canInviteFriend,
+        {!canLaunchGame && <button className={cx({
+          canLaunchGame,
+          canAcceptInvite,
+          canCancelPending,
+          canInviteFriend,
         })} onClick={handleYes}>
           <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={150} transitionLeaveTimeout={150}>
             {canLaunchGame && <span>Start Game!</span>}
             {canAcceptInvite && <span>Accept</span>}
-            {canCancelPending && <span className={canCancelPendingTransitionClassName}>Pending</span>}
+            {canCancelPending && <span className={canCancelPendingTransition}>Pending</span>}
             {canInviteFriend && <span>Invite</span>}
           </ReactCSSTransitionGroup>
         </button>}
-        <button onClick={handleNo} className={className(
-          canSayNoClassName, {[buttonDisabledClassName]: canLaunchGame || canInviteFriend}
+        <button onClick={handleNo} className={cx(
+          'canSayNo', {buttonDisabled: canLaunchGame || canInviteFriend}
         )}><strong>&times;</strong></button>
         </div>
       </td>

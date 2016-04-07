@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 import Avatar from 'react-user-avatar'
-import style from './style.scss'
+import cx from './style.scss'
 import TimeAgo from 'react-timeago'
 
 const defaultColors = [
@@ -43,16 +43,16 @@ class Friend extends Component {
     const avatar = friend.get('avatar')
     const id = friend.get('id')
     const online = friend.get('online') === '1'
-    return <Link to={`setup/${id}`} className={style.friend}>
-      <span className={online ? style.avatarOnline : style.avatar}>
+    return <Link to={`setup/${id}`} className={cx('friend')}>
+      <span className={cx(online ? 'avatarOnline' : 'avatar')}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
-      <span className={style.username}>
+      <span className={cx('username')}>
       {friend.get('username')}
       {friend.has('description') && <small>{friend.get('description')}</small>}
       {!online && friend.has('lastVisit') && <small><TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} /></small>}
       </span>
-      <span className={style.startGame}>❯</span>
+      <span className={cx('startGame')}>❯</span>
     </Link>
   }
 }
