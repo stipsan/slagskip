@@ -121,24 +121,44 @@ const raygunInit = `<script type="text/javascript">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
     
     <meta name="theme-color" content="#ECF0F1">
-
     ${shouldLoadRaygun ? raygunClient : ''}
+    <style>
+      .hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #f5f7fa;
+      }
+      noscript .hero {
+        background-image: linear-gradient(141deg, #ffbd3d 0%, #fce473 71%, #fffe8a 100%);
+        backgound-color: #fce473;
+        color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+      .hero h1 {
+        text-align: center;
+        margin-top: 45vh;
+        font-size: 52px;
+        line-height: 1.125;
+        font-weight: 300;
+      }
+      body {
+        color: #69707a;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
+      <section class="hero">
+        <h1>Loading…</h1>
+      </section>
       <noscript>
-        <div style="
-          background-image: linear-gradient(141deg, #ffbd3d 0%, #fce473 71%, #fffe8a 100%);
-          backgound-color: #fce473;
-          color: rgba(0, 0, 0, 0.5);
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        ">
-          <h2 style="text-align: center; margin-top: 45vh;">${title} requires JavaScript and a modern browser to function correctly</h2>
-        </div>
+        <section class="hero">
+          <h1>${title} requires JavaScript and a modern browser to function correctly</h1>
+        </section>
       </noscript>
     </div>
     ${analytics}

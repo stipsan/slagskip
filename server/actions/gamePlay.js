@@ -1,5 +1,4 @@
 import invariant from 'invariant'
-import { LOCATION_CHANGE } from 'react-router-redux'
 import {
   NEW_GAME_SUCCESS,
   NEW_GAME_FAILURE,
