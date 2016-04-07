@@ -18,18 +18,6 @@ const Root = ({ store }) => {
     selectLocationState: state => state.get('routing').toJS()
   })
 
-  if('ga' in global || 'Raygun' in global) {
-    history.listen(location => {
-      if('ga' in global) {
-        global.ga('set', 'page', location.pathname);
-        global.ga('send', 'pageview');
-      }
-      if('Raygun' in global) {
-        global.Raygun.trackEvent('pageView', { path: location.pathname });
-      }      
-    })
-  }
-  
   return <Provider store={store}>
     <Router history={history}>
       <Route component={App}>
