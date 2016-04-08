@@ -7,7 +7,7 @@
     "start": "nf start web=1",
     "start-production": "NODE_ENV=production node server/web && npm run bundle -- --watch",
     "postinstall": "node scripts/assets",
-    "heroku-postbuild": "npm run bundle",
+    "heroku-postbuild": "npm run postinstall && npm run bundle",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:babel-register,js:./test/css-modules-compiler.js --recursive -t 10000",
     "test:watch": "npm test -- --watch --growl",
