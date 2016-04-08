@@ -6,6 +6,7 @@
     "bundle": "NODE_ENV=production webpack",
     "start": "nf start web=1",
     "start-production": "NODE_ENV=production node server/web && npm run bundle -- --watch",
+    "postinstall": "node scripts/assets",
     "heroku-postbuild": "npm run bundle",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:babel-register,js:./test/css-modules-compiler.js --recursive -t 10000",
@@ -110,6 +111,7 @@
     "socketcluster-client": "4.3.13",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
+    "vinyl-fs": "2.4.3",
     "webpack": "1.12.14",
     "webpack-dev-server": "1.14.1"
   },
