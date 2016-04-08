@@ -123,7 +123,7 @@ const raygunInit = `<script type="text/javascript">
     <link rel="icon" type="image/png" href="/favicons/icon-96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="/favicons/icon-16.png" sizes="16x16">
     <link rel="manifest" href="/favicons/manifest.json">
-    
+    <link rel="icon" sizes="any" type="image/svg+xml" href="/favicons/icon.svg">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
     
     <meta name="theme-color" content="#ECF0F1">
