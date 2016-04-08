@@ -73,6 +73,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
     "html-minifier": "1.4.0",
+    "imagemin": "4.0.0",
     "immutable": "3.7.6",
     "invariant": "2.2.1",
     "ioredis": "2.0.0-rc1",
