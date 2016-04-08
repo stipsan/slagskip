@@ -81,8 +81,8 @@ const raygunInit = `<script type="text/javascript">
           var h = document.getElementsByTagName('head')[0];
           ${stylesheets}
         };
-        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-            webkitRequestAnimationFrame || msRequestAnimationFrame;
+        var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         if (raf) raf(cb);
         else window.addEventListener('load', cb);
       </script>
