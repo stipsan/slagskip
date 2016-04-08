@@ -42,6 +42,12 @@ module.exports = function(){
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
   const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
+  const socketHost = process.env.SOCKET_HOSTNAME
+  const preconnect = socketHost && `
+    <link rel="dns-prefetch" href="https://${socketHost}" />
+    <link rel="preconnect" href="https://${socketHost}" />
+  ` || ''
+  console.log('preconnect', preconnect)
   const shouldLoadRaygun = process.env.RAYGUN_APIKEY || false
   
   const raygunClient = `<script type="text/javascript">
@@ -74,7 +80,7 @@ const raygunInit = `<script type="text/javascript">
       const stylesheets = css.map((href, index) => `
       var l${index} = document.createElement('link'); l${index}.rel = 'stylesheet';
       l${index}.href = '${href}';
-      h.parentNode.insertBefore(l${index}, h);`).join('')
+      h.appendChild(l${index});`).join('')
       const loadCSS = stylesheets && `
       <script>
         var cb = function() {
@@ -104,9 +110,9 @@ const raygunInit = `<script type="text/javascript">
     <meta name="author" content="${meta.author}" />
     <meta name="keywords" content="${meta.keywords.join(',')}" />
     
-    <link rel="apple-touch-icon" sizes="58x58" href="/favicons/icon-58.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/icon-57.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/icon-76.png">
     <link rel="apple-touch-icon" sizes="80x80" href="/favicons/icon-80.png">
-    <link rel="apple-touch-icon" sizes="87x87" href="/favicons/icon-87.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/favicons/icon-114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/favicons/icon-120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/favicons/icon-144.png">
@@ -117,10 +123,17 @@ const raygunInit = `<script type="text/javascript">
     <link rel="icon" type="image/png" href="/favicons/icon-96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="/favicons/icon-16.png" sizes="16x16">
     <link rel="manifest" href="/favicons/manifest.json">
-    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#34495E">
+    <link rel="icon" sizes="any" type="image/svg+xml" href="/favicons/icon.svg">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
-    
+    <meta name="msapplication-TileColor" content="#34495E">
+    <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ECF0F1">
+    <meta name="msapplication-navbutton-color" content="#34495E" />
+    
+    ${preconnect}
+    
     ${shouldLoadRaygun ? raygunClient : ''}
     <style>
       .hero {
