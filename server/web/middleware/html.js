@@ -126,8 +126,11 @@ const raygunInit = `<script type="text/javascript">
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#34495E">
     <link rel="icon" sizes="any" type="image/svg+xml" href="/favicons/icon.svg">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
-    
+    <meta name="msapplication-TileColor" content="#34495E">
+    <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ECF0F1">
+    <meta name="msapplication-navbutton-color" content="#34495E" />
     
     ${preconnect}
     
