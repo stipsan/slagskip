@@ -42,6 +42,12 @@ module.exports = function(){
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
   const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
+  const socketHost = JSON.stringify(process.env.SOCKET_HOSTNAME)
+  const preconnect = socketHost && `
+    <link rel="dns-prefetch" href="https://${socketHost}" />
+    <link rel="preconnect" href="https://${socketHost}" />
+  `
+  console.log('preconnect', preconnect)
   const shouldLoadRaygun = process.env.RAYGUN_APIKEY || false
   
   const raygunClient = `<script type="text/javascript">
@@ -121,6 +127,9 @@ const raygunInit = `<script type="text/javascript">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
     
     <meta name="theme-color" content="#ECF0F1">
+    
+    ${preconnect}
+    
     ${shouldLoadRaygun ? raygunClient : ''}
     <style>
       .hero {
