@@ -42,7 +42,7 @@ module.exports = function(){
   const getSupportedBrowsers = caniuse.getSupport('websockets')
   const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
   const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
-  const socketHost = JSON.stringify(process.env.SOCKET_HOSTNAME)
+  const socketHost = process.env.SOCKET_HOSTNAME
   const preconnect = socketHost && `
     <link rel="dns-prefetch" href="https://${socketHost}" />
     <link rel="preconnect" href="https://${socketHost}" />
