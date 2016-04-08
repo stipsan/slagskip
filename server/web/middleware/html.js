@@ -80,7 +80,7 @@ const raygunInit = `<script type="text/javascript">
       const stylesheets = css.map((href, index) => `
       var l${index} = document.createElement('link'); l${index}.rel = 'stylesheet';
       l${index}.href = '${href}';
-      h.parentNode.insertBefore(l${index}, h);`).join('')
+      h.appendChild(l${index});`).join('')
       const loadCSS = stylesheets && `
       <script>
         var cb = function() {
