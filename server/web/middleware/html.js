@@ -104,9 +104,7 @@ const raygunInit = `<script type="text/javascript">
     <meta name="author" content="${meta.author}" />
     <meta name="keywords" content="${meta.keywords.join(',')}" />
     
-    <link rel="apple-touch-icon" sizes="58x58" href="/favicons/icon-58.png">
     <link rel="apple-touch-icon" sizes="80x80" href="/favicons/icon-80.png">
-    <link rel="apple-touch-icon" sizes="87x87" href="/favicons/icon-87.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/favicons/icon-114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/favicons/icon-120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/favicons/icon-144.png">
