@@ -49,7 +49,7 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     debug: false
   }),
   new webpack.optimize.UglifyJsPlugin({
-    screw_ie8: false,
+    screw_ie8: true,
     compress: {
       unsafe: true,
       drop_console: true,
