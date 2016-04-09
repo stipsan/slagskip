@@ -10,14 +10,22 @@ module.exports = [
   ]).exec()],
   ['games_expire', redis => new Promise(
     (resolve, reject) => {
-      const stream = redis.scanStream({
-        match: 'game:*',
-        // returns approximately 100 elements per call
-        count: 100
-      });
-      let keys = [];
-      stream.on('data', resultKeys => {
-        redis.multi(resultKeys.map(key => ['expire', key, 72 * 60 * 60])).exec()
+      const stream = redis.scanStream({ match: 'game:*' })
+      stream.on('data', keys => {
+        redis.multi(keys.map(key => ['expire', key, 72 * 60 * 60])).exec()
+      })
+      stream.on('end', function () {
+        resolve()
+      })
+    }
+  )],
+  ['games_set_key_rename', redis => new Promise(
+    (resolve, reject) => {
+      const stream = redis.scanStream({ match: 'user:*:games' })
+      stream.on('data', keys => {
+        redis.multi(keys.map(key => [
+          'rename', key, key.replace(':games', '').replace('user:', 'games:')
+        ])).exec()
       });
       stream.on('end', function () {
         resolve()

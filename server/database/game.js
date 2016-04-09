@@ -20,8 +20,8 @@ export const newGame = (authToken, versusId, board, redis) => {
           [board.grid]
         ])
       }],
-      ['sadd', `user:${authToken.id}:games`, gameId],
-      ['sadd', `user:${versusId}:games`, gameId],
+      ['sadd', `games:${authToken.id}`, gameId],
+      ['sadd', `games:${versusId}`, gameId],
       ['expire', `game:${gameId}`, 72 * 60 * 60],
     ]).exec()
   }).then(() => newGameId)
