@@ -19,7 +19,7 @@
     "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread"
   },
   "engines": {
-    "node": "5.9.0"
+    "node": "5.10.0"
   },
   "repository": {
     "type": "git",
