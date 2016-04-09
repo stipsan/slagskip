@@ -4,16 +4,19 @@
   "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
-    "start": "nf start web=1",
-    "start-production": "NODE_ENV=production node server/web && npm run bundle -- --watch",
+    "start": "babel-node src/server/web",
+    "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "node scripts/assets && npm run favicon",
-    "heroku-postbuild": "npm run postinstall && npm run bundle",
+    "heroku-postbuild": "npm run postinstall && npm run bundle && npm run babel",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:babel-register,js:./test/css-modules-compiler.js --recursive -t 10000",
     "test:watch": "npm test -- --watch --growl",
     "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 10000 --compilers js:./test/css-modules-compiler.js -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "reboot-workers": "kill -SIGUSR2",
-    "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico"
+    "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
+    "babel": "npm run babel-server && npm run babel-shared",
+    "babel-server": "babel src/server --out-dir lib/server --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread",
+    "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread"
   },
   "engines": {
     "node": "5.9.0"

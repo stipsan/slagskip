@@ -68,11 +68,11 @@ var entry = process.env.NODE_ENV !== 'production' ? {
   client: [
     `webpack-dev-server/client?http://${devServerHostName}:${devServerPort}/`,
     'webpack/hot/dev-server',
-    './client/index',
+    './src/client/index',
   ],
 } : {
   client: [
-    './client/index',
+    './src/client/index',
   ],
 }
 

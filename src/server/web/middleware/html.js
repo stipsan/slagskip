@@ -31,7 +31,7 @@ ga('send', 'pageview');
 
 module.exports = function(){
   var caniuse = require('caniuse-api')
-  var meta = require('../../../package.json')
+  var meta = require('../../../../package.json')
   const parseUrl = require('stattic-parseurl')
 
   const title = process.env.APP_NAME || meta.name
@@ -74,8 +74,8 @@ const raygunInit = `<script type="text/javascript">
     
     if(!assets) {
       assets = 'production' === process.env.NODE_ENV ? 
-        require('../../assets.json') :
-        webpackToAssets(require('../../../webpack.config.js'))
+        require('../../../assets.json') :
+        webpackToAssets(require('../../../../webpack.config.js'))
       
       const css = [], js = []
       Object.keys(assets).forEach(key => {
