@@ -32,6 +32,7 @@ ga('send', 'pageview');
 module.exports = function(){
   var caniuse = require('caniuse-api')
   var meta = require('../../../package.json')
+  const parseUrl = require('stattic-parseurl')
 
   const title = process.env.APP_NAME || meta.name
 
@@ -63,7 +64,14 @@ const raygunInit = `<script type="text/javascript">
   rg4js('enablePulse', true);
 </script>`
 
-  return fallback(function(req, res){
+  return fallback(function(req, res, next){
+    const { ext } = parseUrl(req.url)
+    
+    if(ext !== '' && ext !== 'html') {
+      console.warn('404', req.url)
+      return next()
+    }
+    
     if(!assets) {
       assets = 'production' === process.env.NODE_ENV ? 
         require('../../assets.json') :
