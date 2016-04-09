@@ -6,14 +6,14 @@
     "bundle": "NODE_ENV=production webpack",
     "start": "nf start web=1",
     "start-production": "NODE_ENV=production node server/web && npm run bundle -- --watch",
-    "postinstall": "node scripts/assets",
+    "postinstall": "node scripts/assets && npm run favicon",
     "heroku-postbuild": "npm run postinstall && npm run bundle",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:babel-register,js:./test/css-modules-compiler.js --recursive -t 10000",
     "test:watch": "npm test -- --watch --growl",
     "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 10000 --compilers js:./test/css-modules-compiler.js -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "reboot-workers": "kill -SIGUSR2",
-    "favicon": "cd assets/exports/favicons && convert icon-16.png icon-32.png icon-96.png favicon.ico"
+    "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png favicon.ico"
   },
   "engines": {
     "node": "5.9.0"
