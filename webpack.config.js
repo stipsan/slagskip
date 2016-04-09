@@ -47,6 +47,10 @@ var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.optimize.AggressiveMergingPlugin({
     moveToParents: true,
   }),
+  new webpack.LoaderOptionsPlugin({
+    minimize: true,
+    debug: false
+  }),
   new webpack.optimize.UglifyJsPlugin({
     screw_ie8: true,
     compress: {
@@ -100,7 +104,7 @@ const localIdentName = 'production' !== process.env.NODE_ENV ?
 const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&discardDuplicates&reduceIdents'
 
 module.exports = {
-  devtool: 'production' !== process.env.NODE_ENV && 'eval',
+  devtool: 'production' === process.env.NODE_ENV ? 'source-map' : 'cheap-module-eval-source-map',
   entry: entry,
   devServer: {
     contentBase: path.join(__dirname, 'public'),
