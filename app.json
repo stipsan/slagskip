@@ -54,7 +54,8 @@
   },
   "image": "heroku/nodejs",
   "addons": [
-    "heroku-redis:hobby-dev"
+    "heroku-redis:hobby-dev",
+    "papertrail:choklad"
   ],
   "buildpacks": [
     {
