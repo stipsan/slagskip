@@ -9,7 +9,7 @@ export const getViewer = (authToken, redis) => {
     .multi([
       ['hvals', 'users'],
       ['smembers', `user:${viewerId}:invites`],
-      ['smembers', `user:${viewerId}:games`],
+      ['smembers', `games:${viewerId}`],
       ['hset', `user:${viewerId}`, 'online', 1],
     ])
     .exec()

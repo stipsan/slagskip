@@ -1,5 +1,5 @@
 import expect from 'expect'
-import * as database from '../../../server/database'
+import * as database from '../../../src/server/database'
 import Redis from 'ioredis'
 import mockRedis from '../../mockRedis'
 

@@ -11,6 +11,7 @@
     "redux",
     "webpack"
   ],
+  "logo": "https://epic.vg/favicons/icon.svg",
   "website": "https://epic.vg/",
   "repository": "https://github.com/stipsan/epic",
   "success_url": "/",
@@ -53,7 +54,8 @@
   },
   "image": "heroku/nodejs",
   "addons": [
-    "heroku-redis:hobby-dev"
+    "heroku-redis:hobby-dev",
+    "papertrail:choklad"
   ],
   "buildpacks": [
     {

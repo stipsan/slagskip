@@ -1,6 +1,6 @@
 import expect from 'expect'
-import { disconnected as reducer } from '../../../client/reducers/index'
-import * as types from '../../../client/constants/ActionTypes'
+import { disconnected as reducer } from '../../../src/client/reducers/index'
+import * as types from '../../../src/client/constants/ActionTypes'
 
 describe('disconnected reducer', () => {
   it('should return the initial state', () => {

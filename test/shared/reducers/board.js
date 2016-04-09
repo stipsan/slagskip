@@ -1,6 +1,6 @@
 import expect from 'expect'
-import { board as reducer } from '../../../shared/reducers/board'
-import * as types from '../../../shared/constants/ActionTypes'
+import { board as reducer } from '../../../src/shared/reducers/board'
+import * as types from '../../../src/shared/constants/ActionTypes'
 
 describe('board reducer', () => {
   it('should return the initial state', () => {

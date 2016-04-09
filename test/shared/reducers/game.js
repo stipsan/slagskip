@@ -1,7 +1,7 @@
 import expect from 'expect'
-import { game as reducer } from '../../../shared/reducers/game'
-import { board } from '../../../shared/reducers/board'
-import * as types from '../../../shared/constants/ActionTypes'
+import { game as reducer } from '../../../src/shared/reducers/game'
+import { board } from '../../../src/shared/reducers/board'
+import * as types from '../../../src/shared/constants/ActionTypes'
 
 const mockGame = {
   id: 1,

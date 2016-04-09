@@ -1,6 +1,6 @@
 import expect from 'expect'
-import { match as reducer } from '../../../server/reducers/match'
-import * as types from '../../../shared/constants/ActionTypes'
+import { match as reducer } from '../../../src/server/reducers/match'
+import * as types from '../../../src/shared/constants/ActionTypes'
 
 const mockMatch = {
   boards: [

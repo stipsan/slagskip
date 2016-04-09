@@ -1,2 +1,2 @@
-web: node server/web
-migrate: node server/migrate
+web: node lib/server/web
+migrate: node lib/server/migrate

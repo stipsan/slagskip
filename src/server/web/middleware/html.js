@@ -31,7 +31,8 @@ ga('send', 'pageview');
 
 module.exports = function(){
   var caniuse = require('caniuse-api')
-  var meta = require('../../../package.json')
+  var meta = require('../../../../package.json')
+  const parseUrl = require('stattic-parseurl')
 
   const title = process.env.APP_NAME || meta.name
 
@@ -63,11 +64,18 @@ const raygunInit = `<script type="text/javascript">
   rg4js('enablePulse', true);
 </script>`
 
-  return fallback(function(req, res){
+  return fallback(function(req, res, next){
+    const { ext } = parseUrl(req.url)
+    
+    if(ext !== '' && ext !== 'html') {
+      console.warn('404', req.url)
+      return next()
+    }
+    
     if(!assets) {
       assets = 'production' === process.env.NODE_ENV ? 
-        require('../../assets.json') :
-        webpackToAssets(require('../../../webpack.config.js'))
+        require('../../../../assets.json') :
+        webpackToAssets(require('../../../../webpack.config.js'))
       
       const css = [], js = []
       Object.keys(assets).forEach(key => {
@@ -125,7 +133,7 @@ const raygunInit = `<script type="text/javascript">
     <link rel="manifest" href="/favicons/manifest.json">
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#34495E">
     <link rel="icon" sizes="any" type="image/svg+xml" href="/favicons/icon.svg">
-    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <meta name="msapplication-TileColor" content="#34495E">
     <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
     <meta name="msapplication-config" content="/favicons/browserconfig.xml">
