@@ -1,19 +1,11 @@
+import parseUrl from 'stattic-parseurl'
+import fallback from '@stipsan/express-history-api-fallback'
+import { minify } from 'html-minifier'
+
 const webpackToAssets = config => {
   return Object.keys(config.entry).reduce((prev, curr) => {
     return Object.assign(prev, {[curr]: {js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}`}})
   }, {})
-}
-const mapSupportedBrowsersToProps = browsers => {
-  return Object.keys(browsers).reduce((prev, curr) => {
-    const browser = browsers[curr]
-    if(!browser.y || [
-      'chrome', 'firefox', 'edge', 'safari', 'opera',
-    ].indexOf(curr) === -1) {
-      return prev
-    }
-    
-    return [ ...prev, { name: curr, y: browser.y } ]
-  }, [])
 }
 
 const getAnalyticsSnippet = TrackingID => `
@@ -30,25 +22,18 @@ ga('send', 'pageview');
 `
 
 module.exports = function(){
-  var caniuse = require('caniuse-api')
   var meta = require('../../../../package.json')
-  const parseUrl = require('stattic-parseurl')
 
   const title = process.env.APP_NAME || meta.name
 
-  var fallback = require('@stipsan/express-history-api-fallback')
-  var minify = require('html-minifier').minify
   var assets, html
   
-  const getSupportedBrowsers = caniuse.getSupport('websockets')
-  const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
-  const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
   const socketHost = process.env.SOCKET_HOSTNAME
   const preconnect = socketHost && `
     <link rel="dns-prefetch" href="https://${socketHost}" />
     <link rel="preconnect" href="https://${socketHost}" />
   ` || ''
-  console.log('preconnect', preconnect)
+
   const shouldLoadRaygun = process.env.RAYGUN_APIKEY || false
   
   const raygunClient = `<script type="text/javascript">
@@ -183,9 +168,6 @@ const raygunInit = `<script type="text/javascript">
       </noscript>
     </div>
     ${analytics}
-    <script>
-      SUPPORTED_BROWSERS = ${SUPPORTED_BROWSERS};
-    </script>
     ${scripts}
     ${loadCSS}
     ${shouldLoadRaygun ? raygunInit : ''}

@@ -1,6 +1,24 @@
 var path = require('path')
 var webpack = require('webpack')
 
+const mapSupportedBrowsersToProps = browsers => {
+  return Object.keys(browsers).reduce((prev, curr) => {
+    const browser = browsers[curr]
+    if(!browser.y || [
+      'chrome', 'firefox', 'edge', 'safari', 'opera',
+    ].indexOf(curr) === -1) {
+      return prev
+    }
+    
+    return [ ...prev, { name: curr, y: browser.y } ]
+  }, [])
+}
+
+var caniuse = require('caniuse-api')
+const getSupportedBrowsers = caniuse.getSupport('websockets')
+const supportedBrowsers = mapSupportedBrowsersToProps(getSupportedBrowsers)
+const SUPPORTED_BROWSERS = JSON.stringify(supportedBrowsers)
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
