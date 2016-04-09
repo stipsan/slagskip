@@ -34,5 +34,5 @@ new Imagemin()
 // app manifest and browser xml
 const vfs = require('vinyl-fs')
 
-vfs.src(path.resolve(__dirname, '..', 'assets', 'exports', 'favicons', '*.{json,xml}'))
+vfs.src(path.resolve(__dirname, '..', 'assets', 'exports', 'favicons', '*.{json,xml,ico}'))
   .pipe(vfs.dest(path.resolve(__dirname, '..', 'public', 'favicons')));
