@@ -43,10 +43,7 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     'process.env.NODE_ENV': JSON.stringify('production'),
   })),
   new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.OccurrenceOrderPlugin(true),
-  new webpack.optimize.AggressiveMergingPlugin({
-    moveToParents: true,
-  }),
+  new webpack.optimize.AggressiveMergingPlugin(),
   new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false
@@ -54,7 +51,7 @@ var plugins = process.env.NODE_ENV === 'production' ? [
   new webpack.optimize.UglifyJsPlugin({
     screw_ie8: true,
     compress: {
-      unsafe: true, // could use Bugsnag in case we get trouble when live
+      unsafe: true,
       drop_console: true,
       warnings: false,
     },
