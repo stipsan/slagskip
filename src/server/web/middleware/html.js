@@ -74,7 +74,7 @@ const raygunInit = `<script type="text/javascript">
     
     if(!assets) {
       assets = 'production' === process.env.NODE_ENV ? 
-        require('../../assets.json') :
+        require('../../../../assets.json') :
         webpackToAssets(require('../../../../webpack.config.js'))
       
       const css = [], js = []
