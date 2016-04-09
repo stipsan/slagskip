@@ -62,7 +62,7 @@ plugins = plugins.concat(new webpack.ProvidePlugin({
 }))
 
 var AssetsPlugin = require('assets-webpack-plugin')
-plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'server')}))
+plugins = plugins.concat(new AssetsPlugin({filename: 'assets.json', path: path.join(__dirname, 'src', 'server')}))
 
 var entry = process.env.NODE_ENV !== 'production' ? {
   client: [
