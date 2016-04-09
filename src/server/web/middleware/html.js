@@ -30,8 +30,8 @@ module.exports = function(){
   
   const socketHost = process.env.SOCKET_HOSTNAME
   const preconnect = socketHost && `
-    <link rel="dns-prefetch" href="https://${socketHost}" />
-    <link rel="preconnect" href="https://${socketHost}" />
+    <link rel="dns-prefetch" href="//${socketHost}">
+    <link rel="preconnect" href="//${socketHost}" crossorigin>
   ` || ''
 
   const shouldLoadRaygun = process.env.RAYGUN_APIKEY || false
