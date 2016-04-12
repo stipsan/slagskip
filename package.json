@@ -103,7 +103,7 @@
     "react-redux": "4.4.2",
     "react-router": "2.0.1",
     "react-router-redux": "4.0.2",
-    "react-timeago": "github:stipsan/react-timeago",
+    "react-timeago": "3.0.0-beta.3",
     "react-transform-catch-errors": "1.0.2",
     "react-transform-hmr": "1.0.4",
     "react-user-avatar": "1.7.1",
