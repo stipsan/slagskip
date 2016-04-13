@@ -120,7 +120,7 @@ class FriendRow extends Component {
       <div className={cx('buttonGroup')}>
         {canLaunchGame && <Link
           className={cx('canLaunchGame')}
-          to={`game/1`}
+          to={`/game/1`}
         >
           <span>Start Game!</span>
         </Link>}
