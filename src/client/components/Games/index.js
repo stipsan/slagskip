@@ -27,7 +27,7 @@ class Games extends Component {
     if(!friends) return <h1>Loading…</h1>
     
     return <div className={cx('gamesList')}>
-      <Link to="new" className={cx('game')}>
+      <Link to="/new" className={cx('game')}>
         <span className={cx('newGame')}>
           +
         </span>

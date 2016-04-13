@@ -43,7 +43,7 @@ class Friend extends Component {
     const avatar = friend.get('avatar')
     const id = friend.get('id')
     const online = friend.get('online') === '1'
-    return <Link to={`setup/${id}`} className={cx('friend')}>
+    return <Link to={`/setup/${id}`} className={cx('friend')}>
       <span className={cx(online ? 'avatarOnline' : 'avatar')}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
