@@ -15,6 +15,7 @@
     "reboot-workers": "kill -SIGUSR2",
     "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
     "babel": "npm run babel-server && npm run babel-shared",
+    "babel:watch": "npm run babel-server -- --watch && npm run babel-shared -- --watch",
     "babel-server": "babel src/server --out-dir lib/server --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread",
     "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread"
   },

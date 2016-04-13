@@ -125,6 +125,14 @@ const raygunInit = `<script type="text/javascript">
     <meta name="theme-color" content="#ECF0F1">
     <meta name="msapplication-navbutton-color" content="#34495E" />
     
+    <!-- Open Graph data -->
+    <meta property="og:title" content="${title}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://${req.hostname}/" />
+    <meta property="og:image" content="https://${req.hostname}/favicons/icon.png" />
+    <meta property="og:description" content="${title} is a fun and addicting two-player game. Hide your items well and take turns searching each other in a race to 21 points!" />
+    <meta property="og:site_name" content="${title}" />
+    
     ${preconnect}
     
     ${shouldLoadRaygun ? raygunClient : ''}
