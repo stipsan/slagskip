@@ -1,6 +1,5 @@
 
 node_modules
-server/assets.json
 lib
 
 .env
@@ -8,3 +7,4 @@ lib
 *.log
 
 coverage
+assets.json
