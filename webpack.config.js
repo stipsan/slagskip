@@ -54,8 +54,16 @@ var plugins = process.env.NODE_ENV === 'production' ? [
       unsafe: true,
       drop_console: true,
       warnings: false,
+      pure_getters: true,
+      unsafe_comps: true,
     },
     comments: false,
+    mangle: {
+      sort: true,
+      toplevel: true,
+      eval: true,
+      properties: true,
+    }
   }),
 ] : [
   new webpack.HotModuleReplacementPlugin(),
