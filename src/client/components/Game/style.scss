@@ -44,13 +44,15 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   composes: heading from '../../style/bulma.scss';
 }
 .viewerScore {
-  font-size: .8em;
-  break: both;
   composes: tag is-primary from '../../style/bulma.scss';
 }
 .versusScore {
-  font-size: .8em;
   composes: tag is-danger from '../../style/bulma.scss';
+}
+.versusScore, .versusScore {
+  font-size: .8em;
+  border-radius: 2px;
+  break: both;
 }
 .navbar {
   composes: columns is-mobile from '../../style/bulma.scss';
