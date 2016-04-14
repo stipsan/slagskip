@@ -15,4 +15,5 @@
 
 .title {
   composes: subtitle is-3 from '../../style/bulma.scss';
+  text-align: center;
 }
