@@ -49,7 +49,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
 .versusScore {
   composes: tag is-danger from '../../style/bulma.scss';
 }
-.versusScore, .versusScore {
+.viewerScore, .versusScore {
   font-size: .8em;
   border-radius: 2px;
   break: both;
