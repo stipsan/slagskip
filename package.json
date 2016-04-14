@@ -84,7 +84,7 @@
     "imagemin": "4.0.0",
     "immutable": "3.7.6",
     "invariant": "2.2.1",
-    "ioredis": "2.0.0-rc1",
+    "ioredis": "2.0.0-rc2",
     "json-loader": "0.5.4",
     "lodash": "4.11.1",
     "module-alias": "1.0.5",
@@ -120,7 +120,7 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "vinyl-fs": "2.4.3",
-    "webpack": "2.1.0-beta.4",
+    "webpack": "2.1.0-beta.5",
     "webpack-dev-server": "2.0.0-beta"
   },
   "devDependencies": {
