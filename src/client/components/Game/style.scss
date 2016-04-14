@@ -35,7 +35,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  composes: columns is-mobile is-text-centered from '../../style/bulma.scss';
+  composes: columns is-mobile has-text-centered from '../../style/bulma.scss';
 }
 .score {
   composes: column from '../../style/bulma.scss';
@@ -60,7 +60,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   min-height: 16px;
 }
 .navbarTitle {
-  composes: column is-8 is-text-centered from '../../style/bulma.scss';
+  composes: column is-8 has-text-centered from '../../style/bulma.scss';
 }
 
 .state {
