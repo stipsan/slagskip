@@ -58,9 +58,9 @@ export default class Login extends Component {
                   {buttonLabel}
                 </button>
               </p>
-              
             </form>
           </div>
+          <a className={cx('forgot-password')}>Forgot your password?</a>
         </div>
       </div>
 

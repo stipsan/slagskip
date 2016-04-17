@@ -142,6 +142,15 @@
 .is-loading {
   composes: is-loading from '../../style/bulma.scss';
 }
+.forgot-password {
+  composes: button is-link from '../../style/bulma.scss';
+  
+  display: block;
+  max-width: 600px;
+  background: transparent;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/
 
