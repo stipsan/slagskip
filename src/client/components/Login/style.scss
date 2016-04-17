@@ -125,16 +125,22 @@
   composes: is-active from '../../style/bulma.scss';
 }
 .input-email {
-  composes: input from '../../style/bulma.scss';
+  composes: input is-large from '../../style/bulma.scss';
 }
 .input-username {
   
 }
 .input-password {
-  
+  composes: input is-large from '../../style/bulma.scss';
 }
 .control {
   composes: control from '../../style/bulma.scss';
+}
+.button-login {
+  composes: button is-large is-primary is-fullwidth from '../../style/bulma.scss';
+}
+.is-loading {
+  composes: is-loading from '../../style/bulma.scss';
 }
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/

@@ -2,8 +2,8 @@ import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import cx from './style.scss'
 
-const placeholderLabel = `Username, try 'Batman' or 'Superman'`
-const buttonLabel = 'Enter'
+const placeholderLabel = `Username or E-mail`
+const buttonLabel = 'Login'
 
 export default class Login extends Component {
   static propTypes = {
@@ -51,21 +51,15 @@ export default class Login extends Component {
                 <input className={cx('input-email')} ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
               </p>
               <p className={cx('control')}>
-                <input className={cx('input-password')} type="password" />
+                <input className={cx('input-password')} type="password" placeholder="Password" />
               </p>
               <p className={cx('control')}>
-                <button lassName={cx('button-login')} type="submit" disabled={isRequestPending}>
+                <button className={cx('button-login', {'is-loading': isRequestPending})} type="submit" disabled={isRequestPending}>
                   {buttonLabel}
                 </button>
               </p>
               
             </form>
-            <h1 className={cx('title')}>
-              Title
-            </h1>
-            <h2 className={cx('subtitle')}>
-              Subtitle
-            </h2>
           </div>
         </div>
       </div>
