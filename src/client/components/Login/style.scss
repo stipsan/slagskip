@@ -71,12 +71,27 @@
 .pendingMessage {
   transition: opacity 300ms ease-out;
 }
-/* prevent white FLOC in production */
 
-:global {
-  html, body {
-    background: $bg-login;
-  }
+.container {
+  composes: container from '../../style/bulma.scss';
+}
+.hero {
+  composes: hero is-dark is-bold is-fullheight from '../../style/bulma.scss';
+}
+.hero-content {
+  composes: hero-content from '../../style/bulma.scss';
+}
+.hero-header {
+  composes: hero-header from '../../style/bulma.scss';
+  
+  text-align: center;
+  margin-top: 10px;
+}
+.hero-footer {
+  composes: hero-footer from '../../style/bulma.scss';
+}
+.tabs {
+  composes: tabs is-boxed is-fullwidth from '../../style/bulma.scss';
 }
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/
