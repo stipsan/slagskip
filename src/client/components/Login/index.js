@@ -33,27 +33,45 @@ export default class Login extends Component {
       </div>
 
       <div className={cx('hero-content')}>
-        <div className={cx('card')}>
-          <h1 className={cx('pendingMessage')} style={{opacity: isRequestPending ? 1 : 0}}>
-            Logging in…
-          </h1>
-          <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>
-            <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
-            <button type="submit" disabled={isRequestPending}>
-              {buttonLabel}
-            </button>
-          </form>
-          <h1 className={cx('title')}>
-            Title
-          </h1>
-          <h2 className={cx('subtitle')}>
-            Subtitle
-          </h2>
+        <div className={cx('container')}>
+          <div className={cx('card')}>
+            <header className={cx('card-header')}>
+            <nav className={cx('card-tabs')}>
+              <ul>
+                <li className={cx('is-active')}><a>Sign in</a></li>
+                <li><a>New user</a></li>
+              </ul>
+            </nav>
+            </header>
+            <h1 className={cx('pendingMessage')} style={{opacity: isRequestPending ? 1 : 0}}>
+              Logging in…
+            </h1>
+            <form className={cx('card-content')} onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>
+              <p className={cx('control')}>
+                <input className={cx('input-email')} ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
+              </p>
+              <p className={cx('control')}>
+                <input className={cx('input-password')} type="password" />
+              </p>
+              <p className={cx('control')}>
+                <button lassName={cx('button-login')} type="submit" disabled={isRequestPending}>
+                  {buttonLabel}
+                </button>
+              </p>
+              
+            </form>
+            <h1 className={cx('title')}>
+              Title
+            </h1>
+            <h2 className={cx('subtitle')}>
+              Subtitle
+            </h2>
+          </div>
         </div>
       </div>
 
       <div className={cx('hero-footer')}>
-        <nav className={cx('tabs')}>
+        <nav className={cx('footer-tabs')}>
           <div className={cx('container')}>
             <ul>
               <li><a>About</a></li>

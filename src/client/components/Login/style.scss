@@ -76,7 +76,9 @@
   composes: container from '../../style/bulma.scss';
 }
 .hero {
-  composes: hero is-dark is-bold is-fullheight from '../../style/bulma.scss';
+  composes: hero is-bold is-fullheight from '../../style/bulma.scss';
+  
+  background-color: #ECF0F1;
 }
 .hero-content {
   composes: hero-content from '../../style/bulma.scss';
@@ -90,8 +92,49 @@
 .hero-footer {
   composes: hero-footer from '../../style/bulma.scss';
 }
-.tabs {
+.footer-tabs {
   composes: tabs is-boxed is-fullwidth from '../../style/bulma.scss';
+}
+.card {
+  composes: card is-fullwidth from '../../style/bulma.scss';
+  
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+}
+.card-header {
+  composes: card-header from '../../style/bulma.scss';
+}
+.card-content {
+  composes: card-content from '../../style/bulma.scss';
+}
+.card-footer {
+  composes: card-footer from '../../style/bulma.scss';
+}
+.card-tabs {
+  composes: tabs is-fullwidth is-boxed from '../../style/bulma.scss';
+  
+  width: 100%;
+  
+  li:not(.is-active) {
+    background-color: hsla(0, 0%, 0%, .1);
+    opacity: .5;
+  }
+}
+.is-active {
+  composes: is-active from '../../style/bulma.scss';
+}
+.input-email {
+  composes: input from '../../style/bulma.scss';
+}
+.input-username {
+  
+}
+.input-password {
+  
+}
+.control {
+  composes: control from '../../style/bulma.scss';
 }
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/
