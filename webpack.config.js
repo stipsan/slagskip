@@ -49,7 +49,6 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     debug: false
   }),
   new webpack.optimize.UglifyJsPlugin({
-    screw_ie8: false,
     compress: {
       unsafe: true,
       drop_console: true,
@@ -66,6 +65,9 @@ var plugins = process.env.NODE_ENV === 'production' ? [
     }
   }),
 ] : [
+  new webpack.LoaderOptionsPlugin({
+    debug: true
+  }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
