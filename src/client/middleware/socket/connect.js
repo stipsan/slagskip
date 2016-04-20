@@ -21,7 +21,7 @@ export const connect = (store, next, action, callSocket) => {
       path: process.env.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
-      authTokenName: process.env.AUTH_TOKEN_NAME,
+      authTokenName: process.env.AUTH_TOKEN_NAME || 'authToken',
     })
     
     attachListeners(store, next, action, socket, callSocket)
