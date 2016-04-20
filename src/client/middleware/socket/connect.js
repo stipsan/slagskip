@@ -9,12 +9,14 @@ import {
 import { attachListeners } from './listeners'
 import { subscribeChannels } from './channel'
 
+const isBrowserCapable = !!global.WebSocket
+
 let memoizedSocket    = false
 let pendingConnection = false
 
 export const connect = (store, next, action, callSocket) => {
   // initial setup
-  if(!memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
+  if(isBrowserCapable && !memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
     const socket = socketCluster.connect({
       hostname: process.env.SOCKET_HOSTNAME || location.hostname,
