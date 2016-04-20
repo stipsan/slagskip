@@ -33,8 +33,6 @@ const provideDefaults = {
     maxDelay: 60000,
   }),
   'process.env.SOCKET_HOSTNAME': JSON.stringify(process.env.SOCKET_HOSTNAME),
-  'process.env.SOCKET_PATH': JSON.stringify(process.env.SOCKET_PATH),
-  'process.env.AUTH_TOKEN_NAME': JSON.stringify(process.env.AUTH_TOKEN_NAME),
 }
 
 var plugins = process.env.NODE_ENV === 'production' ? [

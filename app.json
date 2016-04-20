@@ -38,18 +38,9 @@
       "description": "Use this if you're using CloudFlare SSL, or some other SSL that don't work with websockets",
       "required": false
     },
-    "SOCKET_PATH": {
-      "description": "The SocketCluster path is normally /socketcluster to avoid collisions, but that's not a worry here",
-      "value": "/",
-      "required": false
-    },
     "TRACKING_ID": {
       "description": "Google Analytics Tracking ID",
       "required": false
-    },
-    "AUTH_TOKEN_NAME": {
-      "description": "Name of the authToken stored in the browsers localStorage",
-      "generator": "secret"
     }
   },
   "image": "heroku/nodejs",

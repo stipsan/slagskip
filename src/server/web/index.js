@@ -9,7 +9,6 @@ new SocketCluster({
   workerController: __dirname + '/worker.js',
   // Using babel transpiling instead of babel-register, for performance
   //initController: __dirname + '/init.js',
-  path: process.env.SOCKET_PATH || '/ws',
   logLevel: process.env.LOG_LEVEL ? Number(process.env.LOG_LEVEL ) : 3,
   authKey: process.env.AUTH_KEY,
   origins: process.env.ORIGINS || '*:*',

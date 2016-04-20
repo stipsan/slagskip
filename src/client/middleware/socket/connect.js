@@ -1,4 +1,3 @@
-import socketCluster from 'socketcluster-client'
 import { 
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
@@ -9,21 +8,19 @@ import {
 import { attachListeners } from './listeners'
 import { subscribeChannels } from './channel'
 
-const isBrowserCapable = !!global.WebSocket
+const socketCluster = global.WebSocket ? require('socketcluster-client') : false
 
 let memoizedSocket    = false
 let pendingConnection = false
 
 export const connect = (store, next, action, callSocket) => {
   // initial setup
-  if(isBrowserCapable && !memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
+  if(socketCluster && !memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
     pendingConnection = true
     const socket = socketCluster.connect({
       hostname: process.env.SOCKET_HOSTNAME || location.hostname,
-      path: process.env.SOCKET_PATH || '/ws',
       autoReconnect: true,
       autoReconnectOptions: process.env.AUTO_RECONNECT_OPTIONS,
-      authTokenName: process.env.AUTH_TOKEN_NAME || 'authToken',
     })
     
     attachListeners(store, next, action, socket, callSocket)
