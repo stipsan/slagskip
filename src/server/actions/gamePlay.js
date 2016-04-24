@@ -45,9 +45,9 @@ export const loadGame = (
         'waiting' :
         'setup'
       )
-      
-      if(game.scores.indexOf(21) !== -1) {
-        if(isViewerFirst) {
+
+      if (game.scores.indexOf(21) !== -1) {
+        if (isViewerFirst) {
           gameState = game.scores[0] === 21 && game.scores[1] !== 21 ? 'victory' : 'defeat'
         } else {
           gameState = game.scores[1] === 21 ? 'victory' : 'defeat'
@@ -98,12 +98,12 @@ export const newGame = (
       invariant(gameId, 'Failed to create new game')
 
       // We have a game versus a bot!
-      if(bots.hasOwnProperty(action.versus)) {
+      if (bots.hasOwnProperty(action.versus)) {
         const botToken = {
           id: action.versus
         }
         const botBoard = boardReducer(undefined, { type: RANDOM_ITEMS, getRotated: bots[action.versus].getRotated })
-        
+
         return database.joinGame(botToken, gameId, botBoard.toJS(), redis)
           .then(game => {
             invariant(game.id, 'Bot failed to join game')
@@ -123,10 +123,10 @@ export const newGame = (
               type: RECEIVE_JOIN_GAME,
               id: gameId,
             })
-        }).catch(error => {
-          console.error(JOIN_GAME_FAILURE, error)
-          callback(JOIN_GAME_FAILURE, error.message || error)
-        })
+          }).catch(error => {
+            console.error(JOIN_GAME_FAILURE, error)
+            callback(JOIN_GAME_FAILURE, error.message || error)
+          })
       }
 
       callback(null, {
@@ -134,14 +134,14 @@ export const newGame = (
         id: gameId,
         versus: action.versus,
       })
-      
+
       socket.exchange.publish(`user:${action.versus}`, {
         type: RECEIVE_NEW_GAME,
         id: gameId,
         versus: authToken.id,
       })
-      
-      
+
+
     }).catch(error => {
       console.error(NEW_GAME_FAILURE, error)
       callback(NEW_GAME_FAILURE, error.message || error)
@@ -167,7 +167,7 @@ export const joinGame = (
         type: JOIN_GAME_SUCCESS,
         id: game.id,
       })
-      
+
       socket.exchange.publish(`user:${versus}`, {
         type: RECEIVE_JOIN_GAME,
         id: game.id,
@@ -187,18 +187,18 @@ export const fireCannon = (
 ) => (dispatch, getState) => {
   const authToken = socket.getAuthToken()
   const { selectedCell } = action
-  
+
   const hit = getState().getIn(['match', 'versusBoard', selectedCell])
-  
+
   // Something went wrong
-  if(hit === -1 || hit === undefined) {
+  if (hit === -1 || hit === undefined) {
     const error = 'Game data is missing'
     console.error(FIRE_CANNON_FAILURE, error)
     return callback(FIRE_CANNON_FAILURE, error)
   }
-  
+
   const turn = { id: authToken.id, index: selectedCell, hit: hit !== 0, foundItem: hit !== 0 > 0 && hit, on: new Date().getTime() }
-  
+
   return database.saveTurn(authToken, action.id, turn, redis)
     .then(game => {
       callback(null, {
@@ -222,9 +222,9 @@ export const fireCannon = (
         id: action.id,
         turn,
       })
-      
-      if(bots.hasOwnProperty(game.players[1]) && hit === 0 && game.scores[0] < 21) {
-        
+
+      if (bots.hasOwnProperty(game.players[1]) && hit === 0 && game.scores[0] < 21) {
+
         const getBotTurns = bots[game.players[1]].getTurns
         const botToken = { id: game.players[1] }
         console.log('starting bot turn', botToken)
@@ -234,25 +234,25 @@ export const fireCannon = (
         let successfullTurnsPlayedByBot = game.turns.reduce((turnsByBot, turn) => {
           return turn.id === botToken.id && turn.hit ? [...turnsByBot, turn.index] : turnsByBot
         }, [])
-        
-        if(turnsPlayedByBot.length === 99) return false // game over
-        
+
+        if (turnsPlayedByBot.length === 99) return false // game over
+
         const viewerBoard = getState().getIn(['match', 'viewerBoard'])
         const botTurns = getBotTurns(botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot, viewerBoard)
-                
+
         botTurns.forEach((botTurn, index) => {
           // lets timeout the response so the user is able to notice the bot already responded
-          setTimeout(function(botTurn) {
+          setTimeout(function (botTurn) {
             database.saveTurn(botToken, action.id, botTurn, redis).then(game => {
 
-                socket.exchange.publish(`user:${authToken.id}`, {
-                  type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
-                  versusScore: game.scores[1],
-                  id: action.id,
-                  turn: botTurn,
-                })
-              
-              
+              socket.exchange.publish(`user:${authToken.id}`, {
+                type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
+                versusScore: game.scores[1],
+                id: action.id,
+                turn: botTurn,
+              })
+
+
             }).catch(error => {
               // @TODO type should be RECEIVE_BOT_FAILURE
               console.error(FIRE_CANNON_FAILURE, error)

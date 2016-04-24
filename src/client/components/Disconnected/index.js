@@ -4,37 +4,37 @@ import TimeAgo from 'react-timeago'
 import cx from './style.scss'
 
 const timeAgoFormatter = (value, unit, suffix) => {
-  if(suffix === 'ago' || value === 0) {
+  if (suffix === 'ago' || value === 0) {
     return 'Reconnecting…'
   }
-  
-  if(value !== 1){
+
+  if (value !== 1) {
     unit += 's'
   }
- 
+
   return `Reconnect in ${value} ${unit}…`
 }
 
 function getTimeAgo(pendingReconnect = false) {
-  if(!pendingReconnect) return false
-    
+  if (!pendingReconnect) return false
+
   return <TimeAgo date={pendingReconnect} formatter={timeAgoFormatter} />
 }
 
 class Disconnected extends Component {
-  
+
   handleRetry = () => location.reload()
-  
+
   render() {
-  
+
     const { username, connected, pendingReconnect } = this.props
-    
+
     const title = 'Service Unavailable'
     const failedConnect = 'Try reloading the page in a few moments'
     const lostConnection = <a onClick={this.handleRetry} className={cx('retry')}>Retry?</a>
     const afterTooManyAttempts = connected ? lostConnection : failedConnect
-    
-    return <DocumentTitle title={`Epic | ${title}`}>
+
+    return (<DocumentTitle title={`Epic | ${title}`}>
       <section className={cx('hero')}>
         <div className={cx('heroContent')}>
           <div className={cx('container')}>
@@ -45,7 +45,7 @@ class Disconnected extends Component {
           </div>
         </div>
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 Disconnected.propTypes = {

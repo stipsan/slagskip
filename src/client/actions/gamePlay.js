@@ -18,7 +18,7 @@ import {
 export function resumeGame(id) {
   return {
     [CALL_SOCKET]: {
-      types: [ RESUME_GAME_REQUEST, RESUME_GAME_SUCCESS, RESUME_GAME_FAILURE ],
+      types: [RESUME_GAME_REQUEST, RESUME_GAME_SUCCESS, RESUME_GAME_FAILURE],
       id,
     },
   }
@@ -27,7 +27,7 @@ export function resumeGame(id) {
 export function loadGame(id) {
   return {
     [CALL_SOCKET]: {
-      types: [ LOAD_GAME_REQUEST, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE ],
+      types: [LOAD_GAME_REQUEST, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE],
       data: { id },
     },
   }
@@ -43,7 +43,7 @@ export const selectCell = selectedCell => {
 export const fireCannon = data => {
   return {
     [CALL_SOCKET]: {
-      types: [ FIRE_CANNON_REQUEST, FIRE_CANNON_SUCCESS, FIRE_CANNON_FAILURE ],
+      types: [FIRE_CANNON_REQUEST, FIRE_CANNON_SUCCESS, FIRE_CANNON_FAILURE],
       data,
     },
   }

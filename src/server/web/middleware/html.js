@@ -4,7 +4,7 @@ import { minify } from 'html-minifier'
 
 const webpackToAssets = config => {
   return Object.keys(config.entry).reduce((prev, curr) => {
-    return Object.assign(prev, {[curr]: {js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}`}})
+    return Object.assign(prev, { [curr]: { js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}` } })
   }, {})
 }
 
@@ -21,13 +21,13 @@ ga('send', 'pageview');
 </script>
 `
 
-module.exports = function(){
+module.exports = function () {
   var meta = require('../../../../package.json')
 
   const title = process.env.APP_NAME || meta.name
 
   var assets, html
-  
+
   const socketHost = process.env.SOCKET_HOSTNAME
   const preconnect = socketHost && `
     <link rel="dns-prefetch" href="//${socketHost}">
@@ -35,7 +35,7 @@ module.exports = function(){
   ` || ''
 
   const shouldLoadRaygun = process.env.RAYGUN_APIKEY || false
-  
+
   const raygunClient = `<script type="text/javascript">
   !function(a,b,c,d,e,f,g,h){a.RaygunObject=e,a[e]=a[e]||function(){
   (a[e].o=a[e].o||[]).push(arguments)},f=b.createElement(c),g=b.getElementsByTagName(c)[0],
@@ -43,33 +43,33 @@ module.exports = function(){
   h&&h(b,c,d,f,g),g||(g=new Error(b)),a[e].q=a[e].q||[],a[e].q.push({
   e:g})}}(window,document,"script","//cdn.raygun.io/raygun4js/raygun.min.js","rg4js");
 </script>`
-const raygunInit = `<script type="text/javascript">
+  const raygunInit = `<script type="text/javascript">
   rg4js('apiKey', ${JSON.stringify(process.env.RAYGUN_APIKEY)});
   rg4js('enableCrashReporting', true);
   rg4js('enablePulse', true);
 </script>`
 
-  return fallback(function(req, res, next){
+  return fallback(function (req, res, next) {
     const { ext } = parseUrl(req.url)
-    
-    if(ext !== '' && ext !== 'html') {
+
+    if (ext !== '' && ext !== 'html') {
       console.warn('404', req.url)
       return next()
     }
-    
-    if(!assets) {
-      assets = 'production' === process.env.NODE_ENV ? 
+
+    if (!assets) {
+      assets = 'production' === process.env.NODE_ENV ?
         require('../../../../assets.json') :
         webpackToAssets(require('../../../../webpack.config.js'))
-      
+
       const css = [], js = []
       Object.keys(assets).forEach(key => {
         const bundle = assets[key]
-        if(bundle.hasOwnProperty('css')) css.push(bundle.css)
-        if(bundle.hasOwnProperty('js')) js.push(bundle.js)
+        if (bundle.hasOwnProperty('css')) css.push(bundle.css)
+        if (bundle.hasOwnProperty('js')) js.push(bundle.js)
       })
-      const scripts     = js.map(script => `<script async src="${script}"></script>`).join('')
-      //const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
+      const scripts = js.map(script => `<script async src="${script}"></script>`).join('')
+      // const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
       const stylesheets = css.map((href, index) => `
       var l${index} = document.createElement('link'); l${index}.rel = 'stylesheet';
       l${index}.href = '${href}';
@@ -86,9 +86,9 @@ const raygunInit = `<script type="text/javascript">
         else window.addEventListener('load', cb);
       </script>
       ` || ''
-      
+
       const analytics = process.env.TRACKING_ID ? getAnalyticsSnippet(process.env.TRACKING_ID) : ''
-      
+
       html = `<!doctype html>
 <html lang="en-US">
   <head>
@@ -184,7 +184,7 @@ const raygunInit = `<script type="text/javascript">
   </body>
 </html>`
 
-      if('production' === process.env.NODE_ENV) {
+      if ('production' === process.env.NODE_ENV) {
         html = minify(html, {
           collapseWhitespace: true,
           collapseInlineTagWhitespace: true,

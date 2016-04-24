@@ -12,19 +12,19 @@ import Game from '../components/Game'
 const mapStateToProps = (state, ownProps) => {
   const versusFriendId = state.getIn(['game', 'versus'])
   return ({
-  gameState: state.getIn(['game', 'gameState']),
-  reasonFailed: state.getIn(['game', 'reasonFailed']),
-  versusFriend: state.getIn(['friends', 'list', versusFriendId]) ||
+    gameState: state.getIn(['game', 'gameState']),
+    reasonFailed: state.getIn(['game', 'reasonFailed']),
+    versusFriend: state.getIn(['friends', 'list', versusFriendId]) ||
                 state.get('bots').find(bot => bot.get('id') === versusFriendId),
-  viewer: state.get('viewer'),
-  isViewerTurn: state.getIn(['game', 'isViewerTurn']),
-  versusGrid: state.getIn(['game', 'versusGrid']),
-  viewerGrid: state.getIn(['game', 'viewerGrid']),
-  selectedCell: state.getIn(['game', 'selectedCell']),
-  versusScore: state.getIn(['game', 'versusScore']),
-  viewerScore: state.getIn(['game', 'viewerScore']),
-  viewerBoard: state.getIn(['game', 'viewerBoard']),
-})
+    viewer: state.get('viewer'),
+    isViewerTurn: state.getIn(['game', 'isViewerTurn']),
+    versusGrid: state.getIn(['game', 'versusGrid']),
+    viewerGrid: state.getIn(['game', 'viewerGrid']),
+    selectedCell: state.getIn(['game', 'selectedCell']),
+    versusScore: state.getIn(['game', 'versusScore']),
+    viewerScore: state.getIn(['game', 'viewerScore']),
+    viewerBoard: state.getIn(['game', 'viewerBoard']),
+  })
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
   },
   loadGame: id => {
     dispatch(loadGame(id))
-    // @TODO temp measure this is 
+    // @TODO temp measure this is
     dispatch(fetchFriends())
   },
   pickSpot: position => {

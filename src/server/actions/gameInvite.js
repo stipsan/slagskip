@@ -58,8 +58,8 @@ export const acceptGameInvite = (
         id: authToken.id,
         inviteIn: true
       })
-      
-      //@TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
+
+      // @TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
     }).catch(error => {
       console.error(ACCEPT_GAME_INVITE_FAILURE, error)
       callback(ACCEPT_GAME_INVITE_FAILURE, error)
@@ -85,8 +85,8 @@ export const declineGameInvite = (
         id: authToken.id,
         inviteOut: false
       })
-      
-      //@TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
+
+      // @TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
     }).catch(error => {
       console.error(DECLINE_GAME_INVITE_FAILURE, error)
       callback(DECLINE_GAME_INVITE_FAILURE, error)
@@ -112,8 +112,8 @@ export const cancelGameInvite = (
         id: authToken.id,
         inviteIn: false
       })
-      
-      //@TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
+
+      // @TODO send a RECEIVE_NEW_GAME to both viewer and friend with the game id
     }).catch(error => {
       console.error(CANCEL_GAME_INVITE_FAILURE, error)
       callback(CANCEL_GAME_INVITE_FAILURE, error)

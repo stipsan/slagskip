@@ -12,22 +12,22 @@ export const gamesRequest = (
   redis
 ) => (dispatch, getState) => {
   const authToken = socket.getAuthToken()
-  const games     = getState().getIn(['viewer', 'games'])
+  const games = getState().getIn(['viewer', 'games'])
   return database.getGames({
-      id: authToken.id,
-      games,
-    }, redis)
+    id: authToken.id,
+    games,
+  }, redis)
     .then(fetchedGames => {
       const games = fetchedGames.map(game => {
         const isViewerFirst = game.players[0] === authToken.id
         const isFriendFirst = game.players[1] === authToken.id
 
-        let gameState = isViewerFirst ? 
+        let gameState = isViewerFirst ?
           (game.boards.length > 1 ? 'ready' : 'waiting') :
           (game.boards.length > 1 ? 'ready' : 'setup')
 
-        if(game.scores.indexOf(21) !== -1) {
-          if(isViewerFirst) {
+        if (game.scores.indexOf(21) !== -1) {
+          if (isViewerFirst) {
             gameState = game.scores[0] === 21 && game.scores[1] !== 21 ? 'victory' : 'defeat'
           } else {
             gameState = game.scores[1] === 21 ? 'victory' : 'defeat'

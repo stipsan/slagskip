@@ -6,7 +6,7 @@ export const createDispatcher = (socket, database, redis) => {
   const store = createStore()
 
   const handleDispatch = ({ type, ...action }, callback) => {
-    if(!actions.hasOwnProperty(type)) {
+    if (!actions.hasOwnProperty(type)) {
       console.error(`Action type ${type} does not exist!`)
       return callback(404, `Action type ${type} does not exist!`)
     }

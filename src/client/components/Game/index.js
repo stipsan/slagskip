@@ -10,20 +10,20 @@ import { selectCell, fireCannon } from '../../actions'
 
 class Game extends Component {
   static propTypes = {
-    
+
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   componentDidMount() {
     this.props.loadGame(this.props.routeParams.game)
   }
-  
+
   handleFireCannon = event => {
     this.props.dispatch(fireCannon({ id: this.props.routeParams.game, selectedCell: this.props.selectedCell }))
   }
-  
-  render(){
+
+  render() {
     const {
       gameState,
       reasonFailed,
@@ -39,10 +39,10 @@ class Game extends Component {
       viewerScore,
       versusScore,
     } = this.props
-    
+
     const navbarLeft = <Link to="/" className={cx('backLink')}>❮ Games</Link>
-    
-    return <DocumentTitle title={viewer ? `Epic | ${viewer.get('username')} vs. ${versusFriend && versusFriend.get('username')}` : null}>
+
+    return (<DocumentTitle title={viewer ? `Epic | ${viewer.get('username')} vs. ${versusFriend && versusFriend.get('username')}` : null}>
       <section className={cx('section')}>
         <Navbar left={navbarLeft} />
         <div className={cx('scores')}>
@@ -67,7 +67,7 @@ class Game extends Component {
         {gameState !== 'loading' && <VersusGrid gameState={gameState} gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
         {gameState !== 'loading' && <ViewerBoard score={versusScore} grid={viewerGrid} board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

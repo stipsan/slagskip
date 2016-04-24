@@ -1,4 +1,4 @@
-//@TODO make this a reusable middleware tailored socketcluster?
+// @TODO make this a reusable middleware tailored socketcluster?
 import { connect } from './connect'
 
 // Action key that carries API call info interpreted by this Redux middleware.
@@ -25,7 +25,7 @@ export const createCallSocket = (store, next, action, socket) => {
     return finalAction
   }
 
-  const [ requestType, successType, failureType ] = types
+  const [requestType, successType, failureType] = types
   next(actionWith({ type: requestType }))
 
   return socket.emit('dispatch', { type: requestType, ...emitData }, (err, data) => {
@@ -33,9 +33,9 @@ export const createCallSocket = (store, next, action, socket) => {
       // Failed to emit event, retry or let the user know and keep going?
       next(actionWith({
         type: failureType,
-        error: {type: err, message: data || 'Something bad happened'},
+        error: { type: err, message: data || 'Something bad happened' },
       }))
-      if('ga' in global) {
+      if ('ga' in global) {
         ga('send', 'exception', {
           'exDescription': failureType,
           'exFatal': false
@@ -53,13 +53,13 @@ export const createCallSocket = (store, next, action, socket) => {
 // A Redux middleware that interprets actions with CALL_SOCKET info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
-  
+
   const socket = connect(store, next, action, createCallSocket)
   // no socket means we're still setting it up, proceed the stack while we wait
   // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon as we connect and got a socket
-  if(!socket) {
+  if (!socket) {
     return action.type && next(action)
   }
-  
+
   return createCallSocket(store, next, action, socket)
 }

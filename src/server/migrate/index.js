@@ -8,7 +8,7 @@ redis.hgetall('migrations').then(migrated => {
   const pending = migrations.filter(migration => {
     return !migrated.hasOwnProperty(migration[0])
   })
-  
+
   return Promise.all(
     pending.map(
       migration => migration[1](redis).then(
@@ -20,7 +20,7 @@ redis.hgetall('migrations').then(migrated => {
     )
   )
 }).then(migrated => {
-  if(!migrated.length) {
+  if (!migrated.length) {
     console.log('Nothing to migrate')
   } else {
     console.log('Ran following migrations:', migrated)

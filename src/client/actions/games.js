@@ -8,7 +8,7 @@ import {
 export function fetchGames() {
   return {
     [CALL_SOCKET]: {
-      types: [ GAMES_REQUEST, GAMES_SUCCESS, GAMES_FAILURE ]
+      types: [GAMES_REQUEST, GAMES_SUCCESS, GAMES_FAILURE]
     },
   }
 }

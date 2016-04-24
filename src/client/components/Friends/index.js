@@ -8,17 +8,17 @@ class Dashboard extends Component {
     friends: PropTypes.array.isRequired,
     username: PropTypes.string.isRequired,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
   }
-  
+
   render() {
     const {
       friends,
@@ -28,7 +28,7 @@ class Dashboard extends Component {
     } = this.props
     const { handleLogout } = this
 
-    return <section className={cx('section')}>
+    return (<section className={cx('section')}>
       {!friendsTotal && <h3>Nobody here yet but you!</h3>}
       <table className={cx('users')}>
         <thead>
@@ -44,7 +44,7 @@ class Dashboard extends Component {
           />)}
         </tbody>
       </table>
-    </section>
+    </section>)
   }
 }
 

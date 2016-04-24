@@ -12,40 +12,40 @@ class NewGame extends Component {
     friends: ImmutablePropTypes.orderedMap.isRequired,
     friendsTotal: PropTypes.number.isRequired,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    if(nextProps.friendsTotal !== this.props.friendsTotal) {
+    if (nextProps.friendsTotal !== this.props.friendsTotal) {
       nextProps.fetchFriends()
     }
   }
-  
+
   render() {
     const {
       friends,
       friendsTotal,
       bots,
     } = this.props
-    
+
     const friendsOnline = friends.filter(friend => friend.get('online') === '1')
     const friendsOnlineTotal = friendsOnline.size
     const friendsOffline = friends.filter(friend => friend.get('online') !== '1')
     const friendsOfflineTotal = friendsOffline.size
 
-    const navbarLeft = <Link to="/" className={cx('linkToPrevous')}>
+    const navbarLeft = (<Link to="/" className={cx('linkToPrevous')}>
       ❮ <span className={cx('buttonLabel')}>Back</span>
-    </Link>
+    </Link>)
 
-    return <DocumentTitle title="Epic | New game">
+    return (<DocumentTitle title="Epic | New game">
       <section>
         <Navbar left={navbarLeft}>
           Select your opponent
@@ -63,7 +63,7 @@ class NewGame extends Component {
           {friendsOffline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

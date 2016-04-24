@@ -57,7 +57,7 @@ const types = [
 
 const incDefaultIndex = (previousIndex, type, items, size) => {
 
-  if(items.getIn([type, 1]) !== -1) {
+  if (items.getIn([type, 1]) !== -1) {
     return [previousIndex, 0]
   }
 
@@ -74,7 +74,7 @@ const incDefaultIndex = (previousIndex, type, items, size) => {
   const sanitizedIndex = incrementedIndex + (
     incrementedIndex % 10 < 1 ?
     1 :
-    incrementedIndex % 10 > 8 ? 
+    incrementedIndex % 10 > 8 ?
     2 :
     0
   )
@@ -83,56 +83,56 @@ const incDefaultIndex = (previousIndex, type, items, size) => {
 }
 
 class Setup extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   }
-  
+
   handleNewGame = event => {
     event.preventDefault()
-    
+
     this.props.newGame(this.props.routeParams.versus, this.props.board)
   }
-  
+
   handleJoinGame = event => {
     event.preventDefault()
-    
+
     this.props.joinGame(this.props.routeParams.game, this.props.board)
   }
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
   }
-  
+
   componentWillMount() {
     this.types = shuffle(types)
   }
-  
+
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
-    
-    if(this.props.routeParams.game) {
+
+    if (this.props.routeParams.game) {
       this.props.loadGame(this.props.routeParams.game)
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    if(nextProps.friendsTotal !== this.props.friendsTotal) {
+    if (nextProps.friendsTotal !== this.props.friendsTotal) {
       nextProps.fetchFriends()
     }
-    
-    if(nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
+
+    if (nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
-    if(nextProps.gameState === 'ready' && !this.props.routeParams.versus && nextProps.gameId > 0) {
+    if (nextProps.gameState === 'ready' && !this.props.routeParams.versus && nextProps.gameId > 0) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
   }
-  
+
   render() {
     const {
       grid,
@@ -146,24 +146,24 @@ class Setup extends Component {
       isValid,
       bots,
     } = this.props
-    
-    if(!friends) return <Loading />
+
+    if (!friends) return <Loading />
 
     const versusId = routeParams.game ? this.props.versus : routeParams.versus
     const versus = friends.get(versusId) || bots.find(bot => bot.get('id') === versusId)
-    
-    if(!versus) return <Loading />
-    
+
+    if (!versus) return <Loading />
+
     const versusUsername = versus.get('username')
     const startGameButtonClassName = cx('startGame', {
       startGameDisabled: !isValid
     })
-    
+
     let defaultIndex = 111
-    
-    const navbarLeft = <Link to="/new" className={cx('linkToPrevous')}>
+
+    const navbarLeft = (<Link to="/new" className={cx('linkToPrevous')}>
       ❮ <span className={cx('buttonLabel')}>Back</span>
-    </Link>
+    </Link>)
     const navbarRight = routeParams.game ?
       <button
         disabled={!isValid}
@@ -171,7 +171,7 @@ class Setup extends Component {
         className={startGameButtonClassName}
       >
         Join
-      </button> : 
+      </button> :
       routeParams.versus ?
       <button
         disabled={!isValid}
@@ -182,7 +182,7 @@ class Setup extends Component {
       </button> :
       false
 
-    return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
+    return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={cx('section')}>
         <Navbar left={navbarLeft} right={navbarRight}>
           <h1 className={cx('headerTitle')}>
@@ -203,7 +203,7 @@ class Setup extends Component {
                   size={size}
                   rotateItem={rotateItem}
                   rotated={items.getIn([type, 0])}
-              >
+                >
                 {component}
               </Drag>})}
               <DragPreview name="item" />
@@ -212,7 +212,7 @@ class Setup extends Component {
         </div>
         <div></div>
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

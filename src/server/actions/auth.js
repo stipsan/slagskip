@@ -17,19 +17,19 @@ export const authenticateRequest = (
 ) => (dispatch, getState) => {
   return database.authenticate({ username }, redis)
     .then(authToken => {
-      // sc will send this data to the client 
+      // sc will send this data to the client
       socket.setAuthToken(authToken)
-      
+
       const successAction = {
         type: AUTHENTICATE_SUCCESS,
         authToken: socket.getAuthToken()
       }
 
       callback(null, successAction)
-      
+
       return database.getViewer(authToken, redis)
     }).catch(error => {
-      console.error(AUTHENTICATE_FAILURE, error);
+      console.error(AUTHENTICATE_FAILURE, error)
       callback(AUTHENTICATE_FAILURE, error)
       throw error
     }).then(viewer => {
@@ -61,7 +61,7 @@ export const authenticateRequest = (
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
     }).catch(error => {
-      console.error(error);
+      console.error(error)
     })
 }
 
@@ -86,13 +86,13 @@ export const deauthenticateRequest = (
       friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
-      
+
       socket.kickOut(`user:${authToken.id}`)
       socket.deauthenticate()
-      
-      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
+
+      callback(null, { type: DEAUTHENTICATE_SUCCESS, authToken })
     }).catch(error => {
-      console.error(DEAUTHENTICATE_FAILURE, error);
+      console.error(DEAUTHENTICATE_FAILURE, error)
       callback(DEAUTHENTICATE_FAILURE, error)
     })
 }
@@ -108,7 +108,7 @@ export const broadcastNetworkStatus = (
   return database.getViewer({ id }, redis)
     .then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
-      
+
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
         online,
@@ -118,8 +118,8 @@ export const broadcastNetworkStatus = (
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
-      
-      if(online === '0') {
+
+      if (online === '0') {
         return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
       }
     })

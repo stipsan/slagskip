@@ -11,13 +11,13 @@ const initialState = ImmutableMap({
 
 export const viewer = (state = initialState, action) => {
   switch (action.type) {
-  case RECEIVE_VIEWER:
-    return state.merge({
-      friendIds: action.friendIds,
-      invites: action.invites,
-      games: action.games,
-    })
-  default:
-    return state
+    case RECEIVE_VIEWER:
+      return state.merge({
+        friendIds: action.friendIds,
+        invites: action.invites,
+        games: action.games,
+      })
+    default:
+      return state
   }
 }

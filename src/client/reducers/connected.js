@@ -4,9 +4,9 @@ import {
 
 export const connected = (state = false, action) => {
   switch (action.type) {
-  case SOCKET_SUCCESS:
-    return true
-  default:
-    return state
+    case SOCKET_SUCCESS:
+      return true
+    default:
+      return state
   }
 }

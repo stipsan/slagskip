@@ -17,8 +17,8 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(thunk, socket, routerMiddlewareWithHistory),
-    process.env.NODE_ENV !== 'production' && global.devToolsExtension ? 
-      global.devToolsExtension() : 
+    process.env.NODE_ENV !== 'production' && global.devToolsExtension ?
+      global.devToolsExtension() :
       f => f
   )
 )
@@ -32,13 +32,13 @@ if (process.env.NODE_ENV !== 'production' && module.hot) {
 }
 
 if ('development' === process.env.NODE_ENV && global.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-  require.ensure([], function(){
+  require.ensure([], function () {
     var installDevTools = require('immutable-devtools')
     installDevTools(require('immutable'))
   })
 }
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   global.store = store
 }
 

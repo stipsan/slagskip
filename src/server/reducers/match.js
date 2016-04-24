@@ -10,11 +10,11 @@ const initialState = ImmutableMap({
 
 export const match = (state = initialState, { type, ...action }) => {
   switch (type) {
-  case LOAD_GAME_SUCCESS:
-    return state.merge(action)
-  case FIRE_CANNON_SUCCESS:
-    //return state.updateIn(['hits'], hits => hits.push(action.hit))
-  default:
-    return state
+    case LOAD_GAME_SUCCESS:
+      return state.merge(action)
+    case FIRE_CANNON_SUCCESS:
+    // return state.updateIn(['hits'], hits => hits.push(action.hit))
+    default:
+      return state
   }
 }

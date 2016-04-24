@@ -30,16 +30,16 @@ const CAN_CANCEL_PENDING = 'CAN_CANCEL_PENDING'
 const CAN_INVITE_FRIEND = 'CAN_INVITE_FRIEND'
 
 const getLocalState = (inviteOut, inviteIn) => {
-  if(inviteOut && inviteIn) {
+  if (inviteOut && inviteIn) {
     return CAN_LAUNCH_GAME
   }
-  if(!inviteOut && inviteIn) {
+  if (!inviteOut && inviteIn) {
     return CAN_ACCEPT_INVITE
   }
-  if(inviteOut && !inviteIn) {
+  if (inviteOut && !inviteIn) {
     return CAN_CANCEL_PENDING
   }
-  if(!inviteOut && !inviteIn) {
+  if (!inviteOut && !inviteIn) {
     return CAN_INVITE_FRIEND
   }
 }
@@ -53,9 +53,9 @@ class FriendRow extends Component {
     online: PropTypes.bool,
     lastVisit: PropTypes.string,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   handleYes = () => {
     const {
       id,
@@ -65,16 +65,16 @@ class FriendRow extends Component {
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
-    
+
     const localState = getLocalState(inviteOut, inviteIn)
-    
+
     switch (localState) {
-    case CAN_LAUNCH_GAME:
-      return dispatch(newGame(data))
-    case CAN_ACCEPT_INVITE:
-      return dispatch(acceptGameInvite(data))
-    case CAN_INVITE_FRIEND:
-      return dispatch(gameInvite(data))
+      case CAN_LAUNCH_GAME:
+        return dispatch(newGame(data))
+      case CAN_ACCEPT_INVITE:
+        return dispatch(acceptGameInvite(data))
+      case CAN_INVITE_FRIEND:
+        return dispatch(gameInvite(data))
     }
   }
   handleNo = () => {
@@ -86,41 +86,41 @@ class FriendRow extends Component {
     } = this.props.friend.toJS()
     const dispatch = this.props.dispatch
     const data = { id, username }
-    
+
     const localState = getLocalState(inviteOut, inviteIn)
-    
+
     switch (localState) {
-    case CAN_CANCEL_PENDING:
-      return dispatch(cancelGameInvite(data))
-    case CAN_ACCEPT_INVITE:
-      return dispatch(declineGameInvite(data))
+      case CAN_CANCEL_PENDING:
+        return dispatch(cancelGameInvite(data))
+      case CAN_ACCEPT_INVITE:
+        return dispatch(declineGameInvite(data))
     }
   };
   render() {
     // @FIXME
     const { username, inviteIn, inviteOut, online, lastVisit } = this.props.friend.toJS()
     const { handleYes, handleNo } = this
- 
+
     const localState = getLocalState(inviteOut, inviteIn)
     const canLaunchGame = localState === CAN_LAUNCH_GAME
     const canAcceptInvite = localState === CAN_ACCEPT_INVITE
     const canCancelPending = localState === CAN_CANCEL_PENDING
     const canInviteFriend = localState === CAN_INVITE_FRIEND
- 
-    return <tr className={cx({ online })}>
+
+    return (<tr className={cx({ online })}>
       <td className={cx('username')}>{username}</td>
       {
-        online === '1' && 
+        online === '1' &&
         <td className={cx('onlineStatus')}>&bull;</td> ||
         <td className={cx('lastVisit')}
-            title={lastVisit && new Date(lastVisit).toLocaleString()}
+          title={lastVisit && new Date(lastVisit).toLocaleString()}
         >{lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} />}</td>
       }
       <td className={cx('controlGroup')}>
       <div className={cx('buttonGroup')}>
         {canLaunchGame && <Link
           className={cx('canLaunchGame')}
-          to={`/game/1`}
+          to={'/game/1'}
         >
           <span>Start Game!</span>
         </Link>}
@@ -129,7 +129,8 @@ class FriendRow extends Component {
           canAcceptInvite,
           canCancelPending,
           canInviteFriend,
-        })} onClick={handleYes}>
+        })} onClick={handleYes}
+    >
           <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={150} transitionLeaveTimeout={150}>
             {canLaunchGame && <span>Start Game!</span>}
             {canAcceptInvite && <span>Accept</span>}
@@ -138,11 +139,12 @@ class FriendRow extends Component {
           </ReactCSSTransitionGroup>
         </button>}
         <button onClick={handleNo} className={cx(
-          'canSayNo', {buttonDisabled: canLaunchGame || canInviteFriend}
-        )}><strong>&times;</strong></button>
+          'canSayNo', { buttonDisabled: canLaunchGame || canInviteFriend }
+        )}
+    ><strong>&times;</strong></button>
         </div>
       </td>
-    </tr>
+    </tr>)
   }
 }
 

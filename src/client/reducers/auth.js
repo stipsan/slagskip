@@ -21,39 +21,39 @@ const initialState = ImmutableMap({
 
 export const auth = (state = initialState, action) => {
   switch (action.type) {
-  case SOCKET_SUCCESS:
-    return state.merge({
-      isAuthenticated: action.isAuthenticated,
-      authState: action.isAuthenticated ? 'authenticated' : 'unauthenticated',
-    })
-  case RECEIVE_AUTH_STATE_CHANGE:
-    return state.merge({
-      isAuthenticated: action.newState === 'authenticated' || (action.newState === 'pending' && state.get('authState') === 'authenticated'),
-      authState: action.newState,
-      authToken: action.authToken,
-    })
-  case LOCATION_CHANGE:
-    return state.merge({
-      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
-    })
-  case AUTHENTICATE_FAILURE:
-  case RECEIVE_DEAUTHENTICATE:
-    return state.merge({
-      isAuthenticated: false,
-      authState: 'unauthenticated',
-      authToken: null,
-    })
-  case AUTHENTICATE_REQUEST:
-    return state.merge({
-      authState: 'pending',
-    })
-  case AUTHENTICATE_SUCCESS:
-    return state.merge({
-      authState: 'authenticated',
-      isAuthenticated: true,
-      authToken: action.authToken,
-    })
-  default:
-    return state
+    case SOCKET_SUCCESS:
+      return state.merge({
+        isAuthenticated: action.isAuthenticated,
+        authState: action.isAuthenticated ? 'authenticated' : 'unauthenticated',
+      })
+    case RECEIVE_AUTH_STATE_CHANGE:
+      return state.merge({
+        isAuthenticated: action.newState === 'authenticated' || (action.newState === 'pending' && state.get('authState') === 'authenticated'),
+        authState: action.newState,
+        authToken: action.authToken,
+      })
+    case LOCATION_CHANGE:
+      return state.merge({
+        redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
+      })
+    case AUTHENTICATE_FAILURE:
+    case RECEIVE_DEAUTHENTICATE:
+      return state.merge({
+        isAuthenticated: false,
+        authState: 'unauthenticated',
+        authToken: null,
+      })
+    case AUTHENTICATE_REQUEST:
+      return state.merge({
+        authState: 'pending',
+      })
+    case AUTHENTICATE_SUCCESS:
+      return state.merge({
+        authState: 'authenticated',
+        isAuthenticated: true,
+        authToken: action.authToken,
+      })
+    default:
+      return state
   }
 }

@@ -12,33 +12,33 @@ const layerStyles = {
   top: 0,
   width: '100%',
   height: '100%'
-};
+}
 
 const collect = monitor => {
   var item = monitor.getItem()
   return {
-      type: item && item.type,
-      rotated: item && item.rotated,
-      currentOffset: monitor.getSourceClientOffset(),
-      isDragging: monitor.isDragging()
+    type: item && item.type,
+    rotated: item && item.rotated,
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging()
   }
 }
 
 const getItemStyles = currentOffset => {
-    if (!currentOffset) {
-        return { display: 'none' }
-    }
+  if (!currentOffset) {
+    return { display: 'none' }
+  }
 
     // http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
-    const { x, y } = currentOffset
+  const { x, y } = currentOffset
 
-    const transform = `translate(${x}px, ${y}px)`
+  const transform = `translate(${x}px, ${y}px)`
 
-    return {
-        pointerEvents: 'none',
-        WebkitTransform: transform,
-        transform,
-    }
+  return {
+    pointerEvents: 'none',
+    WebkitTransform: transform,
+    transform,
+  }
 }
 
 class ItemPreview extends Component {
@@ -46,16 +46,16 @@ class ItemPreview extends Component {
     type: PropTypes.string,
     rotated: PropTypes.number,
     currentOffset: PropTypes.shape({
-        x: PropTypes.number,
-        y: PropTypes.number
+      x: PropTypes.number,
+      y: PropTypes.number
     }),
     isDragging: PropTypes.bool
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   renderItem(type, rotated) {
-    switch(type) {
+    switch (type) {
       case 'xl':
         return <XL rotated={rotated} />
       case 'l':
@@ -71,20 +71,20 @@ class ItemPreview extends Component {
         return <XS rotated={rotated} />
     }
   }
-  
+
   render() {
-    
+
     const { type, rotated, isDragging, currentOffset } = this.props
 
     if (!isDragging) {
       return null
     }
 
-    return <div style={layerStyles}>
+    return (<div style={layerStyles}>
       <div className={cx('itemPreview')} style={getItemStyles(currentOffset)}>
         {this.renderItem(type, rotated)}
       </div>
-    </div>
+    </div>)
   }
 }
 

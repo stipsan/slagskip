@@ -6,11 +6,11 @@ import cx from './style.scss'
 class Cell extends Component {
 
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   render() {
     const { index, cell, cellActive, type } = this.props
 
-    return <div onClick={this.handleSelectCell} id={`index-${index}`} className={cx(
+    return (<div onClick={this.handleSelectCell} id={`index-${index}`} className={cx(
       'cell',
       {
         cellRemaining: cell === -1,
@@ -22,24 +22,26 @@ class Cell extends Component {
         cellS: type === 5 || type === 6,
         cellXS: type === 7 || type === 8,
       }
-    )} />
+    )}
+    />)
   }
 }
 
 class ViewerBoard extends Component {
-  
+
   shouldComponentUpdate = shouldComponentUpdate
 
   render() {
     const { board, grid, turns, versus, score, isViewerTurn } = this.props
-    
-    return <div className={cx('viewerGridContainer', {
+
+    return (<div className={cx('viewerGridContainer', {
       viewerGridWaiting: !isViewerTurn
-    })}>
+    })}
+    >
       <div className={cx('versusGrid')}>
         {grid.map((cell, index) => <Cell key={index} type={board.getIn(['grid', index])} index={index} cellActive={false} cell={cell} />)}
       </div>
-    </div>
+    </div>)
   }
 }
 

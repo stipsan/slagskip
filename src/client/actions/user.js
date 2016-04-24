@@ -13,7 +13,7 @@ import {
 export function loginUser(username) {
   return {
     [CALL_SOCKET]: {
-      types: [ AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE ],
+      types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
       data: {
         username: username,
       },
@@ -22,9 +22,9 @@ export function loginUser(username) {
 }
 
 export function logoutUser() {
-  return { 
+  return {
     [CALL_SOCKET]: {
-      types: [ DEAUTHENTICATE_REQUEST, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE ],
+      types: [DEAUTHENTICATE_REQUEST, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
     },
   }
 }

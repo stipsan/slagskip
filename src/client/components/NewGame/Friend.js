@@ -34,16 +34,16 @@ const timeAgoFormatter = (value, unit) => {
 }
 
 class Friend extends Component {
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   render() {
     const { friend } = this.props
     const username = friend.get('username')
     const avatar = friend.get('avatar')
     const id = friend.get('id')
     const online = friend.get('online') === '1'
-    return <Link to={`/setup/${id}`} className={cx('friend')}>
+    return (<Link to={`/setup/${id}`} className={cx('friend')}>
       <span className={cx(online ? 'avatarOnline' : 'avatar')}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
@@ -53,7 +53,7 @@ class Friend extends Component {
       {!online && friend.has('lastVisit') && <small><TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} /></small>}
       </span>
       <span className={cx('startGame')}>❯</span>
-    </Link>
+    </Link>)
   }
 }
 

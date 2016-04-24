@@ -26,10 +26,10 @@ module.exports = [
         redis.multi(keys.map(key => [
           'rename', key, key.replace(':games', '').replace('user:', 'games:')
         ])).exec()
-      });
+      })
       stream.on('end', function () {
         resolve()
-      });
+      })
     }
   )]
 ]

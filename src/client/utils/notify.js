@@ -1,7 +1,7 @@
-//@TODO rewrite to async/await
+// @TODO rewrite to async/await
 let memoizedPermission = undefined
 export function requestNotificationPermission(callback) {
-  if(memoizedPermission !== undefined) {
+  if (memoizedPermission !== undefined) {
     return callback(memoizedPermission)
   }
   if (!('Notification' in window)) {
@@ -17,7 +17,7 @@ export function requestNotificationPermission(callback) {
   }
 }
 
-export function sendNotification (title, options) {
+export function sendNotification(title, options) {
   if ('Notification' in window) {
     return new Notification(title, options)
   } else if ('mozNotification' in navigator) {

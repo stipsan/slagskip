@@ -4,8 +4,8 @@ import cx from './style.scss'
 export default class Navbar extends Component {
   render() {
     const { left, children, right } = this.props
-    
-    return <header className={cx('header')}>
+
+    return (<header className={cx('header')}>
       <div className={cx('headerLeft')}>
         {left}
       </div>
@@ -15,6 +15,6 @@ export default class Navbar extends Component {
       <div className={cx('headerRight')}>
         {right}
       </div>
-    </header>
+    </header>)
   }
 }

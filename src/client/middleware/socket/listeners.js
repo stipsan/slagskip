@@ -1,4 +1,4 @@
-import { 
+import {
   SOCKET_FAILURE,
   SOCKET_ERROR,
   SUBSCRIBE_CHANNEL_REQUEST,
@@ -16,7 +16,7 @@ import {
 
 let shouldAttachListeners = true
 export const attachListeners = (store, next, action, socket) => {
-  if(!shouldAttachListeners) {
+  if (!shouldAttachListeners) {
     return false
   }
 
@@ -30,7 +30,7 @@ export const attachListeners = (store, next, action, socket) => {
   socket.on('connectAbort', () => {
     next({ type: SOCKET_FAILURE, event: 'connectAbort', socket })
   })
-  
+
   // authenticate.js
   socket.on('authenticate', (...args) => {
     next({ ...args, type: RECEIVE_AUTHENTICATE, socket })
@@ -39,10 +39,10 @@ export const attachListeners = (store, next, action, socket) => {
     next({ ...args, type: RECEIVE_DEAUTHENTICATE, socket })
   })
   socket.on('authStateChange', data => {
-    if(data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
+    if (data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
     else next({ ...data, type: RECEIVE_AUTH_STATE_CHANGE, socket })
   })
-  
+
   // channel.js
   socket.on('kickOut', (...args) => {
     next({ ...args, type: RECEIVE_KICK_OUT, socket })

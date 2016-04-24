@@ -7,26 +7,26 @@ class Games extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
   }
-  
+
   componentDidMount() {
     const { games, gamesTotal, fetchGames, friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
 
     // @FIXME poor mans push sync
-    //if(games.size !== gamesTotal) {
-      fetchGames()
-    //}
+    // if(games.size !== gamesTotal) {
+    fetchGames()
+    // }
   }
-  
+
   render() {
     const { children, games, gamesTotal, friends, friendsTotal, bots } = this.props
-    
-    if(!friends) return <h1>Loading…</h1>
-    
-    return <div className={cx('gamesList')}>
+
+    if (!friends) return <h1>Loading…</h1>
+
+    return (<div className={cx('gamesList')}>
       <Link to="/new" className={cx('game')}>
         <span className={cx('newGame')}>
           +
@@ -35,7 +35,7 @@ class Games extends Component {
         <span className={cx('startGame')}>❯</span>
       </Link>
       {gamesTotal > 0 && games.toArray().reverse().map(game => <GameRow key={game.get('id')} friendsTotal={friendsTotal} friends={friends} game={game} bots={bots} />)}
-    </div>
+    </div>)
   }
 }
 

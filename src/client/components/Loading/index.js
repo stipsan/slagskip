@@ -3,8 +3,8 @@ import DocumentTitle from 'react-document-title'
 import cx from './style.scss'
 
 class Loading extends Component {
-  render() {    
-    return <DocumentTitle title="Epic | Loading...">
+  render() {
+    return (<DocumentTitle title="Epic | Loading...">
       <section className={cx('hero')}>
         <div className={cx('heroContent')}>
           <div className={cx('container')}>
@@ -12,7 +12,7 @@ class Loading extends Component {
           </div>
         </div>
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

@@ -12,13 +12,13 @@ import Friends from './Friends'
 import NotFound from '../components/NotFound'
 
 const Root = ({ store }) => {
-  
+
   // Create an enhanced history that syncs navigation events with the store
   const history = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: state => state.get('routing').toJS()
   })
 
-  return <Provider store={store}>
+  return (<Provider store={store}>
     <Router history={history}>
       <Route component={App}>
         <Route path="/" component={Dashboard}>
@@ -29,10 +29,10 @@ const Root = ({ store }) => {
         <Route path="/join/:game" component={Setup} />
         <Route path="/new" component={NewGame} />
         <Route path="/game/:game" component={Game} />
-        <Route path="*" component={NotFound}/>
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
-  </Provider>
+  </Provider>)
 }
 
 Root.propTypes = {

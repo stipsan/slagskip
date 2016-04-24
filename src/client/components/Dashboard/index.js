@@ -7,19 +7,19 @@ import { logoutUser } from '../../actions'
 import Navbar from '../Navbar'
 
 class Dashboard extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   }
-  
+
   static propTypes = {
     children: PropTypes.element.isRequired,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   handleLogout = () => this.props.dispatch(logoutUser());
-  
+
   render() {
     const { children, username, routeParams } = this.props
     const { router } = this.context
@@ -27,7 +27,7 @@ class Dashboard extends Component {
 
     const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>Logout</a>
 
-    return <DocumentTitle title={username ? `Epic | ${username}` : null}>
+    return (<DocumentTitle title={username ? `Epic | ${username}` : null}>
       <div className={cx('dashboard')}>
         <Navbar right={navbarRight}>
           {username}
@@ -37,8 +37,9 @@ class Dashboard extends Component {
             <ul>
               <li className={cx({
                 isActive: !isFriendsTabActive
-               })}><Link to="/">Games</Link></li>
-              {/*<li className={cx({
+              })}
+    ><Link to="/">Games</Link></li>
+              {/* <li className={cx({
                 isActive: isFriendsTabActive
               })}><Link to="/friends">Friends</Link></li>*/}
             </ul>
@@ -46,7 +47,7 @@ class Dashboard extends Component {
           {children}
         </div>
       </div>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

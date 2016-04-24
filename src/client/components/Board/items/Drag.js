@@ -10,13 +10,13 @@ const defaultStyle = {
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
   cursor: 'move',
-};
+}
 
 const itemSource = {
   beginDrag({ type, index, defaultIndex, rotated, addItem }) {
     return { type, index, defaultIndex, rotated, addItem }
   }
-};
+}
 
 function collect(connect, monitor) {
   return {
@@ -36,23 +36,23 @@ class Item extends Component {
     hideSourceOnDrag: PropTypes.bool.isRequired,
     children: PropTypes.node
   }
-  
+
   handleRotate = () => {
     const { type } = this.props
     this.props.rotateItem(type)
   }
 
   render() {
-    const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props;
+    const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props
 
     const dropped = index > -1
     const CSSTranslate = indexToCSSTranslate(dropped ? index : defaultIndex, size, rotated)
 
     return connectDragSource(
-      <div className={cx('draggable', { rotated , dropped, hidden: isDragging })} style={{ transform: CSSTranslate}} onClick={this.handleRotate}>
+      <div className={cx('draggable', { rotated, dropped, hidden: isDragging })} style={{ transform: CSSTranslate }} onClick={this.handleRotate}>
         {children}
       </div>
-    );
+    )
   }
 }
 

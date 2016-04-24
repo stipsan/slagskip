@@ -6,11 +6,11 @@ import Hal from './hal'
 import GLaDOS from './glados'
 
 const bots = {
-  "-1": WallE,
-  "-2": R2D2,
-  "-3": K9,
-  "-4": Marvin,
-  "-5": Hal,
-  "-6": GLaDOS,
+  '-1': WallE,
+  '-2': R2D2,
+  '-3': K9,
+  '-4': Marvin,
+  '-5': Hal,
+  '-6': GLaDOS,
 }
 export default bots

@@ -9,11 +9,11 @@ const initialState = ImmutableMap({
 
 export const capabilities = (state = initialState, action) => {
   switch (action.type) {
-  case CHECK_CAPABILITIES:
-    return state.merge({
-      websocket: !!global.WebSocket,
-    })
-  default:
-    return state
+    case CHECK_CAPABILITIES:
+      return state.merge({
+        websocket: !!global.WebSocket,
+      })
+    default:
+      return state
   }
 }

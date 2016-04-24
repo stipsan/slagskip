@@ -26,9 +26,9 @@ export default class App extends Component {
     supportedBrowser: PropTypes.bool.isRequired,
     children: PropTypes.element.isRequired,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   render() {
     const {
       connected,
@@ -39,13 +39,13 @@ export default class App extends Component {
       isGoingForwards,
       children
     } = this.props
-    
-    const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
-    const shouldOverlayLogin  = connected && supportedBrowser && !isAuthenticated
-    const isCurrentlyLoading  = supportedBrowser && isAuthenticated && (!connected || !isViewerLoaded)
-    
 
-    return <ReactCSSTransitionGroup
+    const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
+    const shouldOverlayLogin = connected && supportedBrowser && !isAuthenticated
+    const isCurrentlyLoading = supportedBrowser && isAuthenticated && (!connected || !isViewerLoaded)
+
+
+    return (<ReactCSSTransitionGroup
       component="div"
       className={cx({ transitionBackwards: !isGoingForwards })}
       transitionName={transitionName}
@@ -58,6 +58,6 @@ export default class App extends Component {
       {isCurrentlyLoading && <Loading />}
       {!connected && disconnected && <Disconnected />}
       {!supportedBrowser && <UnsupportedBrowser />}
-    </ReactCSSTransitionGroup>
+    </ReactCSSTransitionGroup>)
   }
 }

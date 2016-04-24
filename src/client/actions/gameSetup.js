@@ -14,7 +14,7 @@ import {
 export function validateSetup(data) {
   return {
     [CALL_SOCKET]: {
-      types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
+      types: [NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
       data,
     },
   }
@@ -23,7 +23,7 @@ export function validateSetup(data) {
 export const newGame = data => {
   return {
     [CALL_SOCKET]: {
-      types: [ NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE ],
+      types: [NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
       data,
     },
   }
@@ -32,7 +32,7 @@ export const newGame = data => {
 export const joinGame = data => {
   return {
     [CALL_SOCKET]: {
-      types: [ JOIN_GAME_REQUEST, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE ],
+      types: [JOIN_GAME_REQUEST, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE],
       data,
     },
   }
@@ -40,8 +40,8 @@ export const joinGame = data => {
 
 // @TODO maybe move this to a shared utility
 const indexToCoordinates = index => {
-  const y = Math.floor( index / 10 )
-  const x = index - ( y * 10 )
+  const y = Math.floor(index / 10)
+  const x = index - (y * 10)
   return [x, y]
 }
 

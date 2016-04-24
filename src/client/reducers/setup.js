@@ -10,11 +10,11 @@ const initialState = fromJS({
 
 export const setup = (state = initialState, action) => {
   switch (action.type) {
-  case LOAD_GAME_SUCCESS:
-    return state.merge({
-      versus: action.versus,
-    })
-  default:
-    return state
+    case LOAD_GAME_SUCCESS:
+      return state.merge({
+        versus: action.versus,
+      })
+    default:
+      return state
   }
 }
