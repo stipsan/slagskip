@@ -38,7 +38,7 @@ class Dashboard extends Component {
               <li className={cx({
                 isActive: !isFriendsTabActive
               })}
-    ><Link to="/">Games</Link></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ><Link to="/">Games</Link></li>
               {/* <li className={cx({
                 isActive: isFriendsTabActive
               })}><Link to="/friends">Friends</Link></li>*/}

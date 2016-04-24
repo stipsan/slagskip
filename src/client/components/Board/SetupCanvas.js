@@ -55,7 +55,7 @@ class Canvas extends Component {
         this.itemSize = node.getBoundingClientRect().width / 10
       }
     }}
-    >
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
       {children}
     </div>)
   }
@@ -75,9 +75,9 @@ const CanvasDropTarget = DropTarget(BOARD_ITEM,
 
     // console.log('drop happen', monitor.getDropResult())
       if (!monitor.getInitialClientOffset() || !monitor.getInitialSourceClientOffset()) {
-      console.error('what? no drop?', props, monitor, component)
-      return
-    }
+        console.error('what? no drop?', props, monitor, component)
+        return
+      }
 
       const indexOffset = monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x
       const offsetFactor = Math.floor(indexOffset / 32)

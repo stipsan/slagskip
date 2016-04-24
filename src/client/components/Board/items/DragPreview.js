@@ -56,19 +56,19 @@ class ItemPreview extends Component {
 
   renderItem(type, rotated) {
     switch (type) {
-      case 'xl':
-        return <XL rotated={rotated} />
-      case 'l':
-        return <L rotated={rotated} />
-      case 'm1':
-      case 'm2':
-        return <M rotated={rotated} />
-      case 's1':
-      case 's2':
-        return <S rotated={rotated} />
-      case 'xs1':
-      case 'xs2':
-        return <XS rotated={rotated} />
+    case 'xl':
+      return <XL rotated={rotated} />
+    case 'l':
+      return <L rotated={rotated} />
+    case 'm1':
+    case 'm2':
+      return <M rotated={rotated} />
+    case 's1':
+    case 's2':
+      return <S rotated={rotated} />
+    case 'xs1':
+    case 'xs2':
+      return <XS rotated={rotated} />
     }
   }
 

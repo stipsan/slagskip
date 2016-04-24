@@ -57,26 +57,26 @@ const initialState = fromJS({
 
 export const game = (state = initialState, action) => {
   switch (action.type) {
-    case NEW_GAME_REQUEST:
-      return initialState.set('gameState', 'setup')
-    case NEW_GAME_SUCCESS:
-      return state
+  case NEW_GAME_REQUEST:
+    return initialState.set('gameState', 'setup')
+  case NEW_GAME_SUCCESS:
+    return state
       .set('id', action.id)
       .set('gameState', 'waiting')
-    case JOIN_GAME_SUCCESS:
-      return initialState
+  case JOIN_GAME_SUCCESS:
+    return initialState
       .set('id', action.id)
       .set('gameState', 'ready')
-    case LOAD_GAME_REQUEST:
-      return initialState
+  case LOAD_GAME_REQUEST:
+    return initialState
       .set('id', action.id)
       .set('gameState', 'loading')
-    case LOAD_GAME_FAILURE:
-      return state
+  case LOAD_GAME_FAILURE:
+    return state
       .set('gameState', 'failed')
       .set('reasonFailed', action.error.message)
-    case LOAD_GAME_SUCCESS:
-      return state
+  case LOAD_GAME_SUCCESS:
+    return state
       .merge({
         id: action.id,
         versus: action.versus,
@@ -120,40 +120,40 @@ export const game = (state = initialState, action) => {
           }
         }, state)
       })
-    case PLACE_CROSSHAIRS:
-      return state.set('selectedCell', action.selectedCell)
-    case RECEIVE_MISS:
-      if (action.id !== state.get('id')) return state
+  case PLACE_CROSSHAIRS:
+    return state.set('selectedCell', action.selectedCell)
+  case RECEIVE_MISS:
+    if (action.id !== state.get('id')) return state
 
-      return state
+    return state
       .set('isViewerTurn', true)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
-    case RECEIVE_HIT:
-      if (action.id !== state.get('id')) return state
+  case RECEIVE_HIT:
+    if (action.id !== state.get('id')) return state
 
-      return state
+    return state
       .set('isViewerTurn', false)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
       .set('versusScore', action.versusScore)
       .set('gameState', action.versusScore === 21 ? 'defeated' : state.get('gameState'))
-    case FIRE_CANNON_SUCCESS:
-      return state
+  case FIRE_CANNON_SUCCESS:
+    return state
       .set('isViewerTurn', action.isViewerTurn)
       .updateIn(['turns'], update => update.push(fromJS(action.turn)))
       .setIn(['versusGrid', action.turn.index], Number(action.turn.hit))
       .set('viewerScore', action.viewerScore)
       .set('gameState', action.viewerScore === 21 ? 'victory' : state.get('gameState'))
-    case FIRE_CANNON_FAILURE:
+  case FIRE_CANNON_FAILURE:
       // @TODO here be a side-effect
-      if (state.get('gameState') === 'failed') location.reload()
-      return state
+    if (state.get('gameState') === 'failed') location.reload()
+    return state
         .set('gameState', 'failed')
         .set('reasonFailed', action.error.message)
-    case FIRE_CANNON_REQUEST:
-      return state.set('selectedCell', -1)
-    default:
-      return state
+  case FIRE_CANNON_REQUEST:
+    return state.set('selectedCell', -1)
+  default:
+    return state
   }
 }

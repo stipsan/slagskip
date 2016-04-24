@@ -11,15 +11,15 @@ const initialState = ImmutableSet()
 
 export const invites = (state = initialState, action) => {
   switch (action.type) {
-    case AUTHENTICATE_SUCCESS:
-      return state.intersect(action.invites)
-    case RECEIVE_GAME_INVITE:
-    case RECEIVE_GAME_INVITE_ACCEPTED:
-      return state.add(action.username)
-    case DECLINE_GAME_INVITE_SUCCESS:
-    case CANCEL_GAME_INVITE_SUCCESS:
-      return state.subtract(action.username)
-    default:
-      return state
+  case AUTHENTICATE_SUCCESS:
+    return state.intersect(action.invites)
+  case RECEIVE_GAME_INVITE:
+  case RECEIVE_GAME_INVITE_ACCEPTED:
+    return state.add(action.username)
+  case DECLINE_GAME_INVITE_SUCCESS:
+  case CANCEL_GAME_INVITE_SUCCESS:
+    return state.subtract(action.username)
+  default:
+    return state
   }
 }

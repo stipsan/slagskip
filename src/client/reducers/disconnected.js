@@ -6,12 +6,12 @@ import {
 
 export const disconnected = (state = false, action) => {
   switch (action.type) {
-    case SOCKET_SUCCESS:
-      return false
-    case SOCKET_DISCONNECT:
-    case SOCKET_FAILURE:
-      return true
-    default:
-      return state
+  case SOCKET_SUCCESS:
+    return false
+  case SOCKET_DISCONNECT:
+  case SOCKET_FAILURE:
+    return true
+  default:
+    return state
   }
 }

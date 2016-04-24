@@ -25,9 +25,52 @@ rules:
   semi:
     - error
     - never
-  no-unused-vars: 1
-  react/react-in-jsx-scope: 0
-  react/prop-types: 2
+  react/react-in-jsx-scope: off
+  react/prop-types:
+    - error
+    - ignore:
+      - dispatch
+  react/no-deprecated: error
+  react/no-did-mount-set-state:
+    - error
+    - allow-in-func
+  react/no-did-update-set-state: error
+  react/no-direct-mutation-state: error
+  react/require-render-return: error
+  react/self-closing-comp: error
+  react/sort-comp: error
+  react/sort-prop-types: warn
+  react/no-set-state: error
+  react/no-unknown-property: error
+  react/prefer-stateless-function: error
+  react/wrap-multilines: off
+  react/jsx-uses-vars: error
+  react/jsx-no-undef: error
+  react/jsx-no-duplicate-props: error
+  react/jsx-space-before-closing: error
+  react/jsx-pascal-case: error
+  react/jsx-no-literals: error
+  react/jsx-no-bind:
+    - error
+    - ignoreRefs: true
+  react/jsx-indent:
+    - error
+    - 2
+  react/jsx-indent-props:
+    - error
+    - 2
+  react/jsx-first-prop-new-line:
+    - error
+    - multiline
+  react/jsx-equals-spacing:
+    - error
+    - never
+  react/jsx-closing-bracket-location:
+    - error
+    - tag-aligned
+  react/jsx-boolean-value:
+    - error
+    - never
   no-dupe-keys: error
   no-constant-condition: error
   no-duplicate-case: error
@@ -75,3 +118,25 @@ rules:
     - error
     - 10
   newline-per-chained-call: error
+  no-lonely-if: error
+  no-negated-condition: error
+  no-mixed-spaces-and-tabs: error
+  no-nested-ternary: error
+  no-unneeded-ternary: error
+  operator-linebreak: error
+  sort-imports: warn
+  sort-vars: warn
+  arrow-body-style: 
+    - error
+    - as-needed
+  arrow-parens: 
+    - error
+    - as-needed
+  arrow-spacing: error
+  no-dupe-class-members: error
+  no-duplicate-imports: error
+  prefer-arrow-callback:
+    - error
+    - allowNamedFunctions: true
+  prefer-const: error
+  no-unused-expressions: error

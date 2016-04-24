@@ -14,22 +14,22 @@ const initialState = ImmutableMap({
 
 export const viewer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTHENTICATE_SUCCESS:
-      return state.merge({
-        id: action.authToken.id,
-        username: action.authToken.username
-      })
-    case RECEIVE_VIEWER:
-      return state.merge({
-        isLoaded: true,
-      })
-    case DEAUTHENTICATE_SUCCESS:
-      return state.merge({
-        isLoaded: false,
-        id: null,
-        username: ''
-      })
-    default:
-      return state
+  case AUTHENTICATE_SUCCESS:
+    return state.merge({
+      id: action.authToken.id,
+      username: action.authToken.username
+    })
+  case RECEIVE_VIEWER:
+    return state.merge({
+      isLoaded: true,
+    })
+  case DEAUTHENTICATE_SUCCESS:
+    return state.merge({
+      isLoaded: false,
+      id: null,
+      username: ''
+    })
+  default:
+    return state
   }
 }

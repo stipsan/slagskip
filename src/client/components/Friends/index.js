@@ -41,7 +41,7 @@ class Dashboard extends Component {
             key={friend.get('username')}
             friend={friend}
             dispatch={dispatch}
-          />)}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               />)}
         </tbody>
       </table>
     </section>)

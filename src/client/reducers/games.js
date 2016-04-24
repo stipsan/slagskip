@@ -36,16 +36,16 @@ const mapGameToState = game => defaultGame.merge(game)
 
 export const games = (state = initialState, action) => {
   switch (action.type) {
-    case RECEIVE_VIEWER:
-      return state.set('total', action.games.length)
-    case RECEIVE_NEW_GAME:
-      return state.set('total', state.get('total') + 1)
-    case GAMES_SUCCESS:
-      return action.games.reduce(
+  case RECEIVE_VIEWER:
+    return state.set('total', action.games.length)
+  case RECEIVE_NEW_GAME:
+    return state.set('total', state.get('total') + 1)
+  case GAMES_SUCCESS:
+    return action.games.reduce(
       (state, game) => state.setIn(['list', game.id], defaultGame.merge(game).set('isViewerTurn', getIsViewerTurn(game))),
       state.set('total', action.games.length)
     )
-    default:
-      return state
+  default:
+    return state
   }
 }

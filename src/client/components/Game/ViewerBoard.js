@@ -23,7 +23,7 @@ class Cell extends Component {
         cellXS: type === 7 || type === 8,
       }
     )}
-    />)
+                                                                                                                                                                                                                                                                                                            />)
   }
 }
 

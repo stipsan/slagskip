@@ -98,16 +98,16 @@ const addItem = (state, action) => {
 const initialState = fromJS({
   grid: [
 //      a  b  c  d  e  f  g  h  i  j
-/* 0 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 1 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 2 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 3 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 4 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 5 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 6 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 7 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 8 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-/* 9 */         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 0 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 1 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 2 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 3 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 4 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 5 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 6 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 7 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 8 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+/* 9 */                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ],
   items: {
     xl:  [0, -1, -1, -1, -1, -1],
@@ -122,20 +122,20 @@ const initialState = fromJS({
 })
 export const board = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ITEM:
-      return addItem(state, action)
-    case ROTATE_ITEM:
-      var itemType = getItemType(action.item)
-      var item = state.getIn(['items', action.item])
-      var startIndex = item.get(1)
-      var rotated = action.rotated || !item.get(0)
+  case ADD_ITEM:
+    return addItem(state, action)
+  case ROTATE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.getIn(['items', action.item])
+    var startIndex = item.get(1)
+    var rotated = action.rotated || !item.get(0)
 
-      var coordinates = createCoordinates(rotated, startIndex, itemType, item)
-      if (!coordinates || startIndex === -1) {
-        return state
-      }
+    var coordinates = createCoordinates(rotated, startIndex, itemType, item)
+    if (!coordinates || startIndex === -1) {
+      return state
+    }
 
-      var isPositionsTaken = coordinates.reduce(
+    var isPositionsTaken = coordinates.reduce(
       (positionsCheck, currentPosition, index) => {
         const existingPosition = state.getIn(['grid', currentPosition])
         if (existingPosition === itemType.id) {
@@ -145,18 +145,18 @@ export const board = (state = initialState, action) => {
       },
       0
     )
-      if (isPositionsTaken > 0) {
-        return state
-      }
+    if (isPositionsTaken > 0) {
+      return state
+    }
 
-      state = item.shift().reduce(
+    state = item.shift().reduce(
       (previousState, previousPosition) => {
         return previousState.setIn(['grid', previousPosition], 0)
       },
       state
     )
 
-      return coordinates.reduce(
+    return coordinates.reduce(
       (previousState, currentPosition, index) => {
         return previousState
           .setIn(['items', action.item, index + 1], currentPosition)
@@ -164,17 +164,17 @@ export const board = (state = initialState, action) => {
       },
       state.setIn(['items', action.item, 0], rotated ? 1 : 0)
     )
-    case MOVE_ITEM:
-      var itemType = getItemType(action.item)
-      var item = state.getIn(['items', action.item])
-      var rotated = item.get(0)
-      var startIndex = createStartIndex(action.position)
-      var coordinates = createCoordinates(rotated, startIndex, itemType, item)
-      if (!coordinates) {
-        return state
-      }
+  case MOVE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.getIn(['items', action.item])
+    var rotated = item.get(0)
+    var startIndex = createStartIndex(action.position)
+    var coordinates = createCoordinates(rotated, startIndex, itemType, item)
+    if (!coordinates) {
+      return state
+    }
 
-      var isPositionsTaken = coordinates.reduce(
+    var isPositionsTaken = coordinates.reduce(
       (positionsCheck, currentPosition, index) => {
         const existingPosition = state.getIn(['grid', currentPosition])
         if (existingPosition === itemType.id) {
@@ -184,18 +184,18 @@ export const board = (state = initialState, action) => {
       },
       0
     )
-      if (isPositionsTaken > 0) {
-        return state
-      }
+    if (isPositionsTaken > 0) {
+      return state
+    }
 
-      state = item.shift().reduce(
+    state = item.shift().reduce(
       (previousState, previousPosition) => {
         return previousState.setIn(['grid', previousPosition], 0)
       },
       state
     )
 
-      return coordinates.reduce(
+    return coordinates.reduce(
       (previousState, currentPosition, index) => {
         return previousState
           .setIn(['items', action.item, index + 1], currentPosition)
@@ -203,11 +203,11 @@ export const board = (state = initialState, action) => {
       },
       state.setIn(['items', action.item, 0], rotated)
     )
-    case REMOVE_ITEM:
-      var itemType = getItemType(action.item)
-      var item = state.getIn(['items', action.item])
+  case REMOVE_ITEM:
+    var itemType = getItemType(action.item)
+    var item = state.getIn(['items', action.item])
 
-      return item.shift().reduce(
+    return item.shift().reduce(
       (previousState, previousPosition, index) => {
         return previousState
           .setIn(['items', action.item, index + 1], -1)
@@ -215,36 +215,36 @@ export const board = (state = initialState, action) => {
       },
       state
     )
-    case LOAD_GAME_SUCCESS:
-    case RESET_ITEMS:
-      return initialState
-    case LOAD_ITEMS:
-      return state.merge(action.board)
-    case RANDOM_ITEMS:
+  case LOAD_GAME_SUCCESS:
+  case RESET_ITEMS:
+    return initialState
+  case LOAD_ITEMS:
+    return state.merge(action.board)
+  case RANDOM_ITEMS:
 
-      const getRotated = action.getRotated || getRandomRotated
-      let newRandomState = state
-      let keys = [...state.get('items').keys()]
-      let m = true
-      let safeguard = 0
+    const getRotated = action.getRotated || getRandomRotated
+    let newRandomState = state
+    let keys = [...state.get('items').keys()]
+    let m = true
+    let safeguard = 0
 
     // @TODO randomize MOVE_ITEM and ROTATE_ITEM as well
     // @TODO see if assigning to newRandomState in a loop is better done with withMutable instead
 
-      while (m) {
-        let randomKey = keys[Math.floor(Math.random() * keys.length)]
+    while (m) {
+      let randomKey = keys[Math.floor(Math.random() * keys.length)]
 
-        let randomX = Math.floor(Math.random() * 9)
-        let randomY = Math.floor(Math.random() * 9)
-        let randomRotated = getRotated()
+      let randomX = Math.floor(Math.random() * 9)
+      let randomY = Math.floor(Math.random() * 9)
+      let randomRotated = getRotated()
 
-        newRandomState = addItem(newRandomState, {
+      newRandomState = addItem(newRandomState, {
         item: randomKey,
         position: [randomX, randomY],
         rotated: randomRotated
       })
 
-        m = newRandomState.getIn(['items', 'xl', 1]) === -1 ||
+      m = newRandomState.getIn(['items', 'xl', 1]) === -1 ||
           newRandomState.getIn(['items', 'l', 1]) === -1 ||
           newRandomState.getIn(['items', 'm1', 1]) === -1 ||
           newRandomState.getIn(['items', 'm2', 1]) === -1 ||
@@ -252,10 +252,10 @@ export const board = (state = initialState, action) => {
           newRandomState.getIn(['items', 's2', 1]) === -1 ||
           newRandomState.getIn(['items', 'xs1', 1]) === -1 ||
           newRandomState.getIn(['items', 'xs2', 1]) === -1
-      }
+    }
 
-      return newRandomState
-    default:
-      return state
+    return newRandomState
+  default:
+    return state
   }
 }
