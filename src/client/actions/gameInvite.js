@@ -1,4 +1,3 @@
-import { CALL_SOCKET } from '../middleware/socket'
 import {
   GAME_INVITE_REQUEST,
   GAME_INVITE_SUCCESS,
@@ -13,6 +12,7 @@ import {
   CANCEL_GAME_INVITE_SUCCESS,
   CANCEL_GAME_INVITE_FAILURE,
 } from '../constants/ActionTypes'
+import { CALL_SOCKET } from '../middleware/socket'
 
 export function gameInvite(friend) {
   return {
@@ -34,7 +34,9 @@ export function acceptGameInvite(friend) {
 export function declineGameInvite(friend) {
   return {
     [CALL_SOCKET]: {
-      types: [DECLINE_GAME_INVITE_REQUEST, DECLINE_GAME_INVITE_SUCCESS, DECLINE_GAME_INVITE_FAILURE],
+      types: [
+        DECLINE_GAME_INVITE_REQUEST, DECLINE_GAME_INVITE_SUCCESS, DECLINE_GAME_INVITE_FAILURE
+      ],
       data: friend,
     },
   }

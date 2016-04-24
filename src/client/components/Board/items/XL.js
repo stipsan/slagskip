@@ -1,16 +1,14 @@
-import { Component } from 'react'
+import { PropTypes } from 'react'
 import cx from '../style.scss'
 
-export class XL extends Component {
-  render() {
-    const { rotated, index, defaultIndex } = this.props
+export const XL = ({ rotated }) => <div className={cx('XL', { rotated })}>
+  <div className={cx('cell')}></div>
+  <div className={cx('cell')}></div>
+  <div className={cx('cell')}></div>
+  <div className={cx('cell')}></div>
+  <div className={cx('cell')}></div>
+</div>
 
-    return (<div className={cx('XL', { rotated })}>
-      <div className={cx('cell')}></div>
-      <div className={cx('cell')}></div>
-      <div className={cx('cell')}></div>
-      <div className={cx('cell')}></div>
-      <div className={cx('cell')}></div>
-    </div>)
-  }
+XL.propTypes = {
+  rotated: PropTypes.bool.isRequired,
 }

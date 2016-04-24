@@ -123,7 +123,9 @@ rules:
   no-mixed-spaces-and-tabs: error
   no-nested-ternary: error
   no-unneeded-ternary: error
-  sort-imports: warn
+  sort-imports:
+    - warn
+    - ignoreMemberSort: true
   sort-vars: warn
   arrow-body-style: 
     - error
