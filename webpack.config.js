@@ -110,7 +110,7 @@ const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&discardDupl
 
 module.exports = {
   devtool: 'production' === process.env.NODE_ENV ? 'source-map' : 'cheap-module-eval-source-map',
-  entry: entry,
+  entry,
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     publicPath: `http://${devServerHostName}:${devServerPort}/`,
@@ -124,7 +124,7 @@ module.exports = {
     chunkFilename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[chunkhash]',
     publicPath: 'production' === process.env.NODE_ENV ? '/' : `http://${devServerHostName}:${devServerPort}/`,
   },
-  plugins: plugins,
+  plugins,
   module: {
     preLoaders: [
         { test: /\.json$/, loader: 'json'},

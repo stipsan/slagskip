@@ -6,6 +6,8 @@ env:
 extends: 
   - 'eslint:recommended'
   - 'plugin:react/recommended'
+  - plugin:import/errors
+  - plugin:import/warnings
   - 'airbnb'
 parser: babel-eslint
 parserOptions:
@@ -17,7 +19,9 @@ parserOptions:
 plugins:
   - react
 rules:
-  comma-dangle: 1
+  comma-dangle:
+    - error
+    - only-multiline
   indent: 2
   linebreak-style: 2
   quotes: 2
@@ -27,6 +31,8 @@ rules:
   no-unused-vars: 1
   react/react-in-jsx-scope: 0
   react/prop-types: 2
+  no-dupe-keys:
+    - error
   
   no-trailing-spaces: 0
   max-len: 0
