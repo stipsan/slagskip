@@ -70,22 +70,6 @@ const CanvasDropTarget = DropTarget(BOARD_ITEM,
       console.log('onDrop', item, delta, component.itemSize)
 
       component.handleDrop(item, delta)
-      return
-      component.moveBox(item.id, left, top)
-
-    // console.log('drop happen', monitor.getDropResult())
-      if (!monitor.getInitialClientOffset() || !monitor.getInitialSourceClientOffset()) {
-        console.error('what? no drop?', props, monitor, component)
-        return
-      }
-
-      const indexOffset = monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x
-      const offsetFactor = Math.floor(indexOffset / 32)
-      console.log('indexOffset', offsetFactor)
-    // console.log('drop', props, monitor, component)
-
-      item.addItem(item.type, props.index - offsetFactor)
-    // console.log(monitor.getItem().addItem)
     },
     canDrop: (props, monitor) => {
     // console.log('canDrop', props, monitor.getItem())

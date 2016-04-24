@@ -123,7 +123,6 @@ rules:
   no-mixed-spaces-and-tabs: error
   no-nested-ternary: error
   no-unneeded-ternary: error
-  operator-linebreak: error
   sort-imports: warn
   sort-vars: warn
   arrow-body-style: 
@@ -140,3 +139,6 @@ rules:
     - allowNamedFunctions: true
   prefer-const: error
   no-unused-expressions: error
+  yoda:
+    - error
+    - always

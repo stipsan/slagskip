@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import classNames from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import { selectCell, fireCannon } from '../../actions'
 import cx from './style.scss'
