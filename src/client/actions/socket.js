@@ -1,5 +1,3 @@
 import { SOCKET_RECONNECT } from '../constants/ActionTypes'
 
-export const reconnectSocket = () => {
-  return { type: SOCKET_RECONNECT }
-}
+export const reconnectSocket = () => ({ type: SOCKET_RECONNECT })

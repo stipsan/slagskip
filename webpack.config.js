@@ -78,12 +78,14 @@ plugins = plugins.concat(new AssetsPlugin({ filename: 'assets.json', path: __dir
 
 const entry = 'production' === process.env.NODE_ENV ? {
   client: [
+    'babel-polyfill',
     './src/client/index',
   ],
 } : {
   client: [
     `webpack-dev-server/client?http://${devServerHostName}:${devServerPort}/`,
     'webpack/hot/dev-server',
+    'babel-polyfill',
     './src/client/index',
   ],
 }
