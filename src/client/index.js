@@ -1,7 +1,8 @@
-import store from './store'
-import { init } from './actions/init'
 import { render } from 'react-dom'
+
+import store from './store'
 import Root from './containers/Root'
+import { init } from './actions/init'
 
 store.dispatch(init())
 

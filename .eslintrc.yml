@@ -65,9 +65,7 @@ rules:
   react/jsx-equals-spacing:
     - error
     - never
-  react/jsx-closing-bracket-location:
-    - error
-    - tag-aligned
+  react/jsx-closing-bracket-location: off
   react/jsx-boolean-value:
     - error
     - never
@@ -123,9 +121,7 @@ rules:
   no-mixed-spaces-and-tabs: error
   no-nested-ternary: error
   no-unneeded-ternary: error
-  sort-imports:
-    - warn
-    - ignoreMemberSort: true
+  sort-imports: off
   sort-vars: warn
   arrow-body-style: 
     - error

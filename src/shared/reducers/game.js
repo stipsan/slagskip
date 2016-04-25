@@ -1,3 +1,5 @@
+import { fromJS } from 'immutable'
+
 import {
   NEW_GAME_REQUEST,
   LOAD_GAME_REQUEST,
@@ -14,8 +16,6 @@ import {
   FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
 import { board } from './board'
-import { fromJS } from 'immutable'
-
 
 const initialState = fromJS({
   id: null,

@@ -1,4 +1,5 @@
 import { PropTypes } from 'react'
+
 import cx from '../style.scss'
 
 export const XL = ({ rotated }) => <div className={cx('XL', { rotated })}>

@@ -1,7 +1,8 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
-import FriendRow from './FriendRow'
+
 import cx from './style.scss'
+import FriendRow from './FriendRow'
 
 class Dashboard extends Component {
   static propTypes = {

@@ -1,8 +1,9 @@
+import TouchBackend from 'react-dnd-touch-backend'
 import { Component } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd'
-import TouchBackend from 'react-dnd-touch-backend'
-import { BOARD_ITEM } from '../../constants/ItemTypes'
+
 import cx from './style.scss'
+import { BOARD_ITEM } from '../../constants/ItemTypes'
 
 // @TODO maybe move this to a shared utility
 const indexToCoordinates = index => {

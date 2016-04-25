@@ -1,6 +1,7 @@
-import { PropTypes, Component } from 'react'
 import DocumentTitle from 'react-document-title'
 import TimeAgo from 'react-timeago'
+import { PropTypes, Component } from 'react'
+
 import cx from './style.scss'
 
 const timeAgoFormatter = (value, unit, suffix) => {

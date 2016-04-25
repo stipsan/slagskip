@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+
 import cx from '../style.scss'
 
 export class M extends Component {

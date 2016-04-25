@@ -1,10 +1,11 @@
+import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
-import DocumentTitle from 'react-document-title'
 import { Link } from 'react-router'
+
 import cx from './style.scss'
-import { logoutUser } from '../../actions'
 import Navbar from '../Navbar'
+import { logoutUser } from '../../actions'
 
 class Dashboard extends Component {
 

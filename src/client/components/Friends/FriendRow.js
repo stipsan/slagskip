@@ -1,15 +1,16 @@
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import TimeAgo from 'react-timeago'
+import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { Link } from 'react-router'
+
+import cx from './style.scss'
 import {
   gameInvite,
   acceptGameInvite,
   declineGameInvite,
   cancelGameInvite,
 } from '../../actions'
-import { Component, PropTypes } from 'react'
-import TimeAgo from 'react-timeago'
-import { Link } from 'react-router'
-import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import cx from './style.scss'
 
 const transitionName = Object.freeze({
   enter: cx('enter'),

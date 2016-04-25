@@ -1,11 +1,12 @@
-import { Component, PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
+import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { Link } from 'react-router'
+
 import cx from './style.scss'
 import Navbar from '../Navbar'
 import VersusGrid from './VersusGrid'
 import ViewerBoard from './ViewerBoard'
-import { Link } from 'react-router'
 import { selectCell, fireCannon } from '../../actions'
 
 class Game extends Component {

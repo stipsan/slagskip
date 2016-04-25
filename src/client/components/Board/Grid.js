@@ -1,5 +1,6 @@
-import { Component, PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
+import { Component, PropTypes } from 'react'
+
 import cx from './style.scss'
 
 export class Grid extends Component {

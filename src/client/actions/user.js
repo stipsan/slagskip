@@ -12,8 +12,8 @@ export const loginUser = username => ({
   [CALL_SOCKET]: {
     types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
     data: {
-      username: username,
-    },
+      username,
+    }
   }
 })
 

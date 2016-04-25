@@ -1,8 +1,9 @@
 import { Children, Component, PropTypes } from 'react'
-import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { DragSource } from 'react-dnd'
-import { indexToCSSTranslate } from '../util'
+
 import cx from '../style.scss'
+import { BOARD_ITEM } from '../../../constants/ItemTypes'
+import { indexToCSSTranslate } from '../util'
 
 const defaultStyle = {
   position: 'absolute',
