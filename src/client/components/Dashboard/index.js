@@ -15,6 +15,7 @@ class Dashboard extends Component {
 
   static propTypes = {
     children: PropTypes.element.isRequired,
+    username: PropTypes.string,
   }
 
   shouldComponentUpdate = shouldComponentUpdate
@@ -22,11 +23,11 @@ class Dashboard extends Component {
   handleLogout = () => this.props.dispatch(logoutUser());
 
   render() {
-    const { children, username, routeParams } = this.props
+    const { children, username } = this.props
     const { router } = this.context
     const isFriendsTabActive = router.isActive({ pathname: 'friends' })
 
-    const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>Logout</a>
+    const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>{'Logout'}</a>
 
     return (<DocumentTitle title={username ? `Epic | ${username}` : null}>
       <div className={cx('dashboard')}>
@@ -36,10 +37,11 @@ class Dashboard extends Component {
         <div className={cx('tabscontainer')}>
           <div className={cx('tabs')}>
             <ul>
-              <li className={cx({
-                isActive: !isFriendsTabActive
-              })}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ><Link to="/">Games</Link></li>
+              <li
+                className={cx({
+                  isActive: !isFriendsTabActive
+                })}
+              ><Link to="/">{'Games'}</Link></li>
               {/* <li className={cx({
                 isActive: isFriendsTabActive
               })}><Link to="/friends">Friends</Link></li>*/}

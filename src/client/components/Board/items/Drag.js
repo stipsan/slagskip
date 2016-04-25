@@ -1,17 +1,9 @@
-import { Children, Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import { DragSource } from 'react-dnd'
 
 import cx from '../style.scss'
 import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { indexToCSSTranslate } from '../util'
-
-const defaultStyle = {
-  position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  cursor: 'move',
-}
 
 const itemSource = {
   beginDrag({ type, index, defaultIndex, rotated, addItem }) {
@@ -29,13 +21,18 @@ function collect(connect, monitor) {
 
 class Item extends Component {
   static propTypes = {
+    children: PropTypes.node,
     connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
+    defaultIndex: PropTypes.number.isRequired,
     id: PropTypes.any.isRequired,
+    index: PropTypes.number.isRequired,
+    isDragging: PropTypes.bool.isRequired,
     left: PropTypes.number.isRequired,
+    rotated: PropTypes.bool.isRequired,
+    rotateItem: PropTypes.func.isRequired,
+    size: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
-    hideSourceOnDrag: PropTypes.bool.isRequired,
-    children: PropTypes.node
+    type: PropTypes.string.isRequired,
   }
 
   handleRotate = () => {
@@ -44,13 +41,25 @@ class Item extends Component {
   }
 
   render() {
-    const { hideSourceOnDrag, size, type, index, defaultIndex, connectDragSource, isDragging, rotated, children } = this.props
+    const {
+      children,
+      connectDragSource,
+      defaultIndex,
+      index,
+      isDragging,
+      rotated,
+      size,
+    } = this.props
 
-    const dropped = index > -1
+    const dropped = -1 < index
     const CSSTranslate = indexToCSSTranslate(dropped ? index : defaultIndex, size, rotated)
 
     return connectDragSource(
-      <div className={cx('draggable', { rotated, dropped, hidden: isDragging })} style={{ transform: CSSTranslate }} onClick={this.handleRotate}>
+      <div
+        className={cx('draggable', { rotated, dropped, hidden: isDragging })}
+        style={{ transform: CSSTranslate }}
+        onClick={this.handleRotate}
+      >
         {children}
       </div>
     )

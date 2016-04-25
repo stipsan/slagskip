@@ -39,7 +39,9 @@ rules:
   react/require-render-return: error
   react/self-closing-comp: error
   react/sort-comp: error
-  react/sort-prop-types: warn
+  react/sort-prop-types: 
+    - warn
+    - ignoreCase: true
   react/no-set-state: error
   react/no-unknown-property: error
   react/prefer-stateless-function: error
@@ -48,7 +50,7 @@ rules:
   react/jsx-no-undef: error
   react/jsx-no-duplicate-props: error
   react/jsx-space-before-closing: error
-  react/jsx-pascal-case: error
+  react/jsx-pascal-case: off
   react/jsx-no-literals: error
   react/jsx-no-bind:
     - error
@@ -107,6 +109,7 @@ rules:
   block-spacing: error
   brace-style: error
   camelcase: error
+  padded-blocks: off
   comma-spacing: error
   comma-style: error
   indent: 
@@ -122,6 +125,7 @@ rules:
   no-nested-ternary: error
   no-unneeded-ternary: error
   sort-imports: off
+  new-cap: off
   sort-vars: warn
   arrow-body-style: 
     - error

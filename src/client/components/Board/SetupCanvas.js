@@ -1,5 +1,5 @@
 import TouchBackend from 'react-dnd-touch-backend'
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd'
 
 import cx from './style.scss'
@@ -14,6 +14,13 @@ const indexToCoordinates = index => {
 
 class Canvas extends Component {
 
+  static propTypes = {
+    addItem: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
+    moveItem: PropTypes.func.isRequired,
+  }
+
   itemSize = 32
 
   handleDrop = (item, delta) => {
@@ -21,44 +28,39 @@ class Canvas extends Component {
     const { itemSize } = this
     const { addItem, moveItem } = this.props
 
-    console.log('SetupCanvas handleDrop', item, delta, itemSize)
-    console.log('handleDrop x', Math.round(delta.x / itemSize))
-
-    if (item.index === -1) {
+    if (-1 === item.index) {
       const [initialX, initialY] = indexToCoordinates(item.defaultIndex)
       const x = Math.round(delta.x / itemSize)
       const y = Math.round(delta.y / itemSize)
-      const negativeIndex = item.defaultIndex - 100
       const offsetX = initialX + x
       const offsetY = initialY + y
-      console.log('handleDrop startX', negativeIndex, offsetX, initialX, initialY)
 
       addItem(item.type, offsetX, offsetY)
     } else {
       const [initialX, initialY] = indexToCoordinates(item.index)
       const x = Math.round(delta.x / itemSize)
       const y = Math.round(delta.y / itemSize)
-      const negativeIndex = item.defaultIndex - 100
       const offsetX = initialX + x
       const offsetY = initialY + y
-      console.log('handleDrop startX', negativeIndex, offsetX, initialX, initialY)
 
       moveItem(item.type, offsetX, offsetY)
     }
-
-
   }
 
   render() {
     const { children, connectDropTarget } = this.props
-    return connectDropTarget(<div className={cx('setupCanvas')} ref={node => {
-      if (node) {
-        this.itemSize = node.getBoundingClientRect().width / 10
-      }
-    }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
-      {children}
-    </div>)
+    return connectDropTarget(
+      <div
+        className={cx('setupCanvas')}
+        ref={node => {
+          if (node) {
+            this.itemSize = node.getBoundingClientRect().width / 10
+          }
+        }}
+      >
+        {children}
+      </div>
+    )
   }
 }
 const CanvasDropTarget = DropTarget(BOARD_ITEM,
@@ -68,24 +70,19 @@ const CanvasDropTarget = DropTarget(BOARD_ITEM,
       const item = monitor.getItem()
 
       const delta = monitor.getDifferenceFromInitialOffset()
-      console.log('onDrop', item, delta, component.itemSize)
 
       component.handleDrop(item, delta)
     },
-    canDrop: (props, monitor) => {
-    // console.log('canDrop', props, monitor.getItem())
-
-      return true
-    }
+    canDrop: () => true
   },
 (connect, monitor) => {
+  /* eslint arrow-body-style: ["off"] */
   return {
-    // Call this function inside render()
-    // to let React DnD handle the drag events:
     connectDropTarget: connect.dropTarget(),
-    // You can ask the monitor about the current drag state:
-    itemType: monitor.getItemType()
+    itemType: monitor.getItemType(),
   }
 })(Canvas)
 
-export const SetupCanvas = DragDropContext(TouchBackend({ enableMouseEvents: true }))(CanvasDropTarget)
+export const SetupCanvas = DragDropContext(TouchBackend({
+  enableMouseEvents: true
+}))(CanvasDropTarget)

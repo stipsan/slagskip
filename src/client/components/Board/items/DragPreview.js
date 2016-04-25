@@ -16,7 +16,7 @@ const layerStyles = {
 }
 
 const collect = monitor => {
-  var item = monitor.getItem()
+  const item = monitor.getItem()
   return {
     type: item && item.type,
     rotated: item && item.rotated,
@@ -44,18 +44,19 @@ const getItemStyles = currentOffset => {
 
 class ItemPreview extends Component {
   static propTypes = {
-    type: PropTypes.string,
-    rotated: PropTypes.number,
     currentOffset: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number
     }),
-    isDragging: PropTypes.bool
+    isDragging: PropTypes.bool,
+    rotated: PropTypes.number,
+    type: PropTypes.string,
   }
 
   shouldComponentUpdate = shouldComponentUpdate
 
   renderItem(type, rotated) {
+
     switch (type) {
     case 'xl':
       return <XL rotated={rotated} />
@@ -70,6 +71,8 @@ class ItemPreview extends Component {
     case 'xs1':
     case 'xs2':
       return <XS rotated={rotated} />
+    default:
+      return null
     }
   }
 
