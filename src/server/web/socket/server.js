@@ -5,7 +5,7 @@ import { createDispatcher } from './dispatcher'
 
 export const createSocketServer = (scServer, redis) => {
 
-  scServer.on('connection', function (socket) {
+  scServer.on('connection', socket => {
     // @TODO handle .off to cleanup disconnected clients
     const dispatchEventHandler = createDispatcher(socket, database, redis)
 

@@ -21,7 +21,7 @@ export const gameInvite = (
   socket,
   database,
   redis
-) => (dispatch, getState) => {
+) => () => {
   const authToken = socket.getAuthToken()
   return database.viewerSendsInvite(authToken, action.id, redis)
     .then(({ id, inviteOut }) => {

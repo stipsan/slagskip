@@ -1,5 +1,4 @@
 import shallowCompare from 'react-addons-shallow-compare'
-import Avatar from 'react-user-avatar'
 import DocumentTitle from 'react-document-title'
 import { shuffle } from 'lodash'
 import { Component, PropTypes } from 'react'
@@ -20,30 +19,6 @@ const {
   DragPreview
 } = Item
 
-// @TODO merge duplicated code
-const defaultColors = [
-  '#1abc9c',
-  '#2ecc71',
-  '#3498db',
-  '#9b59b6',
-  '#34495e',
-  '#16a085',
-  '#27ae60',
-  '#2980b9',
-  '#8e44ad',
-  '#2c3e50',
-  '#f1c40f',
-  '#e67e22',
-  '#e74c3c',
-  '#ecf0f1',
-  '#95a5a6',
-  '#f39c12',
-  '#d35400',
-  '#c0392b',
-  '#bdc3c7',
-  '#7f8c8d'
-]
-
 const types = [
   ['xl', 5, <XL />],
   ['l', 4, <L />],
@@ -57,51 +32,24 @@ const types = [
 
 const incDefaultIndex = (previousIndex, type, items, size) => {
 
-  if (items.getIn([type, 1]) !== -1) {
+  if (-1 !== items.getIn([type, 1])) {
     return [previousIndex, 0]
   }
-
-  const nextIndex = previousIndex + size
 
   const previousRemainder = previousIndex % 10
   const nextRemainder = previousRemainder + size
 
   const nextRow = (Math.floor(previousIndex / 10) * 10) + 11
-  const incrementedIndex = nextRemainder > 9 ?
+  const incrementedIndex = 9 < nextRemainder ?
     nextRow :
     previousIndex
   return [incrementedIndex, size]
-  const sanitizedIndex = incrementedIndex + (
-    incrementedIndex % 10 < 1 ?
-    1 :
-    incrementedIndex % 10 > 8 ?
-    2 :
-    0
-  )
-
-  return sanitizedIndex
 }
 
 class Setup extends Component {
 
   static contextTypes = {
     router: PropTypes.object
-  }
-
-  handleNewGame = event => {
-    event.preventDefault()
-
-    this.props.newGame(this.props.routeParams.versus, this.props.board)
-  }
-
-  handleJoinGame = event => {
-    event.preventDefault()
-
-    this.props.joinGame(this.props.routeParams.game, this.props.board)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
   }
 
   componentWillMount() {
@@ -133,6 +81,22 @@ class Setup extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
+
+  handleNewGame = event => {
+    event.preventDefault()
+
+    this.props.newGame(this.props.routeParams.versus, this.props.board)
+  }
+
+  handleJoinGame = event => {
+    event.preventDefault()
+
+    this.props.joinGame(this.props.routeParams.game, this.props.board)
+  }
+
   render() {
     const {
       grid,
@@ -162,7 +126,7 @@ class Setup extends Component {
     let defaultIndex = 111
 
     const navbarLeft = (<Link to="/new" className={cx('linkToPrevous')}>
-      ❮ <span className={cx('buttonLabel')}>Back</span>
+      {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
     </Link>)
     const navbarRight = routeParams.game ?
       <button
@@ -170,7 +134,7 @@ class Setup extends Component {
         onClick={this.handleJoinGame}
         className={startGameButtonClassName}
       >
-        Join
+        {'Join'}
       </button> :
       routeParams.versus ?
       <button
@@ -178,7 +142,7 @@ class Setup extends Component {
         onClick={this.handleNewGame}
         className={startGameButtonClassName}
       >
-        Start
+        {'Start'}
       </button> :
       false
 
@@ -186,26 +150,30 @@ class Setup extends Component {
       <section className={cx('section')}>
         <Navbar left={navbarLeft} right={navbarRight}>
           <h1 className={cx('headerTitle')}>
-            You vs {versusUsername}
+            {`You vs ${versusUsername}`}
           </h1>
         </Navbar>
         <div className={cx('wrapper')}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              {this.types.map(([type, size, component], index) => {
+              {this.types.map(([type, size, component]) => {
                 const [previousIndex, nextSize] = incDefaultIndex(defaultIndex, type, items, size)
                 defaultIndex = previousIndex + nextSize
-                return <Drag
-                  key={type}
-                  type={type}
-                  index={items.getIn([type, 1])}
-                  defaultIndex={previousIndex}
-                  size={size}
-                  rotateItem={rotateItem}
-                  rotated={items.getIn([type, 0])}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 >
-                {component}
-              </Drag> })}
+
+                return (
+                  <Drag
+                    key={type}
+                    type={type}
+                    index={items.getIn([type, 1])}
+                    defaultIndex={previousIndex}
+                    size={size}
+                    rotateItem={rotateItem}
+                    rotated={items.getIn([type, 0])}
+                  >
+                    {component}
+                  </Drag>
+                )
+              })}
               <DragPreview name="item" />
             </Grid>
           </SetupCanvas>

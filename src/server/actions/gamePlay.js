@@ -24,7 +24,7 @@ export const loadGame = (
   socket,
   database,
   redis
-) => (dispatch, getState) => {
+) => dispatch => {
   const authToken = socket.getAuthToken()
   return database.loadGame(authToken, action.id, redis)
     .then(game => {

@@ -31,13 +31,15 @@ export const connect = (store, next, action, callSocket) => {
       pendingConnection = false
 
       const authToken = socket.getAuthToken()
-      const channels = authToken && authToken.channels || undefined
-      if (authToken && authToken.privateChannel) subscribeChannels(store, next, action, socket, [authToken.privateChannel])
+      if (authToken && authToken.privateChannel) {
+        subscribeChannels(store, next, action, socket, [authToken.privateChannel])
+      }
 
-      next({ type: SOCKET_SUCCESS, ...data, socket })
       if (socket.authToken) {
         callSocket(store, next, loginUser(socket.authToken.username), socket)
       }
+
+      return next({ type: SOCKET_SUCCESS, ...data, socket })
     })
 
     socket.on('authenticate', () => {
@@ -55,7 +57,7 @@ export const connect = (store, next, action, callSocket) => {
       }
     })
 
-    socket.on('dispatch', action => next(action))
+    socket.on('dispatch', dispatchAction => next(dispatchAction))
   }
 
   return memoizedSocket

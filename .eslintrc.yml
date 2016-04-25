@@ -127,6 +127,10 @@ rules:
   sort-imports: off
   new-cap: off
   sort-vars: warn
+  no-console:
+    - error
+    - allow:
+      - error
   arrow-body-style: 
     - error
     - as-needed

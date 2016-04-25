@@ -14,8 +14,6 @@ class NewGame extends Component {
     friendsTotal: PropTypes.number.isRequired,
   }
 
-  shouldComponentUpdate = shouldComponentUpdate
-
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
@@ -29,6 +27,8 @@ class NewGame extends Component {
       nextProps.fetchFriends()
     }
   }
+
+  shouldComponentUpdate = shouldComponentUpdate
 
   render() {
     const {

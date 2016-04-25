@@ -1,16 +1,27 @@
 const getTurns = (botToken, getState, turnsPlayedByBot) => {
   let lookForAvailableSpot = true
-  let botTurns = []
-  let pendingMoves = []
+  const botTurns = []
+  const pendingMoves = []
   let botSelectedCell = false
   while (lookForAvailableSpot) {
-    let randomSpot = Math.floor(Math.random() * 100)
-    if (turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
+    const randomSpot = Math.floor(Math.random() * 100)
+    if (
+      -1 === turnsPlayedByBot.indexOf(randomSpot) &&
+      -1 === pendingMoves.indexOf(randomSpot)
+    ) {
       botSelectedCell = randomSpot
       const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
+
       pendingMoves.push(botSelectedCell)
-      botTurns.push({ id: botToken.id, index: botSelectedCell, hit: botHit !== 0, foundItem: botHit !== 0 > 0 && botHit, on: new Date().getTime() })
-      if (botHit === 0) {
+      botTurns.push({
+        id: botToken.id,
+        index: botSelectedCell,
+        hit: 0 !== botHit,
+        foundItem: 0 < (0 !== botHit) && botHit,
+        on: new Date().getTime(),
+      })
+
+      if (0 === botHit) {
         lookForAvailableSpot = false
       } else {
         // check neighbors, start by creating plausible next moves
@@ -21,8 +32,8 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
         const possibleMoves = []
 
         // we can go up
-        if (botSelectedCell > 9) {
-          if (turnsPlayedByBot.indexOf(moveUp) === -1 && pendingMoves.indexOf(moveUp) === -1) {
+        if (9 < botSelectedCell) {
+          if (-1 === turnsPlayedByBot.indexOf(moveUp) && -1 === pendingMoves.indexOf(moveUp)) {
             possibleMoves.push(moveUp)
           }
         }

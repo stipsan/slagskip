@@ -36,7 +36,7 @@ export const loadGame = (authToken, gameId, redis) => {
 
     const [players, boards, turns, scores = [0, 0]] = JSON.parse(state)
 
-    invariant(players.indexOf(authToken.id) !== -1, 'You are not in this game!')
+    invariant(-1 !== players.indexOf(authToken.id), 'You are not in this game!')
 
     return { id, boards, players, turns, scores }
   })
@@ -52,7 +52,7 @@ export const joinGame = (authToken, gameId, board, redis) => {
 
       const [players = [], boards = [], turns = []] = JSON.parse(state)
 
-      invariant(players.indexOf(authToken.id) !== -1, 'You are not in this game!')
+      invariant(-1 !== players.indexOf(authToken.id), 'You are not in this game!')
 
       boards[1] = board.grid
 

@@ -94,11 +94,11 @@ export const game = (state = initialState, action) => {
         viewerScore: action.viewerScore,
         versusScore: action.versusScore,
       })
-      .update(state => {
-        return state.get('turns').reduce((previousState, turn) => {
+      .update(updateState =>
+        updateState.get('turns').reduce((previousState, turn) => {
           // Versus opponent moves
           if (turn.get('id') === state.get('versus')) {
-            if (turn.get('hit') === true) {
+            if (true === turn.get('hit')) {
               return previousState
                 .set('isViewerTurn', false)
                 .setIn(['viewerGrid', turn.get('index')], Number(turn.get('hit')))
@@ -116,8 +116,8 @@ export const game = (state = initialState, action) => {
           return previousState
             .set('isViewerTurn', false)
             .setIn(['versusGrid', turn.get('index')], Number(turn.get('hit')))
-        }, state)
-      })
+        }, updateState)
+      )
   case PLACE_CROSSHAIRS:
     return state.set('selectedCell', action.selectedCell)
   case RECEIVE_MISS:

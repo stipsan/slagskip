@@ -32,22 +32,21 @@ export const createCallSocket = (store, next, action, socket) => {
   return socket.emit('dispatch', { type: requestType, ...emitData }, (err, data) => {
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
-      next(actionWith({
+      if ('ga' in global) {
+        global.ga('send', 'exception', {
+          exDescription: failureType,
+          exFatal: false
+        })
+      }
+      return next(actionWith({
         type: failureType,
         error: { type: err, message: data || 'Something bad happened' },
       }))
-      if ('ga' in global) {
-        ga('send', 'exception', {
-          'exDescription': failureType,
-          'exFatal': false
-        })
-      }
-    } else {
-      next(actionWith({
-        ...data,
-        type: successType,
-      }))
     }
+    return next(actionWith({
+      ...data,
+      type: successType,
+    }))
   })
 }
 
@@ -57,7 +56,8 @@ export default store => next => action => {
 
   const socket = connect(store, next, action, createCallSocket)
   // no socket means we're still setting it up, proceed the stack while we wait
-  // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon as we connect and got a socket
+  // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon
+  //       as we connect and got a socket
   if (!socket) {
     return action.type && next(action)
   }

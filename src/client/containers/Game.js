@@ -5,7 +5,6 @@ import {
   loadGame,
   resumeGame,
   pickSpot,
-  checkSpot,
   fetchFriends,
  } from '../actions'
 

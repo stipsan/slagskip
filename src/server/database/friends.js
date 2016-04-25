@@ -17,13 +17,15 @@ export const getFriends = (viewer, redis) => {
   return redis.multi(pipeline).exec().then(results => {
     let i = 0
     return results.reduce((previousValue, currentValue, currentIndex) => {
-      if (currentIndex % 2 === 0) {
-        currentValue[1].inviteIn = viewer.invites.indexOf(currentValue[1].id) !== -1
-        previousValue[i++] = currentValue[1]
+      const nextValue = currentValue
+      const mutatedPreviousValue = previousValue
+      if (0 === currentIndex % 2) {
+        nextValue[1].inviteIn = -1 !== viewer.invites.indexOf(nextValue[1].id)
+        mutatedPreviousValue[i++] = nextValue[1]
       } else {
-        previousValue[i - 1].inviteOut = !!currentValue[1]
+        mutatedPreviousValue[i - 1].inviteOut = !!currentValue[1]
       }
-      return previousValue
+      return mutatedPreviousValue
     }, []
     )
   })
