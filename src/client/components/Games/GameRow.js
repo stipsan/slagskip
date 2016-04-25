@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import Avatar from 'react-user-avatar'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
@@ -29,7 +29,37 @@ const defaultColors = [
   '#7f8c8d'
 ]
 
+const getTitle = (gameState, game, username) => {
+  if ('defeat' === gameState) {
+    return `${username} defeated you!`
+  }
+  if ('victory' === gameState) {
+    return `You won in a game with ${username}!`
+  }
+  if ('setup' === gameState) {
+    return `${username} invited you to play`
+  }
+  if ('waiting' === gameState) {
+    return `Waiting for ${username} to join`
+  }
+  if ('ready' === gameState && game.get('isViewerTurn')) {
+    return `Your turn against ${username}`
+  }
+  if ('ready' === gameState && !game.get('isViewerTurn')) {
+    return `Waiting for ${username} to make a move`
+  }
+
+  return null
+}
+
 class GameRow extends Component {
+
+  static propTypes = {
+    // @TODO refactor to mapContains
+    bots: ImmutablePropTypes.orderedMap.isRequired,
+    friends: ImmutablePropTypes.orderedMap.isRequired,
+    game: ImmutablePropTypes.map.isRequired,
+  }
 
   shouldComponentUpdate = shouldComponentUpdate
 
@@ -42,43 +72,28 @@ class GameRow extends Component {
 
     if (!username) return false
 
-    console.log(game.toJS())
-
     const id = game.get('id')
-    const online = friends.getIn([game.get('versus'), 'online']) === '1'
+    const online = '1' === friends.getIn([game.get('versus'), 'online'])
     const gameState = game.get('gameState')
-    const setupOrPlay = gameState === 'setup' ? 'join' : 'game'
+    const setupOrPlay = 'setup' === gameState ? 'join' : 'game'
 
-    let title = ''
-    if (gameState === 'defeat') {
-      title = `${username} defeated you!`
-    }
-    if (gameState === 'victory') {
-      title = `You won in a game with ${username}!`
-    }
-    if (gameState === 'setup') {
-      title = `${username} invited you to play`
-    }
-    if (gameState === 'waiting') {
-      title = `Waiting for ${username} to join`
-    }
-    if (gameState === 'ready' && game.get('isViewerTurn')) {
-      title = `Your turn against ${username}`
-    }
-    if (gameState === 'ready' && !game.get('isViewerTurn')) {
-      title = `Waiting for ${username} to make a move`
-    }
+    let title = getTitle(gameState, game, username)
 
-    return (<Link to={`/${setupOrPlay}/${id}`} className={cx('game', {
-      gameWaiting: gameState === 'setup' || gameState === 'ready'
-    })}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
-      <span className={cx(online ? 'avatarOnline' : 'avatar')}>
-        <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
-      </span>
-      <span className={cx('username')}>{title}</span>
-      <span className={cx('startGame')}>❯</span>
-    </Link>)
+
+    return (
+      <Link
+        to={`/${setupOrPlay}/${id}`}
+        className={cx('game', {
+          gameWaiting: 'setup' === gameState || 'ready' === gameState
+        })}
+      >
+        <span className={cx(online ? 'avatarOnline' : 'avatar')}>
+          <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
+        </span>
+        <span className={cx('username')}>{title}</span>
+        <span className={cx('startGame')}>{'❯'}</span>
+      </Link>
+    )
   }
 }
 

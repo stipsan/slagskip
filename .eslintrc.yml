@@ -93,6 +93,9 @@ rules:
   no-redeclare: error
   no-useless-call: error
   no-useless-concat: error
+  no-underscore-dangle:
+    - error
+    - allowAfterThis: true
   no-warning-comments: warn
   radix: error
   no-shadow: error

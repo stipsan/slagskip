@@ -8,7 +8,7 @@ class Cell extends Component {
   shouldComponentUpdate = shouldComponentUpdate
 
   render() {
-    const { index, cell, cellActive, type } = this.props
+    const { index, cell, type } = this.props
 
     return (<div onClick={this.handleSelectCell} id={`index-${index}`} className={cx(
       'cell',
@@ -34,14 +34,25 @@ class ViewerBoard extends Component {
   render() {
     const { board, grid, turns, versus, score, isViewerTurn } = this.props
 
-    return (<div className={cx('viewerGridContainer', {
-      viewerGridWaiting: !isViewerTurn
-    })}
-    >
-      <div className={cx('versusGrid')}>
-        {grid.map((cell, index) => <Cell key={index} type={board.getIn(['grid', index])} index={index} cellActive={false} cell={cell} />)}
+    return (
+      <div
+        className={cx('viewerGridContainer', {
+          viewerGridWaiting: !isViewerTurn
+        })}
+      >
+        <div className={cx('versusGrid')}>
+          {grid.map((cell, index) => (
+            <Cell
+              key={index}
+              type={board.getIn(['grid', index])}
+              index={index}
+              cellActive={false}
+              cell={cell}
+            />
+          ))}
+        </div>
       </div>
-    </div>)
+    )
   }
 }
 
