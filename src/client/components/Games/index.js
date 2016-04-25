@@ -1,7 +1,8 @@
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import GameRow from './GameRow'
+
 import cx from './style.scss'
+import GameRow from './GameRow'
 
 class Games extends Component {
   static propTypes = {

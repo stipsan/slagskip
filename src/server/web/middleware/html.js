@@ -1,5 +1,5 @@
-import parseUrl from 'stattic-parseurl'
 import fallback from '@stipsan/express-history-api-fallback'
+import parseUrl from 'stattic-parseurl'
 import { minify } from 'html-minifier'
 
 const webpackToAssets = config => {

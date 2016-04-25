@@ -1,5 +1,5 @@
-import { LOCATION_CHANGE } from 'react-router-redux'
 import { Map as ImmutableMap } from 'immutable'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 // state can be authenticated, pending or unauthenticated
 

@@ -1,4 +1,5 @@
 import { Component } from 'react'
+
 import cx from './style.scss'
 
 export default class Navbar extends Component {

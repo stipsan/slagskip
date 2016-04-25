@@ -1,10 +1,11 @@
+import { Map as ImmutableMap } from 'immutable'
+
 import {
   AUTHENTICATE_SUCCESS,
   RECEIVE_AUTHENTICATE,
   RECEIVE_VIEWER,
   DEAUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   id: null,

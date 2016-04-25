@@ -1,8 +1,9 @@
-import { Component, PropTypes } from 'react'
-import ImmutablePropTypes from 'react-immutable-proptypes'
-import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import DocumentTitle from 'react-document-title'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
+
 import cx from './style.scss'
 import Friend from './Friend'
 import Navbar from '../Navbar'

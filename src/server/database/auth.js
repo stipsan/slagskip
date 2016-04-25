@@ -1,4 +1,5 @@
 import invariant from 'invariant'
+
 import { createUser } from './user'
 
 export const authenticate = (credentials, redis) => {

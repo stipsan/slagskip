@@ -1,9 +1,10 @@
+import Avatar from 'react-user-avatar'
+import TimeAgo from 'react-timeago'
 import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
-import Avatar from 'react-user-avatar'
+
 import cx from './style.scss'
-import TimeAgo from 'react-timeago'
 
 const defaultColors = [
   '#1abc9c',

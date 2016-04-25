@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'
+
+import Game from '../components/Game'
 import {
   loadGame,
   resumeGame,
@@ -6,8 +8,6 @@ import {
   checkSpot,
   fetchFriends,
  } from '../actions'
-
-import Game from '../components/Game'
 
 const mapStateToProps = (state, ownProps) => {
   const versusFriendId = state.getIn(['game', 'versus'])

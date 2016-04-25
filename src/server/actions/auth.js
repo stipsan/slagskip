@@ -1,4 +1,5 @@
 import invariant from 'invariant'
+
 import {
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,

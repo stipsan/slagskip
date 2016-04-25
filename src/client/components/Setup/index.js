@@ -1,14 +1,14 @@
-import { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import DocumentTitle from 'react-document-title'
 import shallowCompare from 'react-addons-shallow-compare'
 import Avatar from 'react-user-avatar'
+import DocumentTitle from 'react-document-title'
 import { shuffle } from 'lodash'
+import { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import cx from './style.scss'
-import { Grid, SetupCanvas, Item } from '../Board'
-import Navbar from '../Navbar'
 import Loading from '../Loading'
+import Navbar from '../Navbar'
+import { Grid, SetupCanvas, Item } from '../Board'
 
 const {
   Drag,

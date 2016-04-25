@@ -1,4 +1,6 @@
 import invariant from 'invariant'
+
+import bots from '../bots'
 import {
   NEW_GAME_SUCCESS,
   NEW_GAME_FAILURE,
@@ -15,7 +17,6 @@ import {
   RANDOM_ITEMS,
 } from '../constants/ActionTypes'
 import { board as boardReducer } from '../reducers/board'
-import bots from '../bots'
 
 export const loadGame = (
   action,

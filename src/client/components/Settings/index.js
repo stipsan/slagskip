@@ -1,5 +1,4 @@
-function Settings() {
-  return <section className="section section--settings" />
-}
+
+const Settings = () => <section className="section section--settings" />
 
 export default Settings

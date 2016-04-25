@@ -2,14 +2,15 @@ import { PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+
 import App from './App'
 import Dashboard from './Dashboard'
-import Setup from './Setup'
-import Game from './Game'
-import NewGame from './NewGame'
-import Games from './Games'
 import Friends from './Friends'
+import Game from './Game'
+import Games from './Games'
+import NewGame from './NewGame'
 import NotFound from '../components/NotFound'
+import Setup from './Setup'
 
 const Root = ({ store }) => {
 

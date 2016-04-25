@@ -1,8 +1,9 @@
-import { Component } from 'react'
 import classNames from 'classnames'
+import Avatar from 'react-user-avatar'
+import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
-import Avatar from 'react-user-avatar'
+
 import cx from './style.scss'
 
 const defaultColors = [

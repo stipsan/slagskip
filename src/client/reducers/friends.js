@@ -1,3 +1,5 @@
+import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutable'
+
 import {
   RECEIVE_VIEWER,
   FRIENDS_SUCCESS,
@@ -11,8 +13,6 @@ import {
   RECEIVE_GAME_INVITE_CANCELLED,
   ACCEPT_GAME_INVITE_SUCCESS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutable'
-
 
 const defaultFriend = ImmutableMap({
   online: '0',

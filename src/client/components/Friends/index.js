@@ -38,11 +38,13 @@ class Dashboard extends Component {
           </tr>
         </thead>
         <tbody>
-          {friends.map(friend => <FriendRow
-            key={friend.get('username')}
-            friend={friend}
-            dispatch={dispatch}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               />)}
+          {friends.map(friend =>
+            <FriendRow
+              key={friend.get('username')}
+              friend={friend}
+              dispatch={dispatch}
+            />
+          )}
         </tbody>
       </table>
     </section>)

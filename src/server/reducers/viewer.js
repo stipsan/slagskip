@@ -1,7 +1,8 @@
+import { Map as ImmutableMap } from 'immutable'
+
 import {
   RECEIVE_VIEWER,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   friendIds: [],

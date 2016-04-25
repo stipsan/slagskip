@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'
+
+import Setup from '../components/Setup'
 import {
   addItem,
   moveItem,
@@ -8,7 +10,6 @@ import {
   loadGame,
   joinGame
 } from '../actions'
-import Setup from '../components/Setup'
 
 const mapStateToProps = state => ({
   bots: state.get('bots'),

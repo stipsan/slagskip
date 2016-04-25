@@ -1,5 +1,6 @@
-import { Component } from 'react'
 import DocumentTitle from 'react-document-title'
+import { Component } from 'react'
+
 import cx from './style.scss'
 
 class Loading extends Component {

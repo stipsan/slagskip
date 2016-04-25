@@ -1,11 +1,13 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { routerMiddleware } from 'react-router-redux'
-import { browserHistory } from 'react-router'
-import { combineReducers } from 'redux-immutable'
-import { Map as ImmutableMap } from 'immutable'
-import socket from '../middleware/socket'
 import * as reducers from '../reducers'
+
+import thunk from 'redux-thunk'
+import { Map as ImmutableMap } from 'immutable'
+import { browserHistory } from 'react-router'
+import { routerMiddleware } from 'react-router-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { combineReducers } from 'redux-immutable'
+
+import socket from '../middleware/socket'
 
 const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
 

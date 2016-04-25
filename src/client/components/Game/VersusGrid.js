@@ -1,7 +1,8 @@
-import { Component } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
-import { selectCell, fireCannon } from '../../actions'
+import { Component } from 'react'
+
 import cx from './style.scss'
+import { selectCell, fireCannon } from '../../actions'
 
 class Cell extends Component {
   handleSelectCell = event => {
@@ -27,7 +28,7 @@ class Cell extends Component {
         cellJackpot: cell === 1,
       }
     )}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         />)
+            />)
   }
 }
 
@@ -43,7 +44,7 @@ class VersusGrid extends Component {
     return (<div className={cx('versusGridContainer', {
       versusGridWaiting: !isViewerTurn
     })}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            >
+            >
       <div className={cx('versusGrid')}>
         {grid.map((cell, index) => <Cell key={index} isViewerTurn={isViewerTurn} index={index} cellActive={selectedCell === index} cell={cell} dispatch={dispatch} />)}
       </div>

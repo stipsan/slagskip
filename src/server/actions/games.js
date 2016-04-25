@@ -1,4 +1,5 @@
 import invariant from 'invariant'
+
 import {
   GAMES_SUCCESS,
   GAMES_FAILURE,

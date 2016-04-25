@@ -1,7 +1,8 @@
-import express from 'express'
 import compressionMiddleware from 'compression'
-import originsMiddleware from './middleware/origins'
+import express from 'express'
+
 import htmlMiddleware from './middleware/html'
+import originsMiddleware from './middleware/origins'
 import { createConnection } from '../database'
 import { createSocketServer, applySocketMiddleware } from './socket'
 

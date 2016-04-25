@@ -1,8 +1,8 @@
-import { connect } from 'react-redux'
-import { loginUser } from '../actions'
 import { Map as ImmutableMap } from 'immutable'
+import { connect } from 'react-redux'
 
 import Login from '../components/Login'
+import { loginUser } from '../actions'
 
 const mapStateToProps = state => ({
   isAuthenticated: state.getIn(['auth', 'isAuthenticated']),

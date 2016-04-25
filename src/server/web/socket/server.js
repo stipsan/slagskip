@@ -1,6 +1,7 @@
-import { createDispatcher } from './dispatcher'
 import * as database from '../../database'
+
 import { RECEIVE_FRIEND_NETWORK_STATUS } from '../../constants/ActionTypes'
+import { createDispatcher } from './dispatcher'
 
 export const createSocketServer = (scServer, redis) => {
 

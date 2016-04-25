@@ -1,19 +1,4 @@
 import {
-  AUTHENTICATE_REQUEST,
-  DEAUTHENTICATE_REQUEST,
-  FRIENDS_REQUEST,
-  GAME_INVITE_REQUEST,
-  ACCEPT_GAME_INVITE_REQUEST,
-  DECLINE_GAME_INVITE_REQUEST,
-  CANCEL_GAME_INVITE_REQUEST,
-  RECEIVE_FRIEND_NETWORK_STATUS,
-  LOAD_GAME_REQUEST,
-  FIRE_CANNON_REQUEST,
-  NEW_GAME_REQUEST,
-  GAMES_REQUEST,
-  JOIN_GAME_REQUEST,
-} from '../../constants/ActionTypes'
-import {
   authenticateRequest,
   deauthenticateRequest,
   friendsRequest,
@@ -28,6 +13,21 @@ import {
   gamesRequest,
   joinGame,
 } from '../../actions'
+import {
+  AUTHENTICATE_REQUEST,
+  DEAUTHENTICATE_REQUEST,
+  FRIENDS_REQUEST,
+  GAME_INVITE_REQUEST,
+  ACCEPT_GAME_INVITE_REQUEST,
+  DECLINE_GAME_INVITE_REQUEST,
+  CANCEL_GAME_INVITE_REQUEST,
+  RECEIVE_FRIEND_NETWORK_STATUS,
+  LOAD_GAME_REQUEST,
+  FIRE_CANNON_REQUEST,
+  NEW_GAME_REQUEST,
+  GAMES_REQUEST,
+  JOIN_GAME_REQUEST,
+} from '../../constants/ActionTypes'
 
 // @TODO perhaps this belongs in a custom middleware
 export const actions = {

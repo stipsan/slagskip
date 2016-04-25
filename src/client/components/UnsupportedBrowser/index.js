@@ -1,5 +1,6 @@
-import { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
+import { PropTypes } from 'react'
+
 import cx from './style.scss'
 
 const iconStyle = Object.freeze({ height: '64px', width: '64px' })
@@ -18,7 +19,7 @@ function UnsupportedBrowser({ browsers }) {
           <img src={`/browser/${browser.name}.svg`} style={iconStyle} />
           <span>{browser.name}</span>
         </a>
-    ))}</p>}
+      ))}</p>}
     </section>
   </DocumentTitle>)
 }

@@ -1,3 +1,8 @@
+import { Map as ImmutableMap } from 'immutable'
+import {
+  LOCATION_CHANGE
+} from 'react-router-redux'
+
 import {
   SOCKET_SUCCESS,
   RECEIVE_AUTH_STATE_CHANGE,
@@ -6,10 +11,6 @@ import {
   AUTHENTICATE_REQUEST,
   AUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
-import {
-  LOCATION_CHANGE
-} from 'react-router-redux'
-import { Map as ImmutableMap } from 'immutable'
 
 // state can be authenticated, pending or unauthenticated
 

@@ -1,6 +1,7 @@
+import invariant from 'invariant'
+
 import createStore from '../../store'
 import { actions } from './actions'
-import invariant from 'invariant'
 
 export const createDispatcher = (socket, database, redis) => {
   const store = createStore()

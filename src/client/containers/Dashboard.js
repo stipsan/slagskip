@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { fetchFriends } from '../actions'
 
 import Dashboard from '../components/Dashboard'
+import { fetchFriends } from '../actions'
 
 const mapStateToProps = state => ({
   username: state.getIn(['viewer', 'username'])

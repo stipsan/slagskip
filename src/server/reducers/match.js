@@ -1,8 +1,9 @@
+import { Map as ImmutableMap } from 'immutable'
+
 import {
   LOAD_GAME_SUCCESS,
   FIRE_CANNON_SUCCESS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   hits: []

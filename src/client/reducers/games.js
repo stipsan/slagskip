@@ -1,10 +1,10 @@
+import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutable'
+
 import {
   RECEIVE_VIEWER,
   RECEIVE_NEW_GAME,
   GAMES_SUCCESS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutable'
-
 
 const defaultGame = ImmutableMap({
   id: null,

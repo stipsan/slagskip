@@ -1,3 +1,4 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import TimeAgo from 'react-timeago'
 import { Component, PropTypes } from 'react'
@@ -10,6 +11,7 @@ import {
   acceptGameInvite,
   declineGameInvite,
   cancelGameInvite,
+  newGame,
 } from '../../actions'
 
 const transitionName = Object.freeze({
@@ -20,7 +22,7 @@ const transitionName = Object.freeze({
 })
 
 const timeAgoFormatter = (value, unit) => {
-  const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
+  const formattedUnit = 'month' === unit ? 'M' : unit.slice(0, 1)
   return `${value} ${formattedUnit}`
 }
 
@@ -39,19 +41,21 @@ const getLocalState = (inviteOut, inviteIn) => {
   if (inviteOut && !inviteIn) {
     return CAN_CANCEL_PENDING
   }
-  if (!inviteOut && !inviteIn) {
-    return CAN_INVITE_FRIEND
-  }
+
+  return CAN_INVITE_FRIEND
 }
 
 class FriendRow extends Component {
   static propTypes = {
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    inviteOut: PropTypes.bool,
-    inviteIn: PropTypes.bool,
-    online: PropTypes.bool,
-    lastVisit: PropTypes.string,
+    friend: ImmutablePropTypes.mapContains({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      inviteIn: PropTypes.bool.isRequired,
+      inviteOut: PropTypes.bool.isRequired,
+      online: PropTypes.bool.isRequired,
+      // @TODO custom validator for JSON datetime strings, or transform to Date in reducer/selector
+      lastVisit: PropTypes.string.isRequired,
+    }).isRequired,
   }
 
   shouldComponentUpdate = shouldComponentUpdate
@@ -75,6 +79,8 @@ class FriendRow extends Component {
       return dispatch(acceptGameInvite(data))
     case CAN_INVITE_FRIEND:
       return dispatch(gameInvite(data))
+    default:
+      return false
     }
   }
   handleNo = () => {
@@ -94,10 +100,12 @@ class FriendRow extends Component {
       return dispatch(cancelGameInvite(data))
     case CAN_ACCEPT_INVITE:
       return dispatch(declineGameInvite(data))
+    default:
+      return false
     }
   };
   render() {
-    // @FIXME
+    // @FIXME should use immutable getters, not toJS
     const { username, inviteIn, inviteOut, online, lastVisit } = this.props.friend.toJS()
     const { handleYes, handleNo } = this
 
@@ -107,44 +115,53 @@ class FriendRow extends Component {
     const canCancelPending = localState === CAN_CANCEL_PENDING
     const canInviteFriend = localState === CAN_INVITE_FRIEND
 
-    return (<tr className={cx({ online })}>
+    return <tr className={cx({ online })}>
       <td className={cx('username')}>{username}</td>
-      {
-        online === '1' &&
-        <td className={cx('onlineStatus')}>&bull;</td> ||
-        <td className={cx('lastVisit')}
-          title={lastVisit && new Date(lastVisit).toLocaleString()}
-        >{lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} />}</td>
-      }
+      <td
+        className={cx('1' === online ? 'onlineStatus' : 'lastVisit')}
+        title={lastVisit && new Date(lastVisit).toLocaleString()}
+      >
+        {lastVisit && <TimeAgo date={lastVisit} formatter={timeAgoFormatter} /> || '&bull;'}
+      </td>
       <td className={cx('controlGroup')}>
-      <div className={cx('buttonGroup')}>
-        {canLaunchGame && <Link
-          className={cx('canLaunchGame')}
-          to={'/game/1'}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 >
-          <span>Start Game!</span>
-        </Link>}
-        {!canLaunchGame && <button className={cx({
-          canLaunchGame,
-          canAcceptInvite,
-          canCancelPending,
-          canInviteFriend,
-        })} onClick={handleYes}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            >
-          <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={150} transitionLeaveTimeout={150}>
-            {canLaunchGame && <span>Start Game!</span>}
-            {canAcceptInvite && <span>Accept</span>}
-            {canCancelPending && <span className={canCancelPendingTransition}>Pending</span>}
-            {canInviteFriend && <span>Invite</span>}
-          </ReactCSSTransitionGroup>
-        </button>}
-        <button onClick={handleNo} className={cx(
-          'canSayNo', { buttonDisabled: canLaunchGame || canInviteFriend }
-        )}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ><strong>&times;</strong></button>
+        <div className={cx('buttonGroup')}>
+          {canLaunchGame &&
+            <Link
+              className={cx('canLaunchGame')}
+              to={'/game/1'}
+            >
+              <span>{'Start Game!'}</span>
+            </Link>}
+          {!canLaunchGame &&
+            <button
+              className={cx({
+                canLaunchGame,
+                canAcceptInvite,
+                canCancelPending,
+                canInviteFriend,
+              })}
+              onClick={handleYes}
+            >
+              <ReactCSSTransitionGroup
+                transitionName={transitionName}
+                transitionEnterTimeout={150}
+                transitionLeaveTimeout={150}
+              >
+                {canLaunchGame && <span>{'Start Game!'}</span>}
+                {canAcceptInvite && <span>{'Accept'}</span>}
+                {canCancelPending && <span>{'Pending'}</span>}
+                {canInviteFriend && <span>{'Invite'}</span>}
+              </ReactCSSTransitionGroup>
+            </button>}
+          <button
+            onClick={handleNo}
+            className={cx(
+              'canSayNo', { buttonDisabled: canLaunchGame || canInviteFriend }
+            )}
+          ><strong>{'&times;'}</strong></button>
         </div>
       </td>
-    </tr>)
+    </tr>
   }
 }
 

@@ -1,12 +1,12 @@
 import {
+  loginUser,
+} from '../../actions'
+import {
   SOCKET_REQUEST,
   SOCKET_SUCCESS,
 } from '../../constants/ActionTypes'
-import {
-  loginUser,
-} from '../../actions'
-import { attachListeners } from './listeners'
 import { subscribeChannels } from './channel'
+import { attachListeners } from './listeners'
 
 const socketCluster = global.WebSocket ? require('socketcluster-client') : false
 

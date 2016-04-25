@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+
 import cx from './style.scss'
 
 const placeholderLabel = 'Username or E-mail'
