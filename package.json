@@ -45,7 +45,11 @@
     "ioredis"
   ],
   "author": "Stian Didriksen <stipsan@gmail.com> (http://github.com/stipsan)",
-  "license": "ISC",
+  "meta": {
+    "author": "Stian Didriksen",
+    "description": "Epic is a fun and addicting two-player game. Hide your items well and take turns searching each other in a race to 21 points!"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/stipsan/epic/issues"
   },

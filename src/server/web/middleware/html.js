@@ -2,11 +2,14 @@ import fallback from '@stipsan/express-history-api-fallback'
 import parseUrl from 'stattic-parseurl'
 import { minify } from 'html-minifier'
 
-const webpackToAssets = config => {
-  return Object.keys(config.entry).reduce((prev, curr) => {
-    return Object.assign(prev, { [curr]: { js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}` } })
-  }, {})
-}
+const webpackToAssets = config =>
+  Object.keys(config.entry).reduce(
+    (prev, curr) => Object.assign(
+      prev,
+      { [curr]: { js: `${config.devServer.publicPath}${curr}.js?${new Date().getTime()}` } }
+    ),
+    {}
+  )
 
 const getAnalyticsSnippet = TrackingID => `
 <script>
@@ -21,12 +24,14 @@ ga('send', 'pageview');
 </script>
 `
 
-module.exports = function () {
-  var meta = require('../../../../package.json')
+const packageData = require('../../../../package.json')
 
-  const title = process.env.APP_NAME || meta.name
+module.exports = function htmlMiddleware() {
 
-  var assets, html
+  const title = process.env.APP_NAME || packageData.name
+
+  let assets
+  let html
 
   const socketHost = process.env.SOCKET_HOSTNAME
   const preconnect = socketHost && `
@@ -49,27 +54,32 @@ module.exports = function () {
   rg4js('enablePulse', true);
 </script>`
 
-  return fallback(function (req, res, next) {
+  return fallback((req, res, next) => {
     const { ext } = parseUrl(req.url)
 
-    if (ext !== '' && ext !== 'html') {
+    if ('' !== ext && 'html' !== ext) {
+      /* eslint no-console: ["error", { allow: ["warn"] }] */
       console.warn('404', req.url)
       return next()
     }
 
     if (!assets) {
+      // @TODO move this up, assets.json should exist before the middleware is executed
+      /* eslint global-require: "off"*/
       assets = 'production' === process.env.NODE_ENV ?
         require('../../../../assets.json') :
         webpackToAssets(require('../../../../webpack.config.js'))
 
-      const css = [], js = []
+      const css = []
+      const js = []
       Object.keys(assets).forEach(key => {
         const bundle = assets[key]
         if (bundle.hasOwnProperty('css')) css.push(bundle.css)
         if (bundle.hasOwnProperty('js')) js.push(bundle.js)
       })
       const scripts = js.map(script => `<script async src="${script}"></script>`).join('')
-      // const stylesheets = css.map(stylesheet => `<link rel="stylesheet" href="${stylesheet}">`).join('')
+      // const stylesheets = css.map(stylesheet =>
+      //  `<link rel="stylesheet" href="${stylesheet}">`).join('')
       const stylesheets = css.map((href, index) => `
       var l${index} = document.createElement('link'); l${index}.rel = 'stylesheet';
       l${index}.href = '${href}';
@@ -99,9 +109,9 @@ module.exports = function () {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="description" content="${meta.description}" />
-    <meta name="author" content="${meta.author}" />
-    <meta name="keywords" content="${meta.keywords.join(',')}" />
+    <meta name="description" content="${packageData.meta.description}" />
+    <meta name="author" content="${packageData.meta.author}" />
+    <meta name="keywords" content="${packageData.keywords.join(',')}" />
     
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/icon-57.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/favicons/icon-76.png">
@@ -132,7 +142,7 @@ module.exports = function () {
     <meta property="og:image" content="https://${req.hostname}/favicons/icon-256.png" />
     <meta property="og:image:width"  content="256">
     <meta property="og:image:height" content="256">
-    <meta property="og:description" content="${title} is a fun and addicting two-player game. Hide your items well and take turns searching each other in a race to 21 points!" />
+    <meta property="og:description" content="${packageData.meta.description}" />
     <meta property="og:site_name" content="${title}" />
     
     ${preconnect}
@@ -162,7 +172,18 @@ module.exports = function () {
       }
       body {
         color: #69707a;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-family: 
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "Fira Sans",
+          "Droid Sans",
+          "Helvetica Neue",
+          sans-serif;
       }
     </style>
   </head>
@@ -205,6 +226,6 @@ module.exports = function () {
 
     res.set('Cache-Control', 'max-age=60')
 
-    res.send(html)
+    return res.send(html)
   })
 }
