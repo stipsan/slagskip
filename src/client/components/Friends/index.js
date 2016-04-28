@@ -6,11 +6,10 @@ import FriendRow from './FriendRow'
 
 class Dashboard extends Component {
   static propTypes = {
+    fetchFriends: PropTypes.func.isRequired,
     friends: PropTypes.array.isRequired,
-    username: PropTypes.string.isRequired,
+    friendsTotal: PropTypes.number.isRequired,
   }
-
-  shouldComponentUpdate = shouldComponentUpdate
 
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
@@ -20,21 +19,21 @@ class Dashboard extends Component {
     }
   }
 
+  shouldComponentUpdate = shouldComponentUpdate
+
   render() {
     const {
       friends,
       friendsTotal,
-      username,
       dispatch,
     } = this.props
-    const { handleLogout } = this
 
     return (<section className={cx('section')}>
-      {!friendsTotal && <h3>Nobody here yet but you!</h3>}
+      {!friendsTotal && <h3>{'Nobody here yet but you!'}</h3>}
       <table className={cx('users')}>
         <thead>
           <tr>
-            <th colSpan={3}>{friendsTotal} Online friends</th>
+            <th colSpan={3}>{`${friendsTotal} Online friends`}</th>
           </tr>
         </thead>
         <tbody>
