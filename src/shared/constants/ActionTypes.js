@@ -80,7 +80,8 @@ export const CANCEL_GAME_INVITE_REQUEST = 'CANCEL_GAME_INVITE_REQUEST'
 export const CANCEL_GAME_INVITE_SUCCESS = 'CANCEL_GAME_INVITE_SUCCESS'
 export const CANCEL_GAME_INVITE_FAILURE = 'CANCEL_GAME_INVITE_FAILURE'
 export const RECEIVE_GAME_INVITE_CANCELLED = 'RECEIVE_GAME_INVITE_CANCELLED'
-// transition to new view, show loading status, server sets up a new socket channel for the match and we join it
+// transition to new view, show loading status,
+// server sets up a new socket channel for the match and we join it
 export const NEW_GAME_REQUEST = 'NEW_GAME_REQUEST'
 // lovely, payload will tell us if we're waiting for our friend to join'
 export const NEW_GAME_SUCCESS = 'NEW_GAME_SUCCESS'

@@ -1,8 +1,6 @@
 import { Map as ImmutableMap } from 'immutable'
 import { LOCATION_CHANGE } from 'react-router-redux'
 
-// state can be authenticated, pending or unauthenticated
-
 const initialState = ImmutableMap({
   isGoingForwards: true
 })
@@ -10,7 +8,10 @@ const initialState = ImmutableMap({
 export const navigation = (state = initialState, action) => {
   switch (action.type) {
   case LOCATION_CHANGE:
-    return state.set('isGoingForwards', action.payload.action === 'PUSH' && action.payload.pathname !== '/')
+    return state.set(
+      'isGoingForwards',
+      'PUSH' === action.payload.action && '/' !== action.payload.pathname
+    )
   default:
     return state
   }

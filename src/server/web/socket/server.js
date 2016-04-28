@@ -23,10 +23,12 @@ export const createSocketServer = (scServer, redis) => {
           id,
         })
 
+        /*
         console.log('socket.on.disconnect')
         socket.once('connect', () => {
           console.log('socket.once.connect')
         })
+        */
         /* scServer.exchange.publish('service', {
           type: TYPES.RECEIVE_FRIEND_NETWORK_STATUS,
           id: socket.authToken.id,

@@ -1,5 +1,3 @@
-import invariant from 'invariant'
-
 import createStore from '../../store'
 import { actions } from './actions'
 

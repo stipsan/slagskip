@@ -4,7 +4,6 @@ export const getGames = (viewer, redis) => {
   invariant(viewer.id, 'Invalid viewer, missing `id` property')
   invariant(viewer.games, 'Invalid viewer, missing `games` property')
 
-  const viewerId = viewer.id
   const pipeline = viewer.games.reduce(
     (previousValue, currentValue) => [
       ...previousValue,
@@ -14,12 +13,13 @@ export const getGames = (viewer, redis) => {
   )
   return redis.multi(pipeline).exec().then(results => {
     let i = 0
-    return results.reduce((previousValue, currentValue, currentIndex) => {
+    return results.reduce((previousValue, currentValue) => {
+      const nextValue = previousValue
       const game = currentValue[1]
       if (!game.state) return previousValue
       try {
         const [players, boards, turns = [], scores = [0, 0]] = JSON.parse(game.state)
-        previousValue[i++] = {
+        nextValue[i++] = {
           id: currentValue[1].id,
           players,
           boards,

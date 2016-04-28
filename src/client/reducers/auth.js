@@ -29,7 +29,10 @@ export const auth = (state = initialState, action) => {
     })
   case RECEIVE_AUTH_STATE_CHANGE:
     return state.merge({
-      isAuthenticated: action.newState === 'authenticated' || (action.newState === 'pending' && state.get('authState') === 'authenticated'),
+      isAuthenticated: 'authenticated' === action.newState || (
+        'pending' === action.newState &&
+        'authenticated' === state.get('authState')
+      ),
       authState: action.newState,
       authToken: action.authToken,
     })

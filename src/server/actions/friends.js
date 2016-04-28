@@ -1,5 +1,3 @@
-import invariant from 'invariant'
-
 import {
   FRIENDS_SUCCESS,
   FRIENDS_FAILURE,

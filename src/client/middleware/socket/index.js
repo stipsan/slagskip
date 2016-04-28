@@ -7,16 +7,16 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 
 export const createCallSocket = (store, next, action, socket) => {
   const callSocket = action[CALL_SOCKET]
-  if (typeof callSocket === 'undefined') {
+  if ('undefined' === typeof callSocket) {
     return next(action)
   }
 
   const { types, data: emitData } = callSocket
 
-  if (!Array.isArray(types) || types.length !== 3) {
+  if (!Array.isArray(types) || 3 !== types.length) {
     throw new Error('Expected an array of three action types.')
   }
-  if (!types.every(type => typeof type === 'string')) {
+  if (!types.every(type => 'string' === typeof type)) {
     throw new Error('Expected action types to be strings.')
   }
 

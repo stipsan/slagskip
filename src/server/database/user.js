@@ -13,13 +13,13 @@ export const createUser = (userData, redis) => {
 
       return redis.incr('user_next')
     })
-    .then(userId => {
-      return redis.multi([
+    .then(userId =>
+      redis.multi([
         ['hsetnx', 'users', userData.username, userId],
         ['hsetnx', `user:${userId}`, 'id', userId],
         ['hsetnx', `user:${userId}`, 'username', userData.username],
       ]).exec()
-    })
+    )
     .then(results => {
       const didUpdateUsersList = results[0][1]
       const didSetUserId = results[1][1]

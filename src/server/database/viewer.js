@@ -36,7 +36,7 @@ export const setViewerOffline = (viewerAuthToken, lastVisit, redis) => {
       'lastVisit', lastVisit
     )
     .then(result => {
-      invariant(result === 'OK', 'Failed to set user offline status')
+      invariant('OK' === result, 'Failed to set user offline status')
 
       return {
         id: viewerAuthToken.id,

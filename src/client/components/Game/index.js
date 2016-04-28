@@ -19,7 +19,19 @@ class Game extends Component {
       game: PropTypes.number.isRequired
     }).isRequired,
     selectedCell: PropTypes.number,
+    turns: PropTypes.array, // @TODO custom validator
+    versusFriend: PropTypes.shapeOf({
+      username: PropTypes.string
+    }),
+    versusGrid: PropTypes.arrayOf(PropTypes.number),
     versusScore: PropTypes.number.isRequired,
+    viewer: PropTypes.shapeOf({
+      username: PropTypes.string
+    }),
+    viewerBoard: PropTypes.shapeOf({
+      grid: PropTypes.arrayOf(PropTypes.number),
+    }),
+    viewerGrid: PropTypes.arrayOf(PropTypes.number),
     viewerScore: PropTypes.number.isRequired,
   }
 

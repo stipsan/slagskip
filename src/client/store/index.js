@@ -19,29 +19,19 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(thunk, socket, routerMiddlewareWithHistory),
-    process.env.NODE_ENV !== 'production' && global.devToolsExtension ?
+    'production' !== process.env.NODE_ENV && global.devToolsExtension ?
       global.devToolsExtension() :
       f => f
   )
 )
 
-if (process.env.NODE_ENV !== 'production' && module.hot) {
+if ('production' !== process.env.NODE_ENV && module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('../reducers', () => {
+    /* eslint global-require: ["off"] */
     const nextRootReducer = require('../reducers').default
     store.replaceReducer(nextRootReducer)
   })
-}
-
-if ('development' === process.env.NODE_ENV && global.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-  require.ensure([], function () {
-    var installDevTools = require('immutable-devtools')
-    installDevTools(require('immutable'))
-  })
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  global.store = store
 }
 
 export default store

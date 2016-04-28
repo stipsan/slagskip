@@ -71,10 +71,6 @@ export const joinGame = (authToken, gameId, board, redis) => {
     })
 }
 
-const calcScore = grid => {
-  return (grid.includes(1) ? 5 : 0) + (grid.includes(2) ? 4 : 0)
-}
-
 export const saveTurn = (authToken, gameId, turn, redis) => {
   invariant(authToken.id, 'Invalid authToken, missing `id` property')
   invariant(gameId, 'Invalid gameId when saving turn %s', gameId)
@@ -85,16 +81,16 @@ export const saveTurn = (authToken, gameId, turn, redis) => {
 
     const [players, boards, turns] = JSON.parse(state)
 
-    invariant(players.indexOf(authToken.id) !== -1, 'You are not in this game!')
+    invariant(-1 !== players.indexOf(authToken.id), 'You are not in this game!')
 
     turns.push(turn)
 
-    const scoresSets = turns.reduce((previousScores, turn) => {
+    const scoresSets = turns.reduce((previousScores, current) => {
       // Versus opponent moves
-      if (turn.id === players[0] && turn.hit) {
-        previousScores[0].add(turn.index)
-      } else if (turn.id === players[1] && turn.hit) {
-        previousScores[1].add(turn.index)
+      if (current.id === players[0] && current.hit) {
+        previousScores[0].add(current.index)
+      } else if (turn.id === players[1] && current.hit) {
+        previousScores[1].add(current.index)
       }
 
       return previousScores

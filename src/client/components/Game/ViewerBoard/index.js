@@ -4,9 +4,12 @@ import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import cx from '../style.scss'
 import Cell from './Cell'
 
-class VersusGrid extends Component {
+class ViewerBoard extends Component {
 
   static propTypes = {
+    board: PropTypes.shapeOf({
+      grid: PropTypes.arrayOf(PropTypes.number),
+    }),
     grid: PropTypes.arrayOf(PropTypes.number).isRequired,
     isViewerTurn: PropTypes.bool.isRequired,
     selectedCell: PropTypes.number,
@@ -15,23 +18,22 @@ class VersusGrid extends Component {
   shouldComponentUpdate = shouldComponentUpdate
 
   render() {
-    const { grid, selectedCell, dispatch, isViewerTurn } = this.props
+    const { board, grid, isViewerTurn } = this.props
 
     return (
       <div
-        className={cx('versusGridContainer', {
-          versusGridWaiting: !isViewerTurn
+        className={cx('viewerGridContainer', {
+          viewerGridWaiting: !isViewerTurn
         })}
       >
         <div className={cx('versusGrid')}>
           {grid.map((cell, index) => (
             <Cell
               key={index}
-              isViewerTurn={isViewerTurn}
+              type={board.getIn(['grid', index])}
               index={index}
-              cellActive={selectedCell === index}
+              cellActive={false}
               cell={cell}
-              dispatch={dispatch}
             />
           ))}
         </div>
@@ -40,4 +42,4 @@ class VersusGrid extends Component {
   }
 }
 
-export default VersusGrid
+export default ViewerBoard

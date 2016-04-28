@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
   versus: state.getIn(['setup', 'versus']),
   gameId: state.getIn(['game', 'id']),
   gameState: state.getIn(['game', 'gameState']),
-  isValid: state.getIn(['board', 'grid']).count(item => item === 0) === 79,
+  isValid: 79 === state.getIn(['board', 'grid']).count(item => 0 === item),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
   moveItem: (type, startIndex, y) => {
     dispatch(moveItem(type, startIndex, y))
   },
-  rotateItem: (type) => {
+  rotateItem: type => {
     dispatch(rotateItem(type))
   },
   loadGame: id => {

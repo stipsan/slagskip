@@ -39,8 +39,10 @@ export const attachListeners = (store, next, action, socket) => {
     next({ ...args, type: RECEIVE_DEAUTHENTICATE, socket })
   })
   socket.on('authStateChange', data => {
-    if (data.newState === 'unauthenticated') next({ type: LOGOUT_SUCCESS, socket })
-    else next({ ...data, type: RECEIVE_AUTH_STATE_CHANGE, socket })
+    if ('unauthenticated' === data.newState) {
+      return next({ type: LOGOUT_SUCCESS, socket })
+    }
+    return next({ ...data, type: RECEIVE_AUTH_STATE_CHANGE, socket })
   })
 
   // channel.js
@@ -62,6 +64,10 @@ export const attachListeners = (store, next, action, socket) => {
   socket.on('subscribeRequest', channel => {
     next({ type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })
   })
+
+  shouldAttachListeners = false
+
+  return true
 }
 
 export const didAttachListeners = () => !shouldAttachListeners

@@ -16,23 +16,21 @@ const initialState = ImmutableMap({
 const getIsViewerTurn = game => {
 
   const lastTurn = game.turns && game.turns[game.turns.length - 1]
-  if (lastTurn && lastTurn.id === game.versus && lastTurn.hit === true) {
+  if (lastTurn && lastTurn.id === game.versus && true === lastTurn.hit) {
     return false
   }
-  if (lastTurn && lastTurn.id === game.versus && lastTurn.hit === false) {
+  if (lastTurn && lastTurn.id === game.versus && false === lastTurn.hit) {
     return true
   }
-  if (lastTurn && lastTurn.id !== game.versus && lastTurn.hit === true) {
+  if (lastTurn && lastTurn.id !== game.versus && true === lastTurn.hit) {
     return true
   }
-  if (lastTurn && lastTurn.id !== game.versus && lastTurn.hit !== true) {
+  if (lastTurn && lastTurn.id !== game.versus && true !== lastTurn.hit) {
     return false
   }
 
   return game.isViewerFirst
 }
-
-const mapGameToState = game => defaultGame.merge(game)
 
 export const games = (state = initialState, action) => {
   switch (action.type) {
@@ -42,7 +40,10 @@ export const games = (state = initialState, action) => {
     return state.set('total', state.get('total') + 1)
   case GAMES_SUCCESS:
     return action.games.reduce(
-      (state, game) => state.setIn(['list', game.id], defaultGame.merge(game).set('isViewerTurn', getIsViewerTurn(game))),
+      (newState, game) => newState.setIn(
+        ['list', game.id],
+        defaultGame.merge(game).set('isViewerTurn', getIsViewerTurn(game))
+      ),
       state.set('total', action.games.length)
     )
   default:

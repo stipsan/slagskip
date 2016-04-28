@@ -80,7 +80,7 @@ rules:
   no-unexpected-multiline: error
   no-unreachable: error
   array-callback-return: error
-  complexity: error
+  complexity: warn
   curly: error
   default-case: error
   dot-location:

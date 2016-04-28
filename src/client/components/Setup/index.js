@@ -52,6 +52,31 @@ class Setup extends Component {
     router: PropTypes.object
   }
 
+  static propTypes = {
+    addItem: PropTypes.func.isRequired,
+    board: PropTypes.shapeOf({
+      grid: PropTypes.arrayOf(PropTypes.number),
+    }),
+    bots: PropTypes.array.isRequired,
+    fetchFriends: PropTypes.func.isRequired,
+    friends: PropTypes.array,
+    friendsTotal: PropTypes.number.isRequired,
+    gameId: PropTypes.number,
+    isValid: PropTypes.bool.isRequired,
+    items: PropTypes.array.isRequired,
+    joinGame: PropTypes.func.isRequired,
+    loadGame: PropTypes.func.isRequired,
+    moveItem: PropTypes.func.isRequired,
+    newGame: PropTypes.func.isRequired,
+    rotateItem: PropTypes.func.isRequired,
+    routeParams: PropTypes.shapeOf({
+      game: PropTypes.number.isRequired
+    }).isRequired,
+    versus: PropTypes.shapeOf({
+      username: PropTypes.string
+    }),
+  }
+
   componentWillMount() {
     this.types = shuffle(types)
   }
@@ -73,10 +98,11 @@ class Setup extends Component {
       nextProps.fetchFriends()
     }
 
-    if (nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
+    if (nextProps.gameId !== this.props.gameId &&
+        0 < nextProps.gameId && 'waiting' === nextProps.gameState) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
-    if (nextProps.gameState === 'ready' && !this.props.routeParams.versus && nextProps.gameId > 0) {
+    if ('ready' === nextProps.gameState && !this.props.routeParams.versus && 0 < nextProps.gameId) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
   }
@@ -99,12 +125,10 @@ class Setup extends Component {
 
   render() {
     const {
-      grid,
       items,
       addItem,
       moveItem,
       rotateItem,
-      username,
       friends,
       routeParams,
       isValid,
@@ -136,15 +160,15 @@ class Setup extends Component {
       >
         {'Join'}
       </button> :
-      routeParams.versus ?
-      <button
-        disabled={!isValid}
-        onClick={this.handleNewGame}
-        className={startGameButtonClassName}
-      >
-        {'Start'}
-      </button> :
-      false
+      routeParams.versus && (
+        <button
+          disabled={!isValid}
+          onClick={this.handleNewGame}
+          className={startGameButtonClassName}
+        >
+          {'Start'}
+        </button>
+      )
 
     return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={cx('section')}>

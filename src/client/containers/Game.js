@@ -8,7 +8,7 @@ import {
   fetchFriends,
  } from '../actions'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const versusFriendId = state.getIn(['game', 'versus'])
   return ({
     gameState: state.getIn(['game', 'gameState']),
