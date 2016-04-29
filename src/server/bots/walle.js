@@ -38,20 +38,21 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
           }
         }
         // right
-        if ((botSelectedCell % 10) < 9) {
-          if (turnsPlayedByBot.indexOf(moveRight) === -1 && pendingMoves.indexOf(moveRight) === -1) {
+        if (9 > (botSelectedCell % 10)) {
+          if (-1 === turnsPlayedByBot.indexOf(moveRight) &&
+          -1 === pendingMoves.indexOf(moveRight)) {
             possibleMoves.push(moveRight)
           }
         }
         // down
-        if (botSelectedCell < 90) {
-          if (turnsPlayedByBot.indexOf(moveDown) === -1 && pendingMoves.indexOf(moveDown) === -1) {
+        if (90 > botSelectedCell) {
+          if (-1 === turnsPlayedByBot.indexOf(moveDown) && -1 === pendingMoves.indexOf(moveDown)) {
             possibleMoves.push(moveDown)
           }
         }
         // we can go left
-        if ((botSelectedCell % 10) > 0) {
-          if (turnsPlayedByBot.indexOf(moveLeft) === -1 && pendingMoves.indexOf(moveLeft) === -1) {
+        if (0 < (botSelectedCell % 10)) {
+          if (-1 === turnsPlayedByBot.indexOf(moveLeft) && -1 === pendingMoves.indexOf(moveLeft)) {
             possibleMoves.push(moveLeft)
           }
         }
@@ -61,9 +62,15 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
           const possibleMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
           const extraHit = getState().getIn(['match', 'viewerBoard', possibleMove])
           pendingMoves.push(possibleMove)
-          botTurns.push({ id: botToken.id, index: possibleMove, hit: extraHit !== 0, foundItem: extraHit !== 0 > 0 && extraHit, on: new Date().getTime() })
+          botTurns.push({
+            id: botToken.id,
+            index: possibleMove,
+            hit: 0 !== extraHit,
+            foundItem: 0 < extraHit && extraHit,
+            on: new Date().getTime()
+          })
 
-          if (extraHit === 0) {
+          if (0 === extraHit) {
             lookForAvailableSpot = false
           } else {
             let bonusMove = false
@@ -71,8 +78,9 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
             if (possibleMove === moveUp) {
               const moveUpAgain = moveUp - 10
 
-              if (moveUp > 9) {
-                if (turnsPlayedByBot.indexOf(moveUpAgain) === -1 && pendingMoves.indexOf(moveUpAgain) === -1) {
+              if (9 < moveUp) {
+                if (-1 === turnsPlayedByBot.indexOf(moveUpAgain) &&
+                -1 === pendingMoves.indexOf(moveUpAgain)) {
                   bonusMove = moveUpAgain
                 }
               }
@@ -80,8 +88,9 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
             if (possibleMove === moveRight) {
               const moveRightAgain = moveRight + 1
 
-              if ((moveRight % 10) < 9) {
-                if (turnsPlayedByBot.indexOf(moveRightAgain) === -1 && pendingMoves.indexOf(moveRightAgain) === -1) {
+              if (9 > (moveRight % 10)) {
+                if (-1 === turnsPlayedByBot.indexOf(moveRightAgain) &&
+                -1 === pendingMoves.indexOf(moveRightAgain)) {
                   bonusMove = moveRightAgain
                 }
               }
@@ -89,8 +98,9 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
             if (possibleMove === moveDown) {
               const moveDownAgain = moveDown + 1
 
-              if (moveDown < 90) {
-                if (turnsPlayedByBot.indexOf(moveDownAgain) === -1 && pendingMoves.indexOf(moveDownAgain) === -1) {
+              if (90 > moveDown) {
+                if (-1 === turnsPlayedByBot.indexOf(moveDownAgain) &&
+                -1 === pendingMoves.indexOf(moveDownAgain)) {
                   bonusMove = moveDownAgain
                 }
               }
@@ -98,8 +108,9 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
             if (possibleMove === moveLeft) {
               const moveLeftAgain = moveLeft - 1
 
-              if ((moveLeft % 10) > 0) {
-                if (turnsPlayedByBot.indexOf(moveLeftAgain) === -1 && pendingMoves.indexOf(moveLeftAgain) === -1) {
+              if (0 < (moveLeft % 10)) {
+                if (-1 === turnsPlayedByBot.indexOf(moveLeftAgain) &&
+                -1 === pendingMoves.indexOf(moveLeftAgain)) {
                   bonusMove = moveLeftAgain
                 }
               }
@@ -108,9 +119,15 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
             if (bonusMove) {
               const bonusHit = getState().getIn(['match', 'viewerBoard', bonusMove])
               pendingMoves.push(bonusMove)
-              botTurns.push({ id: botToken.id, index: bonusMove, hit: bonusHit !== 0, foundItem: bonusHit !== 0 > 0 && bonusHit, on: new Date().getTime() })
+              botTurns.push({
+                id: botToken.id,
+                index: bonusMove,
+                hit: 0 !== bonusHit,
+                foundItem: 0 < bonusHit && bonusHit,
+                on: new Date().getTime()
+              })
 
-              if (bonusHit === 0) {
+              if (0 === bonusHit) {
                 lookForAvailableSpot = false
               }
             }
@@ -120,7 +137,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot) => {
     }
 
     // safeguarding against fatal infinite loops
-    if ((botTurns.length + turnsPlayedByBot.length) > 98) {
+    if (98 < (botTurns.length + turnsPlayedByBot.length)) {
       lookForAvailableSpot = false
     }
   }

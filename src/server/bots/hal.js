@@ -1,58 +1,72 @@
-const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot, viewerBoard) => {
+const getTurns = (
+  botToken,
+  getState,
+  turnsPlayedByBot,
+  successfullTurnsPlayedByBot,
+  viewerBoard
+) => {
 
 
   const continuePreviousHits = []
 
   successfullTurnsPlayedByBot.forEach(turnIndex => {
-    if (turnsPlayedByBot.indexOf(turnIndex) !== -1) {
+    if (-1 !== turnsPlayedByBot.indexOf(turnIndex)) {
       return
     }
     // up
-    if (turnIndex > 9) {
+    if (9 < turnIndex) {
       continuePreviousHits.push(turnIndex - 10)
     }
-    if ((turnIndex % 10) < 9) {
+    if (9 > (turnIndex % 10)) {
       continuePreviousHits.push(turnIndex + 1)
     }
-    if (turnIndex < 90) {
+    if (90 > turnIndex) {
       continuePreviousHits.push(turnIndex + 10)
     }
-    if ((turnIndex % 10) > 0) {
+    if (0 < (turnIndex % 10)) {
       continuePreviousHits.push(turnIndex - 1)
     }
   })
-  const validPositions = viewerBoard.reduce((previousValidPositions, position, index) => {
-    return position > 0 && turnsPlayedByBot.indexOf(index) === -1 ? [... previousValidPositions, index] : previousValidPositions
-  }, [])
+  const validPositions = viewerBoard.reduce((previousValidPositions, position, index) => (
+    0 < position && -1 === turnsPlayedByBot.indexOf(index) ?
+    [... previousValidPositions, index] : previousValidPositions
+  ), [])
 
   let lookForAvailableSpot = true
-  let botTurns = []
-  let pendingMoves = []
+  const botTurns = []
+  const pendingMoves = []
   let botSelectedCell = false
   while (lookForAvailableSpot) {
 
     const guessPool = [...continuePreviousHits]
+    const fallbackSmartGuess = 0 < guessPool.length ?
+      guessPool[Math.floor(Math.random() * guessPool.length)] : false
     const smartGuess = Math.floor(Math.random() * 50) < turnsPlayedByBot.length ?
       validPositions[Math.floor(Math.random() * validPositions.length)] :
-      (guessPool.length > 0 ? guessPool[Math.floor(Math.random() * guessPool.length)] : false)
-
-    let randomSpot = smartGuess !== false && turnsPlayedByBot.indexOf(smartGuess) === -1 && pendingMoves.indexOf(smartGuess) === -1 && smartGuess
-    if (randomSpot === false) {
+      fallbackSmartGuess
+    let randomSpot = false !== smartGuess && -1 === turnsPlayedByBot.indexOf(smartGuess) &&
+                    -1 === pendingMoves.indexOf(smartGuess) && smartGuess
+    if (false === randomSpot) {
       randomSpot = Math.floor(Math.random() * 100)
     }
-
-    if (turnsPlayedByBot.indexOf(randomSpot) === -1 && pendingMoves.indexOf(randomSpot) === -1) {
+    if (-1 === turnsPlayedByBot.indexOf(randomSpot) && -1 === pendingMoves.indexOf(randomSpot)) {
       botSelectedCell = randomSpot
       const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
       pendingMoves.push(botSelectedCell)
-      botTurns.push({ id: botToken.id, index: botSelectedCell, hit: botHit !== 0, foundItem: botHit !== 0 > 0 && botHit, on: new Date().getTime() })
-      if (botHit === 0) {
+      botTurns.push({
+        id: botToken.id,
+        index: botSelectedCell,
+        hit: 0 !== botHit,
+        foundItem: 0 < botHit && botHit,
+        on: new Date().getTime()
+      })
+      if (0 === botHit) {
         lookForAvailableSpot = false
       }
     }
 
     // safeguarding against fatal infinite loops
-    if ((botTurns.length + turnsPlayedByBot.length) > 98) {
+    if (98 < (botTurns.length + turnsPlayedByBot.length)) {
       lookForAvailableSpot = false
     }
   }
@@ -62,7 +76,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
 
 const Hal = {
   getTurns,
-  getRotated: () => Math.floor(Math.random() * 100) > 66,
+  getRotated: () => 66 < Math.floor(Math.random() * 100),
 }
 
 export default Hal
