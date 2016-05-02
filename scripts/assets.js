@@ -1,38 +1,57 @@
-const Imagemin = require('imagemin')
+const imagemin = require('imagemin')
+const imageminOptipng = require('imagemin-optipng')
+const imageminSvgo = require('imagemin-svgo')
 const path = require('path')
+const vfs = require('vinyl-fs')
 
-const optipngOptions = {optimizationLevel: 7}
+const optipngOptions = { optimizationLevel: 7 }
 const svgoOptions = {
   plugins: [
     { removeTitle: true },
     { removeDimensions: true },
   ]
 }
+const src = '' // using repo root as cwd 'assets/exports/'
+const dest = '../../public' // ^^ 'public/'
 
 // favicons
-new Imagemin()
-    .src(path.resolve(__dirname, '..', 'assets', 'exports', 'favicons', '*.{png,svg}'))
-    .dest(path.resolve(__dirname, '..', 'public', 'favicons'))
-    .use(Imagemin.optipng(optipngOptions))
-    .use(Imagemin.svgo(svgoOptions))
-    .run()
+imagemin(
+  // [path.resolve(__dirname, '..', 'assets', 'exports', 'favicons', '*.{png,svg}')],
+  // path.resolve(__dirname, '..', 'public', 'favicons'),
+  [
+    `${src}favicons/*.{png,svg}`,
+    `${src}bot/*.png`,
+    `${src}browser/*.svg`,
+  ],
+  `${dest}`,
+  {
+    use: [
+      imageminOptipng(optipngOptions),
+      imageminSvgo(svgoOptions)
+    ]
+  }
+).then(files => {
+  console.log('Finished optimizing icons')
+  // console.log(path.resolve(__dirname, '..', 'public', 'favicons'), files.map(file => file.path))
+    //= > [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
+})
 
 // bots
-new Imagemin()
-    .src(path.resolve(__dirname, '..', 'assets', 'exports', 'bot', '*.png'))
-    .dest(path.resolve(__dirname, '..', 'public', 'bot'))
-    .use(Imagemin.optipng(optipngOptions))
-    .run()
+/*
+imagemin(
+  // [path.resolve(__dirname, '..', 'assets', 'exports', 'bot', '*.png')],
+  // path.resolve(__dirname, '..', 'public', 'bot'),
+  { use: [imageminOptipng(optipngOptions)] }
+)
 
 // browsers
-new Imagemin()
-    .src(path.resolve(__dirname, '..', 'assets', 'exports', 'browser', '*.svg'))
-    .dest(path.resolve(__dirname, '..', 'public', 'browser'))
-    .use(Imagemin.svgo(svgoOptions))
-    .run()
+imagemin(
+  // [path.resolve(__dirname, '..', 'assets', 'exports', 'browser', '*.svg')],
+  // path.resolve(__dirname, '..', 'public', 'browser'),
+  { use: [imageminSvgo(svgoOptions)] }
+)
+*/
 
 // app manifest and browser xml
-const vfs = require('vinyl-fs')
-
-vfs.src(path.resolve(__dirname, '..', 'assets', 'exports', 'favicons', '*.{json,xml,ico}'))
-  .pipe(vfs.dest(path.resolve(__dirname, '..', 'public', 'favicons')));
+vfs.src(path.resolve(src, 'favicons', '*.{json,xml,ico}'))
+   .pipe(vfs.dest(path.resolve(dest, 'favicons')))
