@@ -16,8 +16,8 @@
     "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
     "babel": "npm run babel-server && npm run babel-shared",
     "babel:watch": "npm run babel-server -- --watch && npm run babel-shared -- --watch",
-    "babel-server": "babel src/server --out-dir lib/server --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread",
-    "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread"
+    "babel-server": "babel src/server --out-dir lib/server --no-babelrc --plugins transform-es2015-modules-commonjs,syntax-object-rest-spread",
+    "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,syntax-object-rest-spread"
   },
   "engines": {
     "node": "6.0.0"
@@ -61,11 +61,7 @@
     "babel-cli": "6.7.7",
     "babel-loader": "6.2.4",
     "babel-plugin-react-transform": "2.0.2",
-    "babel-plugin-transform-es2015-destructuring": "6.6.5",
     "babel-plugin-transform-es2015-modules-commonjs": "6.7.7",
-    "babel-plugin-transform-es2015-parameters": "6.7.0",
-    "babel-plugin-transform-es2015-spread": "6.6.5",
-    "babel-plugin-transform-object-rest-spread": "6.6.5",
     "babel-plugin-transform-react-constant-elements": "6.5.0",
     "babel-plugin-transform-react-inline-elements": "6.6.5",
     "babel-polyfill": "6.7.4",
@@ -129,6 +125,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
+    "babel-plugin-syntax-object-rest-spread": "^6.5.0",
     "coveralls": "^2.11.9",
     "css-modules-require-hook": "^4.0.0",
     "eslint": "^2.9.0",
