@@ -1,11 +1,11 @@
-@import '../../style/_config';
+@import '../../style/_bulma';
 
 .gamesList {
   padding-top: 10px;
 }
 
 .game {
-  composes: media from '../../style/bulma.scss';
+  composes: media from 'bulma';
   align-items: center;
   //padding-top: 0px;
   
@@ -21,7 +21,7 @@
   }
 }
 .newGame {
-  composes: button is-outlined from '../../style/bulma.scss';
+  composes: button is-outlined from 'bulma';
   
   font-size: 32px;
   line-height: 27px;
@@ -36,7 +36,7 @@
   color: $grey-dark;
 }
 .avatar {
-  composes: media-left from '../../style/bulma.scss';
+  composes: media-left from 'bulma';
   padding-right: 5px;
   color: white;
   font-size: 19px;
@@ -65,7 +65,7 @@
 }
 
 .username {
-  composes: media-content from '../../style/bulma.scss';
+  composes: media-content from 'bulma';
   padding-left: 5px;
   color: $grey-dark;
   word-wrap: break-word;

@@ -1,4 +1,4 @@
-@import '../../style/_config';
+@import '../../style/_bulma';
 
 .section {
   composes: section from '../../style/_section.scss';
@@ -73,46 +73,46 @@
 }
 
 .container {
-  composes: container from '../../style/bulma.scss';
+  composes: container from 'bulma';
 }
 .hero {
-  composes: hero is-bold is-fullheight from '../../style/bulma.scss';
+  composes: hero is-bold is-fullheight from 'bulma';
   
   background-color: #ECF0F1;
 }
 .hero-content {
-  composes: hero-content from '../../style/bulma.scss';
+  composes: hero-content from 'bulma';
 }
 .hero-header {
-  composes: hero-header from '../../style/bulma.scss';
+  composes: hero-header from 'bulma';
   
   text-align: center;
   margin-top: 10px;
 }
 .hero-footer {
-  composes: hero-footer from '../../style/bulma.scss';
+  composes: hero-footer from 'bulma';
 }
 .footer-tabs {
-  composes: tabs is-boxed is-fullwidth from '../../style/bulma.scss';
+  composes: tabs is-boxed is-fullwidth from 'bulma';
 }
 .card {
-  composes: card is-fullwidth from '../../style/bulma.scss';
+  composes: card is-fullwidth from 'bulma';
   
   margin-left: auto;
   margin-right: auto;
   max-width: 600px;
 }
 .card-header {
-  composes: card-header from '../../style/bulma.scss';
+  composes: card-header from 'bulma';
 }
 .card-content {
-  composes: card-content from '../../style/bulma.scss';
+  composes: card-content from 'bulma';
 }
 .card-footer {
-  composes: card-footer from '../../style/bulma.scss';
+  composes: card-footer from 'bulma';
 }
 .card-tabs {
-  composes: tabs is-fullwidth is-boxed from '../../style/bulma.scss';
+  composes: tabs is-fullwidth is-boxed from 'bulma';
   
   width: 100%;
   
@@ -122,28 +122,28 @@
   }
 }
 .is-active {
-  composes: is-active from '../../style/bulma.scss';
+  composes: is-active from 'bulma';
 }
 .input-email {
-  composes: input is-large from '../../style/bulma.scss';
+  composes: input is-large from 'bulma';
 }
 .input-username {
   
 }
 .input-password {
-  composes: input is-large from '../../style/bulma.scss';
+  composes: input is-large from 'bulma';
 }
 .control {
-  composes: control from '../../style/bulma.scss';
+  composes: control from 'bulma';
 }
 .button-login {
-  composes: button is-large is-primary is-fullwidth from '../../style/bulma.scss';
+  composes: button is-large is-primary is-fullwidth from 'bulma';
 }
 .is-loading {
-  composes: is-loading from '../../style/bulma.scss';
+  composes: is-loading from 'bulma';
 }
 .forgot-password {
-  composes: button is-link from '../../style/bulma.scss';
+  composes: button is-link from 'bulma';
   
   display: block;
   max-width: 600px;

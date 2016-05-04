@@ -15,9 +15,9 @@ const Navbar = ({ left, children, right }) => <header className={cx('header')}>
 </header>
 
 Navbar.propTypes = {
-  children: PropTypes.element.isRequired,
-  left: PropTypes.element,
-  right: PropTypes.element,
+  children: PropTypes.node.isRequired,
+  left: PropTypes.node,
+  right: PropTypes.node,
 }
 
 export default Navbar

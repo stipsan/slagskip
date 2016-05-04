@@ -7,7 +7,7 @@ import Cell from './Cell'
 class ViewerBoard extends Component {
 
   static propTypes = {
-    board: PropTypes.shapeOf({
+    board: PropTypes.shape({
       grid: PropTypes.arrayOf(PropTypes.number),
     }),
     grid: PropTypes.arrayOf(PropTypes.number).isRequired,

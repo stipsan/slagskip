@@ -4,7 +4,7 @@
   "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
-    "start": "babel-node src/server/web",
+    "start": "babel-node lib/server/web",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
     "heroku-postbuild": "npm run postinstall && npm run bundle && npm run babel",
@@ -71,6 +71,7 @@
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.7.2",
     "bulma": "0.0.24",
+    "bulma-loader": "1.0.0",
     "caniuse-api": "1.4.1",
     "classnames": "2.2.5",
     "classnames-loader": "1.0.0",
@@ -141,7 +142,7 @@
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^2.4.5",
     "mocha-eslint": "^2.0.2",
-    "node-sass": "^3.6.0",
+    "node-sass": "^3.7.0",
     "react-transform-count-renders": "^1.0.1",
     "react-transform-render-visualizer": "^0.4.0"
   },

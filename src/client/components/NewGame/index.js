@@ -10,7 +10,7 @@ import Navbar from '../Navbar'
 
 class NewGame extends Component {
   static propTypes = {
-    bots: PropTypes.array.isRequired,
+    bots: ImmutablePropTypes.list.isRequired,
     fetchFriends: PropTypes.func.isRequired,
     friends: ImmutablePropTypes.orderedMap.isRequired,
     friendsTotal: PropTypes.number.isRequired,

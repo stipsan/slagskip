@@ -1,15 +1,15 @@
-@import '../../style/_config';
+@import '../../style/_bulma';
 $default-color: rgb(81, 161, 26);
 $border-color: rgb(141, 200, 80);
 $active-color: rgb(152, 251, 152);
 
 .linkToPrevous {
-  composes: button from '../../style/bulma.scss';
+  composes: button from 'bulma';
   border-color: transparent;
   background-color: transparent;
 }
 .buttonLabel {
-  composes: is-hidden-mobile from '../../style/bulma.scss';
+  composes: is-hidden-mobile from 'bulma';
   margin-left: .2em;
 }
 
@@ -20,16 +20,16 @@ $active-color: rgb(152, 251, 152);
 }
 
 .startGame {
-  composes: button is-primary from '../../style/bulma.scss';
+  composes: button is-primary from 'bulma';
   
   touch-action: manipulation;
 }
 .startGameDisabled {
-  composes: is-outlined from '../../style/bulma.scss';
+  composes: is-outlined from 'bulma';
 }
 
 .heading {
-  composes: heading is-6 from '../../style/bulma.scss';
+  composes: heading is-6 from 'bulma';
   text-indent: 49px;
   background: $grey-lighter;
   position: sticky;

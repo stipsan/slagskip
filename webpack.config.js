@@ -94,7 +94,7 @@ const localIdentName = 'production' === process.env.NODE_ENV ?
    '&localIdentName=[hash:base64:4]' : '&localIdentName=[local]__[hash:base64:2]'
 // https://github.com/webpack/css-loader/blob/6ade74035c845978e3cf4026bdacb829fcf300d7/lib/processCss.js#L181
 const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&discardDuplicates&reduceIdents'
-const importLoaders = '&importLoaders=2'
+const importLoaders = '&importLoaders=3'
 
 module.exports = {
   devtool: 'production' === process.env.NODE_ENV ? 'source-map' : 'cheap-module-eval-source-map',
@@ -105,6 +105,9 @@ module.exports = {
     hot: true,
     noInfo: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
+  },
+  bulmaLoader: {
+    theme: 'src/client/style/_bulma.scss',
   },
   output: {
     path: path.join(__dirname, 'public'),
@@ -125,7 +128,7 @@ module.exports = {
         'classnames',
         ExtractTextPlugin.extract(
            'style',
-           `css?modules${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass`
+           `css?modules${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass!bulma`
          )
       ] },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },

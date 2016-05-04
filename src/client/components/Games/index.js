@@ -7,7 +7,7 @@ import GameRow from './GameRow'
 
 class Games extends Component {
   static propTypes = {
-    bots: ImmutablePropTypes.orderedMap,
+    bots: ImmutablePropTypes.list,
     fetchFriends: PropTypes.func.isRequired,
     fetchGames: PropTypes.func.isRequired,
     friends: ImmutablePropTypes.orderedMap,

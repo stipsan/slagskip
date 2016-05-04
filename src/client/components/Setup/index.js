@@ -54,7 +54,7 @@ class Setup extends Component {
 
   static propTypes = {
     addItem: PropTypes.func.isRequired,
-    board: PropTypes.shapeOf({
+    board: PropTypes.shape({
       grid: PropTypes.arrayOf(PropTypes.number),
     }),
     bots: PropTypes.array.isRequired,
@@ -69,10 +69,10 @@ class Setup extends Component {
     moveItem: PropTypes.func.isRequired,
     newGame: PropTypes.func.isRequired,
     rotateItem: PropTypes.func.isRequired,
-    routeParams: PropTypes.shapeOf({
+    routeParams: PropTypes.shape({
       game: PropTypes.number.isRequired
     }).isRequired,
-    versus: PropTypes.shapeOf({
+    versus: PropTypes.shape({
       username: PropTypes.string
     }),
   }

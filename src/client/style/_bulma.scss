@@ -1,12 +1,21 @@
 // Override variables here
 // You can add new ones or update existing ones:
 
-$blue: #72d0eb; // Update blue
+$grey-darker: #222324;
+$grey-dark: #69707a;
+$grey: #aeb1b5;
+$grey-light: #d3d6db;
+$grey-lighter: #f5f7fa;
+
+$blue: #42afe3;
+$green: #97cd76;
+$orange: #f68b39;
+$purple: #847bb9;
+$red: #ed6c63;
+$turquoise: #1fc8db;
+$yellow: #fce473;
 $pink: #ffb3b3; // Add pink
-$family-sans-serif: -apple-system, BlinkMacSystemFont, 
-             "Segoe UI", "Roboto", "Oxygen", 
-             "Ubuntu", "Cantarell", "Fira Sans", 
-             "Droid Sans", "Helvetica Neue", sans-serif; // Add a serif family
+$family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
 // modular scaled font sizes
 // http://www.modularscale.com/?22&px&1.333&sass&text
@@ -33,6 +42,17 @@ $bg-default: white !default;
 $bg-login: hsl(200, 18%, 46%) !default;
 
 $button-bg: hsl(202, 4%, 51%) !default;
+
+$primary: $turquoise;
+
+$info: $blue;
+$success: $green;
+$warning: $yellow;
+$danger: $red;
+
+$dark: $grey-darker;
+
+$text: $grey-dark;
 
 
 $default-color: hsla(0, 0%, 0%, .5);

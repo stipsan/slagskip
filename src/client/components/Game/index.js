@@ -15,20 +15,20 @@ class Game extends Component {
     isViewerTurn: PropTypes.bool.isRequired,
     loadGame: PropTypes.func.isRequired,
     reasonFailed: PropTypes.string,
-    routeParams: PropTypes.shapeOf({
+    routeParams: PropTypes.shape({
       game: PropTypes.number.isRequired
     }).isRequired,
     selectedCell: PropTypes.number,
     turns: PropTypes.array, // @TODO custom validator
-    versusFriend: PropTypes.shapeOf({
+    versusFriend: PropTypes.shape({
       username: PropTypes.string
     }),
     versusGrid: PropTypes.arrayOf(PropTypes.number),
     versusScore: PropTypes.number.isRequired,
-    viewer: PropTypes.shapeOf({
+    viewer: PropTypes.shape({
       username: PropTypes.string
     }),
-    viewerBoard: PropTypes.shapeOf({
+    viewerBoard: PropTypes.shape({
       grid: PropTypes.arrayOf(PropTypes.number),
     }),
     viewerGrid: PropTypes.arrayOf(PropTypes.number),
