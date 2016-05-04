@@ -70,7 +70,8 @@ class Setup extends Component {
     newGame: PropTypes.func.isRequired,
     rotateItem: PropTypes.func.isRequired,
     routeParams: PropTypes.shape({
-      game: PropTypes.number.isRequired
+      game: PropTypes.number,
+      versus: PropTypes.number
     }).isRequired,
     versus: PropTypes.shape({
       username: PropTypes.string

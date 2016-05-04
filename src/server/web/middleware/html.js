@@ -66,6 +66,7 @@ module.exports = function htmlMiddleware() {
     if (!assets) {
       // @TODO move this up, assets.json should exist before the middleware is executed
       /* eslint global-require: "off"*/
+      /* eslint import/no-unresolved: "off" */
       assets = 'production' === process.env.NODE_ENV ?
         require('../../../../assets.json') :
         webpackToAssets(require('../../../../webpack.config.js'))
