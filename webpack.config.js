@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const purify = require('purifycss-webpack-plugin')
 
 const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
 const devServerPort = process.env.DEV_SERVER_PORT || '8080'
@@ -54,9 +55,17 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   })),
 ]
 
-plugins = plugins.concat(new ExtractTextPlugin('[hash].css', {
+plugins = plugins.concat(new ExtractTextPlugin('[chunkhash].css', {
   allChunks: true,
   disable: 'production' !== process.env.NODE_ENV,
+}))
+
+plugins = plugins.concat(new purify({
+  basePath: __dirname,
+  purifyOptions: {
+    minify: true,
+    rejected: true
+  }
 }))
 
 /**
@@ -91,7 +100,7 @@ const entry = 'production' === process.env.NODE_ENV ? {
 }
 
 const localIdentName = 'production' === process.env.NODE_ENV ?
-   '&localIdentName=[hash:base64:4]' : '&localIdentName=[local]__[hash:base64:2]'
+  '&localIdentName=[hash:base64:4]' : '&localIdentName=[local]__[hash:base64:2]'
 // https://github.com/webpack/css-loader/blob/6ade74035c845978e3cf4026bdacb829fcf300d7/lib/processCss.js#L181
 const cssnanoOptIn = '&zindex&normalizeUrl&discardUnused&mergeIdents&discardDuplicates&reduceIdents'
 const importLoaders = '&importLoaders=3'
@@ -111,7 +120,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'production' === process.env.NODE_ENV ? '[hash].js' : '[name].js?[hash]',
+    filename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[hash]',
     chunkFilename: 'production' === process.env.NODE_ENV ?
                    '[chunkhash].js' : '[name].js?[chunkhash]',
     publicPath: 'production' === process.env.NODE_ENV ?

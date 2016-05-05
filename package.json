@@ -94,6 +94,7 @@
     "lodash": "4.11.2",
     "module-alias": "1.0.8",
     "node-sass": "^3.7.0",
+    "purifycss-webpack-plugin": "2.0.3",
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",
     "react": "15.0.2",
