@@ -73,7 +73,7 @@
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.8.0",
-    "bulma": "0.0.24",
+    "bulma": "0.0.25",
     "bulma-loader": "1.0.0",
     "caniuse-api": "1.4.1",
     "classnames": "2.2.5",
