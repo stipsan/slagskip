@@ -7,7 +7,7 @@
     "start": "babel-node lib/server/web",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
-    "heroku-postbuild": "npm run postinstall && npm run bundle && npm run babel",
+    "heroku-postbuild": "npm run bundle && npm run babel",
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --recursive -t 10000",
     "test:watch": "npm test -- --watch --growl",
