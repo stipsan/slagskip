@@ -4,8 +4,6 @@
 const path = require('path')
 const SocketCluster = require('socketcluster').SocketCluster
 
-console.log('Versions', process.versions)
-
 // running the migration right away, so the server don't start serving until we're ready
 require('../migrate')
 
