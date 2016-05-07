@@ -122,7 +122,7 @@
     "redux-thunk": "2.0.1",
     "sass-loader": "3.2.0",
     "socketcluster": "4.3.5",
-    "socketcluster-client": "4.3.16",
+    "socketcluster-client": "4.3.17",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
