@@ -75,7 +75,7 @@
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.8.0",
     "bulma": "0.0.26",
-    "bulma-loader": "1.0.0",
+    "bulma-loader": "1.0.1",
     "caniuse-api": "1.4.1",
     "classnames": "2.2.5",
     "classnames-loader": "1.0.0",
