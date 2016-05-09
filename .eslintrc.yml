@@ -19,6 +19,10 @@ parserOptions:
 plugins:
   - react
 rules:
+  # temp disable mutable exports until it supports es7 export extensions
+  import/no-mutable-exports: off
+  import/newline-after-import: warn
+  import/no-extraneous-dependencies: warn
   comma-dangle:
     - error
     - only-multiline
@@ -109,6 +113,8 @@ rules:
   no-path-concat: error
   no-process-exit: error
   no-sync: error
+  no-func-assign: error
+  no-class-assign: error
   block-spacing: error
   brace-style: error
   camelcase: error

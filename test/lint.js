@@ -1,13 +1,15 @@
-var lint = require('mocha-eslint')
+const lint = require('mocha-eslint')
 
-var paths = [
-  'src',
-  'tests/**/.js',
+const paths = [
+  'src/client',
+  'src/server',
+  'src/shared',
   'webpack.config.js',
 ]
-
-var options = {
-  formatter: 'node_modules/eslint-formatter-pretty'
+const options = {
+  formatter: 'node_modules/eslint-formatter-pretty',
+  alwaysWarn: false,
+  slow: 5000,
 }
 
 lint(paths, options)
