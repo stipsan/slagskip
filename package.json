@@ -124,7 +124,7 @@
     "redux-immutable": "3.0.6",
     "redux-thunk": "2.0.1",
     "sass-loader": "3.2.0",
-    "socketcluster": "4.5.0",
+    "socketcluster": "4.6.0",
     "socketcluster-client": "4.3.17",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
