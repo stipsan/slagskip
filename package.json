@@ -86,7 +86,7 @@
     "file-loader": "0.8.5",
     "html-minifier": "2.1.2",
     "imagemin": "5.0.2",
-    "imagemin-optipng": "5.0.0",
+    "imagemin-optipng": "5.1.0",
     "imagemin-svgo": "5.1.0",
     "immutable": "3.8.1",
     "invariant": "2.2.1",
