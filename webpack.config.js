@@ -78,6 +78,7 @@ const AssetsPlugin = require('assets-webpack-plugin')
 plugins = plugins.concat(new AssetsPlugin({ filename: 'assets.json', path: __dirname }))
 
 if ('production' === process.env.NODE_ENV) {
+  /*
   plugins = plugins.concat(new purify({
     basePath: __dirname,
     purifyOptions: {
@@ -85,6 +86,7 @@ if ('production' === process.env.NODE_ENV) {
       rejected: true
     }
   }))
+  //*/
 }
 
 const entry = 'production' === process.env.NODE_ENV ? {
