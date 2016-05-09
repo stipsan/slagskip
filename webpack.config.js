@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const purify = require('purifycss-webpack-plugin')
+// const purify = require('purifycss-webpack-plugin')
 
 const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
 const devServerPort = process.env.DEV_SERVER_PORT || '8080'
@@ -60,14 +60,6 @@ plugins = plugins.concat(new ExtractTextPlugin('[chunkhash].css', {
   disable: 'production' !== process.env.NODE_ENV,
 }))
 
-plugins = plugins.concat(new purify({
-  basePath: __dirname,
-  purifyOptions: {
-    minify: true,
-    rejected: true
-  }
-}))
-
 /**
  * JSX syntax is transpiled to React.createElement calls with babel, which is why devs
  * often do `import React from 'react'` even if `React` itself isn't used in the source.
@@ -84,6 +76,18 @@ plugins = plugins.concat(new webpack.ProvidePlugin({
 
 const AssetsPlugin = require('assets-webpack-plugin')
 plugins = plugins.concat(new AssetsPlugin({ filename: 'assets.json', path: __dirname }))
+
+if ('production' === process.env.NODE_ENV) {
+  /*
+  plugins = plugins.concat(new purify({
+    basePath: __dirname,
+    purifyOptions: {
+      minify: true,
+      rejected: true
+    }
+  }))
+  //*/
+}
 
 const entry = 'production' === process.env.NODE_ENV ? {
   client: [
