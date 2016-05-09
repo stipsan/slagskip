@@ -1,4 +1,4 @@
-import fallback from '@stipsan/express-history-api-fallback'
+import fallback from 'express-history-spa-fallback'
 import parseUrl from 'stattic-parseurl'
 import { minify } from 'html-minifier'
 
