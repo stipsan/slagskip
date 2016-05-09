@@ -19,6 +19,8 @@ parserOptions:
 plugins:
   - react
 rules:
+  # temp disable mutable exports until it supports es7 export extensions
+  import/no-mutable-exports: off
   import/newline-after-import: warn
   import/no-extraneous-dependencies: warn
   comma-dangle:
