@@ -11,6 +11,7 @@ require('../migrate')
 new SocketCluster({
   workers: Number(process.env.WEB_CONCURRENCY) || 1,
   port: process.env.PORT || 5000,
+  wsEngine: 'uws',
   workerController: path.resolve(__dirname, 'worker.js'),
   // Using babel transpiling instead of babel-register, for performance
   // initController:path.resolve(__dirname, 'init.js'),
