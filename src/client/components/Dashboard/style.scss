@@ -27,13 +27,13 @@
 }
 
 .usernameItem {
-  composes: navbar-item has-text-centered from 'bulma';
+  composes: level-item has-text-centered from 'bulma';
 }
 .placeholderItem {
-  composes: navbar-item has-text-left from 'bulma';
+  composes: level-item has-text-left from 'bulma';
 }
 .logoutItem {
-  composes: navbar-item has-text-right from 'bulma';
+  composes: level-item has-text-right from 'bulma';
 }
 
 .test {
