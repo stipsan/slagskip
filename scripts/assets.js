@@ -31,7 +31,7 @@ imagemin(
     ]
   }
 ).then(files => {
-  console.log('Finished optimizing icons')
+  console.log('Imagemin finished optimizing icons', files.map(file => file.path))
   // console.log(path.resolve(__dirname, '..', 'public', 'favicons'), files.map(file => file.path))
     //= > [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
 })
