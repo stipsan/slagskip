@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - "6.0"
-after_script: npm run coveralls
+after_success: npm run coveralls
 addons:
     code_climate:
         repo_token: be662185acd1fa423350262b2cc391da59e240f6b0e8afd3648295d03c11a272
