@@ -128,7 +128,7 @@
     "url-loader": "0.5.7",
     "uws": "0.3.4",
     "vinyl-fs": "2.4.3",
-    "webpack": "2.1.0-beta.5",
+    "webpack": "2.1.0-beta.7",
     "webpack-dev-server": "2.0.0-beta"
   },
   "devDependencies": {
