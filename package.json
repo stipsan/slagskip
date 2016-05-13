@@ -79,7 +79,7 @@
     "caniuse-api": "1.4.1",
     "classnames": "2.2.5",
     "classnames-loader": "1.0.0",
-    "compression": "1.6.1",
+    "compression": "1.6.2",
     "css-loader": "0.23.1",
     "express": "4.13.4",
     "express-history-spa-fallback": "^3.0.0",
