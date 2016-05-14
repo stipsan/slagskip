@@ -113,7 +113,7 @@ module.exports = function htmlMiddleware() {
     <meta name="description" content="${packageData.meta.description}" />
     <meta name="author" content="${packageData.meta.author}" />
     <meta name="keywords" content="${packageData.keywords.join(',')}" />
-    
+
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/icon-57.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/favicons/icon-76.png">
     <link rel="apple-touch-icon" sizes="80x80" href="/favicons/icon-80.png">
@@ -135,7 +135,7 @@ module.exports = function htmlMiddleware() {
     <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ECF0F1">
     <meta name="msapplication-navbutton-color" content="#34495E" />
-    
+
     <!-- Open Graph data -->
     <meta property="og:title" content="${title}" />
     <meta property="og:type" content="website" />
@@ -145,9 +145,9 @@ module.exports = function htmlMiddleware() {
     <meta property="og:image:height" content="256">
     <meta property="og:description" content="${packageData.meta.description}" />
     <meta property="og:site_name" content="${title}" />
-    
+
     ${preconnect}
-    
+
     ${shouldLoadRaygun ? raygunClient : ''}
     <style>
       .hero {
@@ -173,7 +173,7 @@ module.exports = function htmlMiddleware() {
       }
       body {
         color: #69707a;
-        font-family: 
+        font-family:
           -apple-system,
           BlinkMacSystemFont,
           "Segoe UI",
