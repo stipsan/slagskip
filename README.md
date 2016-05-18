@@ -101,5 +101,5 @@ In the future this limit will be changed to enforce 100% coverage at all times.
 
 # Credits
 
-![BrowserStack Logo](https://raw.github.com/stipsan/epic/master/assets/exports/vendor/browserstack.svg?raw=true)
+![BrowserStack Logo](https://cdn.rawgit.com/stipsan/epic/master/assets/exports/vendor/browserstack.svg)
 Big thanks to [BrowserStack](https://www.browserstack.com) for providing cross browser testing to Open Source projects!
