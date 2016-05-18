@@ -119,7 +119,7 @@
     "react-transform-render-visualizer": "0.4.0",
     "react-user-avatar": "1.8.0",
     "react-useravatar": "1.1.2",
-    "redbox-react": "1.2.4",
+    "redbox-react": "1.2.5",
     "redux": "3.5.2",
     "redux-immutable": "3.0.6",
     "redux-thunk": "2.1.0",
