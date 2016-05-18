@@ -22,6 +22,7 @@ imagemin(
     `${src}favicons/*.{png,svg}`,
     `${src}bot/*.png`,
     `${src}browser/*.svg`,
+    `${src}vendor/*.svg`,
   ],
   `${dest}`,
   {
