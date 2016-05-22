@@ -9,12 +9,8 @@ import {
 import { CALL_SOCKET } from '../middleware/socket'
 
 export const signInWithEmailAndPassword = credentials => ({
-  [CALL_SOCKET]: {
-    types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
-    data: {
-      credentials,
-    }
-  }
+  type: AUTHENTICATE_REQUEST,
+  payload: credentials,
 })
 
 export const logoutUser = () => ({
