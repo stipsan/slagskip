@@ -15,26 +15,6 @@ const successAuthToken = {
 const failureCredentials = { username: 'wonderwoman' }
 
 describe('database business logic', () => {
-  it('can connect to redis', () => {
-    expect(database.createConnection)
-      .toThrow('You must specify an redis url')
-
-    expect(database.createConnection('localhost'))
-      .toBeA(Redis)
-  })
-
-  /*
-  it('handles failed authentication', (done) => {
-    database.authenticate(failureCredentials, testRedis)
-      .then(authToken => {
-        done(new Error('Promise were not rejected'))
-      })
-      .catch(err => {
-        done()
-      })
-  })
-  */
-
   it('returns authToken data on successfull authentication', () => {
     return database.authenticate(successCredentials, testRedis)
       .then(authToken => {
