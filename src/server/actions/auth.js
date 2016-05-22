@@ -10,12 +10,12 @@ import {
 } from '../constants/ActionTypes'
 
 export const authenticateRequest = (
-  { username },
+  { credentials },
   callback,
   socket,
   database,
   redis
-) => (dispatch, getState) => database.authenticate({ username }, redis)
+) => (dispatch, getState) => database.authenticate(credentials, redis)
     .then(authToken => {
       // sc will send this data to the client
       socket.setAuthToken(authToken)
