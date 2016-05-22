@@ -1,7 +1,9 @@
+import * as types from '../../../src/client/constants/ActionTypes'
+
 import expect from 'expect'
 import { fromJS } from 'immutable'
+
 import { viewer as reducer } from '../../../src/client/reducers/index'
-import * as types from '../../../src/client/constants/ActionTypes'
 
 describe('viewer reducer', () => {
   it('should return the initial state', () => {
@@ -12,6 +14,7 @@ describe('viewer reducer', () => {
         id: null,
         isLoaded: false,
         username: '',
+        email: '',
       }
     )
   })
@@ -20,15 +23,17 @@ describe('viewer reducer', () => {
       reducer(undefined, {
         type: types.AUTHENTICATE_SUCCESS,
         authToken: {
-          id: "2",
-          username: 'Foo'
+          id: '2',
+          username: 'Foo',
+          email: 'foo@bar.org',
         }
       }).toJS()
     ).toEqual(
       {
         username: 'Foo',
         isLoaded: false,
-        id: "2"
+        id: '2',
+        email: 'foo@bar.org',
       }
     )
   })
@@ -40,6 +45,7 @@ describe('viewer reducer', () => {
         username: '',
         id: null,
         isLoaded: false,
+        email: '',
       }
     )
   })

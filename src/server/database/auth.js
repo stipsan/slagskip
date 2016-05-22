@@ -1,15 +1,16 @@
-import { createUser } from './user'
+import { createUser, getUser } from './user'
 
 export const authenticate = (credentials, redis) =>
-  redis.hget('users', credentials.username).then(userId => {
+  redis.hget('emails', credentials.email).then(userId => {
 
     if (!userId) {
       return createUser(credentials, redis)
     }
 
-    return {
+    return getUser(userId, redis).then(userData => ({
       id: userId,
-      username: credentials.username,
+      username: userData.username,
+      email: userData.email,
       privateChannel: `user:${userId}`
-    }
+    }))
   })
