@@ -4,20 +4,23 @@ import { authenticate } from './auth'
 
 export const createUser = (userData, redis) => {
   invariant(userData.username, 'Invalid userData, missing `username` property')
+  invariant(userData.email, 'Invalid userData, missing `email` property')
+  invariant(userData.password, 'Invalid userData, missing `password` property')
 
   // const usernameKey = userData.username.toLowerCase()
-  return redis.hget('users', userData.username)
-    .then(usernameTaken => {
+  return redis.hget('emails', userData.email)
+    .then(emailTaken => {
 
-      invariant(!usernameTaken, 'Username not available')
+      invariant(!emailTaken, 'Already registered with that email!')
 
       return redis.incr('user_next')
     })
     .then(userId =>
       redis.multi([
-        ['hsetnx', 'users', userData.username, userId],
+        ['hsetnx', 'emails', userData.email, userId],
         ['hsetnx', `user:${userId}`, 'id', userId],
         ['hsetnx', `user:${userId}`, 'username', userData.username],
+        ['hsetnx', `user:${userId}`, 'email', userData.email],
       ]).exec()
     )
     .then(results => {
@@ -27,5 +30,16 @@ export const createUser = (userData, redis) => {
       invariant(didUpdateUsersList && didSetUserId && didSetUsername, 'Failed to create user')
 
       return authenticate(userData, redis)
+    })
+}
+
+export const getUser = (userId, redis) => {
+  invariant(userId, 'Missing userId')
+
+  return redis.hgetall(`user:${userId}`)
+    .then(userData => {
+      invariant(userData, 'userData not available')
+
+      return userData
     })
 }

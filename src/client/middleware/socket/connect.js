@@ -36,7 +36,7 @@ export const connect = (store, next, action, callSocket) => {
       }
 
       if (socket.authToken) {
-        callSocket(store, next, loginUser(socket.authToken.username), socket)
+        callSocket(store, next, loginUser(socket.authToken), socket)
       }
 
       return next({ type: SOCKET_SUCCESS, ...data, socket })
@@ -52,6 +52,7 @@ export const connect = (store, next, action, callSocket) => {
         global.rg4js('setUser', {
           identifier: socket.getAuthToken().id,
           isAnonymous: false,
+          email: socket.getAuthToken().email,
           firstName: socket.getAuthToken().username,
         })
       }
