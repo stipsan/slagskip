@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import Login from '../components/Login'
-import { loginUser } from '../actions'
+import { loginUser, registerUser } from '../actions'
 
 const mapStateToProps = state => ({
   isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLogin: username => dispatch(loginUser(username))
+  onLogin: credentials => dispatch(loginUser(credentials)),
+  onRegister: credentials => dispatch(registerUser(credentials))
 })
 
 // move this to grandchildren so the root don't need to subscribe to Redux

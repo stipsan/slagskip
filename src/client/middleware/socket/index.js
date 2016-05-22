@@ -27,7 +27,7 @@ export const createCallSocket = (store, next, action, socket) => {
   }
 
   const [requestType, successType, failureType] = types
-  next(actionWith({ type: requestType }))
+  next(actionWith({ type: requestType, ...emitData }))
 
   return socket.emit('dispatch', { type: requestType, ...emitData }, (err, data) => {
     if (err) {
