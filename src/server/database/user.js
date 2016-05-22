@@ -3,7 +3,10 @@ import invariant from 'invariant'
 import { authenticate } from './auth'
 
 export const createUser = (userData, redis) => {
+  console.log(userData)
   invariant(userData.username, 'Invalid userData, missing `username` property')
+  invariant(userData.email, 'Invalid userData, missing `email` property')
+  invariant(userData.password, 'Invalid userData, missing `password` property')
 
   // const usernameKey = userData.username.toLowerCase()
   return redis.hget('users', userData.username)
@@ -27,5 +30,17 @@ export const createUser = (userData, redis) => {
       invariant(didUpdateUsersList && didSetUserId && didSetUsername, 'Failed to create user')
 
       return authenticate(userData, redis)
+    })
+}
+
+export const getUser = (userId, redis) => {
+  invariant(userId, 'Missing userId')
+
+  return redis.hgetall(`user:${userId}`)
+    .then(userData => {
+
+      invariant(!userData, 'userData not available')
+
+      return userData
     })
 }
