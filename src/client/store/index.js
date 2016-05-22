@@ -1,5 +1,6 @@
 import * as reducers from '../reducers'
 
+import createSagaMiddleware from 'redux-saga'
 import thunk from 'redux-thunk'
 import { Map as ImmutableMap } from 'immutable'
 import { browserHistory } from 'react-router'
