@@ -22,7 +22,9 @@ const testRedis = {
   },
   incr(key) {
     return new Promise(resolve => {
-      resolve(++this.data[key])
+      const curVal = Number(this.data[key])
+      const incVal = curVal + 1
+      resolve(incVal.toString())
     })
   },
   hsetnx(key, hashKey, hashVal) {
