@@ -8,8 +8,6 @@ addons:
         repo_token: be662185acd1fa423350262b2cc391da59e240f6b0e8afd3648295d03c11a272
 notifications:
   email: false
-services:
-  - redis-server
 env:
   global:
     - NPM_CONFIG_PROGRESS="false"
