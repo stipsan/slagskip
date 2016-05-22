@@ -1,8 +1,8 @@
 import {
-  NEW_GAME_REQUEST,
+  NEW_GAME_REQUESTED,
   NEW_GAME_SUCCESS,
   NEW_GAME_FAILURE,
-  JOIN_GAME_REQUEST,
+  JOIN_GAME_REQUESTED,
   JOIN_GAME_SUCCESS,
   JOIN_GAME_FAILURE,
   ADD_ITEM,
@@ -13,21 +13,21 @@ import { CALL_SOCKET } from '../middleware/socket'
 
 export const validateSetup = data => ({
   [CALL_SOCKET]: {
-    types: [NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
+    types: [NEW_GAME_REQUESTED, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
     data,
   }
 })
 
 export const newGame = data => ({
   [CALL_SOCKET]: {
-    types: [NEW_GAME_REQUEST, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
+    types: [NEW_GAME_REQUESTED, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
     data,
   }
 })
 
 export const joinGame = data => ({
   [CALL_SOCKET]: {
-    types: [JOIN_GAME_REQUEST, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE],
+    types: [JOIN_GAME_REQUESTED, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE],
     data,
   }
 })

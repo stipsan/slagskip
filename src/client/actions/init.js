@@ -1,9 +1,9 @@
 import {
   CHECK_CAPABILITIES,
-  SOCKET_REQUEST,
+  SOCKET_REQUESTED,
 } from '../constants/ActionTypes'
 
 export const init = () => dispatch => {
   dispatch({ type: CHECK_CAPABILITIES })
-  dispatch({ type: SOCKET_REQUEST })
+  dispatch({ type: SOCKET_REQUESTED })
 }

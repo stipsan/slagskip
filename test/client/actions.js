@@ -9,7 +9,7 @@ describe('client/actions', () => {
     expect(
       actions.signInWithEmailAndPassword(credentials)
     ).toEqual({
-      type: types.AUTHENTICATE_REQUEST,
+      type: types.AUTHENTICATE_REQUESTED,
       payload: credentials
     })
   })

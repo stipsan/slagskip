@@ -2,7 +2,7 @@ import {
   signInWithEmailAndPassword,
 } from '../../actions'
 import {
-  SOCKET_REQUEST,
+  SOCKET_REQUESTED,
   SOCKET_SUCCESS,
 } from '../../constants/ActionTypes'
 import { subscribeChannels } from './channel'
@@ -15,7 +15,7 @@ let pendingConnection = false
 
 export const connect = (store, next, action, callSocket) => {
   // initial setup
-  if (socketCluster && !memoizedSocket && !pendingConnection && action.type === SOCKET_REQUEST) {
+  if (socketCluster && !memoizedSocket && !pendingConnection && action.type === SOCKET_REQUESTED) {
     pendingConnection = true
     const socket = socketCluster.connect({
       hostname: process.env.SOCKET_HOSTNAME || location.hostname,

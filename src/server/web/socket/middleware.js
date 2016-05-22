@@ -65,7 +65,7 @@ export const applySocketMiddleware = wsServer => {
 
   wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
     (req, next) => {
-      // only AUTHENTICATE_REQUEST unless authToken
+      // only AUTHENTICATE_REQUESTED unless authToken
       // console.log('middleware.MIDDLEWARE_EMIT', req.event, req.data,
       // authToken && authToken.username)
 

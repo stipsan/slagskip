@@ -8,7 +8,7 @@ import {
   RECEIVE_AUTH_STATE_CHANGE,
   AUTHENTICATE_FAILURE,
   RECEIVE_DEAUTHENTICATE,
-  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
 
@@ -47,7 +47,7 @@ export const auth = (state = initialState, action) => {
       authState: 'unauthenticated',
       authToken: null,
     })
-  case AUTHENTICATE_REQUEST:
+  case AUTHENTICATE_REQUESTED:
     return state.merge({
       authState: 'pending',
     })

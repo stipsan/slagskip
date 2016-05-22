@@ -1,7 +1,7 @@
 import {
   SOCKET_FAILURE,
   SOCKET_ERROR,
-  SUBSCRIBE_CHANNEL_REQUEST,
+  SUBSCRIBE_CHANNEL_REQUESTED,
   SUBSCRIBE_CHANNEL_SUCCESS,
   SUBSCRIBE_CHANNEL_FAILURE,
   RECEIVE_SUBSCRIBE_STATE_CHANGE,
@@ -62,7 +62,7 @@ export const attachListeners = (store, next, action, socket) => {
     next({ ...args, type: RECEIVE_SUBSCRIBE_STATE_CHANGE, socket })
   })
   socket.on('subscribeRequest', channel => {
-    next({ type: SUBSCRIBE_CHANNEL_REQUEST, channel, socket })
+    next({ type: SUBSCRIBE_CHANNEL_REQUESTED, channel, socket })
   })
 
   shouldAttachListeners = false

@@ -1,27 +1,27 @@
 import {
-  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
-  DEAUTHENTICATE_REQUEST,
+  DEAUTHENTICATE_REQUESTED,
   DEAUTHENTICATE_SUCCESS,
   DEAUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 import { CALL_SOCKET } from '../middleware/socket'
 
 export const signInWithEmailAndPassword = credentials => ({
-  type: AUTHENTICATE_REQUEST,
+  type: AUTHENTICATE_REQUESTED,
   payload: credentials,
 })
 
 export const logoutUser = () => ({
   [CALL_SOCKET]: {
-    types: [DEAUTHENTICATE_REQUEST, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
+    types: [DEAUTHENTICATE_REQUESTED, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
   }
 })
 
 export const createUserWithEmailAndPassword = credentials => ({
   [CALL_SOCKET]: {
-    types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
+    types: [AUTHENTICATE_REQUESTED, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
     data: {
       credentials,
     }

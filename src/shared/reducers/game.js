@@ -1,8 +1,8 @@
 import { fromJS } from 'immutable'
 
 import {
-  NEW_GAME_REQUEST,
-  LOAD_GAME_REQUEST,
+  NEW_GAME_REQUESTED,
+  LOAD_GAME_REQUESTED,
   LOAD_GAME_SUCCESS,
   LOAD_GAME_FAILURE,
   NEW_GAME_SUCCESS,
@@ -10,7 +10,7 @@ import {
   PLACE_CROSSHAIRS,
   RECEIVE_HIT,
   RECEIVE_MISS,
-  FIRE_CANNON_REQUEST,
+  FIRE_CANNON_REQUESTED,
   FIRE_CANNON_SUCCESS,
   JOIN_GAME_SUCCESS,
   FIRE_CANNON_FAILURE,
@@ -58,7 +58,7 @@ const initialState = fromJS({
 
 export const game = (state = initialState, action) => {
   switch (action.type) {
-  case NEW_GAME_REQUEST:
+  case NEW_GAME_REQUESTED:
     return initialState.set('gameState', 'setup')
   case NEW_GAME_SUCCESS:
     return state
@@ -68,7 +68,7 @@ export const game = (state = initialState, action) => {
     return initialState
       .set('id', action.id)
       .set('gameState', 'ready')
-  case LOAD_GAME_REQUEST:
+  case LOAD_GAME_REQUESTED:
     return initialState
       .set('id', action.id)
       .set('gameState', 'loading')
@@ -149,7 +149,7 @@ export const game = (state = initialState, action) => {
     return state
         .set('gameState', 'failed')
         .set('reasonFailed', action.error.message)
-  case FIRE_CANNON_REQUEST:
+  case FIRE_CANNON_REQUESTED:
     return state.set('selectedCell', -1)
   default:
     return state
