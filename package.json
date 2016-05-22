@@ -122,6 +122,7 @@
     "redbox-react": "1.2.5",
     "redux": "3.5.2",
     "redux-immutable": "3.0.6",
+    "redux-saga": "0.10.4",
     "redux-thunk": "2.1.0",
     "sass-loader": "3.2.0",
     "socketcluster": "4.6.1",
