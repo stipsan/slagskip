@@ -7,7 +7,7 @@ import testRedis from '../../testRedis'
 
 const successCredentials = { email: 'bruce@wayne.enterprises', password: 'batman' }
 const successAuthToken = {
-  id: 3,
+  id: '3',
   email: successCredentials.email,
   username: 'batman',
   privateChannel: 'user:3'
@@ -26,8 +26,8 @@ describe('database business logic', () => {
     return database.getViewer(successAuthToken, testRedis)
       .then(viewer => {
         expect(viewer).toEqual({
-          friendIds: [2, 4, 5],
-          invites: [4, 5],
+          friendIds: ['2', '4', '5'],
+          invites: ['4', '5'],
           games: []
         })
       })
@@ -36,8 +36,8 @@ describe('database business logic', () => {
   it('fetches list of friends', () => {
     return database.getFriends({
       id: successAuthToken.id,
-      friends: [2, 4, 5],
-      invites: [4, 5]
+      friends: ['2', '4', '5'],
+      invites: ['4', '5']
     }, testRedis)
       .then(friends => {
         expect(friends).toEqual([
@@ -78,7 +78,7 @@ describe('database business logic', () => {
     }, testRedis)
       .then(user => {
         expect(user).toEqual({
-          id: 6,
+          id: '6',
           username: 'logan',
           email: 'wolverine@xmen.org',
           privateChannel: 'user:6'
@@ -91,7 +91,7 @@ describe('database business logic', () => {
     return database.setViewerOffline(successAuthToken, lastVisit, testRedis)
       .then(user => {
         expect(user).toEqual({
-          id: 3,
+          id: '3',
           online: '0',
           lastVisit
         })
