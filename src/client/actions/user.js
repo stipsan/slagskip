@@ -8,7 +8,7 @@ import {
 } from '../constants/ActionTypes'
 import { CALL_SOCKET } from '../middleware/socket'
 
-export const loginUser = credentials => ({
+export const signInWithEmailAndPassword = credentials => ({
   [CALL_SOCKET]: {
     types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
     data: {
@@ -23,7 +23,7 @@ export const logoutUser = () => ({
   }
 })
 
-export const registerUser = credentials => ({
+export const createUserWithEmailAndPassword = credentials => ({
   [CALL_SOCKET]: {
     types: [AUTHENTICATE_REQUEST, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
     data: {

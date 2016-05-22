@@ -8,7 +8,7 @@ const placeholderLabel = 'E-mail'
 export default class Login extends Component {
   static propTypes = {
     isRequestPending: PropTypes.bool.isRequired,
-    onLogin: PropTypes.func.isRequired,
+    signInWithEmailAndPassword: PropTypes.func.isRequired,
   }
 
   state = {
@@ -28,7 +28,10 @@ export default class Login extends Component {
     event.preventDefault()
 
     const { shouldRegister, ...credentials } = this.state
-    this.props[shouldRegister ? 'onRegister' : 'onLogin'](credentials)
+    this.props[shouldRegister ?
+      'createUserWithEmailAndPassword' :
+      'signInWithEmailAndPassword'
+    ](credentials)
   }
 
   handleShouldRegister = event => {

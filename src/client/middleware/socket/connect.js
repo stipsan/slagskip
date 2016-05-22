@@ -1,5 +1,5 @@
 import {
-  loginUser,
+  signInWithEmailAndPassword,
 } from '../../actions'
 import {
   SOCKET_REQUEST,
@@ -36,7 +36,7 @@ export const connect = (store, next, action, callSocket) => {
       }
 
       if (socket.authToken) {
-        callSocket(store, next, loginUser(socket.authToken), socket)
+        callSocket(store, next, signInWithEmailAndPassword(socket.authToken), socket)
       }
 
       return next({ type: SOCKET_SUCCESS, ...data, socket })
