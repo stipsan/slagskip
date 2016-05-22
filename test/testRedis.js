@@ -3,16 +3,17 @@ import _ from 'lodash'
 const testRedis = {
   data: {
     user_next: 5,
-    users: {
-      superman: 2,
-      batman: 3,
-      spiderman: 4,
-      lex: 5,
+    secret: 'used in password hashing',
+    emails: {
+      'clark@daily.planet': 2,
+      'bruce@wayne.enterprises': 3,
+      'peter.parker@dailybugle.com': 4,
+      'lex@lex.corp': 5,
     },
-    ['user:2']: { id: 2, username: 'superman', online: '1' },
-    ['user:3']: { id: 3, username: 'batman', online: '1' },
-    ['user:4']: { id: 4, username: 'spiderman', online: '0' },
-    ['user:5']: { id: 5, username: 'lex', online: '0', lastVisit: '2016-03-22T00:15:46.757Z' },
+    ['user:2']: { id: 2, username: 'superman', online: '1', email: 'clark@daily.planet' },
+    ['user:3']: { id: 3, username: 'batman', online: '1', email: 'bruce@wayne.enterprises' },
+    ['user:4']: { id: 4, username: 'spiderman', online: '0', email: 'peter.parker@dailybugle.com' },
+    ['user:5']: { id: 5, username: 'lex', online: '0', email: 'lex@lex.corp', lastVisit: '2016-03-22T00:15:46.757Z' },
     ['games:3']: [],
     ['user:2:invites']: [],
     ['user:3:invites']: [4, 5],

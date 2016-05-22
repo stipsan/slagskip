@@ -24,14 +24,16 @@ describe('viewer reducer', () => {
         type: types.AUTHENTICATE_SUCCESS,
         authToken: {
           id: '2',
-          username: 'Foo'
+          username: 'Foo',
+          email: 'foo@bar.org',
         }
       }).toJS()
     ).toEqual(
       {
         username: 'Foo',
         isLoaded: false,
-        id: '2'
+        id: '2',
+        email: 'foo@bar.org',
       }
     )
   })
@@ -43,6 +45,7 @@ describe('viewer reducer', () => {
         username: '',
         id: null,
         isLoaded: false,
+        email: '',
       }
     )
   })

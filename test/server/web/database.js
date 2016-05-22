@@ -5,10 +5,11 @@ import Redis from 'ioredis'
 
 import testRedis from '../../testRedis'
 
-const successCredentials = { username: 'batman' }
+const successCredentials = { email: 'bruce@wayne.enterprises', password: 'batman' }
 const successAuthToken = {
   id: 3,
-  username: successCredentials.username,
+  email: successCredentials.email,
+  username: 'batman',
   privateChannel: 'user:3'
 }
 const failureCredentials = { username: 'wonderwoman' }
@@ -66,6 +67,7 @@ describe('database business logic', () => {
             inviteIn: false,
             inviteOut: false,
             online: '1',
+            email: 'clark@daily.planet',
           },
           {
             id: '4',
@@ -73,6 +75,7 @@ describe('database business logic', () => {
             inviteIn: true,
             inviteOut: false,
             online: '0',
+            email: 'peter.parker@dailybugle.com',
           },
           {
             id: '5',
@@ -81,6 +84,7 @@ describe('database business logic', () => {
             inviteOut: true,
             online: '0',
             lastVisit: '2016-03-22T00:15:46.757Z',
+            email: 'lex@lex.corp',
           }
         ])
       })
@@ -88,12 +92,15 @@ describe('database business logic', () => {
 
   it('can create new users', () => {
     return database.createUser({
-      username: 'logan'
+      username: 'logan',
+      email: 'wolverine@xmen.org',
+      password: 'hustlergottahustle',
     }, testRedis)
       .then(user => {
         expect(user).toEqual({
           id: 6,
           username: 'logan',
+          email: 'wolverine@xmen.org',
           privateChannel: 'user:6'
         })
       })

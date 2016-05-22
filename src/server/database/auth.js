@@ -7,13 +7,10 @@ export const authenticate = (credentials, redis) =>
       return createUser(credentials, redis)
     }
 
-    return getUser(userId).then(userData => {
-      console.log(userData)
-    })
-
-    return {
+    return getUser(userId, redis).then(userData => ({
       id: userId,
-      username: credentials.username,
+      username: userData.username,
+      email: userData.email,
       privateChannel: `user:${userId}`
-    }
+    }))
   })
