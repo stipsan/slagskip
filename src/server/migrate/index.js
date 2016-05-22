@@ -23,8 +23,8 @@ redis.hgetall('migrations').then(migrated => {
 })
 .then(migrated => {
   if (migrated.length) {
-    console.log('Ran following migrations:', migrated)
+    return console.log('Ran following migrations:', migrated)
   }
-  console.log('Nothing to migrate')
+  return console.log('Nothing to migrate')
 })
 .catch(reason => console.error('Migration failed:', reason))
