@@ -8,23 +8,27 @@ import { routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { combineReducers } from 'redux-immutable'
 
+import sagas from '../sagas'
 import socket from '../middleware/socket'
 
 const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
 
 const rootReducer = combineReducers(reducers)
 const initialState = ImmutableMap()
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(thunk, socket, routerMiddlewareWithHistory),
+    applyMiddleware(sagaMiddleware, thunk, socket, routerMiddlewareWithHistory),
     'production' !== process.env.NODE_ENV && global.devToolsExtension ?
       global.devToolsExtension() :
       f => f
   )
 )
+
+sagaMiddleware.run(sagas)
 
 if ('production' !== process.env.NODE_ENV && module.hot) {
   // Enable Webpack hot module replacement for reducers

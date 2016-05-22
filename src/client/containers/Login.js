@@ -9,10 +9,10 @@ const mapStateToProps = state => ({
   isRequestPending: 'pending' === state.getIn(['auth', 'authState']),
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators([
+const mapDispatchToProps = dispatch => bindActionCreators({
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-], dispatch)
+}, dispatch)
 
 // move this to grandchildren so the root don't need to subscribe to Redux
 export default connect(
