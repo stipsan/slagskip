@@ -13,4 +13,14 @@ describe('client/actions', () => {
       payload: credentials
     })
   })
+
+  it('createUserWithEmailAndPassword', () => {
+    const credentials = {email: 'foo@bar.baz', password: 'not null', username: 'Foo Bar'}
+    expect(
+      actions.createUserWithEmailAndPassword(credentials)
+    ).toEqual({
+      type: types.CREATE_USER_REQUESTED,
+      payload: credentials
+    })
+  })
 })

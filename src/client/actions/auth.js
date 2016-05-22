@@ -1,10 +1,9 @@
 import {
   AUTHENTICATE_REQUESTED,
-  AUTHENTICATE_SUCCESS,
-  AUTHENTICATE_FAILURE,
   DEAUTHENTICATE_REQUESTED,
   DEAUTHENTICATE_SUCCESS,
   DEAUTHENTICATE_FAILURE,
+  CREATE_USER_REQUESTED,
 } from '../constants/ActionTypes'
 import { CALL_SOCKET } from '../middleware/socket'
 
@@ -20,10 +19,6 @@ export const logoutUser = () => ({
 })
 
 export const createUserWithEmailAndPassword = credentials => ({
-  [CALL_SOCKET]: {
-    types: [AUTHENTICATE_REQUESTED, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE],
-    data: {
-      credentials,
-    }
-  }
+  type: CREATE_USER_REQUESTED,
+  payload: credentials,
 })
