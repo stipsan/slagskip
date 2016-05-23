@@ -2,7 +2,7 @@ import createStore from '../../store'
 import { actions } from './actions'
 
 export const createDispatcher = (socket, database, redis) => {
-  const store = createStore()
+  const store = createStore(socket, database, redis)
 
   const handleDispatch = ({ type, ...action }, callback) => {
     if (!actions.hasOwnProperty(type)) {

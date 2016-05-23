@@ -14,7 +14,7 @@ new SocketCluster({
   wsEngine: 'uws',
   workerController: path.resolve(__dirname, 'worker.js'),
   // Using babel transpiling instead of babel-register, for performance
-  // initController:path.resolve(__dirname, 'init.js'),
+  initController: 'production' !== process.env.NODE_ENV && path.resolve(__dirname, 'init.js'),
   logLevel: process.env.LOG_LEVEL ? Number(process.env.LOG_LEVEL) : 3,
   authKey: process.env.AUTH_KEY,
   origins: process.env.ORIGINS || '*:*',

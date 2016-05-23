@@ -4,7 +4,7 @@
   "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
-    "start": "babel-node lib/server/web",
+    "start": "babel-node src/server/web",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
     "heroku-postbuild": "npm run bundle && npm run babel",

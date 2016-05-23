@@ -5,11 +5,6 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
 } from '../constants/ActionTypes'
-import { emit } from './socket'
-
-export function *watchAuthState() {
-  console.log('Hello Sagas!') // eslint-disable-line
-}
 
 export function *createUser(credentials) {
   try {
@@ -24,6 +19,7 @@ export function *watchUserCreate() {
   console.log('Watching user signup') // eslint-disable-line
   while (true) { // eslint-disable-line no-constant-condition
     const { payload } = yield take(CREATE_USER_REQUESTED)
+    console.log('create user is requested')
     yield fork(createUser, payload)
   }
 }
