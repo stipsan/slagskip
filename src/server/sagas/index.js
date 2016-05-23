@@ -1,8 +1,7 @@
 import { watchUserCreate } from './auth.js'
 
-export default function *sagas() {
-  console.log(...arguments)
+export default function *sagas(...args) {
   yield [
-    watchUserCreate(),
+    watchUserCreate(...args),
   ]
 }

@@ -5,11 +5,12 @@ export const createDispatcher = (socket, database, redis) => {
   const store = createStore(socket, database, redis)
 
   const handleDispatch = ({ type, ...action }, callback) => {
+    // action does not exist as a thunk, pass it to the sagas
     if (!actions.hasOwnProperty(type)) {
-      console.error(`Action type ${type} does not exist!`)
-      return callback(404, `Action type ${type} does not exist!`)
+      // send a ping back so the client knows the request is queued
+      callback()
+      return store.dispatch({ type, ...action })
     }
-
     return store.dispatch(actions[type](action, callback, socket, database, redis))
   }
 

@@ -58,7 +58,10 @@ export const connect = (store, next, action, callSocket) => {
       }
     })
 
-    socket.on('dispatch', dispatchAction => next(dispatchAction))
+    socket.on('dispatch', (dispatchAction, callback) => {
+      next(dispatchAction)
+      return callback()
+    })
   }
 
   return memoizedSocket

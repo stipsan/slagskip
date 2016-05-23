@@ -13,8 +13,7 @@ export function *watchAuthState() {
 
 export function *createUser(credentials) {
   try {
-    const token = yield call(emit, CREATE_USER_REQUESTED, credentials)
-    yield put({ type: CREATE_USER_SUCCESS, token })
+    yield call(emit, CREATE_USER_REQUESTED, credentials)
   } catch (error) {
     yield put({ type: CREATE_USER_FAILURE, error })
   }
@@ -23,7 +22,7 @@ export function *createUser(credentials) {
 export function *watchUserCreate() {
   console.log('Watching user signup') // eslint-disable-line
   while (true) { // eslint-disable-line no-constant-condition
-    const { payload } = yield take(CREATE_USER_REQUESTED)
-    yield fork(createUser, payload)
+    const { payload: credentials } = yield take(CREATE_USER_REQUESTED)
+    yield fork(createUser, credentials)
   }
 }
