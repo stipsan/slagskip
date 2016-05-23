@@ -14,15 +14,15 @@ const successAuthToken = {
 }
 const failureCredentials = { username: 'wonderwoman' }
 
-describe('database business logic', () => {
-  it('returns authToken data on successfull authentication', () => {
+describe('server/database', () => {
+  it('authenticate', () => {
     return database.authenticate(successCredentials, testRedis)
       .then(authToken => {
         expect(authToken).toEqual(successAuthToken)
       })
   })
 
-  it('fetches authenticated viewer', () => {
+  it('getViewer', () => {
     return database.getViewer(successAuthToken, testRedis)
       .then(viewer => {
         expect(viewer).toEqual({
@@ -33,7 +33,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('fetches list of friends', () => {
+  it('getFriends', () => {
     return database.getFriends({
       id: successAuthToken.id,
       friends: ['2', '4', '5'],
@@ -70,7 +70,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('can create new users', () => {
+  it('createUser', () => {
     return database.createUser({
       username: 'logan',
       email: 'wolverine@xmen.org',
@@ -86,7 +86,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('updates users online status', () => {
+  it('setViewerOffline', () => {
     const lastVisit = new Date().toJSON()
     return database.setViewerOffline(successAuthToken, lastVisit, testRedis)
       .then(user => {
@@ -98,7 +98,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('should send invites to friends', () => {
+  it('viewerSendsInvite', () => {
     const friendId = 2
     return database.viewerSendsInvite(successAuthToken, friendId, testRedis)
       .then(friend => {
@@ -109,7 +109,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('can cancel invites sent to friend', () => {
+  it('viewerCancelsInvite', () => {
     const friendId = 2
     return database.viewerCancelsInvite(successAuthToken, friendId, testRedis)
       .then(friend => {
@@ -120,7 +120,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('can accept received invites', () => {
+  it('viewerAcceptsInvite', () => {
     const friendId = 4
     return database.viewerAcceptsInvite(successAuthToken, friendId, testRedis)
       .then(friend => {
@@ -131,7 +131,7 @@ describe('database business logic', () => {
       })
   })
 
-  it('can decline received invites', () => {
+  it('viewerDeclinesInvite', () => {
     const friendId = 5
     return database.viewerDeclinesInvite(successAuthToken, friendId, testRedis)
       .then(friend => {
@@ -141,4 +141,11 @@ describe('database business logic', () => {
         })
       })
   })
+
+  it('newGame')
+  it('loadGame')
+  it('joinGame')
+  it('saveTurn')
+  it('getGames')
+  it('getUser')
 })

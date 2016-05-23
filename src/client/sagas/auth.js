@@ -2,7 +2,6 @@ import { fork, call, take, put } from 'redux-saga/effects'
 
 import {
   CREATE_USER_REQUESTED,
-  CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
 } from '../constants/ActionTypes'
 import { emit } from './socket'
