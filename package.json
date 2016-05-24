@@ -149,7 +149,7 @@
     "foreman": "1.4.1",
     "growl": "1.9.2",
     "istanbul": "1.0.0-alpha.2",
-    "mocha": "2.4.5",
+    "mocha": "2.5.2",
     "mocha-eslint": "2.0.2",
     "webpack-dev-server": "2.1.0-beta.0"
   }
