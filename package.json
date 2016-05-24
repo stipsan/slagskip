@@ -126,7 +126,7 @@
     "redux-saga": "0.10.4",
     "redux-thunk": "2.1.0",
     "sass-loader": "3.2.0",
-    "socketcluster": "4.6.1",
+    "socketcluster": "4.6.2",
     "socketcluster-client": "4.3.17",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
