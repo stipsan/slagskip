@@ -138,7 +138,7 @@
   "devDependencies": {
     "babel-eslint": "6.0.4",
     "coveralls": "2.11.9",
-    "css-modules-require-hook": "4.0.0",
+    "css-modules-require-hook": "4.0.1",
     "eslint": "2.10.2",
     "eslint-config-stipsan": "^1.0.2",
     "eslint-formatter-pretty": "0.2.2",
