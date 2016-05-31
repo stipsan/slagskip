@@ -11,7 +11,7 @@
     "hmr": "webpack-dev-server",
     "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --require babel-polyfill --recursive -t 20000",
     "test:watch": "npm test -- --watch --growl",
-    "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 20000 --compilers js:./test/css-modules-compiler.js --require babel-polyfill -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 20000 --compilers js:./test/css-modules-compiler.js --require babel-polyfill -R spec --recursive --no-exit test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
     "coverage": "npm run coveralls && npm run codeclimate",
     "reboot-workers": "kill -SIGUSR2",
