@@ -12,8 +12,8 @@ import sagas from '../sagas'
 export default (socket, database, redis) => {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = applyMiddleware(thunk, sagaMiddleware)
-  const enhancer = 'production' !== process.env.NODE_ENV ?
-    compose(middleware, devTools()) : middleware
+  const enhancer = 'production' === process.env.NODE_ENV ?
+    middleware : compose(middleware, devTools({ realtime: true }))
   const store = createStore(
     combineReducers(reducers),
     ImmutableMap(),
