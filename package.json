@@ -9,6 +9,7 @@
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
     "heroku-postbuild": "npm run bundle && npm run babel",
     "hmr": "webpack-dev-server",
+    "remotedev": "remotedev --hostname=localhost --port=8000",
     "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --require babel-polyfill --recursive -t 20000",
     "test:watch": "npm test -- --watch --growl",
     "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 20000 --compilers js:./test/css-modules-compiler.js --require babel-polyfill -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
@@ -154,7 +155,7 @@
     "growl": "1.9.2",
     "istanbul": "1.0.0-alpha.2",
     "mocha": "2.5.3",
-    "remotedev-server": "^0.1.2",
+    "remotedev-server": "0.1.2",
     "webpack-dev-server": "2.1.0-beta.0"
   }
 }
