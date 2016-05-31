@@ -7,7 +7,11 @@ import {
 import { emit } from './socket'
 
 export function *watchAuthState() {
-  console.log('Hello Sagas!') // eslint-disable-line
+  console.log('Watching auth state')
+  while (true) { // eslint-disable-line no-constant-condition
+    const { payload: credentials } = yield take(CREATE_USER_REQUESTED)
+    yield fork(createUser, credentials)
+  }
 }
 
 export function *createUser(credentials) {
@@ -15,13 +19,5 @@ export function *createUser(credentials) {
     yield call(emit, CREATE_USER_REQUESTED, credentials)
   } catch (error) {
     yield put({ type: CREATE_USER_FAILURE, error })
-  }
-}
-
-export function *watchUserCreate() {
-  console.log('Watching user signup') // eslint-disable-line
-  while (true) { // eslint-disable-line no-constant-condition
-    const { payload: credentials } = yield take(CREATE_USER_REQUESTED)
-    yield fork(createUser, credentials)
   }
 }

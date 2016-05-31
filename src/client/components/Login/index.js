@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { Link } from 'react-router'
 
 import cx from './style.scss'
 
@@ -162,7 +163,7 @@ export default class Login extends Component {
         <nav className={cx('footer-tabs')}>
           <div className={cx('container')}>
             <ul>
-              <li><a>{'About'}</a></li>
+              <li><Link to="/about">{'About'}</Link></li>
             </ul>
           </div>
         </nav>
