@@ -5,3 +5,5 @@ env:
   es6: true
 parser: babel-eslint
 extends: stipsan
+ecmaFeatures:
+  modules: true
