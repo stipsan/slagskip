@@ -8,7 +8,7 @@ import { routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { combineReducers } from 'redux-immutable'
 
-import sagas from '../sagas'
+import sagas from '../sagas/root'
 import socket from '../middleware/socket'
 
 const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
