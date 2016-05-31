@@ -6,8 +6,9 @@ engines:
       - javascript
   eslint:
     enabled: true
+    channel: "eslint-2"
   fixme:
-    enabled: false
+    enabled: true
 ratings:
   paths:
   - "**.js"
