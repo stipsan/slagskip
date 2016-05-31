@@ -3,9 +3,6 @@ language: node_js
 node_js:
 - "6.2"
 after_script: npm run coverage
-addons:
-  code_climate:
-    repo_token: be662185acd1fa423350262b2cc391da59e240f6b0e8afd3648295d03c11a272
 notifications:
   email: false
 env:
