@@ -20,6 +20,11 @@ export const SOCKET_ERROR = 'SOCKET_ERROR'
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
 
+// check if email exists
+export const CHECK_EMAIL_EXISTS_REQUESTED = 'CHECK_EMAIL_EXISTS_REQUESTED'
+export const CHECK_EMAIL_EXISTS_SUCCESS = 'CHECK_EMAIL_EXISTS_SUCCESS'
+export const CHECK_EMAIL_EXISTS_FAILURE = 'CHECK_EMAIL_EXISTS_FAILURE'
+
 // attempt login
 export const AUTHENTICATE_REQUESTED = 'AUTHENTICATE_REQUESTED'
 // login succeeded, payload contains friends, invities and game matches

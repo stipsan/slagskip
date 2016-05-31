@@ -5,6 +5,7 @@ export const createDispatcher = (socket, database, redis) => {
   const store = createStore(socket, database, redis)
 
   const handleDispatch = ({ type, ...action }, callback) => {
+    console.log('Handle dispatch', type)
     // action does not exist as a thunk, pass it to the sagas
     if (!actions.hasOwnProperty(type)) {
       // send a ping back so the client knows the request is queued

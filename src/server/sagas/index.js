@@ -1,7 +1,8 @@
-import { watchUserCreate } from './auth.js'
+import { watchUserCreate, watchAuthenticateRequest } from './auth.js'
 
 export default function *sagas(...args) {
   yield [
     watchUserCreate(...args),
+    watchAuthenticateRequest(...args),
   ]
 }
