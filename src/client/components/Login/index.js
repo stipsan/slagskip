@@ -3,6 +3,7 @@ import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
 import cx from './style.scss'
+import Form from './Form'
 
 const placeholderLabel = 'E-mail'
 
@@ -74,12 +75,12 @@ export default class Login extends Component {
     const activityLabel = shouldRegister ? 'Creating user…' : 'Logging in…'
 
     return <section className={cx('hero')}>
-      <div className={cx('hero-header')}>
+      <div className={cx('hero-head')}>
         <div className={cx('container')}>
           <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
         </div>
       </div>
-      <div className={cx('hero-content')}>
+      <div className={cx('hero-body')}>
         <div className={cx('container')}>
           <div className={cx('card')}>
             <header className={cx('card-header')}>

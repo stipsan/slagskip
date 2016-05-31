@@ -1,8 +1,8 @@
 import { Component, PropTypes } from 'react'
 
-import CheckEmail from './stepsCheckEmail'
-import Login from './stepsLogin'
-import Register from './stepsRegister'
+import CheckEmail from './steps/CheckEmail'
+import Login from './steps/Login'
+import Register from './steps/Register'
 
 class Form extends Component {
 

@@ -83,8 +83,8 @@
 .hero-content {
   composes: hero-content from 'bulma';
 }
-.hero-header {
-  composes: hero-header from 'bulma';
+.hero-head {
+  composes: hero-head from 'bulma';
 
   text-align: center;
   margin-top: 10px;
