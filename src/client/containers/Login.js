@@ -11,6 +11,7 @@ import {
 const mapStateToProps = state => ({
   isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
   isRequestPending: 'pending' === state.getIn(['auth', 'authState']),
+  isCheckingEmail: 'emailcheck' === state.getIn(['auth', 'authState']),
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

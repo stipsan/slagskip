@@ -1,11 +1,13 @@
 // Override variables here
 // You can add new ones or update existing ones:
 
-$grey-darker: #222324;
-$grey-dark: #69707a;
-$grey: #aeb1b5;
-$grey-light: #d3d6db;
-$grey-lighter: #f5f7fa;
+$black: #111 !default
+$grey-darker: #222324 !default
+$grey-dark: #69707a !default
+$grey: #aeb1b5 !default
+$grey-light: #d3d6db !default
+$grey-lighter: #f5f7fa !default
+$white: #fff !default
 
 $blue: #42afe3;
 $green: #97cd76;
@@ -50,7 +52,7 @@ $success: $green;
 $warning: $yellow;
 $danger: $red;
 
-$dark: $grey-darker;
+$dark: $grey-dark;
 
 $text: $grey-dark;
 

@@ -20,10 +20,6 @@ export default class Login extends Component {
     username: '',
   }
 
-  componentDidMount() {
-    this._input.focus()
-  }
-
   shouldComponentUpdate = shouldComponentUpdate
 
   handleSubmit = event => {
@@ -119,23 +115,7 @@ export default class Login extends Component {
               onSubmit={handleSubmit}
               style={{ opacity: isRequestPending ? 0.4 : 1 }}
             >
-              <p className={cx('control')}>
-                <input
-                  className={cx('input-email')}
-                  ref={c => {
-                    this._input = c
-                  }}
-                  type="email"
-                  autoComplete="email"
-                  placeholder={placeholderLabel}
-                  disabled={isRequestPending}
-                  value={email}
-                  onChange={handleEmailChange}
-                  minLength={3}
-                  required
-                  autoFocus
-                />
-              </p>
+
               <p className={cx('control')}>
                 <input
                   className={cx('input-password')}

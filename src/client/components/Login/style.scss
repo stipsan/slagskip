@@ -72,13 +72,17 @@
   transition: opacity 300ms ease-out;
 }
 
+.form {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .container {
   composes: container from 'bulma';
 }
 .hero {
-  composes: hero is-bold is-fullheight from 'bulma';
-
-  background-color: #ECF0F1;
+  composes: hero is-bold is-dark is-fullheight from 'bulma';
 }
 .hero-content {
   composes: hero-content from 'bulma';
@@ -126,6 +130,15 @@
 }
 .input-email, .input-username, .input-password {
   composes: input is-large from 'bulma';
+}
+.is-danger {
+  composes: is-danger from 'bulma';
+}
+.help {
+  composes: help from 'bulma';
+}
+.next-button {
+  composes: button is-large from 'bulma';
 }
 
 .control {

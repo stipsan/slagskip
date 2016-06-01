@@ -7,7 +7,7 @@ import Register from './steps/Register'
 class Form extends Component {
 
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    handleCheckEmail: PropTypes.func.isRequired
   }
 
   state = {
