@@ -20,11 +20,11 @@ export function *watchAuthState() {
     const checkEmailAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
 
     console.log('checkEmailAction', checkEmailAction)
-    yield fork(handleEmit, checkEmailAction, CHECK_EMAIL_EXISTS_SUCCESS, CHECK_EMAIL_EXISTS_FAILURE)
-    console.log('checkEmailAction', checkEmailAction)
-    const { payload: { email, exists } } = yield take(CHECK_EMAIL_EXISTS_SUCCESS)
-    console.log('results of the email check', email, exists)
-    const { payload: credentials } = yield take(AUTHENTICATE_REQUESTED)
+    const test = yield call(handleEmit, checkEmailAction, CHECK_EMAIL_EXISTS_SUCCESS, CHECK_EMAIL_EXISTS_FAILURE)
+    console.log('CHECK_EMAIL_EXISTS_SUCCESS', test)
+    // const { payload: { email, exists } } = yield take(CHECK_EMAIL_EXISTS_SUCCESS)
+    // console.log('results of the email check', email, exists)
+    // const { payload: credentials } = yield take(AUTHENTICATE_REQUESTED)
     // yield fork(createUser, credentials)
   }
 }

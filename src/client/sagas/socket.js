@@ -1,6 +1,6 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { channel, delay } from 'redux-saga'
-import { take, fork, call, put, race } from 'redux-saga/effects'
+import { take, fork, call, put, race, cps } from 'redux-saga/effects'
 
 import { socket } from '../services'
 
@@ -19,21 +19,31 @@ export function emit(action) {
 )
 }
 
-export function *waitForServerResponse(successType, failureType) {
-  yield take([successType, failureType])
+export function *emitEvent(action) {
+  console.log('emitEWv', action)
+  yield cps([socket, socket.emit], 'request', action)
 }
 
 export function *handleEmit(action, successType, failureType) {
   socket.emit('request', action)
   yield put(startSubmit('login'))
+  console.log('after start submit')
+  yield fork(emitEvent, action)
+  console.log('socket emit')
+
+
+  console.log('before race', successType, failureType)
   const results = yield race({
-    // success: take(successType),
-    // failure: take(failureType),
-    response: call(waitForServerResponse, successType, failureType),
+    success: take(successType),
+    failure: take(failureType),
+    // response: call(waitForServerResponse, successType, failureType),
     timeout: call(delay, 10000),
   })
-  yield put(stopSubmit('login'))
   console.log('handleEmit', results)
+  yield put(stopSubmit('login'))
+  console.log('stopSubmit')
+
+
 }
 
 
