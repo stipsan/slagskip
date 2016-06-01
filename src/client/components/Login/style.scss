@@ -145,6 +145,17 @@
   padding: 5px 10px;
   border-radius: 2px;
   border: 1px hsla(0, 0%, 0%, 0.15) solid;
+
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  transition: all 150ms ease-out;
+  transform: translateY(6px);
+  z-index: 1;
+  opacity: 0;
 }
 .is-marginless {
   composes: is-marginless from 'bulma';
@@ -169,26 +180,14 @@
   composes: button is-fullwidth is-large is-primary from 'bulma';
 }
 
+
 .control {
   composes: control from 'bulma';
   transition: all 150ms ease-out;
   position: relative;
-
-  .help {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    transition: all 150ms ease-out;
-    transform: translateY(6px);
-    z-index: 1;
-    opacity: 0;
-  }
 }
 .control.error .help {
-    transform: translateY(36px);
+    transform: translateY(46px);
     opacity: 1;
 }
 .control input {
