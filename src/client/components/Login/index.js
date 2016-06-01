@@ -69,7 +69,12 @@ export default class Login extends Component {
       password,
       username,
      } = this.state
-    const { isRequestPending } = this.props
+    const {
+      isRequestPending,
+      checkIfEmailExists,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+    } = this.props
 
     const buttonLabel = shouldRegister ? 'Register' : 'Login'
     const activityLabel = shouldRegister ? 'Creating user…' : 'Logging in…'
@@ -81,6 +86,11 @@ export default class Login extends Component {
         </div>
       </div>
       <div className={cx('hero-body')}>
+        <Form
+          handleCheckEmail={checkIfEmailExists}
+          handleLogin={signInWithEmailAndPassword}
+          handleRegister={createUserWithEmailAndPassword}
+        />
         <div className={cx('container')}>
           <div className={cx('card')}>
             <header className={cx('card-header')}>

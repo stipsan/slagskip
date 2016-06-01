@@ -1,5 +1,5 @@
 import { PropTypes } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form/immutable'
 
 import validate from '../validate'
 
