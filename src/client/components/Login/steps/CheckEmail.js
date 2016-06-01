@@ -1,43 +1,43 @@
 import { PropTypes } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form/immutable'
 
+import cx from '../style.scss'
 import validate from '../validate'
 
-const WizardFormFirstPage = props => {
-  const { handleSubmit } = props
+const CheckEmailForm = props => {
+  const { handleSubmit, submitting } = props
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>{'First Name'}</label>
-        <Field name="firstName" component={firstName =>
-          <div>
-            <input type="text" {...firstName} placeholder="First Name" />
-            {firstName.touched && firstName.error && <span>{firstName.error}</span>}
-          </div>
-        } />
-      </div>
-      <div>
-        <label>{'Last Name'}</label>
-        <Field name="lastName" component={lastName =>
-          <div>
-            <input type="text" {...lastName} placeholder="Last Name" />
-            {lastName.touched && lastName.error && <span>{lastName.error}</span>}
-          </div>
-        } />
-      </div>
-      <div>
-        <button type="submit" className="next">Next</button>
-      </div>
+    <form onSubmit={handleSubmit} className={cx('form')}>
+      <Field name="email" component={email =>
+        <p className={cx('control')}>
+          <input
+            type="email"
+            {...email}
+            placeholder="E-mail"
+            className={cx('input-email', { 'is-danger': email.touched && email.error })}
+            autoComplete="email"
+            readOnly={submitting}
+            autoFocus
+          />
+          {email.touched && email.error &&
+            <span className={cx('help', 'is-danger')}>{email.error}</span>
+          }
+        </p>
+      } />
+      <p className={cx('control')}>
+        <button className={cx('next-button', { 'is-loading': submitting })} type="submit">{'Next'}</button>
+      </p>
     </form>
   )
 }
 
-WizardFormFirstPage.propTypes = {
+CheckEmailForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({
-  form: 'wizard',              // <------ same form name
-  destroyOnUnmount: false,     // <------ preserve form data
+  form: 'login',
+  destroyOnUnmount: false,
   validate
-})(WizardFormFirstPage)
+})(CheckEmailForm)

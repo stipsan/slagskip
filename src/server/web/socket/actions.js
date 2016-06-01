@@ -1,5 +1,4 @@
 import {
-  authenticateRequest,
   deauthenticateRequest,
   friendsRequest,
   gameInvite,
@@ -14,7 +13,6 @@ import {
   joinGame,
 } from '../../actions'
 import {
-  AUTHENTICATE_REQUESTED,
   DEAUTHENTICATE_REQUESTED,
   FRIENDS_REQUESTED,
   GAME_INVITE_REQUESTED,
@@ -31,7 +29,6 @@ import {
 
 // @TODO perhaps this belongs in a custom middleware
 export const actions = {
-  [AUTHENTICATE_REQUESTED]: authenticateRequest,
   [DEAUTHENTICATE_REQUESTED]: deauthenticateRequest,
   [FRIENDS_REQUESTED]: friendsRequest,
   [GAME_INVITE_REQUESTED]: gameInvite,

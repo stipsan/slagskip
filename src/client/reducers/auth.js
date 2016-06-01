@@ -10,6 +10,8 @@ import {
   RECEIVE_DEAUTHENTICATE,
   AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
+  CHECK_EMAIL_EXISTS_REQUESTED,
+  CHECK_EMAIL_EXISTS_SUCCESS,
 } from '../constants/ActionTypes'
 
 // state can be authenticated, pending or unauthenticated
@@ -17,6 +19,7 @@ import {
 const initialState = ImmutableMap({
   isAuthenticated: false,
   authState: 'unauthenticated',
+  doesEmailExist: null,
   authToken: null
 })
 
@@ -56,6 +59,14 @@ export const auth = (state = initialState, action) => {
       authState: 'authenticated',
       isAuthenticated: true,
       authToken: action.authToken,
+    })
+  case CHECK_EMAIL_EXISTS_REQUESTED:
+    return state.merge({
+      authState: 'emailcheck',
+    })
+  case CHECK_EMAIL_EXISTS_SUCCESS:
+    return state.merge({
+      doesEmailExist: Boolean(action.payload.doesEmailExist),
     })
   default:
     return state

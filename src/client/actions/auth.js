@@ -4,6 +4,7 @@ import {
   DEAUTHENTICATE_SUCCESS,
   DEAUTHENTICATE_FAILURE,
   CREATE_USER_REQUESTED,
+  CHECK_EMAIL_EXISTS_REQUESTED,
 } from '../constants/ActionTypes'
 import { CALL_SOCKET } from '../middleware/socket'
 
@@ -16,6 +17,11 @@ export const logoutUser = () => ({
   [CALL_SOCKET]: {
     types: [DEAUTHENTICATE_REQUESTED, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
   }
+})
+
+export const checkIfEmailExists = form => ({
+  type: CHECK_EMAIL_EXISTS_REQUESTED,
+  payload: { email: form.get('email') }
 })
 
 export const createUserWithEmailAndPassword = credentials => ({

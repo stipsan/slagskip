@@ -1,3 +1,4 @@
+export { reducer as form } from 'redux-form/immutable'
 export * from './auth'
 export * from './board'
 export * from './bots'

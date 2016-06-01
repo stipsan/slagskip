@@ -1,43 +1,69 @@
 import { PropTypes } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form/immutable'
 
+import cx from '../style.scss'
 import validate from '../validate'
 
-const WizardFormFirstPage = props => {
-  const { handleSubmit } = props
+const CheckEmailForm = props => {
+  const { handleSubmit, submitting } = props
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>{'First Name'}</label>
-        <Field name="firstName" component={firstName =>
-          <div>
-            <input type="text" {...firstName} placeholder="First Name" />
-            {firstName.touched && firstName.error && <span>{firstName.error}</span>}
-          </div>
-        } />
-      </div>
-      <div>
-        <label>{'Last Name'}</label>
-        <Field name="lastName" component={lastName =>
-          <div>
-            <input type="text" {...lastName} placeholder="Last Name" />
-            {lastName.touched && lastName.error && <span>{lastName.error}</span>}
-          </div>
-        } />
-      </div>
-      <div>
-        <button type="submit" className="next">Next</button>
-      </div>
+    <form onSubmit={handleSubmit} className={cx('form')}>
+      <Field name="email" component={email =>
+        <p className={cx('control', 'is-marginless', 'no-bottom-rounded-border')}>
+          <input
+            type="email"
+            {...email}
+            placeholder="E-mail"
+            className={cx('input-email', { 'is-danger': email.touched && email.error })}
+            autoComplete="email"
+          />
+          {email.touched && email.error &&
+            <span className={cx('help', 'is-danger')}>{email.error}</span>
+          }
+        </p>
+      } />
+      <Field name="password" component={password =>
+        <p className={cx('control', 'is-marginless', 'no-rounded-border')}>
+          <input
+            type="password"
+            {...password}
+            placeholder="Password"
+            className={cx('input-password', { 'is-danger': password.touched && password.error })}
+            autoComplete="password"
+            autoFocus
+          />
+          {password.touched && password.error &&
+            <span className={cx('help', 'is-danger')}>{password.error}</span>
+          }
+        </p>
+      } />
+      <Field name="username" component={username =>
+        <p className={cx('control', 'no-top-rounded-border')}>
+          <input
+            type="username"
+            {...username}
+            placeholder="Username"
+            className={cx('input-username', { 'is-danger': username.touched && username.error })}
+            autoComplete="name"
+          />
+          {username.touched && username.error &&
+            <span className={cx('help', 'is-danger')}>{username.error}</span>
+          }
+        </p>
+      } />
+      <p className={cx('control')}>
+        <button className={cx('register-button', { 'is-loading': submitting })} type="submit">{'Sign up'}</button>
+      </p>
     </form>
   )
 }
 
-WizardFormFirstPage.propTypes = {
+CheckEmailForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
-  form: 'wizard',              // <------ same form name
-  destroyOnUnmount: false,     // <------ preserve form data
+  form: 'login',
+  destroyOnUnmount: false,
   validate
-})(WizardFormFirstPage)
+})(CheckEmailForm)

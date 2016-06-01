@@ -13,3 +13,5 @@ export const authenticate = (credentials, redis) =>
       privateChannel: `user:${userId}`
     }))
   })
+
+export const checkEmailExist = (email, redis) => redis.hexists('emails', email)
