@@ -68,9 +68,9 @@ export default class Login extends Component {
       checkIfEmailExists,
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
+      doesEmailExist,
     } = this.props
 
-    const buttonLabel = shouldRegister ? 'Register' : 'Login'
 
     return <section className={cx('hero')}>
       <div className={cx('hero-head')}>
@@ -80,6 +80,7 @@ export default class Login extends Component {
       </div>
       <div className={cx('hero-body')}>
         <Form
+          doesEmailExist={doesEmailExist}
           handleCheckEmail={checkIfEmailExists}
           handleLogin={signInWithEmailAndPassword}
           handleRegister={createUserWithEmailAndPassword}

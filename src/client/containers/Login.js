@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
   isRequestPending: 'pending' === state.getIn(['auth', 'authState']),
   isCheckingEmail: 'emailcheck' === state.getIn(['auth', 'authState']),
+  doesEmailExist: state.getIn(['auth', 'doesEmailExist']),
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

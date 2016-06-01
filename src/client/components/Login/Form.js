@@ -19,12 +19,12 @@ class Form extends Component {
   previousPage = () => this.setState({ page: this.state.page - 1 })
 
   render() {
-    const { onSubmit } = this.props
+    const { handleCheckEmail, handleLogin, handleRegister, doesEmailExist } = this.props
     const { page } = this.state
     return <div>
-      {1 === page && <CheckEmail onSubmit={this.nextPage} />}
-      {2 === page && <Login previousPage={this.previousPage} onSubmit={this.nextPage} />}
-      {3 === page && <Register previousPage={this.previousPage} onSubmit={onSubmit} />}
+      {null === doesEmailExist && <CheckEmail onSubmit={handleCheckEmail} />}
+      {true === doesEmailExist && <Login onSubmit={handleLogin} />}
+      {false === doesEmailExist && <Register onSubmit={handleRegister} />}
     </div>
 
   }

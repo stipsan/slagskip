@@ -19,9 +19,9 @@ export const logoutUser = () => ({
   }
 })
 
-export const checkIfEmailExists = email => ({
+export const checkIfEmailExists = form => ({
   type: CHECK_EMAIL_EXISTS_REQUESTED,
-  payload: { email }
+  payload: { email: form.get('email') }
 })
 
 export const createUserWithEmailAndPassword = credentials => ({
