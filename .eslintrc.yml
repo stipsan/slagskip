@@ -7,3 +7,5 @@ parser: babel-eslint
 extends: stipsan
 ecmaFeatures:
   modules: true
+rules:
+  no-console: off

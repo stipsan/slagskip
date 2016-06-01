@@ -11,7 +11,7 @@ import {
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
-import { emit } from './socket'
+import { emit, handleEmit } from './socket'
 
 export function *createUser(credentials, socket, database, redis) {
   try {
@@ -55,9 +55,9 @@ export function *checkEmailExist(email, socket, database, redis) {
   try {
     const doesEmailExist = yield call(database.checkEmailExist, email, redis)
     console.log('doesEmailExist', doesEmailExist)
-    yield call(emit, socket, CHECK_EMAIL_EXISTS_SUCCESS, { payload: { doesEmailExist } })
+    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: { doesEmailExist } })
   } catch (error) {
-    yield call(emit, socket, CHECK_EMAIL_EXISTS_FAILURE, { payload: { error: error.message } })
+    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_FAILURE, payload: { error: error.message } })
   }
 }
 

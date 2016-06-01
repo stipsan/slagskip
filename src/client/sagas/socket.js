@@ -1,5 +1,5 @@
 import { startSubmit, stopSubmit } from 'redux-form'
-import { channel, delay } from 'redux-saga'
+import { channel, delay, eventChannel } from 'redux-saga'
 import { take, fork, call, put, race, cps } from 'redux-saga/effects'
 
 import { socket } from '../services'
@@ -19,13 +19,13 @@ export function emit(action) {
 )
 }
 
+// @FIXME client and server can likely share a lot of code in the socket sagas
 export function *emitEvent(action) {
-  console.log('emitEWv', action)
   yield cps([socket, socket.emit], 'request', action)
 }
 
 export function *handleEmit(action, successType, failureType) {
-  socket.emit('request', action)
+  console.log('handleEmit')
   yield put(startSubmit('login'))
   console.log('after start submit')
   yield fork(emitEvent, action)
@@ -46,25 +46,32 @@ export function *handleEmit(action, successType, failureType) {
 
 }
 
-
-export function* watchSocket() {
-  // create a channel to queue incoming requests
-  const chan = yield call(channel)
-
-  // create 3 worker 'threads'
-  for (let i = 0; i < 3; i++) {
-    yield fork(handleRequest, chan)
-  }
-
-  while (true) { // eslint-disable-line
-    const { payload } = yield take('REQUEST')
-    yield put(chan, payload)
-  }
+export function handleSocketEvent(event) {
+  console.log('socket is listening to:', event)
+  return eventChannel(listener => {
+    const handleClientRequest = (action, cb) => {
+      // notify the client that the request is received
+      cb() // eslint-disable-line
+      console.log('handleSocketEvent:', event, action)
+      listener(action)
+    }
+    socket.on(event, handleClientRequest)
+    return () => {
+      console.log('socket stopped listening to:', event)
+      socket.off(event, handleClientRequest)
+    }
+  })
 }
 
-function* handleRequest(chan) {
-  while (true) { // eslint-disable-line
-    const payload = yield take(chan)
-    // process the request
+export function *watchServerRequests() {
+  const chan = yield call(handleSocketEvent, 'request')
+  try {
+    while (true) { // eslint-disable-line
+      let action = yield take(chan)
+      console.log('watchServerRequests:', action)
+      yield put(action)
+    }
+  } finally {
+    console.log('watchServerRequests terminated')
   }
 }

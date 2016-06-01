@@ -18,7 +18,7 @@ export const createDispatcher = (socket, database, redis) => {
     cb()
   }
 
-  socket.on('request', handleDispatch)
+  socket.on('dispatch', handleDispatch)
 
   // pass the handler so it can be used in socket.off('dispatch') in the caller
   return handleDispatch
