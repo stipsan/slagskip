@@ -12,6 +12,7 @@ describe('auth reducer', () => {
       {
         authState: 'unauthenticated',
         authToken: null,
+        doesEmailExist: null,
         isAuthenticated: false
       }
     )
