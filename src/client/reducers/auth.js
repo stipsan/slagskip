@@ -66,7 +66,7 @@ export const auth = (state = initialState, action) => {
     })
   case CHECK_EMAIL_EXISTS_SUCCESS:
     return state.merge({
-      doesEmailExist: action.payload.doesEmailExist,
+      doesEmailExist: Boolean(action.payload.doesEmailExist),
     })
   default:
     return state

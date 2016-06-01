@@ -131,11 +131,28 @@
 .input-email, .input-username, .input-password {
   composes: input is-large from 'bulma';
 }
+.input-password, .input-username {
+  box-shadow: none;
+}
 .is-danger {
   composes: is-danger from 'bulma';
 }
 .help {
   composes: help from 'bulma';
+}
+.is-marginless {
+  composes: is-marginless from 'bulma';
+}
+.no-rounded-border input {
+  border-radius: 0px;
+}
+.no-bottom-rounded-border input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.no-top-rounded-border input {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 .next-button, .login-button, .register-button {
   composes: button is-fullwidth is-large is-primary from 'bulma';

@@ -1,5 +1,6 @@
-import { channel } from 'redux-saga'
-import { take, fork, call, put } from 'redux-saga/effects'
+import { startSubmit, stopSubmit } from 'redux-form'
+import { channel, delay } from 'redux-saga'
+import { take, fork, call, put, race } from 'redux-saga/effects'
 
 import { socket } from '../services'
 
@@ -18,16 +19,21 @@ export function emit(action) {
 )
 }
 
+export function *waitForServerResponse(successType, failureType) {
+  yield take([successType, failureType])
+}
+
 export function *handleEmit(action, successType, failureType) {
-  console.log('handleEmit', action, successType, failureType)
-  try {
-    const payload = yield call(emit, action)
-    console.log('payload', payload)
-    yield put({ type: successType, payload })
-    return payload
-  } catch (error) {
-    yield put({ type: failureType, error })
-  }
+  socket.emit('request', action)
+  yield put(startSubmit('login'))
+  const results = yield race({
+    // success: take(successType),
+    // failure: take(failureType),
+    response: call(waitForServerResponse, successType, failureType),
+    timeout: call(delay, 10000),
+  })
+  yield put(stopSubmit('login'))
+  console.log('handleEmit', results)
 }
 
 
