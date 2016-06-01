@@ -139,18 +139,28 @@
 }
 .help {
   composes: help from 'bulma';
+  background: hsla(0, 0%, 0%, .5);
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: 1px hsla(0, 0%, 0%, 0.15) solid;
 }
 .is-marginless {
   composes: is-marginless from 'bulma';
 }
 .no-rounded-border input {
-  border-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.no-bottom-rounded-border + .control input {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 .no-bottom-rounded-border input {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-.no-top-rounded-border input {
+.no-rounded-border + .control input {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
@@ -160,6 +170,9 @@
 
 .control {
   composes: control from 'bulma';
+}
+.control input {
+  transition: border-radius 100ms ease-out;
 }
 .button-login {
   composes: button is-large is-primary is-fullwidth from 'bulma';

@@ -7,6 +7,13 @@ const validate = values => {
   }
   if (!values.has('username')) {
     errors.username = 'Required'
+  } else if (2 > values.get('username').trim().length) {
+    errors.username = 'Username must be 2 characters or more'
+  }
+  if (!values.has('password')) {
+    errors.password = 'Required'
+  } else if (6 > values.get('password').length) {
+    errors.password = 'Password must be longer than 6 characters'
   }
   return errors
 }
