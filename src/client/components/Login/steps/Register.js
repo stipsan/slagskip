@@ -10,7 +10,7 @@ const CheckEmailForm = props => {
     <form onSubmit={handleSubmit} className={cx('form')}>
       <Field name="email" component={email =>
         <p
-          className={cx('control', 'is-marginless', { 'no-bottom-rounded-border': !email.error })}
+          className={cx('control', 'control-email', 'is-marginless', { 'no-bottom-rounded-border': !email.error, error: email.error })}
         >
           <input
             type="email"

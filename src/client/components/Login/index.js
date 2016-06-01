@@ -79,12 +79,14 @@ export default class Login extends Component {
         </div>
       </div>
       <div className={cx('hero-body')}>
-        <Form
-          doesEmailExist={doesEmailExist}
-          handleCheckEmail={checkIfEmailExists}
-          handleLogin={signInWithEmailAndPassword}
-          handleRegister={createUserWithEmailAndPassword}
-        />
+        <div className={cx('container')}>
+          <Form
+            doesEmailExist={doesEmailExist}
+            handleCheckEmail={checkIfEmailExists}
+            handleLogin={signInWithEmailAndPassword}
+            handleRegister={createUserWithEmailAndPassword}
+          />
+        </div>
       </div>
       <div className={cx('hero-footer')}>
         <nav className={cx('footer-tabs')}>

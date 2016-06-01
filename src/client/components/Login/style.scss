@@ -74,6 +74,7 @@
 
 .form {
   max-width: 300px;
+  min-height: 300px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -84,8 +85,8 @@
 .hero {
   composes: hero is-bold is-dark is-fullheight from 'bulma';
 }
-.hero-content {
-  composes: hero-content from 'bulma';
+.hero-body {
+  composes: hero-body from 'bulma';
 }
 .hero-head {
   composes: hero-head from 'bulma';
@@ -170,9 +171,30 @@
 
 .control {
   composes: control from 'bulma';
+  transition: all 150ms ease-out;
+  position: relative;
+
+  .help {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    transition: all 150ms ease-out;
+    transform: translateY(6px);
+    z-index: 1;
+    opacity: 0;
+  }
+}
+.control.error .help {
+    transform: translateY(36px);
+    opacity: 1;
 }
 .control input {
   transition: border-radius 100ms ease-out;
+  position: relative;
+  z-index: 2;
 }
 .button-login {
   composes: button is-large is-primary is-fullwidth from 'bulma';
@@ -185,6 +207,29 @@
   margin-top: 2em;
   display: block;
 
+}
+.control-email.error ~ * {
+  transform: translateY(34px);
+}
+
+.enter, .leave {
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+}
+.enter {
+  opacity: 0;
+
+}
+.leave {
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+:global(.enter.lightSpeedIn) {
+  opacity: 1;
 }
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/

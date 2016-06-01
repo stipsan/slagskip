@@ -56,7 +56,7 @@ export default class App extends Component {
       transitionEnterTimeout={transitionDuration}
       transitionLeaveTimeout={transitionDuration}
       transitionAppearTimeout={transitionDuration}
-    >
+           >
       {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
       {shouldOverlayLogin && <Login />}
       {isCurrentlyLoading && <Loading />}
