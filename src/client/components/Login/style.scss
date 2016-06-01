@@ -137,8 +137,8 @@
 .help {
   composes: help from 'bulma';
 }
-.next-button {
-  composes: button is-large from 'bulma';
+.next-button, .login-button, .register-button {
+  composes: button is-fullwidth is-large is-primary from 'bulma';
 }
 
 .control {
@@ -151,13 +151,10 @@
   composes: is-loading from 'bulma';
 }
 .forgot-password {
-  composes: button is-link from 'bulma';
-
+  composes: subtitle is-6	has-text-centered from 'bulma';
+  margin-top: 2em;
   display: block;
-  max-width: 600px;
-  background: transparent;
-  margin-left: auto;
-  margin-right: auto;
+
 }
 
 // @TODO http://codepen.io/WebSonick/pen/vjmgu/

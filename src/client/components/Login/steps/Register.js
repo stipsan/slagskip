@@ -16,7 +16,7 @@ const CheckEmailForm = props => {
             placeholder="E-mail"
             className={cx('input-email', { 'is-danger': email.touched && email.error })}
             autoComplete="email"
-            data-is-touched={email.touched}
+            readOnly={submitting}
             autoFocus
           />
           {email.touched && email.error &&
@@ -24,8 +24,23 @@ const CheckEmailForm = props => {
           }
         </p>
       } />
+      <Field name="password" component={password =>
+        <p className={cx('control')}>
+          <input
+            type="password"
+            {...password}
+            placeholder="Password"
+            className={cx('input-email', { 'is-danger': password.touched && password.error })}
+            autoComplete="password"
+            autoFocus
+          />
+          {password.touched && password.error &&
+            <span className={cx('help', 'is-danger')}>{password.error}</span>
+          }
+        </p>
+      } />
       <p className={cx('control')}>
-        <button className={cx('next-button')} type="submit">{'Next'}</button>
+        <button className={cx('register-button')} type="submit">{'Sign up'}</button>
       </p>
     </form>
   )

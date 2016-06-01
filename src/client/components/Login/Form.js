@@ -14,7 +14,7 @@ class Form extends Component {
     page: 1
   }
 
-  nextPage = () => this.setState({ page: this.state.page + 1 })
+  nextPage = () => setTimeout(() => this.setState({ page: this.state.page + 1 }), 3000)
 
   previousPage = () => this.setState({ page: this.state.page - 1 })
 

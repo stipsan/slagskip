@@ -5,7 +5,7 @@ import cx from '../style.scss'
 import validate from '../validate'
 
 const CheckEmailForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit, submitting } = props
   return (
     <form onSubmit={handleSubmit} className={cx('form')}>
       <Field name="email" component={email =>
@@ -16,7 +16,7 @@ const CheckEmailForm = props => {
             placeholder="E-mail"
             className={cx('input-email', { 'is-danger': email.touched && email.error })}
             autoComplete="email"
-            data-is-touched={email.touched}
+            readOnly={submitting}
             autoFocus
           />
           {email.touched && email.error &&
@@ -25,7 +25,7 @@ const CheckEmailForm = props => {
         </p>
       } />
       <p className={cx('control')}>
-        <button className={cx('next-button')} type="submit">{'Next'}</button>
+        <button className={cx('next-button', { 'is-loading': submitting })} type="submit">{'Next'}</button>
       </p>
     </form>
   )
@@ -33,6 +33,7 @@ const CheckEmailForm = props => {
 
 CheckEmailForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 }
 
 export default reduxForm({

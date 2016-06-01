@@ -15,6 +15,8 @@ export function *watchAuthState() {
     console.log('waiting for connection')
     yield take(SOCKET_SUCCESS)
     console.log('connected')
+    const checkEmailAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
+    console.log('checkEmailAction', checkEmailAction)
     const { payload: { email, exists } } = yield take(CHECK_EMAIL_EXISTS_SUCCESS)
     console.log('results of the email check', email, exists)
     const { payload: credentials } = yield take(AUTHENTICATE_REQUESTED)
