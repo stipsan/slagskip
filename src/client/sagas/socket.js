@@ -1,7 +1,10 @@
 import { startSubmit, stopSubmit } from 'redux-form'
-import { channel, delay, eventChannel } from 'redux-saga'
-import { take, fork, call, put, race, cps } from 'redux-saga/effects'
+import { delay, eventChannel } from 'redux-saga'
+import { take, fork, call, put, race, cps, actionChannel } from 'redux-saga/effects'
 
+import {
+  SOCKET_EMIT,
+} from '../constants/ActionTypes'
 import { socket } from '../services'
 
 // @TODO turn this into a saga that can deal with timeouts and network issues
@@ -24,7 +27,8 @@ export function *emitEvent(action) {
   yield cps([socket, socket.emit], 'request', action)
 }
 
-export function *handleEmit(action, successType, failureType) {
+export function *handleEmit(action) {
+  const { successType, failureType } = action.payload
   console.log('handleEmit')
   yield put(startSubmit('login'))
   console.log('after start submit')
@@ -36,6 +40,7 @@ export function *handleEmit(action, successType, failureType) {
   const results = yield race({
     success: take(successType),
     failure: take(failureType),
+    // response: take([successType, failureType]),
     // response: call(waitForServerResponse, successType, failureType),
     timeout: call(delay, 10000),
   })
@@ -67,7 +72,7 @@ export function *watchServerRequests() {
   const chan = yield call(handleSocketEvent, 'request')
   try {
     while (true) { // eslint-disable-line
-      let action = yield take(chan)
+      const action = yield take(chan)
       console.log('watchServerRequests:', action)
       yield put(action)
     }
@@ -75,3 +80,17 @@ export function *watchServerRequests() {
     console.log('watchServerRequests terminated')
   }
 }
+
+export function *watchSocketEmits() {
+  console.log('1- Create a channel for request actions', SOCKET_EMIT)
+  const requestChan = yield actionChannel(SOCKET_EMIT)
+  console.log('we got a channel')
+  while (true) { // eslint-disable-line
+    console.log('2- take from the channel')
+    const { payload } = yield take(requestChan)
+    console.log('3- Note that we\'re using a blocking call', payload)
+    // yield call(handleRequest, payload)
+  }
+}
+
+// function* handleRequest(payload) { ... }

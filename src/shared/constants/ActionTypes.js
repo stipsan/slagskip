@@ -19,6 +19,8 @@ export const SOCKET_ERROR = 'SOCKET_ERROR'
 // allow manual trigger of reconnect w/o full page reload or waiting for timeout
 export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
+// signal the socket saga we want the socket to emit
+export const SOCKET_EMIT = 'SOCKET_EMIT'
 
 // check if email exists
 export const CHECK_EMAIL_EXISTS_REQUESTED = 'CHECK_EMAIL_EXISTS_REQUESTED'
