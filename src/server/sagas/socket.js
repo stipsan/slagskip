@@ -1,4 +1,4 @@
-import { eventChannel } from 'redux-saga'
+import { eventChannel, delay } from 'redux-saga'
 import { take, put, call, cps, fork } from 'redux-saga/effects'
 
 // @TODO turn this into a saga that can deal with timeouts and network issues
@@ -42,7 +42,7 @@ export function handleSocketEventChannel(event, socket) {
 export function *watchClientRequests(socket, database, redis) {
   const chan = yield call(handleSocketEventChannel, 'request', socket)
   try {
-    while (true) {
+    while (true) { // eslint-disable-line
       let action = yield take(chan)
       console.log('watchClientRequests:', action)
       yield put(action)

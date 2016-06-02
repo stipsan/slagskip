@@ -14,21 +14,21 @@ import {
 export function *watchAuthState() {
   while (true) { // eslint-disable-line no-constant-condition
     // @FIXME yield take(SOCKET_SUCCESS)
-    console.log('connected')
+    console.log('watchAuthState', '1. connected')
     const checkEmailAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
+    console.log('watchAuthState', '2. checkEmailAction', checkEmailAction)
     const { successType } = checkEmailAction.payload
+    console.log('watchAuthState', '3. successType', successType)
     yield put(startSubmit('login'))
-    yield put(checkEmailAction)
-    console.log('checkEmailAction', checkEmailAction)
-    const test = yield call(handleEmit, checkEmailAction)
-    console.log('CHECK_EMAIL_EXISTS_SUCCESS', test)
-
+    console.log('watchAuthState', '4. startSubmit')
+    const emitCheckEmailAction = { type: SOCKET_EMIT, payload: checkEmailAction }
+    console.log('watchAuthState', '5. emitCheckEmailAction', emitCheckEmailAction)
+    const test = yield put(emitCheckEmailAction)
+    console.log('watchAuthState', '6. yield put(emitCheckEmailAction)', test)
+    yield take(successType)
+    console.log('watchAuthState', '7. yield take(successType)', successType)
     yield put(stopSubmit('login'))
-    const createUserAction = yield take(CREATE_USER_REQUESTED)
-    yield put(startSubmit('login'))
-    // const { payload: { email, exists } } = yield take(CHECK_EMAIL_EXISTS_SUCCESS)
-    // console.log('results of the email check', email, exists)
-    // const { payload: credentials } = yield take(AUTHENTICATE_REQUESTED)
-    // yield fork(createUser, credentials)
+
+
   }
 }

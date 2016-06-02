@@ -1,4 +1,3 @@
-import { startSubmit, stopSubmit } from 'redux-form'
 import { delay, eventChannel } from 'redux-saga'
 import { take, fork, call, put, race, cps, actionChannel } from 'redux-saga/effects'
 
@@ -7,50 +6,7 @@ import {
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-// @TODO turn this into a saga that can deal with timeouts and network issues
-export function emit(action) {
-  return new Promise((resolve, reject) =>
-    socket.emit('dispatch', action, (err, data) => {
-      console.log('socket is dispatching', action)
-      if (err || !data) {
-        console.log('socket error', err || {})
-        return reject(err || {})
-      }
-      console.log('socket success', data)
-      return resolve(data)
-    })
-)
-}
-
-// @FIXME client and server can likely share a lot of code in the socket sagas
-export function *emitEvent(action) {
-  yield cps([socket, socket.emit], 'request', action)
-}
-
-export function *handleEmit(action) {
-  const { successType, failureType } = action.payload
-  console.log('handleEmit')
-  yield put(startSubmit('login'))
-  console.log('after start submit')
-  yield fork(emitEvent, action)
-  console.log('socket emit')
-
-
-  console.log('before race', successType, failureType)
-  const results = yield race({
-    success: take(successType),
-    failure: take(failureType),
-    // response: take([successType, failureType]),
-    // response: call(waitForServerResponse, successType, failureType),
-    timeout: call(delay, 10000),
-  })
-  console.log('handleEmit', results)
-  yield put(stopSubmit('login'))
-  console.log('stopSubmit')
-
-
-}
-
+global.test = socket
 export function handleSocketEvent(event) {
   console.log('socket is listening to:', event)
   return eventChannel(listener => {
@@ -81,6 +37,31 @@ export function *watchServerRequests() {
   }
 }
 
+
+// @FIXME client and server can likely share a lot of code in the socket sagas
+export function *emitEvent(action) {
+
+  yield cps([socket, socket.emit], 'request', action)
+}
+
+export function *handleEmit(action) {
+  const { successType, failureType } = action.payload
+
+
+  yield fork(emitEvent, action)
+
+
+  const results = yield race({
+    success: take(successType),
+    failure: take(failureType),
+    // response: take([successType, failureType]),
+    // response: call(waitForServerResponse, successType, failureType),
+    pingTimeout: take(),
+    pongTimeout: call(delay, 10000),
+  })
+  console.log('emitEvent results', results)
+}
+
 export function *watchSocketEmits() {
   console.log('1- Create a channel for request actions', SOCKET_EMIT)
   const requestChan = yield actionChannel(SOCKET_EMIT)
@@ -89,7 +70,7 @@ export function *watchSocketEmits() {
     console.log('2- take from the channel')
     const { payload } = yield take(requestChan)
     console.log('3- Note that we\'re using a blocking call', payload)
-    // yield call(handleRequest, payload)
+    yield call(handleEmit, payload)
   }
 }
 
