@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'
+
+import Setup from '../components/Setup'
 import {
   addItem,
   moveItem,
@@ -8,7 +10,6 @@ import {
   loadGame,
   joinGame
 } from '../actions'
-import Setup from '../components/Setup'
 
 const mapStateToProps = state => ({
   bots: state.get('bots'),
@@ -21,7 +22,7 @@ const mapStateToProps = state => ({
   versus: state.getIn(['setup', 'versus']),
   gameId: state.getIn(['game', 'id']),
   gameState: state.getIn(['game', 'gameState']),
-  isValid: state.getIn(['board', 'grid']).count(item => item === 0) === 79,
+  isValid: 79 === state.getIn(['board', 'grid']).count(item => 0 === item),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -31,15 +32,15 @@ const mapDispatchToProps = dispatch => ({
   moveItem: (type, startIndex, y) => {
     dispatch(moveItem(type, startIndex, y))
   },
-  rotateItem: (type) => {
+  rotateItem: type => {
     dispatch(rotateItem(type))
   },
   loadGame: id => {
     dispatch(loadGame(id))
   },
   fetchFriends: () => dispatch(fetchFriends()),
-  newGame: (versus, board) => dispatch(newGame({versus, board})),
-  joinGame: (game, board) => dispatch(joinGame({game, board})),
+  newGame: (versus, board) => dispatch(newGame({ versus, board })),
+  joinGame: (game, board) => dispatch(joinGame({ game, board })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Setup)

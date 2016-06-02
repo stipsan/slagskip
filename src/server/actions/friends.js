@@ -1,4 +1,3 @@
-import invariant from 'invariant'
 import {
   FRIENDS_SUCCESS,
   FRIENDS_FAILURE,
@@ -13,12 +12,12 @@ export const friendsRequest = (
 ) => (dispatch, getState) => {
   const authToken = socket.getAuthToken()
   const friendIds = getState().getIn(['viewer', 'friendIds'])
-  const invites   = getState().getIn(['viewer', 'invites'])
+  const invites = getState().getIn(['viewer', 'invites'])
   return database.getFriends({
-      id: authToken.id,
-      friends: friendIds,
-      invites
-    }, redis)
+    id: authToken.id,
+    friends: friendIds,
+    invites
+  }, redis)
     .then(friends => {
       callback(null, { type: FRIENDS_SUCCESS, friends })
     }).catch(error => {

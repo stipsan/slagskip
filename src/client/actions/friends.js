@@ -1,14 +1,14 @@
-import { CALL_SOCKET } from '../middleware/socket'
 import {
-  FRIENDS_REQUEST,
+  FRIENDS_REQUESTED,
   FRIENDS_SUCCESS,
   FRIENDS_FAILURE,
 } from '../constants/ActionTypes'
+import { CALL_SOCKET } from '../middleware/socket'
 
 export function fetchFriends() {
   return {
     [CALL_SOCKET]: {
-      types: [ FRIENDS_REQUEST, FRIENDS_SUCCESS, FRIENDS_FAILURE ]
+      types: [FRIENDS_REQUESTED, FRIENDS_SUCCESS, FRIENDS_FAILURE]
     },
   }
 }

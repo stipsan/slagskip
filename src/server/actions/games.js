@@ -1,4 +1,3 @@
-import invariant from 'invariant'
 import {
   GAMES_SUCCESS,
   GAMES_FAILURE,
@@ -12,25 +11,24 @@ export const gamesRequest = (
   redis
 ) => (dispatch, getState) => {
   const authToken = socket.getAuthToken()
-  const games     = getState().getIn(['viewer', 'games'])
+  const games = getState().getIn(['viewer', 'games'])
   return database.getGames({
-      id: authToken.id,
-      games,
-    }, redis)
+    id: authToken.id,
+    games,
+  }, redis)
     .then(fetchedGames => {
-      const games = fetchedGames.map(game => {
+      const mappedGames = fetchedGames.map(game => {
         const isViewerFirst = game.players[0] === authToken.id
         const isFriendFirst = game.players[1] === authToken.id
 
-        let gameState = isViewerFirst ? 
-          (game.boards.length > 1 ? 'ready' : 'waiting') :
-          (game.boards.length > 1 ? 'ready' : 'setup')
+        const waitingState = isViewerFirst ? 'waiting' : 'setup'
+        let gameState = 1 < game.boards.length ? 'ready' : waitingState
 
-        if(game.scores.indexOf(21) !== -1) {
-          if(isViewerFirst) {
-            gameState = game.scores[0] === 21 && game.scores[1] !== 21 ? 'victory' : 'defeat'
+        if (-1 !== game.scores.indexOf(21)) {
+          if (isViewerFirst) {
+            gameState = 21 === game.scores[0] && 21 !== game.scores[1] ? 'victory' : 'defeat'
           } else {
-            gameState = game.scores[1] === 21 ? 'victory' : 'defeat'
+            gameState = 21 === game.scores[1] ? 'victory' : 'defeat'
           }
         }
 
@@ -44,7 +42,7 @@ export const gamesRequest = (
           isFriendFirst,
         }
       })
-      callback(null, { type: GAMES_SUCCESS, games })
+      callback(null, { type: GAMES_SUCCESS, games: mappedGames })
     }).catch(error => {
       console.error(GAMES_FAILURE, error)
       callback(GAMES_FAILURE, error)

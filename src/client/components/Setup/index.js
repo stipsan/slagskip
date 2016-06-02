@@ -1,14 +1,13 @@
+import shallowCompare from 'react-addons-shallow-compare'
+import DocumentTitle from 'react-document-title'
+import { shuffle } from 'lodash'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import DocumentTitle from 'react-document-title'
-import shallowCompare from 'react-addons-shallow-compare'
-import Avatar from 'react-user-avatar'
-import { shuffle } from 'lodash'
 
 import cx from './style.scss'
-import { Grid, SetupCanvas, Item } from '../Board'
-import Navbar from '../Navbar'
 import Loading from '../Loading'
+import Navbar from '../Navbar'
+import { Grid, SetupCanvas, Item } from '../Board'
 
 const {
   Drag,
@@ -19,30 +18,6 @@ const {
   XS,
   DragPreview
 } = Item
-
-// @TODO merge duplicated code
-const defaultColors = [
-  '#1abc9c',
-  '#2ecc71',
-  '#3498db',
-  '#9b59b6',
-  '#34495e',
-  '#16a085',
-  '#27ae60',
-  '#2980b9',
-  '#8e44ad',
-  '#2c3e50',
-  '#f1c40f',
-  '#e67e22',
-  '#e74c3c',
-  '#ecf0f1',
-  '#95a5a6',
-  '#f39c12',
-  '#d35400',
-  '#c0392b',
-  '#bdc3c7',
-  '#7f8c8d'
-]
 
 const types = [
   ['xl', 5, <XL />],
@@ -57,162 +32,180 @@ const types = [
 
 const incDefaultIndex = (previousIndex, type, items, size) => {
 
-  if(items.getIn([type, 1]) !== -1) {
+  if (-1 !== items.getIn([type, 1])) {
     return [previousIndex, 0]
   }
-
-  const nextIndex = previousIndex + size
 
   const previousRemainder = previousIndex % 10
   const nextRemainder = previousRemainder + size
 
   const nextRow = (Math.floor(previousIndex / 10) * 10) + 11
-  const incrementedIndex = nextRemainder > 9 ?
+  const incrementedIndex = 9 < nextRemainder ?
     nextRow :
     previousIndex
   return [incrementedIndex, size]
-  const sanitizedIndex = incrementedIndex + (
-    incrementedIndex % 10 < 1 ?
-    1 :
-    incrementedIndex % 10 > 8 ? 
-    2 :
-    0
-  )
-
-  return sanitizedIndex
 }
 
 class Setup extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   }
-  
-  handleNewGame = event => {
-    event.preventDefault()
-    
-    this.props.newGame(this.props.routeParams.versus, this.props.board)
+
+  static propTypes = {
+    addItem: PropTypes.func.isRequired,
+    board: PropTypes.shape({
+      grid: PropTypes.arrayOf(PropTypes.number),
+    }),
+    bots: PropTypes.array.isRequired,
+    fetchFriends: PropTypes.func.isRequired,
+    friends: PropTypes.array,
+    friendsTotal: PropTypes.number.isRequired,
+    gameId: PropTypes.number,
+    isValid: PropTypes.bool.isRequired,
+    items: PropTypes.array.isRequired,
+    joinGame: PropTypes.func.isRequired,
+    loadGame: PropTypes.func.isRequired,
+    moveItem: PropTypes.func.isRequired,
+    newGame: PropTypes.func.isRequired,
+    rotateItem: PropTypes.func.isRequired,
+    routeParams: PropTypes.shape({
+      game: PropTypes.number,
+      versus: PropTypes.number
+    }).isRequired,
+    versus: PropTypes.shape({
+      username: PropTypes.string
+    }),
   }
-  
-  handleJoinGame = event => {
-    event.preventDefault()
-    
-    this.props.joinGame(this.props.routeParams.game, this.props.board)
-  }
-  
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  }
-  
+
   componentWillMount() {
     this.types = shuffle(types)
   }
-  
+
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
-    
-    if(this.props.routeParams.game) {
+
+    if (this.props.routeParams.game) {
       this.props.loadGame(this.props.routeParams.game)
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    if(nextProps.friendsTotal !== this.props.friendsTotal) {
+    if (nextProps.friendsTotal !== this.props.friendsTotal) {
       nextProps.fetchFriends()
     }
-    
-    if(nextProps.gameId !== this.props.gameId && nextProps.gameId > 0 && nextProps.gameState === 'waiting') {
+
+    if (nextProps.gameId !== this.props.gameId &&
+        0 < nextProps.gameId && 'waiting' === nextProps.gameState) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
-    if(nextProps.gameState === 'ready' && !this.props.routeParams.versus && nextProps.gameId > 0) {
+    if ('ready' === nextProps.gameState && !this.props.routeParams.versus && 0 < nextProps.gameId) {
       this.context.router.push({ pathname: `/game/${nextProps.gameId}` })
     }
   }
-  
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  }
+
+  handleNewGame = event => {
+    event.preventDefault()
+
+    this.props.newGame(this.props.routeParams.versus, this.props.board)
+  }
+
+  handleJoinGame = event => {
+    event.preventDefault()
+
+    this.props.joinGame(this.props.routeParams.game, this.props.board)
+  }
+
   render() {
     const {
-      grid,
       items,
       addItem,
       moveItem,
       rotateItem,
-      username,
       friends,
       routeParams,
       isValid,
       bots,
     } = this.props
-    
-    if(!friends) return <Loading />
+
+    if (!friends) return <Loading />
 
     const versusId = routeParams.game ? this.props.versus : routeParams.versus
     const versus = friends.get(versusId) || bots.find(bot => bot.get('id') === versusId)
-    
-    if(!versus) return <Loading />
-    
+
+    if (!versus) return <Loading />
+
     const versusUsername = versus.get('username')
     const startGameButtonClassName = cx('startGame', {
       startGameDisabled: !isValid
     })
-    
+
     let defaultIndex = 111
-    
-    const navbarLeft = <Link to="/new" className={cx('linkToPrevous')}>
-      ❮ <span className={cx('buttonLabel')}>Back</span>
-    </Link>
+
+    const navbarLeft = (<Link to="/new" className={cx('linkToPrevous')}>
+      {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
+    </Link>)
     const navbarRight = routeParams.game ?
       <button
         disabled={!isValid}
         onClick={this.handleJoinGame}
         className={startGameButtonClassName}
       >
-        Join
-      </button> : 
-      routeParams.versus ?
-      <button
-        disabled={!isValid}
-        onClick={this.handleNewGame}
-        className={startGameButtonClassName}
-      >
-        Start
+        {'Join'}
       </button> :
-      false
+      routeParams.versus && (
+        <button
+          disabled={!isValid}
+          onClick={this.handleNewGame}
+          className={startGameButtonClassName}
+        >
+          {'Start'}
+        </button>
+      )
 
-    return <DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
+    return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className={cx('section')}>
         <Navbar left={navbarLeft} right={navbarRight}>
           <h1 className={cx('headerTitle')}>
-            You vs {versusUsername}
+            {`You vs ${versusUsername}`}
           </h1>
         </Navbar>
         <div className={cx('wrapper')}>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
-              {this.types.map(([type, size, component], index) => {
+              {this.types.map(([type, size, component]) => {
                 const [previousIndex, nextSize] = incDefaultIndex(defaultIndex, type, items, size)
                 defaultIndex = previousIndex + nextSize
-                return <Drag
-                  key={type}
-                  type={type}
-                  index={items.getIn([type, 1])}
-                  defaultIndex={previousIndex}
-                  size={size}
-                  rotateItem={rotateItem}
-                  rotated={items.getIn([type, 0])}
-              >
-                {component}
-              </Drag>})}
+
+                return (
+                  <Drag
+                    key={type}
+                    type={type}
+                    index={items.getIn([type, 1])}
+                    defaultIndex={previousIndex}
+                    size={size}
+                    rotateItem={rotateItem}
+                    rotated={items.getIn([type, 0])}
+                  >
+                    {component}
+                  </Drag>
+                )
+              })}
               <DragPreview name="item" />
             </Grid>
           </SetupCanvas>
         </div>
         <div></div>
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 

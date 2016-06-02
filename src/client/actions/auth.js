@@ -1,7 +1,30 @@
 import {
-  CHECK_CAPABILITIES,
-  SOCKET_REQUEST,
+  AUTHENTICATE_REQUESTED,
+  DEAUTHENTICATE_REQUESTED,
+  DEAUTHENTICATE_SUCCESS,
+  DEAUTHENTICATE_FAILURE,
+  CREATE_USER_REQUESTED,
+  CHECK_EMAIL_EXISTS_REQUESTED,
 } from '../constants/ActionTypes'
-import { replace } from 'react-router-redux'
+import { CALL_SOCKET } from '../middleware/socket'
 
-// @TODO use the react-router-redux action types directly instead of relying on redux-thunk for this
+export const signInWithEmailAndPassword = credentials => ({
+  type: AUTHENTICATE_REQUESTED,
+  payload: credentials,
+})
+
+export const logoutUser = () => ({
+  [CALL_SOCKET]: {
+    types: [DEAUTHENTICATE_REQUESTED, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
+  }
+})
+
+export const checkIfEmailExists = form => ({
+  type: CHECK_EMAIL_EXISTS_REQUESTED,
+  payload: { email: form.get('email') }
+})
+
+export const createUserWithEmailAndPassword = credentials => ({
+  type: CREATE_USER_REQUESTED,
+  payload: credentials,
+})

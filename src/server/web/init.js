@@ -3,6 +3,7 @@
 // and until the object spread operator that landed in chrome 49 lands in nodejs soon
 // as well as --harmony_default_parameters
 module.exports.run = () => {
+  /* eslint global-require: ["off"] */
   require('babel-register')({
     only: /shared|server/,
     plugins: [

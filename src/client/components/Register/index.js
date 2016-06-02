@@ -1,5 +1,4 @@
-function Register() {
-  return <section className="section section--register" />
-}
+
+const Register = () => <section className="section section--register" />
 
 export default Register

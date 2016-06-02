@@ -1,50 +1,52 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
-import FriendRow from './FriendRow'
+
 import cx from './style.scss'
+import FriendRow from './FriendRow'
 
 class Dashboard extends Component {
   static propTypes = {
+    fetchFriends: PropTypes.func.isRequired,
     friends: PropTypes.array.isRequired,
-    username: PropTypes.string.isRequired,
+    friendsTotal: PropTypes.number.isRequired,
   }
-  
-  shouldComponentUpdate = shouldComponentUpdate
-  
+
   componentDidMount() {
     const { friends, friendsTotal, fetchFriends } = this.props
 
-    if(friends.size !== friendsTotal) {
+    if (friends.size !== friendsTotal) {
       fetchFriends()
     }
   }
-  
+
+  shouldComponentUpdate = shouldComponentUpdate
+
   render() {
     const {
       friends,
       friendsTotal,
-      username,
       dispatch,
     } = this.props
-    const { handleLogout } = this
 
-    return <section className={cx('section')}>
-      {!friendsTotal && <h3>Nobody here yet but you!</h3>}
+    return (<section className={cx('section')}>
+      {!friendsTotal && <h3>{'Nobody here yet but you!'}</h3>}
       <table className={cx('users')}>
         <thead>
           <tr>
-            <th colSpan={3}>{friendsTotal} Online friends</th>
+            <th colSpan={3}>{`${friendsTotal} Online friends`}</th>
           </tr>
         </thead>
         <tbody>
-          {friends.map(friend => <FriendRow
-            key={friend.get('username')}
-            friend={friend}
-            dispatch={dispatch}
-          />)}
+          {friends.map(friend =>
+            <FriendRow
+              key={friend.get('username')}
+              friend={friend}
+              dispatch={dispatch}
+            />
+          )}
         </tbody>
       </table>
-    </section>
+    </section>)
   }
 }
 

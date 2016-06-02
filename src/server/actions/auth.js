@@ -1,4 +1,5 @@
 import invariant from 'invariant'
+
 import {
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
@@ -9,30 +10,30 @@ import {
 } from '../constants/ActionTypes'
 
 export const authenticateRequest = (
-  { username },
+  { credentials },
   callback,
   socket,
   database,
   redis
-) => (dispatch, getState) => {
-  return database.authenticate({ username }, redis)
+) => (dispatch, getState) => database.authenticate(credentials, redis)
     .then(authToken => {
-      // sc will send this data to the client 
+      // sc will send this data to the client
       socket.setAuthToken(authToken)
-      
+
       const successAction = {
         type: AUTHENTICATE_SUCCESS,
         authToken: socket.getAuthToken()
       }
 
       callback(null, successAction)
-      
+
       return database.getViewer(authToken, redis)
-    }).catch(error => {
-      console.error(AUTHENTICATE_FAILURE, error);
-      callback(AUTHENTICATE_FAILURE, error)
-      throw error
-    }).then(viewer => {
+    })
+    .catch(error => {
+      console.error(AUTHENTICATE_FAILURE, error)
+      return callback(AUTHENTICATE_FAILURE, error)
+    })
+    .then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
       invariant(viewer.invites, 'database.getViewer failed to return invites')
       invariant(viewer.games, 'database.getViewer failed to return games')
@@ -60,10 +61,10 @@ export const authenticateRequest = (
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
-    }).catch(error => {
-      console.error(error);
     })
-}
+    .catch(error => {
+      console.error(error)
+    })
 
 export const deauthenticateRequest = (
   action,
@@ -74,25 +75,25 @@ export const deauthenticateRequest = (
 ) => (dispatch, getState) => {
   const authToken = socket.getAuthToken()
   const lastVisit = new Date().toJSON()
-  return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
+  return database.setViewerOffline(authToken, lastVisit, redis)
     .then(offlineAuthToken => {
       const friendIds = getState().getIn(['viewer', 'friendIds'])
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
-        id: authToken.id,
+        id: offlineAuthToken.id,
         online: '0',
         lastVisit
       }
       friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
-      
-      socket.kickOut(`user:${authToken.id}`)
+
+      socket.kickOut(`user:${offlineAuthToken.id}`)
       socket.deauthenticate()
-      
-      callback(null, {type: DEAUTHENTICATE_SUCCESS, authToken })
+
+      callback(null, { type: DEAUTHENTICATE_SUCCESS, offlineAuthToken })
     }).catch(error => {
-      console.error(DEAUTHENTICATE_FAILURE, error);
+      console.error(DEAUTHENTICATE_FAILURE, error)
       callback(DEAUTHENTICATE_FAILURE, error)
     })
 }
@@ -103,12 +104,12 @@ export const broadcastNetworkStatus = (
   socket,
   database,
   redis
-) => (dispatch, getState) => {
+) => () => {
   const { id, lastVisit, online } = action
   return database.getViewer({ id }, redis)
     .then(viewer => {
       invariant(viewer.friendIds, 'database.getViewer failed to return friendIds')
-      
+
       const exchangeAction = {
         type: RECEIVE_FRIEND_NETWORK_STATUS,
         online,
@@ -118,9 +119,11 @@ export const broadcastNetworkStatus = (
       viewer.friendIds.forEach(friendId => {
         socket.exchange.publish(`user:${friendId}`, exchangeAction)
       })
-      
-      if(online === '0') {
+
+      if ('0' === online) {
         return database.setViewerOffline(socket.getAuthToken(), lastVisit, redis)
       }
+
+      return viewer
     })
 }

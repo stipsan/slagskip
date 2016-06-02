@@ -1,18 +1,17 @@
 import invariant from 'invariant'
-import { createUser } from './user'
 
-export const authenticate = (credentials, redis) => {
-  return redis.hget('users', credentials.username).then(userId => {
-    
-    //invariant(userId > 0, `No user with that username!`)
-    if(!userId) {
-      return createUser(credentials, redis)
-    }
-    
-    return {
+import { getUser } from './user'
+
+export const authenticate = (credentials, redis) =>
+  redis.hget('emails', credentials.email).then(userId => {
+    invariant(userId, 'User does not exist')
+
+    return getUser(userId, redis).then(userData => ({
       id: userId,
-      username: credentials.username,
+      username: userData.username,
+      email: userData.email,
       privateChannel: `user:${userId}`
-    }
+    }))
   })
-}
+
+export const checkEmailExist = (email, redis) => redis.hexists('emails', email)

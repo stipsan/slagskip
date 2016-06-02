@@ -1,4 +1,7 @@
+/* eslint strict: ["off"] */
 'use strict'
+
+const crypto = require('crypto')
 
 module.exports = [
   ['legacy', redis => redis.del(
@@ -9,27 +12,24 @@ module.exports = [
     ['setnx', 'game_next', 0]
   ]).exec()],
   ['games_expire', redis => new Promise(
-    (resolve, reject) => {
+    resolve/* @FIXME , reject */ => {
       const stream = redis.scanStream({ match: 'game:*' })
       stream.on('data', keys => {
         redis.multi(keys.map(key => ['expire', key, 72 * 60 * 60])).exec()
       })
-      stream.on('end', function () {
-        resolve()
-      })
+      stream.on('end', () => resolve())
     }
   )],
   ['games_set_key_rename', redis => new Promise(
-    (resolve, reject) => {
+    resolve/* @FIXME , reject */ => {
       const stream = redis.scanStream({ match: 'user:*:games' })
       stream.on('data', keys => {
         redis.multi(keys.map(key => [
           'rename', key, key.replace(':games', '').replace('user:', 'games:')
         ])).exec()
-      });
-      stream.on('end', function () {
-        resolve()
-      });
+      })
+      stream.on('end', () => resolve())
     }
-  )]
+  )],
+  ['gen_secret', redis => redis.setnx('secret', crypto.randomBytes(32).toString('hex'))]
 ]

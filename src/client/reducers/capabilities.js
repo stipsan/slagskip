@@ -1,7 +1,8 @@
+import { Map as ImmutableMap } from 'immutable'
+
 import {
   CHECK_CAPABILITIES
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   websocket: true,

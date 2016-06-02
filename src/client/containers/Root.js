@@ -2,17 +2,19 @@ import { PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+
+import About from '../components/About'
 import App from './App'
 import Dashboard from './Dashboard'
-import Setup from './Setup'
-import Game from './Game'
-import NewGame from './NewGame'
-import Games from './Games'
 import Friends from './Friends'
+import Game from './Game'
+import Games from './Games'
+import NewGame from './NewGame'
 import NotFound from '../components/NotFound'
+import Setup from './Setup'
 
 const Root = ({ store }) => {
-  
+
   // Create an enhanced history that syncs navigation events with the store
   const history = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: state => state.get('routing').toJS()
@@ -20,6 +22,7 @@ const Root = ({ store }) => {
 
   return <Provider store={store}>
     <Router history={history}>
+      <Route path="/about" component={About} />
       <Route component={App}>
         <Route path="/" component={Dashboard}>
           <IndexRoute component={Games} />
@@ -29,7 +32,7 @@ const Root = ({ store }) => {
         <Route path="/join/:game" component={Setup} />
         <Route path="/new" component={NewGame} />
         <Route path="/game/:game" component={Game} />
-        <Route path="*" component={NotFound}/>
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   </Provider>

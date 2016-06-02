@@ -1,40 +1,102 @@
 import { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import cx from './style.scss'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { Link } from 'react-router'
 
-const placeholderLabel = `Username, try 'Batman' or 'Superman'`
-const buttonLabel = 'Enter'
+import cx from './style.scss'
+import Form from './Form'
 
 export default class Login extends Component {
   static propTypes = {
-    onLogin: PropTypes.func.isRequired,
     isRequestPending: PropTypes.bool.isRequired,
-  };
+    signInWithEmailAndPassword: PropTypes.func.isRequired,
+    checkIfEmailExists: PropTypes.func.isRequired,
+  }
+
+  state = {
+    shouldRegister: false,
+    email: '',
+    password: '',
+    username: '',
+  }
+
+  shouldComponentUpdate = shouldComponentUpdate
 
   handleSubmit = event => {
     event.preventDefault()
 
-    this.props.onLogin(this._input.value)
-  }
-  
-  componentDidMount() {
-    this._input.focus()
+    const { shouldRegister, ...credentials } = this.state
+    this.props[shouldRegister ?
+      'createUserWithEmailAndPassword' :
+      'signInWithEmailAndPassword'
+    ](credentials)
   }
 
-  render(){
-    const { handleSubmit } = this
-    const { isRequestPending } = this.props
-    return <section className={cx('section')}>
-      <h1 className={cx('pendingMessage')} style={{opacity: isRequestPending ? 1 : 0}}>
-        Logging in…
-      </h1>
-      <form onSubmit={handleSubmit} style={{opacity: isRequestPending ? 0.4 : 1}}>
-        <input ref={(c) => this._input = c} placeholder={placeholderLabel} minLength={3} required={true} autoFocus={true} disabled={isRequestPending} />
-        <button type="submit" disabled={isRequestPending}>
-          {buttonLabel}
-        </button>
-      </form>
-      <div></div>
+  handleShouldRegister = event => {
+    event.preventDefault()
+
+    this.setState({ shouldRegister: true })
+  }
+
+  handleShouldLogin = event => {
+    event.preventDefault()
+
+    this.setState({ shouldRegister: false })
+  }
+
+  handleEmailChange = event => this.setState({ email: event.target.value })
+
+  handlePasswordChange = event => this.setState({ password: event.target.value })
+
+  handleUsernameChange = event => this.setState({ username: event.target.value })
+
+  render() {
+    const {
+      handleSubmit,
+      handleShouldLogin,
+      handleShouldRegister,
+      handleUsernameChange,
+      handleEmailChange,
+      handlePasswordChange,
+    } = this
+    const {
+      shouldRegister,
+      password,
+      username,
+     } = this.state
+    const {
+      isRequestPending,
+      checkIfEmailExists,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      doesEmailExist,
+    } = this.props
+
+
+    return <section className={cx('hero')}>
+      <div className={cx('hero-head')}>
+        <div className={cx('container')}>
+          <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
+        </div>
+      </div>
+      <div className={cx('hero-body')}>
+        <div className={cx('container')}>
+          <Form
+            doesEmailExist={doesEmailExist}
+            handleCheckEmail={checkIfEmailExists}
+            handleLogin={signInWithEmailAndPassword}
+            handleRegister={createUserWithEmailAndPassword}
+          />
+        </div>
+      </div>
+      <div className={cx('hero-footer')}>
+        <nav className={cx('footer-tabs')}>
+          <div className={cx('container')}>
+            <ul>
+              <li><Link to="/about">{'About'}</Link></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </section>
   }
 }

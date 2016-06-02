@@ -1,21 +1,25 @@
+import { Map as ImmutableMap } from 'immutable'
+import {
+  LOCATION_CHANGE
+} from 'react-router-redux'
+
 import {
   SOCKET_SUCCESS,
   RECEIVE_AUTH_STATE_CHANGE,
   AUTHENTICATE_FAILURE,
   RECEIVE_DEAUTHENTICATE,
-  AUTHENTICATE_REQUEST,
+  AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
+  CHECK_EMAIL_EXISTS_REQUESTED,
+  CHECK_EMAIL_EXISTS_SUCCESS,
 } from '../constants/ActionTypes'
-import {
-  LOCATION_CHANGE
-} from 'react-router-redux'
-import { Map as ImmutableMap } from 'immutable'
 
 // state can be authenticated, pending or unauthenticated
 
 const initialState = ImmutableMap({
   isAuthenticated: false,
   authState: 'unauthenticated',
+  doesEmailExist: null,
   authToken: null
 })
 
@@ -28,7 +32,10 @@ export const auth = (state = initialState, action) => {
     })
   case RECEIVE_AUTH_STATE_CHANGE:
     return state.merge({
-      isAuthenticated: action.newState === 'authenticated' || (action.newState === 'pending' && state.get('authState') === 'authenticated'),
+      isAuthenticated: 'authenticated' === action.newState || (
+        'pending' === action.newState &&
+        'authenticated' === state.get('authState')
+      ),
       authState: action.newState,
       authToken: action.authToken,
     })
@@ -43,7 +50,7 @@ export const auth = (state = initialState, action) => {
       authState: 'unauthenticated',
       authToken: null,
     })
-  case AUTHENTICATE_REQUEST:
+  case AUTHENTICATE_REQUESTED:
     return state.merge({
       authState: 'pending',
     })
@@ -52,6 +59,14 @@ export const auth = (state = initialState, action) => {
       authState: 'authenticated',
       isAuthenticated: true,
       authToken: action.authToken,
+    })
+  case CHECK_EMAIL_EXISTS_REQUESTED:
+    return state.merge({
+      authState: 'emailcheck',
+    })
+  case CHECK_EMAIL_EXISTS_SUCCESS:
+    return state.merge({
+      doesEmailExist: Boolean(action.payload.doesEmailExist),
     })
   default:
     return state

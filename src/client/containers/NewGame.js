@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { fetchFriends } from '../actions'
 
 import NewGame from '../components/NewGame'
+import { fetchFriends } from '../actions'
 
 const mapStateToProps = state => ({
   friends: state.getIn(['friends', 'list']),

@@ -1,19 +1,19 @@
-@import '../../style/_config';
+@import '../../style/_bulma';
 
 .hero {
-  composes: hero is-fullheight from '../../style/bulma.scss';
+  composes: hero is-fullheight from 'bulma';
   position: relative;
   z-index: 100;
   background: $grey-lighter;
 }
 .heroContent {
-  composes: hero-content from '../../style/bulma.scss';
+  composes: hero-content from 'bulma';
 }
 .container {
-  composes: container from '../../style/bulma.scss';
+  composes: container from 'bulma';
 }
 
 .title {
-  composes: subtitle is-3 from '../../style/bulma.scss';
+  composes: subtitle is-3 from 'bulma';
   text-align: center;
 }

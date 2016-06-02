@@ -1,4 +1,5 @@
-//@TODO make this a reusable middleware tailored socketcluster?
+// @TODO make this a reusable middleware tailored socketcluster?
+
 import { connect } from './connect'
 
 // Action key that carries API call info interpreted by this Redux middleware.
@@ -6,16 +7,16 @@ export const CALL_SOCKET = Symbol('Call ClusterSocket')
 
 export const createCallSocket = (store, next, action, socket) => {
   const callSocket = action[CALL_SOCKET]
-  if (typeof callSocket === 'undefined') {
+  if ('undefined' === typeof callSocket) {
     return next(action)
   }
 
   const { types, data: emitData } = callSocket
 
-  if (!Array.isArray(types) || types.length !== 3) {
+  if (!Array.isArray(types) || 3 !== types.length) {
     throw new Error('Expected an array of three action types.')
   }
-  if (!types.every(type => typeof type === 'string')) {
+  if (!types.every(type => 'string' === typeof type)) {
     throw new Error('Expected action types to be strings.')
   }
 
@@ -25,41 +26,41 @@ export const createCallSocket = (store, next, action, socket) => {
     return finalAction
   }
 
-  const [ requestType, successType, failureType ] = types
-  next(actionWith({ type: requestType }))
+  const [requestType, successType, failureType] = types
+  next(actionWith({ type: requestType, ...emitData }))
 
   return socket.emit('dispatch', { type: requestType, ...emitData }, (err, data) => {
     if (err) {
       // Failed to emit event, retry or let the user know and keep going?
-      next(actionWith({
-        type: failureType,
-        error: {type: err, message: data || 'Something bad happened'},
-      }))
-      if('ga' in global) {
-        ga('send', 'exception', {
-          'exDescription': failureType,
-          'exFatal': false
+      if ('ga' in global) {
+        global.ga('send', 'exception', {
+          exDescription: failureType,
+          exFatal: false
         })
       }
-    } else {
-      next(actionWith({
-        ...data,
-        type: successType,
+      return next(actionWith({
+        type: failureType,
+        error: { type: err, message: data || 'Something bad happened' },
       }))
     }
+    return next(actionWith({
+      ...data,
+      type: successType,
+    }))
   })
 }
 
 // A Redux middleware that interprets actions with CALL_SOCKET info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
-  
+
   const socket = connect(store, next, action, createCallSocket)
   // no socket means we're still setting it up, proceed the stack while we wait
-  // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon as we connect and got a socket
-  if(!socket) {
+  // @TODO implement queuing of CALL_SOCKET actions that gets dispatched as soon
+  //       as we connect and got a socket
+  if (!socket) {
     return action.type && next(action)
   }
-  
+
   return createCallSocket(store, next, action, socket)
 }

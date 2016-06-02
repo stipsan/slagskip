@@ -85,7 +85,7 @@ This way it's possible to opt-in to find bugs by playing with apps in the **deve
 
 The `production` branch is meant to mirror what's tested, Q&A'd and deployed to the **production** pipeline.
 
-Many intense performance optimizations is put in place. 
+Many intense performance optimizations is put in place.
 Every time css and js is bundled files with unique hashed names is generated.
 This guarantees a new asset url whenever it changes. This is why we can tell browsers, and CloudFlare, to cache it for as long as a year at a time.
 
@@ -98,3 +98,8 @@ More on protected branches in this [blog post](https://help.github.com/articles/
 If eslint reports any errors, it'll block the merge as well (warnings is ok).
 Coveralls will prevent a merge if the code coverage decrease by more than 1 %, or is less than 40%.
 In the future this limit will be changed to enforce 100% coverage at all times.
+
+# Credits
+
+![BrowserStack Logo](https://cdn.rawgit.com/stipsan/epic/master/assets/exports/vendor/browserstack.svg)
+Big thanks to [BrowserStack](https://www.browserstack.com) for providing cross browser testing to Open Source projects!

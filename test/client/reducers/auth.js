@@ -1,6 +1,8 @@
-import expect from 'expect'
-import { auth as reducer } from '../../../src/client/reducers/index'
 import * as types from '../../../src/client/constants/ActionTypes'
+
+import expect from 'expect'
+
+import { auth as reducer } from '../../../src/client/reducers/index'
 
 describe('auth reducer', () => {
   it('should return the initial state', () => {
@@ -10,6 +12,7 @@ describe('auth reducer', () => {
       {
         authState: 'unauthenticated',
         authToken: null,
+        doesEmailExist: null,
         isAuthenticated: false
       }
     )

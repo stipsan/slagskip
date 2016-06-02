@@ -1,29 +1,54 @@
-import { Component, PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
+import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { Link } from 'react-router'
+
 import cx from './style.scss'
 import Navbar from '../Navbar'
 import VersusGrid from './VersusGrid'
 import ViewerBoard from './ViewerBoard'
-import { Link } from 'react-router'
-import { selectCell, fireCannon } from '../../actions'
+import { fireCannon } from '../../actions'
 
 class Game extends Component {
   static propTypes = {
-    
+    gameState: PropTypes.string.isRequired,
+    isViewerTurn: PropTypes.bool.isRequired,
+    loadGame: PropTypes.func.isRequired,
+    reasonFailed: PropTypes.string,
+    routeParams: PropTypes.shape({
+      game: PropTypes.number.isRequired
+    }).isRequired,
+    selectedCell: PropTypes.number,
+    turns: PropTypes.array, // @TODO custom validator
+    versusFriend: PropTypes.shape({
+      username: PropTypes.string
+    }),
+    versusGrid: PropTypes.arrayOf(PropTypes.number),
+    versusScore: PropTypes.number.isRequired,
+    viewer: PropTypes.shape({
+      username: PropTypes.string
+    }),
+    viewerBoard: PropTypes.shape({
+      grid: PropTypes.arrayOf(PropTypes.number),
+    }),
+    viewerGrid: PropTypes.arrayOf(PropTypes.number),
+    viewerScore: PropTypes.number.isRequired,
   }
-  
-  shouldComponentUpdate = shouldComponentUpdate
-  
+
   componentDidMount() {
     this.props.loadGame(this.props.routeParams.game)
   }
-  
-  handleFireCannon = event => {
-    this.props.dispatch(fireCannon({ id: this.props.routeParams.game, selectedCell: this.props.selectedCell }))
+
+  shouldComponentUpdate = shouldComponentUpdate
+
+  handleFireCannon = () => {
+    this.props.dispatch(fireCannon({
+      id: this.props.routeParams.game,
+      selectedCell: this.props.selectedCell
+    }))
   }
-  
-  render(){
+
+  render() {
     const {
       gameState,
       reasonFailed,
@@ -39,35 +64,86 @@ class Game extends Component {
       viewerScore,
       versusScore,
     } = this.props
-    
-    const navbarLeft = <Link to="/" className={cx('backLink')}>❮ Games</Link>
-    
-    return <DocumentTitle title={viewer ? `Epic | ${viewer.get('username')} vs. ${versusFriend && versusFriend.get('username')}` : null}>
-      <section className={cx('section')}>
-        <Navbar left={navbarLeft} />
-        <div className={cx('scores')}>
-          <div className={cx('score')}>
-            <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>
-            <strong className={cx('viewerScore')}>{viewerScore}</strong>
+
+    const navbarLeft = <Link to="/" className={cx('backLink')}>{'❮ Games'}</Link>
+    const opponentLabel = versusFriend && versusFriend.get('username') || 'opponent'
+    const title = viewer ? `Epic | ${viewer.get('username')} vs. ${opponentLabel}` : null
+
+    return (
+      <DocumentTitle title={title}>
+        <section className={cx('section')}>
+          <Navbar left={navbarLeft} />
+          <div className={cx('scores')}>
+            <div className={cx('score')}>
+              <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>
+              <strong className={cx('viewerScore')}>{viewerScore}</strong>
+            </div>
+            <div className={cx('score')}>
+              <h6 className={cx('header')}>
+                {versusFriend && versusFriend.get('username') || 'Versus'}
+              </h6>
+              <strong className={cx('versusScore')}>{versusScore}</strong>
+            </div>
           </div>
-          <div className={cx('score')}>
-            <h6 className={cx('header')}>{versusFriend && versusFriend.get('username') || 'Versus'}</h6>
-            <strong className={cx('versusScore')}>{versusScore}</strong>
+          <div className={cx('state')}>
+            {'failed' === gameState && reasonFailed && <div>{`Error: ${reasonFailed}`}</div>}
+            {'victory' === gameState && <div>{'You won!'}</div>}
+            {'defeated' === gameState && <div>{'You lost!'}</div>}
+            {'loading' === gameState && <div>{'Loading game…'}</div>}
+            {
+              isViewerTurn &&
+              'waiting' !== gameState &&
+              'victory' !== gameState &&
+              'defeat' !== gameState &&
+              (-1 === selectedCell ?
+              'Select a spot' :
+              ('victory' !== gameState && 'defeated' !== gameState && (
+                <div className={cx('readyToFire')}>
+                  {'Ready?'}
+                  <button
+                    className={cx('sendButton')}
+                    onClick={this.handleFireCannon}
+                  >
+                    {'Send'}
+                  </button>
+                </div>
+              )))
+            }
+            {'waiting' === gameState && 'victory' !== gameState && 'defeat' !== gameState && (
+              <div className={cx('waitingForOpponent')}>
+                {`Waiting for ${opponentLabel} to setup their board`}
+              </div>
+            )}
+            {'ready' === gameState && !isViewerTurn && <div className={cx('waitingForTurn')}>
+              {`${opponentLabel}'s turn`}
+            </div>}
           </div>
-        </div>
-        <div className={cx('state')}>
-          {gameState === 'failed' && reasonFailed && <div>Error: {reasonFailed}</div>}
-          {gameState === 'victory' && <div>You won!</div>}
-          {gameState === 'defeated' && <div>You lost!</div>}
-          {gameState === 'loading' && <div>Loading game…</div>}
-          {isViewerTurn && gameState !== 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && (selectedCell === -1 ? 'Select a spot' : (gameState !== 'victory' && gameState !== 'defeated' && <div className={cx('readyToFire')}>Ready? <button className={cx('sendButton')} onClick={this.handleFireCannon}>Send</button></div>))}
-          {gameState === 'waiting' && gameState !== 'victory' && gameState !== 'defeat' && <div className={cx('waitingForOpponent')}>Waiting for {versusFriend && versusFriend.get('username') || 'opponent'} to setup their board</div>}
-          {gameState === 'ready' && !isViewerTurn && <div className={cx('waitingForTurn')}>{versusFriend && versusFriend.get('username') || 'opponent'}'s turn</div>}
-        </div>
-        {gameState !== 'loading' && <VersusGrid gameState={gameState} gameId={this.props.routeParams.game} score={viewerScore} grid={versusGrid} turns={turns} selectedCell={selectedCell} dispatch={dispatch} isViewerTurn={isViewerTurn} versus={versusFriend} />}
-        {gameState !== 'loading' && <ViewerBoard score={versusScore} grid={viewerGrid} board={viewerBoard} turns={turns} versus={versusFriend} isViewerTurn={isViewerTurn} />}
-      </section>
-    </DocumentTitle>
+          {'loading' !== gameState && (
+            <VersusGrid
+              gameState={gameState}
+              gameId={this.props.routeParams.game}
+              score={viewerScore}
+              grid={versusGrid}
+              turns={turns}
+              selectedCell={selectedCell}
+              dispatch={dispatch}
+              isViewerTurn={isViewerTurn}
+              versus={versusFriend}
+            />
+          )}
+          {'loading' !== gameState && (
+            <ViewerBoard
+              score={versusScore}
+              grid={viewerGrid}
+              board={viewerBoard}
+              turns={turns}
+              versus={versusFriend}
+              isViewerTurn={isViewerTurn}
+            />
+          )}
+        </section>
+      </DocumentTitle>
+    )
   }
 }
 

@@ -1,20 +1,19 @@
 import { Component, PropTypes } from 'react'
-import shallowCompare from 'react-addons-shallow-compare'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+
 import cx from './style.scss'
 
 export class Grid extends Component {
-  
+
   static propTypes = {
     children: PropTypes.node.isRequired
   }
-  
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  }
-  
+
+  shouldComponentUpdate = shouldComponentUpdate
+
   render() {
     const { children } = this.props
-    
+
     return <div className={cx('grid')}>{children}</div>
   }
 }

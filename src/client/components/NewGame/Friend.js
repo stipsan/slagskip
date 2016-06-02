@@ -1,9 +1,11 @@
+import Avatar from 'react-user-avatar'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import TimeAgo from 'react-timeago'
 import { Component } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
-import Avatar from 'react-user-avatar'
+
 import cx from './style.scss'
-import TimeAgo from 'react-timeago'
 
 const defaultColors = [
   '#1abc9c',
@@ -29,31 +31,38 @@ const defaultColors = [
 ]
 
 const timeAgoFormatter = (value, unit) => {
-  const formattedUnit = unit === 'month' ? 'M' : unit.slice(0, 1)
+  const formattedUnit = 'monh' === unit ? 'M' : unit.slice(0, 1)
   return `${value} ${formattedUnit}`
 }
 
 class Friend extends Component {
-  
+
+  static propTypes = {
+    // @TODO use mapContains to validate friend data shape
+    friend: ImmutablePropTypes.map.isRequired,
+  }
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   render() {
     const { friend } = this.props
     const username = friend.get('username')
     const avatar = friend.get('avatar')
     const id = friend.get('id')
-    const online = friend.get('online') === '1'
-    return <Link to={`/setup/${id}`} className={cx('friend')}>
+    const online = '1' === friend.get('online')
+    return (<Link to={`/setup/${id}`} className={cx('friend')}>
       <span className={cx(online ? 'avatarOnline' : 'avatar')}>
         <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
       </span>
       <span className={cx('username')}>
-      {friend.get('username')}
-      {friend.has('description') && <small>{friend.get('description')}</small>}
-      {!online && friend.has('lastVisit') && <small><TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} /></small>}
+        {friend.get('username')}
+        {friend.has('description') && <small>{friend.get('description')}</small>}
+        {!online && friend.has('lastVisit') && <small>
+          <TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} />
+        </small>}
       </span>
-      <span className={cx('startGame')}>❯</span>
-    </Link>
+      <span className={cx('startGame')}>{'❯'}</span>
+    </Link>)
   }
 }
 

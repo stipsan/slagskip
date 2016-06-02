@@ -32,7 +32,7 @@
   }
 }
 .headerTitle {
-  composes: title is-6 from '../../style/bulma.scss';
+  composes: title is-6 from 'bulma';
   text-align: center;
   word-break: break-word;
   

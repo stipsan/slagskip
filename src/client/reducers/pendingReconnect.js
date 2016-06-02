@@ -12,7 +12,7 @@ export const pendingReconnect = (state = false, action) => {
   case SOCKET_FAILURE:
     return action.socket.pendingReconnect &&
       action.socket.pendingReconnectTimeout &&
-      action.socket.connectAttempts < 6 &&
+      6 > action.socket.connectAttempts &&
       new Date().setTime(new Date().getTime() + action.socket.pendingReconnectTimeout)
       || false
   default:

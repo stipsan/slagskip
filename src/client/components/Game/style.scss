@@ -1,4 +1,4 @@
-@import '../../style/_config';
+@import '../../style/_bulma';
 
 $cell-remaining-color-from: hsl(184, 9%, 62%);
 $cell-remaining-color-middle: hsl(194, 9%, 52%);
@@ -35,19 +35,19 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  composes: columns is-mobile has-text-centered from '../../style/bulma.scss';
+  composes: columns is-mobile has-text-centered from 'bulma';
 }
 .score {
-  composes: column from '../../style/bulma.scss';
+  composes: column from 'bulma';
 }
 .header {
-  composes: heading from '../../style/bulma.scss';
+  composes: heading from 'bulma';
 }
 .viewerScore {
-  composes: tag is-primary from '../../style/bulma.scss';
+  composes: tag is-primary from 'bulma';
 }
 .versusScore {
-  composes: tag is-danger from '../../style/bulma.scss';
+  composes: tag is-danger from 'bulma';
 }
 .viewerScore, .versusScore {
   font-size: .8em;
@@ -55,16 +55,16 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   break: both;
 }
 .navbar {
-  composes: columns is-mobile from '../../style/bulma.scss';
+  composes: columns is-mobile from 'bulma';
   font-size: 16px;
   min-height: 16px;
 }
 .navbarTitle {
-  composes: column is-8 has-text-centered from '../../style/bulma.scss';
+  composes: column is-8 has-text-centered from 'bulma';
 }
 
 .state {
-  composes: title is-6 from '../../style/bulma.scss';
+  composes: title is-6 from 'bulma';
   min-height: 30px;
   width: 320px;
   margin-left: auto;
@@ -73,7 +73,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   margin-top: 20px;
 }
 .sendButton {
-  composes: button is-success from '../../style/bulma.scss';
+  composes: button is-success from 'bulma';
   touch-action: manipulation;
   float: right;
   transform: translateY(-4px);
@@ -180,7 +180,7 @@ $cell-jackpot-color-to: hsl(206, 70%, 64%);
   padding-top: 10px;
 }
 .backLink {
-  composes: column is-2 from '../../style/bulma.scss';
+  composes: column is-2 from 'bulma';
   color: inherit;
   padding-left: 2px;
   padding-right: 2px;

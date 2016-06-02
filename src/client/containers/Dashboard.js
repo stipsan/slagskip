@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { fetchFriends } from '../actions'
 
 import Dashboard from '../components/Dashboard'
 

@@ -1,14 +1,15 @@
+import { Map as ImmutableMap } from 'immutable'
+
 import {
   AUTHENTICATE_SUCCESS,
-  RECEIVE_AUTHENTICATE,
   RECEIVE_VIEWER,
   DEAUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
-import { Map as ImmutableMap } from 'immutable'
 
 const initialState = ImmutableMap({
   id: null,
   username: '',
+  email: '',
   isLoaded: false,
 })
 
@@ -17,6 +18,7 @@ export const viewer = (state = initialState, action) => {
   case AUTHENTICATE_SUCCESS:
     return state.merge({
       id: action.authToken.id,
+      email: action.authToken.email,
       username: action.authToken.username
     })
   case RECEIVE_VIEWER:
@@ -27,6 +29,7 @@ export const viewer = (state = initialState, action) => {
     return state.merge({
       isLoaded: false,
       id: null,
+      email: '',
       username: ''
     })
   default:

@@ -1,12 +1,13 @@
-import { Component } from 'react'
+import { PropTypes } from 'react'
+
 import cx from './style.scss'
 
-export default class Title extends Component {
-  render() {
-    const { children } = this.props
-    
-    return <h1 className={cx('headerTitle')}>
-      { children }
-    </h1>
-  }
+const Title = ({ children }) => <h1 className={cx('headerTitle')}>
+  {children}
+</h1>
+
+Title.propTypes = {
+  children: PropTypes.element.isRequired,
 }
+
+export default Title

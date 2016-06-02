@@ -1,17 +1,21 @@
 import createStore from '../../store'
 import { actions } from './actions'
-import invariant from 'invariant'
 
 export const createDispatcher = (socket, database, redis) => {
-  const store = createStore()
+  const store = createStore(socket, database, redis)
 
-  const handleDispatch = ({ type, ...action }, callback) => {
-    if(!actions.hasOwnProperty(type)) {
-      console.error(`Action type ${type} does not exist!`)
-      return callback(404, `Action type ${type} does not exist!`)
+  const handleDispatch = ({ type, ...action }, cb) => {
+    console.log('Handle dispatch', type)
+    // action does not exist as a thunk, pass it to the sagas
+    if (!actions.hasOwnProperty(type)) {
+      // send a ping back so the client knows the request is queued
+      store.dispatch({ type, ...action })
+    } else {
+      store.dispatch(actions[type](action, () => {
+        console.log('this method is deprecated!')
+      }, socket, database, redis))
     }
-
-    return store.dispatch(actions[type](action, callback, socket, database, redis))
+    cb()
   }
 
   socket.on('dispatch', handleDispatch)

@@ -1,8 +1,8 @@
+import { fromJS } from 'immutable'
+
 import {
   LOAD_GAME_SUCCESS,
-  LOAD_GAME_FAILURE,
 } from '../constants/ActionTypes'
-import { fromJS } from 'immutable'
 
 const initialState = fromJS({
   versus: null,

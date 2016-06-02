@@ -1,8 +1,9 @@
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { DragLayer } from 'react-dnd'
-import { XL, L, M, S, XS } from './index'
+
 import cx from '../style.scss'
+import { XL, L, M, S, XS } from './index'
 
 const layerStyles = {
   position: 'fixed',
@@ -12,79 +13,82 @@ const layerStyles = {
   top: 0,
   width: '100%',
   height: '100%'
-};
+}
 
 const collect = monitor => {
-  var item = monitor.getItem()
+  const item = monitor.getItem()
   return {
-      type: item && item.type,
-      rotated: item && item.rotated,
-      currentOffset: monitor.getSourceClientOffset(),
-      isDragging: monitor.isDragging()
+    type: item && item.type,
+    rotated: item && item.rotated,
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging()
   }
 }
 
 const getItemStyles = currentOffset => {
-    if (!currentOffset) {
-        return { display: 'none' }
-    }
+  if (!currentOffset) {
+    return { display: 'none' }
+  }
 
     // http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
-    const { x, y } = currentOffset
+  const { x, y } = currentOffset
 
-    const transform = `translate(${x}px, ${y}px)`
+  const transform = `translate(${x}px, ${y}px)`
 
-    return {
-        pointerEvents: 'none',
-        WebkitTransform: transform,
-        transform,
-    }
+  return {
+    pointerEvents: 'none',
+    WebkitTransform: transform,
+    transform,
+  }
 }
 
 class ItemPreview extends Component {
   static propTypes = {
-    type: PropTypes.string,
-    rotated: PropTypes.number,
     currentOffset: PropTypes.shape({
-        x: PropTypes.number,
-        y: PropTypes.number
+      x: PropTypes.number,
+      y: PropTypes.number
     }),
-    isDragging: PropTypes.bool
+    isDragging: PropTypes.bool,
+    rotated: PropTypes.number,
+    type: PropTypes.string,
   }
-  
+
   shouldComponentUpdate = shouldComponentUpdate
-  
+
   renderItem(type, rotated) {
-    switch(type) {
-      case 'xl':
-        return <XL rotated={rotated} />
-      case 'l':
-        return <L rotated={rotated} />
-      case 'm1':
-      case 'm2':
-        return <M rotated={rotated} />
-      case 's1':
-      case 's2':
-        return <S rotated={rotated} />
-      case 'xs1':
-      case 'xs2':
-        return <XS rotated={rotated} />
+
+    switch (type) {
+    case 'xl':
+      return <XL rotated={rotated} />
+    case 'l':
+      return <L rotated={rotated} />
+    case 'm1':
+    case 'm2':
+      return <M rotated={rotated} />
+    case 's1':
+    case 's2':
+      return <S rotated={rotated} />
+    case 'xs1':
+    case 'xs2':
+      return <XS rotated={rotated} />
+    default:
+      return null
     }
   }
-  
+
   render() {
-    
+
     const { type, rotated, isDragging, currentOffset } = this.props
 
     if (!isDragging) {
       return null
     }
 
-    return <div style={layerStyles}>
+    return (<div style={layerStyles}>
       <div className={cx('itemPreview')} style={getItemStyles(currentOffset)}>
         {this.renderItem(type, rotated)}
       </div>
-    </div>
+    </div>)
   }
 }
 

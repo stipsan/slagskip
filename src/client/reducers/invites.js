@@ -1,3 +1,5 @@
+import { Set as ImmutableSet } from 'immutable'
+
 import {
   AUTHENTICATE_SUCCESS,
   RECEIVE_GAME_INVITE,
@@ -5,7 +7,6 @@ import {
   DECLINE_GAME_INVITE_SUCCESS,
   CANCEL_GAME_INVITE_SUCCESS,
 } from '../constants/ActionTypes'
-import { Set as ImmutableSet } from 'immutable'
 
 const initialState = ImmutableSet()
 

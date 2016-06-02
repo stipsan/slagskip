@@ -1,0 +1,69 @@
+// Override variables here
+// You can add new ones or update existing ones:
+
+$black: #111 !default
+$grey-darker: #222324 !default
+$grey-dark: #69707a !default
+$grey: #aeb1b5 !default
+$grey-light: #d3d6db !default
+$grey-lighter: #f5f7fa !default
+$white: #fff !default
+
+$blue: #42afe3;
+$green: #97cd76;
+$orange: #f68b39;
+$purple: #847bb9;
+$red: #ed6c63;
+$turquoise: #1fc8db;
+$yellow: #fce473;
+$pink: #ffb3b3; // Add pink
+$family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+// modular scaled font sizes
+// http://www.modularscale.com/?22&px&1.333&sass&text
+$size-1: 92px;
+$size-2: 69px;
+$size-3: 52px;
+$size-4: 39px;
+$size-5: 29px;
+$size-6: 22px;
+$size-7: 16px;
+
+// Override generated variables here
+// For example, by default, the $danger color is $red and the font is sans-serif
+// You can change these values:
+
+$column-gutter: 10px !default;
+$container-width: 500px !default;
+
+$bg-disconnected: #C62828 !default;
+$bg-lobby: #263238 !default;
+$bg-unsupported-browser: #eee6e1 !default;
+
+$bg-default: white !default;
+$bg-login: hsl(200, 18%, 46%) !default;
+
+$button-bg: hsl(202, 4%, 51%) !default;
+
+$primary: $turquoise;
+
+$info: $blue;
+$success: $green;
+$warning: $yellow;
+$danger: $red;
+
+$dark: $grey-dark;
+
+$text: $grey-dark;
+
+
+$default-color: hsla(0, 0%, 0%, .5);
+$active-color: rgb(152, 251, 152);
+$jackpot-color: crimson;
+$xl-color: #e91e63;
+$l-color: #9b59b6;
+$m-color: #f1c40f;
+$s-color: #e67e22;
+$xs-color: #e74c3c;
+
+$grid-size: 380px;
