@@ -27,7 +27,7 @@ export function *createUser(credentials, socket, database, redis) {
 export function *watchUserCreate(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { credentials } } = yield take(CREATE_USER_REQUESTED)
-    console.log('watchUserCreate', result)
+    console.log('watchUserCreate', credentials)
     yield fork(createUser, credentials, socket, database, redis)
   }
 }
