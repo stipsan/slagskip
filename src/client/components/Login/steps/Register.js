@@ -34,7 +34,6 @@ const CheckEmailForm = props => {
             placeholder="Password"
             className={cx('input-password', { 'is-danger': password.touched && password.error })}
             autoComplete="password"
-            autoFocus
           />
           {password.touched && password.error &&
             <span className={cx('help', 'is-danger')}>{password.error}</span>

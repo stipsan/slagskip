@@ -9,7 +9,7 @@ const CheckEmailForm = props => {
   return (
     <form onSubmit={handleSubmit} className={cx('form')}>
       <Field name="email" component={email =>
-        <p className={cx('control', 'control-email', { error: email.error })}>
+        <p className={cx('control', 'control-email', { error: email.touched && email.error })}>
           <input
             type="email"
             {...email}
