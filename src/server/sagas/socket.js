@@ -22,7 +22,7 @@ export function *handleEmit(socket, action) {
   console.log('socket emit')
 }
 
-export function handleSocketEvent(event, socket) {
+export function handleSocketEventChannel(event, socket) {
   console.log('socket is listening to:', event)
   return eventChannel(listener => {
     const handleClientRequest = (action, cb) => {
@@ -40,7 +40,7 @@ export function handleSocketEvent(event, socket) {
 }
 
 export function *watchClientRequests(socket, database, redis) {
-  const chan = yield call(handleSocketEvent, 'request', socket)
+  const chan = yield call(handleSocketEventChannel, 'request', socket)
   try {
     while (true) {
       let action = yield take(chan)

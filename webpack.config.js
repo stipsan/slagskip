@@ -144,13 +144,6 @@ module.exports = {
            `css?modules&${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass!bulma`
          )
       ] },
-      { test: /\.css/, loaders: [
-        'classnames',
-        ExtractTextPlugin.extract(
-           'style',
-           `css?${cssnanoOptIn}!autoprefixer`
-         )
-      ] },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
