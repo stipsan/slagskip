@@ -1,12 +1,13 @@
+import { startSubmit, stopSubmit } from 'redux-form'
 import { delay, eventChannel } from 'redux-saga'
-import { take, fork, call, put, race, cps, actionChannel } from 'redux-saga/effects'
+import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
 
 import {
   SOCKET_EMIT,
+  SOCKET_PONG_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-global.test = socket
 export function handleSocketEvent(event) {
   console.log('socket is listening to:', event)
   return eventChannel(listener => {
@@ -33,43 +34,63 @@ export function *watchServerRequests() {
       yield put(action)
     }
   } finally {
-    console.log('watchServerRequests terminated')
+    if (yield cancelled()) {
+        // @FIXME put in an action creator
+      yield put({
+        type: 'UNEXPECTED_ERROR',
+        payload: {
+          message: 'watchServerRequests saga got cancelled!'
+        }
+      })
+    }
   }
 }
 
 
 // @FIXME client and server can likely share a lot of code in the socket sagas
 export function *emitEvent(action) {
-
-  yield cps([socket, socket.emit], 'request', action)
+  try {
+    console.log('emit')
+    yield cps([socket, socket.emit], 'request', action)
+    console.log('emitttt')
+  } catch (error) {
+    if ('TimeoutError' === error.name) {
+      yield put({ type: SOCKET_PONG_TIMEOUT, payload: { error } })
+    } else {
+      yield put({ type: action.payload.failureType, payload: { error } })
+    }
+  }
 }
 
+// @TODO move start/stopSubmit calls to a worker that is woke up by CHECK_EMAIL_EXISTS_REQUESTED
 export function *handleEmit(action) {
   const { successType, failureType } = action.payload
 
+  yield put(startSubmit('login'))
 
-  yield fork(emitEvent, action)
+  let retries = 0
 
+  while (3 > retries++) {
+    yield fork(emitEvent, action)
 
-  const results = yield race({
-    success: take(successType),
-    failure: take(failureType),
-    // response: take([successType, failureType]),
-    // response: call(waitForServerResponse, successType, failureType),
-    pingTimeout: take(),
-    pongTimeout: call(delay, 10000),
-  })
-  console.log('emitEvent results', results)
+    const { response } = yield race({
+      response: take([successType, failureType]),
+      pongTimeout: take(SOCKET_PONG_TIMEOUT),
+      taskTimeout: call(delay, 10000),
+    })
+
+    if (response) {
+      retries = 3
+    }
+  }
+  yield put(stopSubmit('login'))
 }
 
 export function *watchSocketEmits() {
   console.log('1- Create a channel for request actions', SOCKET_EMIT)
   const requestChan = yield actionChannel(SOCKET_EMIT)
-  console.log('we got a channel')
   while (true) { // eslint-disable-line
-    console.log('2- take from the channel')
     const { payload } = yield take(requestChan)
-    console.log('3- Note that we\'re using a blocking call', payload)
     yield call(handleEmit, payload)
   }
 }

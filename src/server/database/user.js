@@ -3,6 +3,7 @@ import invariant from 'invariant'
 import { authenticate } from './auth'
 
 export const createUser = (userData, redis) => {
+  console.log(userData)
   invariant(userData.username, 'Invalid userData, missing `username` property')
   invariant(userData.email, 'Invalid userData, missing `email` property')
   invariant(userData.password, 'Invalid userData, missing `password` property')

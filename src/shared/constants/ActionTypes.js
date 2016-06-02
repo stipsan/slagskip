@@ -21,6 +21,9 @@ export const SOCKET_RECONNECT = 'SOCKET_RECONNECT'
 export const SOCKET_DISCONNECT = 'SOCKET_DISCONNECT'
 // signal the socket saga we want the socket to emit
 export const SOCKET_EMIT = 'SOCKET_EMIT'
+export const SOCKET_PING_TIMEOUT = 'SOCKET_PING_TIMEOUT'
+export const SOCKET_PONG_TIMEOUT = 'SOCKET_PONG_TIMEOUT'
+export const SOCKET_TASK_TIMEOUT = 'SOCKET_TASK_TIMEOUT'
 
 // check if email exists
 export const CHECK_EMAIL_EXISTS_REQUESTED = 'CHECK_EMAIL_EXISTS_REQUESTED'
