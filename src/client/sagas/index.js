@@ -1,2 +1,9 @@
-export * from './auth'
-export * from './socket'
+import { watchAuthState, watchUserCreate, watchSocket, watchServerRequests } from './exports'
+
+export default function *sagas() {
+  yield [
+    // watchSocket(),
+    watchAuthState(),
+    watchServerRequests(),
+  ]
+}

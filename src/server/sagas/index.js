@@ -2,10 +2,8 @@ import {
   watchUserCreate,
   watchAuthenticateRequest,
   watchCheckEmailExistRequest,
-} from './auth'
-import {
   watchClientRequests,
-} from './socket'
+} from './exports'
 
 export default function *sagas(socket, database, redis) {
   yield [
