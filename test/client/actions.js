@@ -45,4 +45,90 @@ describe('Client Action Creators', () => {
       }
     })
   })
+
+  it('can logout the user', () => {
+    expect(
+      actions.logoutUser()
+    ).toEqual({
+      type: types.DEAUTHENTICATE_REQUESTED,
+      payload: {
+        successType: types.DEAUTHENTICATE_SUCCESS,
+        failureType: types.DEAUTHENTICATE_FAILURE,
+      }
+    })
+  })
+
+  it('can lazy load friends', () => {
+    const friendIds = [1, 2, 3]
+    expect(
+      actions.fetchFriends(friendIds)
+    ).toEqual({
+      type: types.FRIENDS_REQUESTED,
+      payload: {
+        successType: types.FRIENDS_SUCCESS,
+        failureType: types.FRIENDS_FAILURE,
+        friendIds,
+      }
+    })
+  })
+
+  it('can lazy load games', () => {
+    const gameIds = [1, 2, 3]
+    expect(
+      actions.fetchGames(gameIds)
+    ).toEqual({
+      type: types.GAMES_REQUESTED,
+      payload: {
+        successType: types.GAMES_SUCCESS,
+        failureType: types.GAMES_FAILURE,
+        gameIds,
+      }
+    })
+  })
+
+  it('can rotate pieces on the setup board', () => {
+    const item = 'xl'
+    expect(
+      actions.rotateItem(item)
+    ).toEqual({
+      type: types.ROTATE_ITEM,
+      item,
+    })
+  })
+  it('should let you organize items on a game board by both startIndex and x/y coordinates', () => {
+    const item = 'xl'
+    const startIndex = 10
+    const x = 5
+    const y = 1
+
+    expect(
+      actions.addItem(item, startIndex)
+    ).toEqual({
+      type: types.ADD_ITEM,
+      position: [0, 1],
+      item,
+    })
+    expect(
+      actions.moveItem(item, startIndex)
+    ).toEqual({
+      type: types.MOVE_ITEM,
+      position: [0, 1],
+      item,
+    })
+
+    expect(
+      actions.addItem(item, x, y)
+    ).toEqual({
+      type: types.ADD_ITEM,
+      position: [x, y],
+      item,
+    })
+    expect(
+      actions.moveItem(item, x, y)
+    ).toEqual({
+      type: types.MOVE_ITEM,
+      position: [x, y],
+      item,
+    })
+  })
 })

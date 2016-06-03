@@ -3,10 +3,12 @@ import {
   GAMES_SUCCESS,
   GAMES_FAILURE,
 } from '../constants/ActionTypes'
-import { CALL_SOCKET } from '../middleware/socket'
 
-export const fetchGames = () => ({
-  [CALL_SOCKET]: {
-    types: [GAMES_REQUESTED, GAMES_SUCCESS, GAMES_FAILURE]
+export const fetchGames = gameIds => ({
+  type: GAMES_REQUESTED,
+  payload: {
+    successType: GAMES_SUCCESS,
+    failureType: GAMES_FAILURE,
+    gameIds,
   }
 })

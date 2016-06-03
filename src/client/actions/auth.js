@@ -12,7 +12,6 @@ import {
   CHECK_EMAIL_EXISTS_SUCCESS,
   CHECK_EMAIL_EXISTS_FAILURE,
 } from '../constants/ActionTypes'
-import { CALL_SOCKET } from '../middleware/socket'
 
 export const signInWithEmailAndPassword = credentials => ({
   type: AUTHENTICATE_REQUESTED,
@@ -24,17 +23,19 @@ export const signInWithEmailAndPassword = credentials => ({
 })
 
 export const logoutUser = () => ({
-  [CALL_SOCKET]: {
-    types: [DEAUTHENTICATE_REQUESTED, DEAUTHENTICATE_SUCCESS, DEAUTHENTICATE_FAILURE],
+  type: DEAUTHENTICATE_REQUESTED,
+  payload: {
+    successType: DEAUTHENTICATE_SUCCESS,
+    failureType: DEAUTHENTICATE_FAILURE,
   }
 })
 
-export const checkIfEmailExists = form => ({
+export const checkIfEmailExists = email => ({
   type: CHECK_EMAIL_EXISTS_REQUESTED,
   payload: {
     successType: CHECK_EMAIL_EXISTS_SUCCESS,
     failureType: CHECK_EMAIL_EXISTS_FAILURE,
-    email: form.get('email'),
+    email,
   }
 })
 

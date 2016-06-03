@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  checkIfEmailExists,
+  checkIfEmailExists: form => checkIfEmailExists(form.get('email')),
 }, dispatch)
 
 // move this to grandchildren so the root don't need to subscribe to Redux

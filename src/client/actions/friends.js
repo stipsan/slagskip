@@ -5,10 +5,13 @@ import {
 } from '../constants/ActionTypes'
 import { CALL_SOCKET } from '../middleware/socket'
 
-export function fetchFriends() {
+export const fetchFriends = friendIds => {
   return {
-    [CALL_SOCKET]: {
-      types: [FRIENDS_REQUESTED, FRIENDS_SUCCESS, FRIENDS_FAILURE]
-    },
+    type: FRIENDS_REQUESTED,
+    payload: {
+      successType: FRIENDS_SUCCESS,
+      failureType: FRIENDS_FAILURE,
+      friendIds,
+    }
   }
 }
