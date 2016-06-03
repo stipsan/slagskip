@@ -19,6 +19,7 @@ export function *createUser(credentials, socket, database, redis) {
     const userData = yield call(database.createUser, credentials, redis)
     console.log('userData', userData)
     yield call(handleEmit, socket, { type: CREATE_USER_SUCCESS, payload: { userData } })
+    yield call(authenticate, credentials, socket, database, redis)
   } catch (error) {
     yield call(handleEmit, socket, { type: CREATE_USER_FAILURE, payload: { error: error.message } })
   }
