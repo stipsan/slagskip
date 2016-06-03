@@ -50,9 +50,7 @@ export function *watchServerRequests() {
 // @FIXME client and server can likely share a lot of code in the socket sagas
 export function *emitEvent(action) {
   try {
-    console.log('emit')
-    yield cps([socket, socket.emit], 'request', action)
-    console.log('emitttt')
+    yield cps([socket, socket.emit], 'dispatch', action)
   } catch (error) {
     if ('TimeoutError' === error.name) {
       yield put({ type: SOCKET_PONG_TIMEOUT, payload: { error } })

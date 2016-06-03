@@ -1,18 +1,8 @@
-import { eventChannel, delay } from 'redux-saga'
+import { eventChannel } from 'redux-saga'
 import { take, put, call, cps, fork } from 'redux-saga/effects'
 
-// @TODO turn this into a saga that can deal with timeouts and network issues
-export const emit = (socket, type, payload) => new Promise((resolve, reject) =>
-  socket.emit('dispatch', { type, ...payload }, (err, data) => {
-    if (err) {
-      return reject(err)
-    }
-    return resolve(data)
-  })
-)
-
 export function *emitEvent(socket, action) {
-  yield cps([socket, socket.emit], 'request', action)
+  yield cps([socket, socket.emit], 'dispatch', action)
 }
 
 // @TODO refactor to worker that automatically retry until the client pings back in emitEvent
@@ -40,10 +30,10 @@ export function handleSocketEventChannel(event, socket) {
 }
 
 export function *watchClientRequests(socket, database, redis) {
-  const chan = yield call(handleSocketEventChannel, 'request', socket)
+  const chan = yield call(handleSocketEventChannel, 'dispatch', socket)
   try {
     while (true) { // eslint-disable-line
-      let action = yield take(chan)
+      const action = yield take(chan)
       console.log('watchClientRequests:', action)
       yield put(action)
     }

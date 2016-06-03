@@ -4,7 +4,7 @@ import express from 'express'
 import htmlMiddleware from './middleware/html'
 import originsMiddleware from './middleware/origins'
 import { createConnection } from '../database'
-import { createSocketServer, applySocketMiddleware } from './socket'
+import { createSocketServer } from './socket'
 
 export const run = worker => {
   const app = express()
@@ -35,5 +35,5 @@ export const run = worker => {
 
   worker.httpServer.on('request', app)
 
-  createSocketServer(applySocketMiddleware(worker.scServer), redis)
+  createSocketServer(worker.scServer, redis)
 }

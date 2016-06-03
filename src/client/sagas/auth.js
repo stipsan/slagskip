@@ -7,6 +7,14 @@ import {
   CREATE_USER_REQUESTED,
 } from '../constants/ActionTypes'
 
+export function *authorize(email, password) {
+  //
+}
+
+export function *watchCheckEmail() {
+  //
+}
+
 export function *watchAuthState() {
   // @TODO wake up the worker on SOCKET_SUCCESS
   while (true) { // eslint-disable-line no-constant-condition
