@@ -1,6 +1,5 @@
 export * from './auth'
 export * from './friends'
-export * from './gameInvite'
 export * from './gamePlay'
 export * from './games'
 export * from './gameSetup'

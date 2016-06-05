@@ -9,7 +9,6 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { combineReducers } from 'redux-immutable'
 
 import sagas from '../sagas'
-import socket from '../middleware/socket'
 
 const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
 
@@ -21,7 +20,7 @@ const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(sagaMiddleware, thunk, socket, routerMiddlewareWithHistory),
+    applyMiddleware(sagaMiddleware, thunk, routerMiddlewareWithHistory),
     'production' !== process.env.NODE_ENV && global.devToolsExtension ?
       global.devToolsExtension() :
       f => f

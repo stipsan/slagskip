@@ -45,23 +45,24 @@ export default class App extends Component {
 
     const shouldMountChildren = connected && supportedBrowser && isAuthenticated && isViewerLoaded
     const shouldOverlayLogin = connected && supportedBrowser && !isAuthenticated
-    const isCurrentlyLoading = supportedBrowser && isAuthenticated
-                            && (!connected || !isViewerLoaded)
+    const isCurrentlyLoading = supportedBrowser && !connected
 
 
-    return <ReactCSSTransitionGroup
-      component="div"
-      className={cx({ transitionBackwards: !isGoingForwards })}
-      transitionName={transitionName}
-      transitionEnterTimeout={transitionDuration}
-      transitionLeaveTimeout={transitionDuration}
-      transitionAppearTimeout={transitionDuration}
-           >
-      {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
-      {shouldOverlayLogin && <Login />}
-      {isCurrentlyLoading && <Loading />}
-      {!connected && disconnected && <Disconnected />}
-      {!supportedBrowser && <UnsupportedBrowser />}
-    </ReactCSSTransitionGroup>
+    return (
+      <ReactCSSTransitionGroup
+        component="div"
+        className={cx({ transitionBackwards: !isGoingForwards })}
+        transitionName={transitionName}
+        transitionEnterTimeout={transitionDuration}
+        transitionLeaveTimeout={transitionDuration}
+        transitionAppearTimeout={transitionDuration}
+      >
+        {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
+        {shouldOverlayLogin && <Login />}
+        {isCurrentlyLoading && <Loading />}
+        {!connected && disconnected && <Disconnected />}
+        {!supportedBrowser && <UnsupportedBrowser />}
+      </ReactCSSTransitionGroup>
+    )
   }
 }

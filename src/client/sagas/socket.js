@@ -4,11 +4,12 @@ import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redu
 
 import {
   SOCKET_EMIT,
+  SOCKET_SUCCESS,
   SOCKET_PONG_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-export function handleSocketEvent(event) {
+export function handleServerRequest(event) {
   console.log('socket is listening to:', event)
   return eventChannel(listener => {
     const handleClientRequest = (action, cb) => {
@@ -26,7 +27,7 @@ export function handleSocketEvent(event) {
 }
 
 export function *watchServerRequests() {
-  const chan = yield call(handleSocketEvent, 'request')
+  const chan = yield call(handleServerRequest, 'dispatch')
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)
@@ -45,6 +46,57 @@ export function *watchServerRequests() {
     }
   }
 }
+
+export function handleSocketConnect() {
+  return eventChannel(listener => {
+    const socketConnectEventHandler = () => {
+      listener({ type: SOCKET_SUCCESS })
+    }
+    socket.on('connect', socketConnectEventHandler)
+    return () => {
+      socket.off('connect', socketConnectEventHandler)
+    }
+  })
+}
+
+export function *watchSocketConnect() {
+  const chan = yield call(handleSocketConnect)
+  try {
+    while (true) { // eslint-disable-line
+      const action = yield take(chan)
+      yield put(action)
+    }
+  } finally {
+    if (yield cancelled()) {
+        // @FIXME put in an action creator
+      yield put({
+        type: 'UNEXPECTED_ERROR',
+        payload: {
+          message: 'watchSocketConnect saga got cancelled!'
+        }
+      })
+    }
+  }
+}
+
+// @TODO
+/*
+socket.on('authenticate', () => {
+  subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel])
+
+  if ('ga' in global) {
+    global.ga('set', 'userId', socket.getAuthToken().id)
+  }
+  if ('rg4js' in global) {
+    global.rg4js('setUser', {
+      identifier: socket.getAuthToken().id,
+      isAnonymous: false,
+      email: socket.getAuthToken().email,
+      firstName: socket.getAuthToken().username,
+    })
+  }
+})
+*/
 
 
 // @FIXME client and server can likely share a lot of code in the socket sagas
@@ -70,15 +122,15 @@ export function *handleEmit(action) {
 
   while (3 > retries++) {
     yield fork(emitEvent, action)
-
-    const { response } = yield race({
+    console.log('forked the emitEvent', action)
+    const { response, ...rest } = yield race({
       response: take([successType, failureType]),
       pongTimeout: take(SOCKET_PONG_TIMEOUT),
       taskTimeout: call(delay, 10000),
     })
-
+    console.log(rest, response)
     if (response) {
-      retries = 3
+      break
     }
   }
   yield put(stopSubmit('login'))

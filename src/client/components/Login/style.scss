@@ -148,19 +148,19 @@
 .is-marginless {
   composes: is-marginless from 'bulma';
 }
-.no-rounded-border input {
+.no-rounded-border:not(.error) input {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-.no-bottom-rounded-border + .control input {
+.no-bottom-rounded-border:not(.error) + .control input {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
-.no-bottom-rounded-border input {
+.no-bottom-rounded-border:not(.error) input {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-.no-rounded-border + .control input {
+.no-rounded-border:not(.error) + .control input {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
