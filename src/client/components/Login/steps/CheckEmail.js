@@ -14,6 +14,8 @@ const CheckEmailForm = props => {
         type="email"
         placeholder="E-mail"
         autoComplete="email"
+        submitting={submitting}
+        autoFocus
         component={FieldComponent}
       />
       <p className={cx('control')}>

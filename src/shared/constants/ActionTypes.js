@@ -30,6 +30,9 @@ export const CHECK_EMAIL_EXISTS_REQUESTED = 'CHECK_EMAIL_EXISTS_REQUESTED'
 export const CHECK_EMAIL_EXISTS_SUCCESS = 'CHECK_EMAIL_EXISTS_SUCCESS'
 export const CHECK_EMAIL_EXISTS_FAILURE = 'CHECK_EMAIL_EXISTS_FAILURE'
 
+// special redux-forms promise based async validation
+export const CHECK_EMAIL_EXISTS_ASYNC = 'CHECK_EMAIL_EXISTS_ASYNC'
+
 // attempt login
 export const AUTHENTICATE_REQUESTED = 'AUTHENTICATE_REQUESTED'
 // login succeeded, payload contains friends, invities and game matches
