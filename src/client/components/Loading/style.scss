@@ -7,7 +7,7 @@
   background: $grey-lighter;
 }
 .heroContent {
-  composes: hero-content from 'bulma';
+  composes: hero-body from 'bulma';
 }
 .container {
   composes: container from 'bulma';

@@ -4,11 +4,12 @@ import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redu
 
 import {
   SOCKET_EMIT,
+  SOCKET_SUCCESS,
   SOCKET_PONG_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-export function handleSocketEvent(event) {
+export function handleServerRequest(event) {
   console.log('socket is listening to:', event)
   return eventChannel(listener => {
     const handleClientRequest = (action, cb) => {
@@ -26,7 +27,7 @@ export function handleSocketEvent(event) {
 }
 
 export function *watchServerRequests() {
-  const chan = yield call(handleSocketEvent, 'dispatch')
+  const chan = yield call(handleServerRequest, 'dispatch')
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)
@@ -40,6 +41,38 @@ export function *watchServerRequests() {
         type: 'UNEXPECTED_ERROR',
         payload: {
           message: 'watchServerRequests saga got cancelled!'
+        }
+      })
+    }
+  }
+}
+
+export function handleSocketConnect() {
+  return eventChannel(listener => {
+    const socketConnectEventHandler = () => {
+      listener({ type: SOCKET_SUCCESS })
+    }
+    socket.on('connect', socketConnectEventHandler)
+    return () => {
+      socket.off('connect', socketConnectEventHandler)
+    }
+  })
+}
+
+export function *watchSocketConnect() {
+  const chan = yield call(handleSocketConnect)
+  try {
+    while (true) { // eslint-disable-line
+      const action = yield take(chan)
+      yield put(action)
+    }
+  } finally {
+    if (yield cancelled()) {
+        // @FIXME put in an action creator
+      yield put({
+        type: 'UNEXPECTED_ERROR',
+        payload: {
+          message: 'watchSocketConnect saga got cancelled!'
         }
       })
     }

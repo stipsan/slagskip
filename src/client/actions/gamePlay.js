@@ -10,7 +10,9 @@ import {
   FIRE_CANNON_SUCCESS,
   FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
-import { CALL_SOCKET } from '../middleware/socket'
+
+// @FIXME refactor
+const CALL_SOCKET = 'todo'
 
 export const resumeGame = id => ({
   [CALL_SOCKET]: {

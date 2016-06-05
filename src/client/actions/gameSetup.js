@@ -9,7 +9,9 @@ import {
   ROTATE_ITEM,
   MOVE_ITEM,
 } from '../constants/ActionTypes'
-import { CALL_SOCKET } from '../middleware/socket'
+
+// @FIXME refactor
+const CALL_SOCKET = 'todo'
 
 export const validateSetup = data => ({
   [CALL_SOCKET]: {
