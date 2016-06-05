@@ -3,29 +3,24 @@ import { Field, reduxForm } from 'redux-form/immutable'
 
 import cx from '../style.scss'
 import validate from '../validate'
+import FieldComponent from '../Field'
 
 const CheckEmailForm = props => {
   const { handleSubmit, submitting } = props
   return (
     <form onSubmit={handleSubmit} className={cx('form')}>
-      <Field name="email" component={email =>
-        <p className={cx('control', 'control-email')}>
-          <input
-            type="email"
-            {...email}
-            placeholder="E-mail"
-            className={cx('input-email', { 'is-danger': email.touched && email.error })}
-            autoComplete="email"
-            readOnly={submitting}
-            autoFocus
-          />
-          {email.touched && email.error &&
-            <span className={cx('help', 'is-danger')}>{email.error}</span>
-          }
-        </p>
-      } />
+      <Field
+        name="email"
+        type="email"
+        placeholder="E-mail"
+        autoComplete="email"
+        component={FieldComponent}
+      />
       <p className={cx('control')}>
-        <button className={cx('next-button', { 'is-loading': submitting })} type="submit">{'Next'}</button>
+        <button
+          className={cx('next-button', { 'is-loading': submitting })}
+          type="submit"
+        >{'Next'}</button>
       </p>
     </form>
   )

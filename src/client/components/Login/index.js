@@ -71,7 +71,6 @@ export default class Login extends Component {
       doesEmailExist,
     } = this.props
 
-
     return <section className={cx('hero')}>
       <div className={cx('hero-head')}>
         <div className={cx('container')}>

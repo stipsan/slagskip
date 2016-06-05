@@ -29,7 +29,7 @@ const CheckEmailForm = props => {
             className={cx('input-email', { 'is-danger': password.touched && password.error })}
             autoComplete="password"
           />
-          {password.touched && password.error &&
+          {password.touched && password.error || true &&
             <span className={cx('help', 'is-danger')}>{password.error}</span>
           }
         </p>

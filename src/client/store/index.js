@@ -1,7 +1,6 @@
 import * as reducers from '../reducers'
 
 import createSagaMiddleware from 'redux-saga'
-import thunk from 'redux-thunk'
 import { Map as ImmutableMap } from 'immutable'
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
@@ -9,7 +8,6 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { combineReducers } from 'redux-immutable'
 
 import sagas from '../sagas'
-import socket from '../middleware/socket'
 
 const routerMiddlewareWithHistory = routerMiddleware(browserHistory)
 
@@ -21,7 +19,7 @@ const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(sagaMiddleware, thunk, socket, routerMiddlewareWithHistory),
+    applyMiddleware(sagaMiddleware, routerMiddlewareWithHistory),
     'production' !== process.env.NODE_ENV && global.devToolsExtension ?
       global.devToolsExtension() :
       f => f
