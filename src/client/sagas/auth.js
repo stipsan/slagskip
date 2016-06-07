@@ -10,6 +10,8 @@ import {
   RECEIVE_DEAUTHENTICATE,
   DEAUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
+  CREATE_USER_REQUESTED,
+  CREATE_USER_FAILURE,
 } from '../constants/ActionTypes'
 
 export function *authorize() {
@@ -29,6 +31,14 @@ export function *loginFlow() {
     const authAction = yield take(AUTHENTICATE_REQUESTED)
     yield put({ type: SOCKET_EMIT, payload: authAction })
     yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE])
+  }
+}
+
+export function *registerFlow() {
+  while (true) { // eslint-disable-line no-constant-condition
+    const authAction = yield take(CREATE_USER_REQUESTED)
+    yield put({ type: SOCKET_EMIT, payload: authAction })
+    yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, CREATE_USER_FAILURE])
   }
 }
 
@@ -53,6 +63,7 @@ export function *watchAuthState() {
   yield [
     checkEmailFlow(),
     loginFlow(),
+    registerFlow(),
     validateEmail(),
   ]
 }

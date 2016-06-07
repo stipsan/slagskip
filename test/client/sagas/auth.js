@@ -6,6 +6,8 @@ import expect, { createSpy } from 'expect'
 import { take, put, race } from 'redux-saga/effects'
 
 describe('auth sagas', () => {
+  it('should compose the auth related sagas')
+
   it('should async email validation', () => {
     const iterator = sagas.validateEmail()
     const resolve = createSpy()
@@ -75,6 +77,36 @@ describe('auth sagas', () => {
       iterator.next().value
     ).toEqual(
       take([types.RECEIVE_DEAUTHENTICATE, types.DEAUTHENTICATE_SUCCESS, types.AUTHENTICATE_FAILURE])
+    )
+
+  })
+
+  it('will handle register flow', () => {
+    const iterator = sagas.registerFlow()
+    const credentials = {
+      email: 'test@example.com',
+      password: '123',
+      username: 'John Doe',
+    }
+    const authAction = actions.createUserWithEmailAndPassword(credentials)
+    const emitAuthAction = { type: types.SOCKET_EMIT, payload: authAction }
+
+    expect(
+      iterator.next().value
+    ).toEqual(
+      take(types.CREATE_USER_REQUESTED)
+    )
+
+    expect(
+      iterator.next(authAction).value
+    ).toEqual(
+      put(emitAuthAction)
+    )
+
+    expect(
+      iterator.next().value
+    ).toEqual(
+      take([types.RECEIVE_DEAUTHENTICATE, types.DEAUTHENTICATE_SUCCESS, types.CREATE_USER_FAILURE])
     )
 
   })

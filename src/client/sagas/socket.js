@@ -132,18 +132,16 @@ export function *handleEmit(action) {
       }),
     })
     if (response) {
-      yield put(stopSubmit('login'))
-      return response
-    }
-    if (timeout) {
-      payload = timeout
+      payload = response
     }
     if (timeout && timeout.taskTimeout) {
-      yield put({ type: SOCKET_TASK_TIMEOUT })
+      yield put({ type: SOCKET_TASK_TIMEOUT, payload: { attempt: retries } })
     }
   }
   yield put(stopSubmit('login'))
-  yield put({ type: failureType, payload })
+  if (payload) {
+    yield put(payload)
+  }
 }
 
 export function *watchSocketEmits() {
