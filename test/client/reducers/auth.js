@@ -99,40 +99,4 @@ describe('auth reducer', () => {
       }
     )
   })
-
-  it('should handle auth state changes', () => {
-    const initialState = reducer(undefined, {})
-
-    expect(
-      reducer(initialState, {
-        type: types.SOCKET_SUCCESS,
-        payload: {
-          isAuthenticated: true
-        }
-      }).toJS()
-    ).toEqual(
-      {
-        authState: 'authenticated',
-        authToken: null,
-        doesEmailExist: null,
-        isAuthenticated: true
-      }
-    )
-
-    expect(
-      reducer(initialState, {
-        type: types.SOCKET_SUCCESS,
-        payload: {
-          isAuthenticated: false
-        }
-      }).toJS()
-    ).toEqual(
-      {
-        authState: 'unauthenticated',
-        authToken: null,
-        doesEmailExist: null,
-        isAuthenticated: false
-      }
-    )
-  })
 })

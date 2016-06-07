@@ -16,13 +16,13 @@ export function *authorize(email, password) {
 
 export function *watchValidateEmail() {
   while (true) { // eslint-disable-line no-constant-condition
-    const { payload: { values, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
+    const { payload: { email, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
     const emitCheckEmailAction = { type: SOCKET_EMIT, payload: {
       type: CHECK_EMAIL_EXISTS_REQUESTED,
       payload: {
         successType: CHECK_EMAIL_EXISTS_SUCCESS,
         failureType: CHECK_EMAIL_EXISTS_FAILURE,
-        email: values.get('email'),
+        email,
       }
     } }
     yield put(emitCheckEmailAction)

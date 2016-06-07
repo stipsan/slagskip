@@ -28,7 +28,7 @@ export const auth = (state = initialState, action) => {
   case SOCKET_SUCCESS:
     return state.merge({
       isAuthenticated: action.payload.isAuthenticated,
-      authState: action.payload.isAuthenticated ? 'authenticated' : 'unauthenticated',
+      authState: action.payload.isAuthenticated ? 'pending' : 'unauthenticated',
     })
   case RECEIVE_AUTH_STATE_CHANGE:
     return state.merge({
