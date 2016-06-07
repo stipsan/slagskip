@@ -25,21 +25,21 @@ const initialState = ImmutableMap({
   list: ImmutableOrderedMap({})
 })
 
-export const friends = (state = initialState, action) => {
-  switch (action.type) {
+export const friends = (state = initialState, { type, payload }) => {
+  switch (type) {
   case RECEIVE_VIEWER:
-    return state.set('total', action.friendIds.length)
+    return state.set('total', payload.friendIds.length)
   case FRIENDS_SUCCESS:
-    return action.friends.reduce(
+    return payload.friends.reduce(
       (newState, friend) => newState.setIn(['list', friend.id], defaultFriend.merge(friend)),
-      state.set('total', action.friends.length)
+      state.set('total', payload.friends.length)
     )
   case RECEIVE_FRIEND_NETWORK_STATUS:
-    if (state.hasIn(['list', action.id])) {
-      return state.mergeIn(['list', action.id], {
-        id: action.id,
-        online: action.online,
-        lastVisit: action.lastVisit
+    if (state.hasIn(['list', payload.id])) {
+      return state.mergeIn(['list', payload.id], {
+        id: payload.id,
+        online: payload.online,
+        lastVisit: payload.lastVisit
       })
     }
     return state.set('total', state.get('total') + 1)
@@ -47,17 +47,17 @@ export const friends = (state = initialState, action) => {
   case RECEIVE_GAME_INVITE_ACCEPTED:
   case RECEIVE_GAME_INVITE_CANCELLED:
   case RECEIVE_GAME_INVITE:
-    return state.mergeIn(['list', action.id], {
-      id: action.id,
-      inviteIn: action.inviteIn,
+    return state.mergeIn(['list', payload.id], {
+      id: payload.id,
+      inviteIn: payload.inviteIn,
     })
   case RECEIVE_GAME_INVITE_DECLINED:
   case CANCEL_GAME_INVITE_SUCCESS:
   case ACCEPT_GAME_INVITE_SUCCESS:
   case GAME_INVITE_SUCCESS:
-    return state.mergeIn(['list', action.id], {
-      id: action.id,
-      inviteOut: action.inviteOut,
+    return state.mergeIn(['list', payload.id], {
+      id: payload.id,
+      inviteOut: payload.inviteOut,
     })
   default:
     return state
