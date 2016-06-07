@@ -7,64 +7,17 @@ import Form from './Form'
 
 export default class Login extends Component {
   static propTypes = {
+    checkIfEmailExists: PropTypes.func.isRequired,
+    createUserWithEmailAndPassword: PropTypes.func.isRequired,
+    doesEmailExist: PropTypes.bool,
     isRequestPending: PropTypes.bool.isRequired,
     signInWithEmailAndPassword: PropTypes.func.isRequired,
-    checkIfEmailExists: PropTypes.func.isRequired,
-  }
-
-  state = {
-    shouldRegister: false,
-    email: '',
-    password: '',
-    username: '',
   }
 
   shouldComponentUpdate = shouldComponentUpdate
 
-  handleSubmit = event => {
-    event.preventDefault()
-
-    const { shouldRegister, ...credentials } = this.state
-    this.props[shouldRegister ?
-      'createUserWithEmailAndPassword' :
-      'signInWithEmailAndPassword'
-    ](credentials)
-  }
-
-  handleShouldRegister = event => {
-    event.preventDefault()
-
-    this.setState({ shouldRegister: true })
-  }
-
-  handleShouldLogin = event => {
-    event.preventDefault()
-
-    this.setState({ shouldRegister: false })
-  }
-
-  handleEmailChange = event => this.setState({ email: event.target.value })
-
-  handlePasswordChange = event => this.setState({ password: event.target.value })
-
-  handleUsernameChange = event => this.setState({ username: event.target.value })
-
   render() {
     const {
-      handleSubmit,
-      handleShouldLogin,
-      handleShouldRegister,
-      handleUsernameChange,
-      handleEmailChange,
-      handlePasswordChange,
-    } = this
-    const {
-      shouldRegister,
-      password,
-      username,
-     } = this.state
-    const {
-      isRequestPending,
       checkIfEmailExists,
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,

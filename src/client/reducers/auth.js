@@ -1,7 +1,4 @@
 import { Map as ImmutableMap } from 'immutable'
-import {
-  LOCATION_CHANGE
-} from 'react-router-redux'
 
 import {
   SOCKET_SUCCESS,

@@ -21,7 +21,8 @@ const src = '' // using repo root as cwd 'assets/exports/'
 const dest = '../../public' // ^^ 'public/'
 const folders = ['favicons', 'bot', 'browser', 'vendor']
 
-folders.map(folder => imagemin([`${folder}/*.{png,svg}`], `${dest}/${folder}`, options).then(files =>
+folders.map(folder => imagemin([`${folder}/*.{png,svg}`], `${dest}/${folder}`, options)
+.then(files =>
   console.log(`[${folder}] Imagemin optimized these assets:`, files.map(file => file.path))
 ))
 /*

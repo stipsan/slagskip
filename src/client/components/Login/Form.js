@@ -8,8 +8,13 @@ import Register from './steps/Register'
 class Form extends Component {
 
   static propTypes = {
-    handleCheckEmail: PropTypes.func.isRequired
+    doesEmailExist: PropTypes.bool,
+    handleCheckEmail: PropTypes.func.isRequired,
+    handleLogin: PropTypes.func.isRequired,
+    handleRegister: PropTypes.func.isRequired,
   }
+
+  shouldComponentUpdate = shouldComponentUpdate
 
   render() {
     const { handleCheckEmail, handleLogin, handleRegister, doesEmailExist } = this.props
