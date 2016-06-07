@@ -6,6 +6,7 @@ import {
   SOCKET_EMIT,
   SOCKET_SUCCESS,
   SOCKET_PONG_TIMEOUT,
+  SOCKET_TASK_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
@@ -117,21 +118,32 @@ export function *handleEmit(action) {
   yield put(startSubmit('login'))
 
   let retries = 0
+  let payload
 
   while (3 > retries++) {
     yield fork(emitEvent, action)
     console.log('forked the emitEvent', action)
-    const { response, ...rest } = yield race({
+    const { response, timeout } = yield race({
       response: take([successType, failureType]),
-      pongTimeout: take(SOCKET_PONG_TIMEOUT),
-      taskTimeout: call(delay, 10000),
+      timeout: yield race({
+        response: take([successType, failureType]),
+        pongTimeout: take(SOCKET_PONG_TIMEOUT),
+        taskTimeout: call(delay, 10000),
+      }),
     })
-    console.log(rest, response)
     if (response) {
-      break
+      yield put(stopSubmit('login'))
+      return response
+    }
+    if (timeout) {
+      payload = timeout
+    }
+    if (timeout && timeout.taskTimeout) {
+      yield put({ type: SOCKET_TASK_TIMEOUT })
     }
   }
   yield put(stopSubmit('login'))
+  yield put({ type: failureType, payload })
 }
 
 export function *watchSocketEmits() {
