@@ -98,7 +98,7 @@
     "ioredis": "2.0.1",
     "json-loader": "0.5.4",
     "lodash": "4.13.1",
-    "module-alias": "1.0.9",
+    "module-alias": "1.0.10",
     "node-sass": "3.7.0",
     "purifycss-webpack-plugin": "2.0.3",
     "raw-loader": "0.5.1",
