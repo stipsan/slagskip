@@ -82,7 +82,7 @@
   composes: container from 'bulma';
 }
 .hero {
-  composes: hero is-bold is-dark is-fullheight from 'bulma';
+  composes: hero is-bold is-light is-fullheight from 'bulma';
 }
 .hero-body {
   composes: hero-body from 'bulma';
@@ -139,11 +139,8 @@
 }
 .help {
   composes: help from 'bulma';
-  background: hsla(0, 0%, 0%, .5);
   margin-bottom: 10px;
   padding: 5px 10px;
-  border-radius: 2px;
-  border: 1px hsla(0, 0%, 0%, 0.15) solid;
 }
 .is-marginless {
   composes: is-marginless from 'bulma';

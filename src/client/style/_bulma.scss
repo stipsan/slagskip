@@ -9,6 +9,8 @@ $grey-light: #d3d6db !default
 $grey-lighter: #f5f7fa !default
 $white: #fff !default
 
+$belize-hole: #2980b9;
+
 $blue: #42afe3;
 $green: #97cd76;
 $orange: #f68b39;
@@ -16,7 +18,7 @@ $purple: #847bb9;
 $red: #ed6c63;
 $turquoise: #1fc8db;
 $yellow: #fce473;
-$pink: #ffb3b3; // Add pink
+$pink: #ffb3b3;
 $family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
 // modular scaled font sizes
@@ -45,7 +47,7 @@ $bg-login: hsl(200, 18%, 46%) !default;
 
 $button-bg: hsl(202, 4%, 51%) !default;
 
-$primary: $turquoise;
+$primary: $belize-hole;
 
 $info: $blue;
 $success: $green;
