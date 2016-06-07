@@ -18,14 +18,16 @@ describe('viewer reducer', () => {
       }
     )
   })
-  it('should handle AUTHENTICATE_SUCCESS', () => {
+  it('should handle login', () => {
     expect(
       reducer(undefined, {
         type: types.AUTHENTICATE_SUCCESS,
-        authToken: {
-          id: '2',
-          username: 'Foo',
-          email: 'foo@bar.org',
+        payload: {
+          authToken: {
+            id: '2',
+            username: 'Foo',
+            email: 'foo@bar.org',
+          }
         }
       }).toJS()
     ).toEqual(
@@ -37,9 +39,20 @@ describe('viewer reducer', () => {
       }
     )
   })
-  it('should handle LOGOUT_SUCCESS', () => {
+  it('should handle logout', () => {
+    const initialState = reducer(undefined, {
+      type: types.AUTHENTICATE_SUCCESS,
+      payload: {
+        authToken: {
+          id: '2',
+          username: 'Foo',
+          email: 'foo@bar.org',
+        }
+      }
+    })
+
     expect(
-      reducer(undefined, { type: types.LOGOUT_SUCCESS }).toJS()
+      reducer(initialState, { type: types.DEAUTHENTICATE_SUCCESS }).toJS()
     ).toEqual(
       {
         username: '',
