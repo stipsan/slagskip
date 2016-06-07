@@ -164,8 +164,3 @@ export const LEAVE_GAME_REQUESTED = 'LEAVE_GAME_REQUESTED'
 export const LEAVE_GAME_SUCCESS = 'LEAVE_GAME_SUCCESS'
 export const LEAVE_GAME_FAILURE = 'LEAVE_GAME_FAILURE'
 export const RECEIVE_GAME_LEAVE = 'RECEIVE_GAME_LEAVE'
-
-// its sad to see them go, but we have to let them
-export const LOGOUT_REQUESTED = 'LOGOUT_REQUESTED'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
