@@ -1,4 +1,4 @@
-import { take, put, fork, race } from 'redux-saga/effects'
+import { take, put } from 'redux-saga/effects'
 
 import {
   SOCKET_EMIT,
@@ -6,15 +6,33 @@ import {
   CHECK_EMAIL_EXISTS_SUCCESS,
   CHECK_EMAIL_EXISTS_FAILURE,
   AUTHENTICATE_REQUESTED,
-  CREATE_USER_REQUESTED,
   CHECK_EMAIL_EXISTS_ASYNC,
+  RECEIVE_DEAUTHENTICATE,
+  DEAUTHENTICATE_SUCCESS,
+  AUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 
-export function *authorize(email, password) {
+export function *authorize() {
   //
 }
 
-export function *watchValidateEmail() {
+export function *checkEmailFlow() {
+  while (true) { // eslint-disable-line no-constant-condition
+    const authAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
+    yield put({ type: SOCKET_EMIT, payload: authAction })
+    yield take([authAction.successType, authAction.failureType])
+  }
+}
+
+export function *loginFlow() {
+  while (true) { // eslint-disable-line no-constant-condition
+    const authAction = yield take(AUTHENTICATE_REQUESTED)
+    yield put({ type: SOCKET_EMIT, payload: authAction })
+    yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE])
+  }
+}
+
+export function *validateEmail() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
     const emitCheckEmailAction = { type: SOCKET_EMIT, payload: {
@@ -26,30 +44,15 @@ export function *watchValidateEmail() {
       }
     } }
     yield put(emitCheckEmailAction)
-    const { success, failure } = yield race({
-      success: take(CHECK_EMAIL_EXISTS_SUCCESS),
-      failure: take(CHECK_EMAIL_EXISTS_FAILURE),
-    })
+    yield take([CHECK_EMAIL_EXISTS_SUCCESS, CHECK_EMAIL_EXISTS_FAILURE])
     resolve()
   }
 }
 
 export function *watchAuthState() {
-  yield fork(watchValidateEmail)
-  // @TODO wake up the worker on SOCKET_SUCCESS
-  while (true) { // eslint-disable-line no-constant-condition
-    const checkEmailAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
-    const { successType: checkEmailActionSuccessType } = checkEmailAction.payload
-
-    const emitCheckEmailAction = { type: SOCKET_EMIT, payload: checkEmailAction }
-    yield put(emitCheckEmailAction)
-    yield take(checkEmailActionSuccessType)
-
-    const authAction = yield take([CREATE_USER_REQUESTED, AUTHENTICATE_REQUESTED])
-    const { successType: authActionSuccessType } = authAction.payload
-    const emitAuthAction = { type: SOCKET_EMIT, payload: authAction }
-    yield put(emitAuthAction)
-
-    yield take(authActionSuccessType)
-  }
+  yield [
+    checkEmailFlow(),
+    loginFlow(),
+    validateEmail(),
+  ]
 }
