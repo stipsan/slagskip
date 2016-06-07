@@ -27,8 +27,8 @@ export const auth = (state = initialState, action) => {
   switch (action.type) {
   case SOCKET_SUCCESS:
     return state.merge({
-      isAuthenticated: action.isAuthenticated,
-      authState: action.isAuthenticated ? 'authenticated' : 'unauthenticated',
+      isAuthenticated: action.payload.isAuthenticated,
+      authState: action.payload.isAuthenticated ? 'authenticated' : 'unauthenticated',
     })
   case RECEIVE_AUTH_STATE_CHANGE:
     return state.merge({
@@ -38,10 +38,6 @@ export const auth = (state = initialState, action) => {
       ),
       authState: action.newState,
       authToken: action.authToken,
-    })
-  case LOCATION_CHANGE:
-    return state.merge({
-      redirectAfterLogin: action.payload.state && action.payload.state.redirectAfterLogin,
     })
   case AUTHENTICATE_FAILURE:
   case RECEIVE_DEAUTHENTICATE:
@@ -58,7 +54,7 @@ export const auth = (state = initialState, action) => {
     return state.merge({
       authState: 'authenticated',
       isAuthenticated: true,
-      authToken: action.authToken,
+      authToken: action.payload.authToken,
     })
   case CHECK_EMAIL_EXISTS_REQUESTED:
     return state.merge({

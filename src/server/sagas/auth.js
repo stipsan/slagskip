@@ -1,4 +1,4 @@
-import { fork, call, take, put, cancelled } from 'redux-saga/effects'
+import { fork, call, take } from 'redux-saga/effects'
 
 import {
   CHECK_EMAIL_EXISTS_REQUESTED,
@@ -12,6 +12,20 @@ import {
   AUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 import { handleEmit } from './socket'
+
+export function *authenticate(credentials, socket, database, redis) { // eslint-disable-line
+
+  try {
+    const authToken = yield call(database.authenticate, credentials, redis)
+    yield call(handleEmit, socket, { type: AUTHENTICATE_SUCCESS, payload: { authToken } })
+    yield call([socket, socket.setAuthToken], authToken)
+
+  } catch (error) {
+    yield call(handleEmit, socket, { type: AUTHENTICATE_FAILURE, payload: {
+      error: error.message
+    } })
+  }
+}
 
 export function *createUser(credentials, socket, database, redis) {
   try {
@@ -33,21 +47,6 @@ export function *watchUserCreate(socket, database, redis) {
   }
 }
 
-export function *authenticate(credentials, socket, database, redis) { // eslint-disable-line
-  try {
-    const authToken = yield call(database.authenticate, credentials, redis)
-    yield put({ type: AUTHENTICATE_SUCCESS, authToken })
-    yield call(socket.setAuthToken, authToken)
-    return authToken
-  } catch (error) {
-    yield put({ type: AUTHENTICATE_FAILURE, error })
-  } finally {
-    if (yield cancelled()) {
-      // ... put special cancellation handling code here
-    }
-  }
-}
-
 export function *watchAuthenticateRequest(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { credentials } } = yield take(AUTHENTICATE_REQUESTED)
@@ -59,16 +58,19 @@ export function *checkEmailExist(email, socket, database, redis) {
   try {
     const doesEmailExist = yield call(database.checkEmailExist, email, redis)
     console.log('doesEmailExist', doesEmailExist, email)
-    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: { doesEmailExist } })
+    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: {
+      doesEmailExist
+    } })
   } catch (error) {
-    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_FAILURE, payload: { error: error.message } })
+    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_FAILURE, payload: {
+      error: error.message
+    } })
   }
 }
 
 export function *watchCheckEmailExistRequest(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email } } = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
-    console.log('watchCheckEmailExistRequest', email)
     yield fork(checkEmailExist, email, socket, database, redis)
   }
 }
