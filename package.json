@@ -125,7 +125,7 @@
     "react-useravatar": "1.1.2",
     "redbox-react": "1.2.6",
     "redux": "3.5.2",
-    "redux-form": "6.0.0-alpha.14",
+    "redux-form": "6.0.0-alpha.15",
     "redux-immutable": "3.0.6",
     "redux-saga": "0.10.4",
     "redux-thunk": "2.1.0",
@@ -138,7 +138,7 @@
     "url-loader": "0.5.7",
     "uws": "0.4.1",
     "vinyl-fs": "2.4.3",
-    "webpack": "2.1.0-beta.8"
+    "webpack": "2.1.0-beta.13"
   },
   "devDependencies": {
     "babel-eslint": "6.0.4",
