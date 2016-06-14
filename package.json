@@ -142,7 +142,7 @@
   },
   "devDependencies": {
     "babel-eslint": "6.0.4",
-    "codeclimate-test-reporter": "0.3.2",
+    "codeclimate-test-reporter": "0.3.3",
     "coveralls": "2.11.9",
     "css-modules-require-hook": "4.0.1",
     "eslint": "2.12.0",
