@@ -2,6 +2,7 @@ import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutabl
 
 import {
   RECEIVE_VIEWER,
+  VIEWER_SUCCESS,
   FRIENDS_SUCCESS,
   RECEIVE_FRIEND_NETWORK_STATUS,
   GAME_INVITE_SUCCESS,
@@ -28,6 +29,7 @@ const initialState = ImmutableMap({
 export const friends = (state = initialState, { type, payload }) => {
   switch (type) {
   case RECEIVE_VIEWER:
+  case VIEWER_SUCCESS:
     return state.set('total', payload.friendIds.length)
   case FRIENDS_SUCCESS:
     return payload.friends.reduce(

@@ -3,6 +3,7 @@ import { Map as ImmutableMap } from 'immutable'
 import {
   AUTHENTICATE_SUCCESS,
   RECEIVE_VIEWER,
+  VIEWER_SUCCESS,
   DEAUTHENTICATE_SUCCESS,
 } from '../constants/ActionTypes'
 
@@ -22,6 +23,7 @@ export const viewer = (state = initialState, { type, payload }) => {
       username: payload.authToken.username
     })
   case RECEIVE_VIEWER:
+  case VIEWER_SUCCESS:
     return state.merge({
       isLoaded: true,
     })

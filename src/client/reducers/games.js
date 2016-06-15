@@ -2,6 +2,7 @@ import { Map as ImmutableMap, OrderedMap as ImmutableOrderedMap } from 'immutabl
 
 import {
   RECEIVE_VIEWER,
+  VIEWER_SUCCESS,
   RECEIVE_NEW_GAME,
   GAMES_SUCCESS,
 } from '../constants/ActionTypes'
@@ -32,19 +33,20 @@ const getIsViewerTurn = game => {
   return game.isViewerFirst
 }
 
-export const games = (state = initialState, action) => {
-  switch (action.type) {
+export const games = (state = initialState, { type, payload }) => {
+  switch (type) {
   case RECEIVE_VIEWER:
-    return state.set('total', action.games.length)
+  case VIEWER_SUCCESS:
+    return state.set('total', payload.games.length)
   case RECEIVE_NEW_GAME:
     return state.set('total', state.get('total') + 1)
   case GAMES_SUCCESS:
-    return action.games.reduce(
+    return payload.games.reduce(
       (newState, game) => newState.setIn(
         ['list', game.id],
         defaultGame.merge(game).set('isViewerTurn', getIsViewerTurn(game))
       ),
-      state.set('total', action.games.length)
+      state.set('total', payload.games.length)
     )
   default:
     return state

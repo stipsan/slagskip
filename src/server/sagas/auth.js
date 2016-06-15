@@ -10,6 +10,9 @@ import {
   AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
+  VIEWER_REQUESTED,
+  VIEWER_SUCCESS,
+  VIEWER_FAILURE,
 } from '../constants/ActionTypes'
 import { handleEmit } from './socket'
 
@@ -71,5 +74,24 @@ export function *watchCheckEmailExistRequest(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email } } = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
     yield fork(checkEmailExist, email, socket, database, redis)
+  }
+}
+
+export function *getViewer(socket, database, redis) {
+  try {
+    const payload = yield call(database.getViewer, socket.getAuthToken(), redis)
+    console.log('viewer', payload, socket.getAuthToken())
+    yield call(handleEmit, socket, { type: VIEWER_SUCCESS, payload })
+  } catch (error) {
+    yield call(handleEmit, socket, { type: VIEWER_FAILURE, payload: {
+      error: error.message
+    } })
+  }
+}
+
+export function *watchViewerLoggedIn(socket, database, redis) {
+  while (true) { // eslint-disable-line no-constant-condition
+    yield take(VIEWER_REQUESTED)
+    yield fork(getViewer, socket, database, redis)
   }
 }

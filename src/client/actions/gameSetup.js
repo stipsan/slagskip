@@ -10,26 +10,20 @@ import {
   MOVE_ITEM,
 } from '../constants/ActionTypes'
 
-// @FIXME refactor
-const CALL_SOCKET = 'todo'
-
-export const validateSetup = data => ({
-  [CALL_SOCKET]: {
-    types: [NEW_GAME_REQUESTED, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
-    data,
-  }
-})
-
 export const newGame = data => ({
-  [CALL_SOCKET]: {
-    types: [NEW_GAME_REQUESTED, NEW_GAME_SUCCESS, NEW_GAME_FAILURE],
+  type: NEW_GAME_REQUESTED,
+  payload: {
+    successType: NEW_GAME_SUCCESS,
+    failureType: NEW_GAME_FAILURE,
     data,
   }
 })
 
 export const joinGame = data => ({
-  [CALL_SOCKET]: {
-    types: [JOIN_GAME_REQUESTED, JOIN_GAME_SUCCESS, JOIN_GAME_FAILURE],
+  type: JOIN_GAME_REQUESTED,
+  payload: {
+    successType: JOIN_GAME_SUCCESS,
+    failureType: JOIN_GAME_FAILURE,
     data,
   }
 })

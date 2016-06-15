@@ -79,11 +79,17 @@ export function *validateEmail() {
   }
 }
 
-export function *watchSocketConnect() {
+export function *watchSocketSuccess() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { isAuthenticated }, socket } = yield take(SOCKET_SUCCESS)
     if (isAuthenticated) {
-      yield put(signInWithEmailAndPassword(socket.getAuthToken()))
+      yield put({ type: SOCKET_EMIT, payload: {
+        type: VIEWER_REQUESTED,
+        payload: {
+          successType: VIEWER_SUCCESS,
+          failureType: VIEWER_FAILURE,
+        }
+      } })
     }
   }
 }
@@ -94,6 +100,6 @@ export function *watchAuthState() {
     loginFlow(),
     registerFlow(),
     validateEmail(),
-    watchSocketConnect(),
+    watchSocketSuccess(),
   ]
 }

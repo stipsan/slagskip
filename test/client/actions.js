@@ -19,7 +19,7 @@ describe('Client Action Creators', () => {
   })
 
   it('authenticate locally with email and password', () => {
-    const credentials = {email: 'foo@bar.baz', password: 'not null'}
+    const credentials = { email: 'foo@bar.baz', password: 'not null' }
     expect(
       actions.signInWithEmailAndPassword(credentials)
     ).toEqual({
@@ -33,7 +33,7 @@ describe('Client Action Creators', () => {
   })
 
   it('can register an user with email and password', () => {
-    const credentials = {email: 'foo@bar.baz', password: 'not null', username: 'Foo Bar'}
+    const credentials = { email: 'foo@bar.baz', password: 'not null', username: 'Foo Bar' }
     expect(
       actions.createUserWithEmailAndPassword(credentials)
     ).toEqual({
@@ -82,6 +82,34 @@ describe('Client Action Creators', () => {
         successType: types.GAMES_SUCCESS,
         failureType: types.GAMES_FAILURE,
         gameIds,
+      }
+    })
+  })
+
+  it('should request a new game', () => {
+    const data = {}
+    expect(
+      actions.newGame(data)
+    ).toEqual({
+      type: types.NEW_GAME_REQUESTED,
+      payload: {
+        successType: types.NEW_GAME_SUCCESS,
+        failureType: types.NEW_GAME_FAILURE,
+        data,
+      }
+    })
+  })
+
+  it('should join a new game', () => {
+    const data = {}
+    expect(
+      actions.joinGame(data)
+    ).toEqual({
+      type: types.JOIN_GAME_REQUESTED,
+      payload: {
+        successType: types.JOIN_GAME_SUCCESS,
+        failureType: types.JOIN_GAME_FAILURE,
+        data,
       }
     })
   })
