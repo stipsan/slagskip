@@ -1,7 +1,9 @@
 import { take, put } from 'redux-saga/effects'
 
+import { signInWithEmailAndPassword } from '../actions'
 import {
   SOCKET_EMIT,
+  SOCKET_SUCCESS,
   CHECK_EMAIL_EXISTS_REQUESTED,
   CHECK_EMAIL_EXISTS_SUCCESS,
   CHECK_EMAIL_EXISTS_FAILURE,
@@ -12,6 +14,10 @@ import {
   AUTHENTICATE_FAILURE,
   CREATE_USER_REQUESTED,
   CREATE_USER_FAILURE,
+  AUTHENTICATE_SUCCESS,
+  VIEWER_REQUESTED,
+  VIEWER_SUCCESS,
+  VIEWER_FAILURE,
 } from '../constants/ActionTypes'
 
 export function *authorize() {
@@ -42,6 +48,20 @@ export function *registerFlow() {
   }
 }
 
+export function *watchViewerRequests() {
+  while (true) { // eslint-disable-line no-constant-condition
+    yield take(AUTHENTICATE_SUCCESS)
+    yield put({ type: SOCKET_EMIT, payload: {
+      type: VIEWER_REQUESTED,
+      payload: {
+        successType: VIEWER_SUCCESS,
+        failureType: VIEWER_FAILURE,
+      }
+    } })
+    yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, CREATE_USER_FAILURE])
+  }
+}
+
 export function *validateEmail() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
@@ -59,11 +79,21 @@ export function *validateEmail() {
   }
 }
 
+export function *watchSocketConnect() {
+  while (true) { // eslint-disable-line no-constant-condition
+    const { payload: { isAuthenticated }, socket } = yield take(SOCKET_SUCCESS)
+    if (isAuthenticated) {
+      yield put(signInWithEmailAndPassword(socket.getAuthToken()))
+    }
+  }
+}
+
 export function *watchAuthState() {
   yield [
     checkEmailFlow(),
     loginFlow(),
     registerFlow(),
     validateEmail(),
+    watchSocketConnect(),
   ]
 }

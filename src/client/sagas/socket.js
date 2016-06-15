@@ -50,7 +50,7 @@ export function *watchServerRequests() {
 
 export function handleSocketConnect() {
   return eventChannel(listener => {
-    const socketConnectEventHandler = payload => listener({ type: SOCKET_SUCCESS, payload })
+    const socketConnectEventHandler = payload => listener({ type: SOCKET_SUCCESS, payload, socket })
     socket.on('connect', socketConnectEventHandler)
     return () => {
       socket.off('connect', socketConnectEventHandler)

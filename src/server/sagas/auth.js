@@ -19,7 +19,6 @@ export function *authenticate(credentials, socket, database, redis) { // eslint-
     const authToken = yield call(database.authenticate, credentials, redis)
     yield call(handleEmit, socket, { type: AUTHENTICATE_SUCCESS, payload: { authToken } })
     yield call([socket, socket.setAuthToken], authToken)
-
   } catch (error) {
     yield call(handleEmit, socket, { type: AUTHENTICATE_FAILURE, payload: {
       error: error.message
