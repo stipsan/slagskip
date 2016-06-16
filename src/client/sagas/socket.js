@@ -1,5 +1,6 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { delay, eventChannel } from 'redux-saga'
+import { createEventChannel } from 'redux-saga-sc'
 import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
 
 import {
@@ -10,25 +11,8 @@ import {
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-export function handleServerRequest(event) {
-  console.log('socket is listening to:', event)
-  return eventChannel(listener => {
-    const handleClientRequest = (action, cb) => {
-      // notify the client that the request is received
-      cb() // eslint-disable-line
-      console.log('handleSocketEvent:', event, action)
-      listener(action)
-    }
-    socket.on(event, handleClientRequest)
-    return () => {
-      console.log('socket stopped listening to:', event)
-      socket.off(event, handleClientRequest)
-    }
-  })
-}
-
 export function *watchServerRequests() {
-  const chan = yield call(handleServerRequest, 'dispatch')
+  const chan = yield call(createEventChannel, socket, 'dispatch')
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)
