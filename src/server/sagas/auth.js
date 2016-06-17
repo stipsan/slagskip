@@ -1,3 +1,4 @@
+import { emit } from 'redux-saga-sc'
 import { fork, call, take } from 'redux-saga/effects'
 
 import {
@@ -14,16 +15,15 @@ import {
   VIEWER_SUCCESS,
   VIEWER_FAILURE,
 } from '../constants/ActionTypes'
-import { handleEmit } from './socket'
 
 export function *authenticate(credentials, socket, database, redis) { // eslint-disable-line
 
   try {
     const authToken = yield call(database.authenticate, credentials, redis)
-    yield call(handleEmit, socket, { type: AUTHENTICATE_SUCCESS, payload: { authToken } })
+    yield call(emit, socket, { type: AUTHENTICATE_SUCCESS, payload: { authToken } })
     yield call([socket, socket.setAuthToken], authToken)
   } catch (error) {
-    yield call(handleEmit, socket, { type: AUTHENTICATE_FAILURE, payload: {
+    yield call(emit, socket, { type: AUTHENTICATE_FAILURE, payload: {
       error: error.message
     } })
   }
@@ -34,10 +34,10 @@ export function *createUser(credentials, socket, database, redis) {
     console.log('createUser', credentials)
     const userData = yield call(database.createUser, credentials, redis)
     console.log('userData', userData)
-    yield call(handleEmit, socket, { type: CREATE_USER_SUCCESS, payload: { userData } })
+    yield call(emit, socket, { type: CREATE_USER_SUCCESS, payload: { userData } })
     yield call(authenticate, credentials, socket, database, redis)
   } catch (error) {
-    yield call(handleEmit, socket, { type: CREATE_USER_FAILURE, payload: { error: error.message } })
+    yield call(emit, socket, { type: CREATE_USER_FAILURE, payload: { error: error.message } })
   }
 }
 
@@ -60,11 +60,11 @@ export function *checkEmailExist(email, socket, database, redis) {
   try {
     const doesEmailExist = yield call(database.checkEmailExist, email, redis)
     console.log('doesEmailExist', doesEmailExist, email)
-    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: {
+    yield call(emit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: {
       doesEmailExist
     } })
   } catch (error) {
-    yield call(handleEmit, socket, { type: CHECK_EMAIL_EXISTS_FAILURE, payload: {
+    yield call(emit, socket, { type: CHECK_EMAIL_EXISTS_FAILURE, payload: {
       error: error.message
     } })
   }
@@ -81,9 +81,9 @@ export function *getViewer(socket, database, redis) {
   try {
     const payload = yield call(database.getViewer, socket.getAuthToken(), redis)
     console.log('viewer', payload, socket.getAuthToken())
-    yield call(handleEmit, socket, { type: VIEWER_SUCCESS, payload })
+    yield call(emit, socket, { type: VIEWER_SUCCESS, payload })
   } catch (error) {
-    yield call(handleEmit, socket, { type: VIEWER_FAILURE, payload: {
+    yield call(emit, socket, { type: VIEWER_FAILURE, payload: {
       error: error.message
     } })
   }
