@@ -13,7 +13,7 @@ export function *handleEmit(socket, action) {
 }
 
 export function *watchClientRequests(socket) {
-  const chan = yield call(createEventChannel, 'dispatch', socket)
+  const chan = yield call(createEventChannel, socket, 'dispatch')
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)
