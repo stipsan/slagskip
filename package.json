@@ -99,7 +99,7 @@
     "json-loader": "0.5.4",
     "lodash": "4.13.1",
     "module-alias": "1.0.10",
-    "node-sass": "3.7.0",
+    "node-sass": "3.8.0",
     "purifycss-webpack-plugin": "2.0.3",
     "push.js": "0.0.8",
     "raw-loader": "0.5.1",
