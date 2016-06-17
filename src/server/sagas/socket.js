@@ -1,4 +1,4 @@
-import { eventChannel } from 'redux-saga'
+import { createEventChannel } from 'redux-saga-sc'
 import { take, put, call, cps, fork } from 'redux-saga/effects'
 
 export function *emitEvent(socket, action) {
@@ -12,25 +12,8 @@ export function *handleEmit(socket, action) {
   console.log('socket emit')
 }
 
-export function handleSocketEventChannel(event, socket) {
-  console.log('socket is listening to:', event)
-  return eventChannel(listener => {
-    const handleClientRequest = (action, cb) => {
-      // notify the client that the request is received
-      cb() // eslint-disable-line
-      console.log('handleSocketEvent:', event, action)
-      listener(action)
-    }
-    socket.on(event, handleClientRequest)
-    return () => {
-      console.log('socket stopped listening to:', event)
-      socket.off(event, handleClientRequest)
-    }
-  })
-}
-
-export function *watchClientRequests(socket, database, redis) {
-  const chan = yield call(handleSocketEventChannel, 'dispatch', socket)
+export function *watchClientRequests(socket) {
+  const chan = yield call(createEventChannel, 'dispatch', socket)
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)

@@ -16,7 +16,6 @@ export function *watchServerRequests() {
   try {
     while (true) { // eslint-disable-line
       const action = yield take(chan)
-      console.log('watchServerRequests:', action)
       yield put(action)
     }
   } finally {
