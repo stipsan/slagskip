@@ -1,6 +1,8 @@
+import { watchRemote } from 'redux-saga-sc'
+
+import { socket } from '../services'
 import {
   watchAuthState,
-  watchServerRequests,
   watchSocketConnect,
   watchSocketEmits,
  } from './exports'
@@ -8,8 +10,8 @@ import {
 export default function *sagas() {
   yield [
     watchAuthState(),
-    watchServerRequests(),
     watchSocketConnect(),
     watchSocketEmits(),
+    watchRemote(socket),
   ]
 }

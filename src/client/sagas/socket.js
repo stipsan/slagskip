@@ -1,6 +1,5 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { delay, eventChannel } from 'redux-saga'
-import { createEventChannel } from 'redux-saga-sc'
 import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
 
 import {
@@ -10,26 +9,6 @@ import {
   SOCKET_TASK_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
-
-export function *watchServerRequests() {
-  const chan = yield call(createEventChannel, socket, 'dispatch')
-  try {
-    while (true) { // eslint-disable-line
-      const action = yield take(chan)
-      yield put(action)
-    }
-  } finally {
-    if (yield cancelled()) {
-        // @FIXME put in an action creator
-      yield put({
-        type: 'UNEXPECTED_ERROR',
-        payload: {
-          message: 'watchServerRequests saga got cancelled!'
-        }
-      })
-    }
-  }
-}
 
 export function handleSocketConnect() {
   return eventChannel(listener => {
