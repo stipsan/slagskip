@@ -101,7 +101,7 @@
     "module-alias": "1.0.10",
     "node-sass": "3.8.0",
     "purifycss-webpack-plugin": "2.0.3",
-    "push.js": "0.0.8",
+    "push.js": "0.0.9",
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",
     "react": "15.1.0",
