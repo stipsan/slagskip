@@ -1,3 +1,4 @@
+import { startSubmit, stopSubmit } from 'redux-form'
 import { take, put } from 'redux-saga/effects'
 
 import { signInWithEmailAndPassword } from '../actions'
@@ -24,11 +25,14 @@ export function *authorize() {
   //
 }
 
-export function *checkEmailFlow() {
+export function *watchLoginForm() {
   while (true) { // eslint-disable-line no-constant-condition
-    const authAction = yield take(CHECK_EMAIL_EXISTS_REQUESTED)
-    yield put({ type: SOCKET_EMIT, payload: authAction })
-    yield take([authAction.successType, authAction.failureType])
+    const { payload: { successType, failureType } } = yield take([
+      CHECK_EMAIL_EXISTS_REQUESTED,
+    ])
+    yield put(startSubmit('login'))
+    yield take([successType, failureType])
+    yield put(stopSubmit('login'))
   }
 }
 
@@ -96,10 +100,10 @@ export function *watchSocketSuccess() {
 
 export function *watchAuthState() {
   yield [
-    checkEmailFlow(),
     loginFlow(),
     registerFlow(),
     validateEmail(),
     watchSocketSuccess(),
+    watchLoginForm(),
   ]
 }

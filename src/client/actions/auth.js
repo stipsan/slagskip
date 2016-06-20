@@ -1,3 +1,5 @@
+import { socketRequest } from 'redux-saga-sc'
+
 import {
   AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
@@ -13,7 +15,7 @@ import {
   CHECK_EMAIL_EXISTS_FAILURE,
 } from '../constants/ActionTypes'
 
-export const signInWithEmailAndPassword = credentials => ({
+export const signInWithEmailAndPassword = credentials => socketRequest({
   type: AUTHENTICATE_REQUESTED,
   payload: {
     successType: AUTHENTICATE_SUCCESS,
@@ -30,7 +32,7 @@ export const logoutUser = () => ({
   }
 })
 
-export const checkIfEmailExists = email => ({
+export const checkIfEmailExists = email => socketRequest({
   type: CHECK_EMAIL_EXISTS_REQUESTED,
   payload: {
     successType: CHECK_EMAIL_EXISTS_SUCCESS,
@@ -39,7 +41,7 @@ export const checkIfEmailExists = email => ({
   }
 })
 
-export const createUserWithEmailAndPassword = credentials => ({
+export const createUserWithEmailAndPassword = credentials => socketRequest({
   type: CREATE_USER_REQUESTED,
   payload: {
     successType: CREATE_USER_SUCCESS,

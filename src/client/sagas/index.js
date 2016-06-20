@@ -1,4 +1,4 @@
-import { watchRemote } from 'redux-saga-sc'
+import { watchRemote, watchRequests } from 'redux-saga-sc'
 
 import { socket } from '../services'
 import {
@@ -13,5 +13,6 @@ export default function *sagas() {
     watchSocketConnect(),
     watchSocketEmits(),
     watchRemote(socket),
+    watchRequests(socket),
   ]
 }

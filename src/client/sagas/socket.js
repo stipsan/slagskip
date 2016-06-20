@@ -1,5 +1,6 @@
 import { startSubmit, stopSubmit } from 'redux-form'
 import { delay, eventChannel } from 'redux-saga'
+import { socketRequest } from 'redux-saga-sc'
 import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
 
 import {
@@ -75,35 +76,11 @@ export function *emitEvent(action) {
 
 // @TODO move start/stopSubmit calls to a worker that is woke up by CHECK_EMAIL_EXISTS_REQUESTED
 export function *handleEmit(action) {
-  const { successType, failureType } = action.payload
-
+  yield put(socketRequest(action))
+  yield take(action.type)
   yield put(startSubmit('login'))
-
-  let retries = 0
-  let payload
-
-  while (3 > retries++) {
-    yield fork(emitEvent, action)
-    console.log('forked the emitEvent', action)
-    const { response, timeout } = yield race({
-      response: take([successType, failureType]),
-      timeout: yield race({
-        response: take([successType, failureType]),
-        pongTimeout: take(SOCKET_PONG_TIMEOUT),
-        taskTimeout: call(delay, 10000),
-      }),
-    })
-    if (response) {
-      payload = response
-    }
-    if (timeout && timeout.taskTimeout) {
-      yield put({ type: SOCKET_TASK_TIMEOUT, payload: { attempt: retries } })
-    }
-  }
+  yield take([action.payload.successType, action.payload.failureType])
   yield put(stopSubmit('login'))
-  if (payload) {
-    yield put(payload)
-  }
 }
 
 export function *watchSocketEmits() {
