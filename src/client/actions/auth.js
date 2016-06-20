@@ -24,7 +24,7 @@ export const signInWithEmailAndPassword = credentials => socketRequest({
   },
 })
 
-export const logoutUser = () => ({
+export const logoutUser = () => socketRequest({
   type: DEAUTHENTICATE_REQUESTED,
   payload: {
     successType: DEAUTHENTICATE_SUCCESS,

@@ -4,15 +4,19 @@
 // as well as --harmony_default_parameters
 module.exports.run = () => {
   /* eslint global-require: ["off"] */
-  require('babel-register')({
-    only: /shared|server/,
-    plugins: [
-      'transform-es2015-modules-commonjs',
-      'transform-es2015-parameters',
-      'transform-es2015-spread',
-      'transform-es2015-destructuring',
-      'transform-object-rest-spread',
-    ],
-    babelrc: false,
-  })
+  if ('production' === process.env.NODE_ENV) {
+    require('babel-polyfill')
+  } else {
+    require('babel-register')({
+      only: /shared|server/,
+      plugins: [
+        'transform-es2015-modules-commonjs',
+        'transform-es2015-parameters',
+        'transform-es2015-spread',
+        'transform-es2015-destructuring',
+        'transform-object-rest-spread',
+      ],
+      babelrc: false,
+    })
+  }
 }
