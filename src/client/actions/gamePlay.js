@@ -10,21 +10,23 @@ import {
   FIRE_CANNON_SUCCESS,
   FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
+import { socketRequest } from 'redux-saga-sc'
 
-// @FIXME refactor
-const CALL_SOCKET = 'todo'
-
-export const resumeGame = id => ({
-  [CALL_SOCKET]: {
-    types: [RESUME_GAME_REQUESTED, RESUME_GAME_SUCCESS, RESUME_GAME_FAILURE],
+export const resumeGame = id => socketRequest({
+  type: RESUME_GAME_REQUESTED,
+  payload: {
+    successType: RESUME_GAME_SUCCESS,
+    failureType: RESUME_GAME_FAILURE,
     id,
   }
 })
 
-export const loadGame = id => ({
-  [CALL_SOCKET]: {
-    types: [LOAD_GAME_REQUESTED, LOAD_GAME_SUCCESS, LOAD_GAME_FAILURE],
-    data: { id },
+export const loadGame = id => socketRequest({
+  type: LOAD_GAME_REQUESTED,
+  payload: {
+    successType: LOAD_GAME_SUCCESS,
+    failureType: LOAD_GAME_FAILURE,
+    id,
   }
 })
 
@@ -33,9 +35,11 @@ export const selectCell = selectedCell => ({
   selectedCell,
 })
 
-export const fireCannon = data => ({
-  [CALL_SOCKET]: {
-    types: [FIRE_CANNON_REQUESTED, FIRE_CANNON_SUCCESS, FIRE_CANNON_FAILURE],
+export const fireCannon = data => socketRequest({
+  type: FIRE_CANNON_REQUESTED,
+  payload: {
+    successType: FIRE_CANNON_SUCCESS,
+    failureType: FIRE_CANNON_FAILURE,
     data,
   }
 })
