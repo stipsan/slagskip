@@ -105,5 +105,6 @@ export function *watchAuthState() {
     validateEmail(),
     watchSocketSuccess(),
     watchLoginForm(),
+    watchViewerRequests(),
   ]
 }
