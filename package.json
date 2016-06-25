@@ -89,7 +89,7 @@
     "express-history-spa-fallback": "^3.0.0",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
-    "html-minifier": "2.1.5",
+    "html-minifier": "2.1.6",
     "imagemin": "5.2.1",
     "imagemin-optipng": "5.1.0",
     "imagemin-svgo": "5.1.0",
