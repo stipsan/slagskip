@@ -158,7 +158,7 @@
     "foreman": "1.4.1",
     "growl": "1.9.2",
     "ioredis-mock": "1.4.0",
-    "istanbul": "1.0.0-alpha.2",
+    "istanbul": "1.1.0-alpha.1",
     "mocha": "2.5.3",
     "remotedev-server": "0.1.2",
     "webpack-dev-server": "2.1.0-beta.0"
