@@ -4,7 +4,7 @@
 'use strict' // @TODO this is to allow let & const
 
 const Redis = require('ioredis')
-const redis = new Redis(process.env.REDIS_URL || '127.0.0.1:6379')
+const redis = new Redis(process.env.REDIS_URL || '127.0.0.1:6379', { dropBufferSupport: true })
 const migrations = require('./migrations')
 
 redis.hgetall('migrations').then(migrated => {
