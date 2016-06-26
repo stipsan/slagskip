@@ -132,7 +132,7 @@
     "redux-saga-sc": "1.1.2",
     "redux-thunk": "2.1.0",
     "remote-redux-devtools": "0.3.3",
-    "sass-loader": "3.2.1",
+    "sass-loader": "3.2.2",
     "socketcluster": "4.6.2",
     "socketcluster-client": "4.3.19",
     "stattic-parseurl": "0.1.0",
