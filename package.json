@@ -157,7 +157,7 @@
     "expect": "1.20.1",
     "foreman": "1.4.1",
     "growl": "1.9.2",
-    "ioredis-mock": "1.4.0",
+    "ioredis-mock": "1.4.1",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "2.5.3",
     "remotedev-server": "0.1.2",
