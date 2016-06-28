@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import invariant from 'invariant'
 
 import { authenticate } from './auth'
@@ -22,6 +23,7 @@ export const createUser = (userData, redis) => {
         ['hsetnx', `user:${userId}`, 'id', userId],
         ['hsetnx', `user:${userId}`, 'username', userData.username],
         ['hsetnx', `user:${userId}`, 'email', userData.email],
+        ['hsetnx', `user:${userId}`, 'password', bcrypt.hashSync(userData.password, 10)]
       ]).exec()
     )
     .then(results => {
