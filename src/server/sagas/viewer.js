@@ -10,7 +10,6 @@ import {
 export function *getViewer(socket, database, redis) {
   try {
     const payload = yield call(database.getViewer, socket.getAuthToken(), redis)
-    console.log('viewer', payload, socket.getAuthToken())
     yield put({ type: VIEWER_SUCCESS, payload })
     yield call(emit, socket, { type: VIEWER_SUCCESS, payload })
   } catch (error) {

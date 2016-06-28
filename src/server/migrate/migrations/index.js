@@ -1,8 +1,6 @@
 /* eslint strict: ["off"] */
 'use strict'
 
-const crypto = require('crypto')
-
 module.exports = [
   ['legacy', redis => redis.del(
     'migration_next', 'migration:0', 'migration:1', 'migration:2'
@@ -30,6 +28,5 @@ module.exports = [
       })
       stream.on('end', () => resolve())
     }
-  )],
-  ['gen_secret', redis => redis.setnx('secret', crypto.randomBytes(32).toString('hex'))]
+  )]
 ]
