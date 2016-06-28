@@ -57,7 +57,7 @@ class Friend extends Component {
       <span className={cx('username')}>
         {friend.get('username')}
         {friend.has('description') && <small>{friend.get('description')}</small>}
-        {!online && friend.has('lastVisit') && <small>
+        {!online && friend.get('lastVisit', false) && <small>
           <TimeAgo date={friend.get('lastVisit')} formatter={timeAgoFormatter} />
         </small>}
       </span>
