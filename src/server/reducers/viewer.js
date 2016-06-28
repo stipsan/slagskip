@@ -2,6 +2,7 @@ import { Map as ImmutableMap } from 'immutable'
 
 import {
   RECEIVE_VIEWER,
+  VIEWER_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = ImmutableMap({
@@ -10,13 +11,14 @@ const initialState = ImmutableMap({
   games: [],
 })
 
-export const viewer = (state = initialState, action) => {
-  switch (action.type) {
+export const viewer = (state = initialState, { type, payload }) => {
+  switch (type) {
   case RECEIVE_VIEWER:
+  case VIEWER_SUCCESS:
     return state.merge({
-      friendIds: action.friendIds,
-      invites: action.invites,
-      games: action.games,
+      friendIds: payload.friendIds,
+      invites: payload.invites,
+      games: payload.games,
     })
   default:
     return state

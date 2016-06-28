@@ -1,5 +1,5 @@
 import { emit } from 'redux-saga-sc'
-import { fork, call, take } from 'redux-saga/effects'
+import { fork, call, take, put } from 'redux-saga/effects'
 
 import {
   VIEWER_REQUESTED,
@@ -11,6 +11,7 @@ export function *getViewer(socket, database, redis) {
   try {
     const payload = yield call(database.getViewer, socket.getAuthToken(), redis)
     console.log('viewer', payload, socket.getAuthToken())
+    yield put({ type: VIEWER_SUCCESS, payload })
     yield call(emit, socket, { type: VIEWER_SUCCESS, payload })
   } catch (error) {
     yield call(emit, socket, { type: VIEWER_FAILURE, payload: {
