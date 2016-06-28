@@ -56,48 +56,48 @@
     width: 10%;
     height: 10vmin;
     width: 10vmin;
-    
+
     border: 1px hsla(0, 0%, 0%, .2) solid;
     //box-shadow: -1px -1px 0 hsla(0, 0%, 0%, .2), 1px 1px 0 hsla(0, 0%, 0%, .2);
     border-left-width: 0px;
     border-top-width: 0px;
   }
 }
-.rotated, .draggable.rotated .item  {
+.rotated, .draggable.rotated .item, .itemPreview.rotated .item  {
   flex-direction: column;
 }
 
 .XL {
   composes: item;
-  
+
   div {
     @include gradient($xl-color);
   }
 }
 .L {
   composes: item;
-  
+
   div {
     @include gradient($l-color);
   }
 }
 .M {
   composes: item;
-  
+
   div {
     @include gradient($m-color);
   }
 }
 .S {
   composes: item;
-  
+
   div {
     @include gradient($s-color);
   }
 }
 .XS {
   composes: item;
-  
+
   div {
     @include gradient($xs-color);
   }

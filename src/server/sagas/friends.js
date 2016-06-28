@@ -15,9 +15,9 @@ export function *getFriends({ successType, failureType }, socket, database, redi
       friends: friendIds,
       invites
     }, redis)
-    yield put(socketEmit({ type: successType, payload: friends }))
+    yield put(socketEmit({ type: successType, payload: { friends } }))
   } catch (err) {
-    yield put(socketEmit({ type: failureType, payload: err }))
+    yield put(socketEmit({ type: failureType, payload: { err } }))
   }
 }
 

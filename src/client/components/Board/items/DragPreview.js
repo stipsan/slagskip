@@ -17,6 +17,7 @@ const layerStyles = {
 
 const collect = monitor => {
   const item = monitor.getItem()
+  console.log(item)
   return {
     type: item && item.type,
     rotated: item && item.rotated,
@@ -85,7 +86,7 @@ class ItemPreview extends Component {
     }
 
     return (<div style={layerStyles}>
-      <div className={cx('itemPreview')} style={getItemStyles(currentOffset)}>
+      <div className={cx('itemPreview', { rotated })} style={getItemStyles(currentOffset)}>
         {this.renderItem(type, rotated)}
       </div>
     </div>)
