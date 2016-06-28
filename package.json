@@ -96,7 +96,7 @@
     "imagemin-svgo": "5.1.0",
     "immutable": "3.8.1",
     "invariant": "2.2.1",
-    "ioredis": "2.1.0",
+    "ioredis": "2.2.0",
     "json-loader": "0.5.4",
     "lodash": "4.13.1",
     "module-alias": "1.0.10",
