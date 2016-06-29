@@ -6,6 +6,7 @@ import {
   VIEWER_SUCCESS,
   VIEWER_FAILURE,
 } from '../constants/ActionTypes'
+import { watchExchange } from './exchange'
 
 export function *getViewer(socket, database, redis) {
   try {

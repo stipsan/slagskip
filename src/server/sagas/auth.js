@@ -56,7 +56,6 @@ export function *watchAuthenticateRequest(socket, database, redis) {
 export function *checkEmailExist(email, socket, database, redis) {
   try {
     const doesEmailExist = yield call(database.checkEmailExist, email, redis)
-    console.log('doesEmailExist', doesEmailExist, email)
     yield call(emit, socket, { type: CHECK_EMAIL_EXISTS_SUCCESS, payload: {
       doesEmailExist
     } })
