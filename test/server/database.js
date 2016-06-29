@@ -1,7 +1,6 @@
 import * as database from '../../src/server/database'
 
 import expect from 'expect'
-import Redis from 'ioredis'
 
 import testRedis from '../testRedis'
 
