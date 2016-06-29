@@ -6,6 +6,7 @@ import {
   watchCheckEmailExistRequest,
   watchViewerLoggedIn,
   watchFriends,
+  watchNewGame,
   watchExchange,
 } from './exports'
 
@@ -16,6 +17,7 @@ export default function *sagas(socket, database, redis) {
     watchCheckEmailExistRequest(socket, database, redis),
     watchViewerLoggedIn(socket, database, redis),
     watchFriends(socket, database, redis),
+    watchNewGame(socket, database, redis),
     watchRemote(socket),
     watchEmits(socket),
     watchExchange(socket),

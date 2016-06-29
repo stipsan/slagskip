@@ -1,3 +1,5 @@
+import { socketRequest } from 'redux-saga-sc'
+
 import {
   NEW_GAME_REQUESTED,
   NEW_GAME_SUCCESS,
@@ -9,14 +11,13 @@ import {
   ROTATE_ITEM,
   MOVE_ITEM,
 } from '../constants/ActionTypes'
-import { socketRequest } from 'redux-saga-sc'
 
 export const newGame = data => socketRequest({
   type: NEW_GAME_REQUESTED,
   payload: {
     successType: NEW_GAME_SUCCESS,
     failureType: NEW_GAME_FAILURE,
-    data,
+    ...data,
   }
 })
 
@@ -25,7 +26,7 @@ export const joinGame = data => socketRequest({
   payload: {
     successType: JOIN_GAME_SUCCESS,
     failureType: JOIN_GAME_FAILURE,
-    data,
+    ...data,
   }
 })
 
