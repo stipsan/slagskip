@@ -79,7 +79,7 @@
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.9.0",
     "bcrypt": "0.8.7",
-    "bulma": "0.0.28",
+    "bulma": "0.1.0",
     "bulma-loader": "1.0.1",
     "caniuse-api": "1.5.0",
     "classnames": "2.2.5",
