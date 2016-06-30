@@ -1,4 +1,5 @@
 import { startSubmit, stopSubmit } from 'redux-form'
+import { socketEmit, socketRequest } from 'redux-saga-sc'
 import { take, put } from 'redux-saga/effects'
 
 import { signInWithEmailAndPassword } from '../actions'
@@ -39,7 +40,7 @@ export function *watchLoginForm() {
 export function *loginFlow() {
   while (true) { // eslint-disable-line no-constant-condition
     const authAction = yield take(AUTHENTICATE_REQUESTED)
-    yield put({ type: SOCKET_EMIT, payload: authAction })
+    yield put(socketRequest(authAction))
     yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, AUTHENTICATE_FAILURE])
   }
 }
@@ -55,13 +56,13 @@ export function *registerFlow() {
 export function *watchViewerRequests() {
   while (true) { // eslint-disable-line no-constant-condition
     yield take(AUTHENTICATE_SUCCESS)
-    yield put({ type: SOCKET_EMIT, payload: {
+    yield put(socketEmit({
       type: VIEWER_REQUESTED,
       payload: {
         successType: VIEWER_SUCCESS,
         failureType: VIEWER_FAILURE,
       }
-    } })
+    }))
     yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, CREATE_USER_FAILURE])
   }
 }
@@ -87,13 +88,13 @@ export function *watchSocketSuccess() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { isAuthenticated }, socket } = yield take(SOCKET_SUCCESS)
     if (isAuthenticated) {
-      yield put({ type: SOCKET_EMIT, payload: {
+      yield put(socketRequest({
         type: VIEWER_REQUESTED,
         payload: {
           successType: VIEWER_SUCCESS,
           failureType: VIEWER_FAILURE,
         }
-      } })
+      }))
     }
   }
 }

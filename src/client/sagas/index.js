@@ -9,10 +9,10 @@ import {
 
 export default function *sagas() {
   yield [
+    watchRemote(socket),
+    watchRequests(socket),
     watchAuthState(),
     watchSocketConnect(),
     watchSocketEmits(),
-    watchRemote(socket),
-    watchRequests(socket),
   ]
 }

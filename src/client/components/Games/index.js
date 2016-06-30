@@ -19,13 +19,20 @@ class Games extends Component {
   componentDidMount() {
     const { /* games, gamesTotal,*/ fetchGames, friends, friendsTotal, fetchFriends } = this.props
 
+    fetchGames()
+    fetchGames()
+    fetchGames()
+    fetchGames()
+    fetchGames()
+    console.log('fetching games')
+
     if (friends.size !== friendsTotal) {
       fetchFriends()
     }
 
     // @FIXME poor mans push sync
     // if(games.size !== gamesTotal) {
-    fetchGames()
+
     // }
   }
 
