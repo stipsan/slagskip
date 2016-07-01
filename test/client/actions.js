@@ -88,7 +88,7 @@ describe('Client Action Creators', () => {
   })
 
   it('should request a new game', () => {
-    const data = {}
+    const data = { versus: 1 }
     expect(
       actions.newGame(data)
     ).toEqual(socketRequest({
@@ -96,13 +96,13 @@ describe('Client Action Creators', () => {
       payload: {
         successType: types.NEW_GAME_SUCCESS,
         failureType: types.NEW_GAME_FAILURE,
-        data,
+        versus: 1,
       }
     }))
   })
 
   it('should join a new game', () => {
-    const data = {}
+    const data = { id: 1 }
     expect(
       actions.joinGame(data)
     ).toEqual(socketRequest({
@@ -110,7 +110,7 @@ describe('Client Action Creators', () => {
       payload: {
         successType: types.JOIN_GAME_SUCCESS,
         failureType: types.JOIN_GAME_FAILURE,
-        data,
+        id: 1,
       }
     }))
   })

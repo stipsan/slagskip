@@ -3,6 +3,7 @@ import * as types from '../../../src/client/constants/ActionTypes'
 import * as sagas from '../../../src/client/sagas/auth'
 
 import expect, { createSpy } from 'expect'
+import { socketRequest } from 'redux-saga-sc'
 import { take, put } from 'redux-saga/effects'
 
 describe('client auth sagas', () => {
@@ -59,7 +60,7 @@ describe('client auth sagas', () => {
       password: '123',
     }
     const authAction = actions.signInWithEmailAndPassword(credentials)
-    const emitAuthAction = { type: types.SOCKET_EMIT, payload: authAction }
+    const emitAuthAction = socketRequest(authAction)
 
     expect(
       iterator.next().value

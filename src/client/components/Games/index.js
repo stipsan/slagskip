@@ -17,7 +17,7 @@ class Games extends Component {
   }
 
   componentDidMount() {
-    const { /* games, gamesTotal,*/ fetchGames, friends, friendsTotal, fetchFriends } = this.props
+    const { /* games, gamesTotal, */ fetchGames, friends, friendsTotal, fetchFriends } = this.props
 
     fetchGames()
     fetchGames()
