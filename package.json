@@ -105,7 +105,7 @@
     "push.js": "0.0.10",
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",
-    "react": "15.1.0",
+    "react": "15.2.0",
     "react-addons-css-transition-group": "15.2.0",
     "react-addons-pure-render-mixin": "15.2.0",
     "react-addons-shallow-compare": "15.2.0",
