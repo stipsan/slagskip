@@ -41,6 +41,7 @@ const mapDispatchToProps = dispatch => ({
   fetchFriends: () => dispatch(fetchFriends()),
   newGame: (versus, board) => dispatch(newGame({ versus, board })),
   joinGame: (game, board) => dispatch(joinGame({ game, board })),
+  dispatch,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Setup)

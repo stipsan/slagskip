@@ -92,6 +92,15 @@ class Setup extends Component {
     if (this.props.routeParams.game) {
       this.props.loadGame(this.props.routeParams.game)
     }
+
+    if ('production' !== process.env.NODE_ENV) {
+      require('konami-komando')({
+        useCapture: true,
+        callback: () => {
+          this.props.dispatch({ type: 'RANDOM_ITEMS' })
+        }
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {

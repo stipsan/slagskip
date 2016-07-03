@@ -48,7 +48,7 @@ export function *loginFlow() {
 export function *registerFlow() {
   while (true) { // eslint-disable-line no-constant-condition
     const authAction = yield take(CREATE_USER_REQUESTED)
-    yield put({ type: SOCKET_EMIT, payload: authAction })
+    yield put(socketRequest(authAction))
     yield take([RECEIVE_DEAUTHENTICATE, DEAUTHENTICATE_SUCCESS, CREATE_USER_FAILURE])
   }
 }
@@ -56,7 +56,7 @@ export function *registerFlow() {
 export function *watchViewerRequests() {
   while (true) { // eslint-disable-line no-constant-condition
     yield take(AUTHENTICATE_SUCCESS)
-    yield put(socketEmit({
+    yield put(socketRequest({
       type: VIEWER_REQUESTED,
       payload: {
         successType: VIEWER_SUCCESS,
@@ -70,14 +70,14 @@ export function *watchViewerRequests() {
 export function *validateEmail() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
-    const emitCheckEmailAction = { type: SOCKET_EMIT, payload: {
+    const emitCheckEmailAction = socketRequest({
       type: CHECK_EMAIL_EXISTS_REQUESTED,
       payload: {
         successType: CHECK_EMAIL_EXISTS_SUCCESS,
         failureType: CHECK_EMAIL_EXISTS_FAILURE,
         email,
       }
-    } }
+    })
     yield put(emitCheckEmailAction)
     yield take([CHECK_EMAIL_EXISTS_SUCCESS, CHECK_EMAIL_EXISTS_FAILURE])
     resolve()

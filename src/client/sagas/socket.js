@@ -4,7 +4,6 @@ import { socketRequest, REQUEST } from 'redux-saga-sc'
 import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
 
 import {
-  SOCKET_EMIT,
   SOCKET_SUCCESS,
   SOCKET_PONG_TIMEOUT,
   SOCKET_TASK_TIMEOUT,
