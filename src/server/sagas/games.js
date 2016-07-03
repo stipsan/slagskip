@@ -11,12 +11,14 @@ export function *getGames({ successType, failureType }, socket, database, redis)
     const authToken = socket.getAuthToken()
     const gameIds = yield select(getGameIds)
     let games = yield call(database.getGames, {
-      id: socket.getAuthToken().id,
+      id: authToken.id,
       games: gameIds
     }, redis)
-    console.log('before looping the games and mapping with friends')
-    const versusIds = games.filter(game => 0 < game.versus).map(game => game.versus)
-    console.log(versusIds)
+    const versusIds = games.map(game => {
+      const isViewerFirst = game.players[0] === authToken.id
+      return isViewerFirst ? game.players[1] : game.players[0]
+    })
+    console.log(games)
     yield put(socketEmit({ type: successType, payload: { games } }))
   } catch (error) {
     yield put(socketEmit({ type: failureType, payload: { error } }))
