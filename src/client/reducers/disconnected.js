@@ -4,8 +4,8 @@ import {
   SOCKET_DISCONNECT,
 } from '../constants/ActionTypes'
 
-export const disconnected = (state = false, action) => {
-  switch (action.type) {
+export const disconnected = (state = false, { type }) => {
+  switch (type) {
   case SOCKET_SUCCESS:
     return false
   case SOCKET_DISCONNECT:

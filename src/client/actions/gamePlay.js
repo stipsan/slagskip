@@ -1,3 +1,5 @@
+import { socketRequest } from 'redux-saga-sc'
+
 import {
   RESUME_GAME_REQUESTED,
   RESUME_GAME_SUCCESS,
@@ -10,7 +12,6 @@ import {
   FIRE_CANNON_SUCCESS,
   FIRE_CANNON_FAILURE,
 } from '../constants/ActionTypes'
-import { socketRequest } from 'redux-saga-sc'
 
 export const resumeGame = id => socketRequest({
   type: RESUME_GAME_REQUESTED,
@@ -32,7 +33,7 @@ export const loadGame = id => socketRequest({
 
 export const selectCell = selectedCell => ({
   type: PLACE_CROSSHAIRS,
-  selectedCell,
+  payload: { selectedCell },
 })
 
 export const fireCannon = data => socketRequest({
@@ -40,6 +41,6 @@ export const fireCannon = data => socketRequest({
   payload: {
     successType: FIRE_CANNON_SUCCESS,
     failureType: FIRE_CANNON_FAILURE,
-    data,
+    ...data,
   }
 })

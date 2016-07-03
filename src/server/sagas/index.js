@@ -8,6 +8,8 @@ import {
   watchFriends,
   watchGames,
   watchNewGame,
+  watchLoadGame,
+  watchJoinGame,
   watchExchange,
 } from './exports'
 
@@ -19,6 +21,8 @@ export default function *sagas(socket, database, redis) {
     watchViewerLoggedIn(socket, database, redis),
     watchFriends(socket, database, redis),
     watchNewGame(socket, database, redis),
+    watchLoadGame(socket, database, redis),
+    watchJoinGame(socket, database, redis),
     watchGames(socket, database, redis),
     watchRemote(socket),
     watchEmits(socket),

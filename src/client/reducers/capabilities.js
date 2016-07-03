@@ -8,8 +8,8 @@ const initialState = ImmutableMap({
   websocket: true,
 })
 
-export const capabilities = (state = initialState, action) => {
-  switch (action.type) {
+export const capabilities = (state = initialState, { type }) => {
+  switch (type) {
   case CHECK_CAPABILITIES:
     return state.merge({
       websocket: !!global.WebSocket,
