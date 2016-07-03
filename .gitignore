@@ -8,3 +8,5 @@ lib
 
 coverage
 assets.json
+
+dump.rdb

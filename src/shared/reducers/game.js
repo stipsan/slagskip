@@ -56,43 +56,43 @@ const initialState = fromJS({
   versusScore: 0,
 })
 
-export const game = (state = initialState, action) => {
-  switch (action.type) {
+export const game = (state = initialState, { type, payload }) => {
+  switch (type) {
   case NEW_GAME_REQUESTED:
     return initialState.set('gameState', 'setup')
   case NEW_GAME_SUCCESS:
     return state
-      .set('id', action.id)
+      .set('id', payload.id)
       .set('gameState', 'waiting')
   case JOIN_GAME_SUCCESS:
     return initialState
-      .set('id', action.id)
+      .set('id', payload.id)
       .set('gameState', 'ready')
   case LOAD_GAME_REQUESTED:
     return initialState
-      .set('id', action.id)
+      .set('id', payload.id)
       .set('gameState', 'loading')
   case LOAD_GAME_FAILURE:
     return state
       .set('gameState', 'failed')
-      .set('reasonFailed', action.error.message)
+      .set('reasonFailed', payload.error.message)
   case LOAD_GAME_SUCCESS:
     return state
       .merge({
-        id: action.id,
-        versus: action.versus,
+        id: payload.id,
+        versus: payload.versus,
         viewerBoard: board(undefined, {
           type: LOAD_ITEMS,
           board: {
-            grid: action.viewerBoard
+            grid: payload.viewerBoard
           }
         }),
-        turns: action.turns || [],
-        gameState: action.gameState,
-        isViewerFirst: action.isViewerFirst,
-        isViewerTurn: action.isViewerFirst,
-        viewerScore: action.viewerScore,
-        versusScore: action.versusScore,
+        turns: payload.turns || [],
+        gameState: payload.gameState,
+        isViewerFirst: payload.isViewerFirst,
+        isViewerTurn: payload.isViewerFirst,
+        viewerScore: payload.viewerScore,
+        versusScore: payload.versusScore,
       })
       .update(updateState =>
         updateState.get('turns').reduce((previousState, turn) => {
@@ -119,36 +119,36 @@ export const game = (state = initialState, action) => {
         }, updateState)
       )
   case PLACE_CROSSHAIRS:
-    return state.set('selectedCell', action.selectedCell)
+    return state.set('selectedCell', payload.selectedCell)
   case RECEIVE_MISS:
-    if (action.id !== state.get('id')) return state
+    if (payload.id !== state.get('id')) return state
 
     return state
       .set('isViewerTurn', true)
-      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
-      .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
+      .updateIn(['turns'], update => update.push(fromJS(payload.turn)))
+      .setIn(['viewerGrid', payload.turn.index], Number(payload.turn.hit))
   case RECEIVE_HIT:
-    if (action.id !== state.get('id')) return state
+    if (payload.id !== state.get('id')) return state
 
     return state
       .set('isViewerTurn', false)
-      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
-      .setIn(['viewerGrid', action.turn.index], Number(action.turn.hit))
-      .set('versusScore', action.versusScore)
-      .set('gameState', 21 === action.versusScore ? 'defeated' : state.get('gameState'))
+      .updateIn(['turns'], update => update.push(fromJS(payload.turn)))
+      .setIn(['viewerGrid', payload.turn.index], Number(payload.turn.hit))
+      .set('versusScore', payload.versusScore)
+      .set('gameState', 21 === payload.versusScore ? 'defeated' : state.get('gameState'))
   case FIRE_CANNON_SUCCESS:
     return state
-      .set('isViewerTurn', action.isViewerTurn)
-      .updateIn(['turns'], update => update.push(fromJS(action.turn)))
-      .setIn(['versusGrid', action.turn.index], Number(action.turn.hit))
-      .set('viewerScore', action.viewerScore)
-      .set('gameState', 21 === action.viewerScore ? 'victory' : state.get('gameState'))
+      .set('isViewerTurn', payload.isViewerTurn)
+      .updateIn(['turns'], update => update.push(fromJS(payload.turn)))
+      .setIn(['versusGrid', payload.turn.index], Number(payload.turn.hit))
+      .set('viewerScore', payload.viewerScore)
+      .set('gameState', 21 === payload.viewerScore ? 'victory' : state.get('gameState'))
   case FIRE_CANNON_FAILURE:
       // @TODO here be a side-effect
     if ('failed' === state.get('gameState')) location.reload()
     return state
         .set('gameState', 'failed')
-        .set('reasonFailed', action.error.message)
+        .set('reasonFailed', payload.error.message)
   case FIRE_CANNON_REQUESTED:
     return state.set('selectedCell', -1)
   default:
