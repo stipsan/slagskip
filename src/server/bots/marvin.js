@@ -1,6 +1,6 @@
 const getTurns = (
   botToken,
-  getState,
+  match,
   turnsPlayedByBot,
   successfullTurnsPlayedByBot,
   viewerBoard
@@ -50,7 +50,7 @@ const getTurns = (
     }
     if (-1 === turnsPlayedByBot.indexOf(randomSpot) && -1 === pendingMoves.indexOf(randomSpot)) {
       botSelectedCell = randomSpot
-      const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
+      const botHit = match.getIn(['viewerBoard', botSelectedCell])
       pendingMoves.push(botSelectedCell)
       botTurns.push({
         id: botToken.id,

@@ -11,9 +11,11 @@ import {
   JOIN_GAME_REQUESTED,
   RANDOM_ITEMS,
   SAVE_TURN_REQUESTED,
+  RECEIVE_MISS,
+  RECEIVE_HIT,
 } from '../constants/ActionTypes'
 import { board as boardReducer } from '../reducers/board'
-import { getVersusCell } from '../selectors'
+import { getVersusCell, getMatch } from '../selectors'
 
 export function *getNewGame({ successType, failureType, ...game }, socket, database, redis) {
   try {
@@ -170,10 +172,9 @@ export function *watchJoinGame(socket, database, redis) {
 export function *saveTurn({ successType, failureType, ...payload }, socket, database, redis) {
   try {
     const authToken = socket.getAuthToken()
-    const { selectedCell } = action
+    const { selectedCell } = payload
 
     const hit = yield select(getVersusCell, selectedCell)
-    console.log(hit)
 
     // Something went wrong
     if (-1 === hit || undefined === hit) {
@@ -188,24 +189,31 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
       on: new Date().getTime()
     }
 
-    const game = yield call(database.saveTurn, authToken, payload.game, payload.board, redis)
-    dispatch({
-      type: SAVE_TURN_SUCCESS,
-      viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
-      id: action.id,
+    const game = yield call(database.saveTurn, authToken, payload.id, turn, redis)
+
+    const isViewerFirst = game.players[0] === authToken.id
+    const versusId = isViewerFirst ? game.players[1] : game.players[0]
+
+    const successAction = { type: successType, payload: {
+      viewerScore: isViewerFirst ? game.scores[0] : game.scores[1],
+      id: payload.id,
       turn,
       hit,
       hits: [],
-    })
-    socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
+    } }
+    yield put(socketEmit(successAction))
+    yield cps([socket.exchange, socket.exchange.publish], `user:${versusId}`, {
       type: 0 === hit ? RECEIVE_MISS : RECEIVE_HIT,
-      versusScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
-      id: action.id,
-      turn,
+      payload: {
+        versusScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: payload.id,
+        turn,
+      }
     })
 
+    console.log('is it bot')
     if (bots.hasOwnProperty(game.players[1]) && 0 === hit && 21 > game.scores[0]) {
-
+      console.log('yes it is')
       const getBotTurns = bots[game.players[1]].getTurns
       const botToken = { id: game.players[1] }
 
@@ -218,35 +226,41 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
 
       if (99 === turnsPlayedByBot.length) return false // game over
 
-      const viewerBoard = getState().getIn(['match', 'viewerBoard'])
+      const match = yield select(getMatch)
+      const viewerBoard = match.get('viewerBoard')
       const botTurns = getBotTurns(
         botToken,
-        getState,
+        match,
         turnsPlayedByBot,
         successfullTurnsPlayedByBot,
         viewerBoard
       )
 
-      botTurns.forEach((botTurn, index) => {
-        database.saveTurn(botToken, action.id, botTurn, redis).then(({ scores }) => {
-
+      botTurns.forEach(botTurn => {
+        database.saveTurn(botToken, payload.id, botTurn, redis).then(({ scores }) => {
           socket.exchange.publish(`user:${authToken.id}`, {
             type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
-            versusScore: scores[1],
-            id: action.id,
-            turn: botTurn,
+            payload: {
+              versusScore: scores[1],
+              id: payload.id,
+              turn: botTurn,
+            }
           })
         })
       })
+    } else {
+      console.log('no it is not')
     }
 
-    return callback(null, {
+    yield put(socketEmit({
       type: successType,
-      isViewerTurn: 0 !== hit,
-      viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
-      id: action.id,
-      turn,
-    })
+      payload: {
+        isViewerTurn: 0 !== hit,
+        viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: payload.id,
+        turn,
+      }
+    }))
   } catch ({ name, message }) {
     yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
   }

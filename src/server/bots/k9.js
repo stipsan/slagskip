@@ -1,4 +1,4 @@
-const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedByBot) => {
+const getTurns = (botToken, match, turnsPlayedByBot, successfullTurnsPlayedByBot) => {
 
   const continuePreviousHits = []
 
@@ -35,7 +35,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
         -1 === pendingMoves.indexOf(smartGuess) && smartGuess || Math.floor(Math.random() * 100)
     if (-1 === turnsPlayedByBot.indexOf(randomSpot) && -1 === pendingMoves.indexOf(randomSpot)) {
       botSelectedCell = randomSpot
-      const botHit = getState().getIn(['match', 'viewerBoard', botSelectedCell])
+      const botHit = match.getIn(['viewerBoard', botSelectedCell])
       pendingMoves.push(botSelectedCell)
       botTurns.push({
         id: botToken.id,
@@ -83,7 +83,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
         // Pick a random possible move, if any
         if (possibleMoves.length) {
           const possibleMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
-          const extraHit = getState().getIn(['match', 'viewerBoard', possibleMove])
+          const extraHit = match.getIn(['viewerBoard', possibleMove])
           pendingMoves.push(possibleMove)
           botTurns.push({
             id: botToken.id,
@@ -140,7 +140,7 @@ const getTurns = (botToken, getState, turnsPlayedByBot, successfullTurnsPlayedBy
             }
 
             if (bonusMove) {
-              const bonusHit = getState().getIn(['match', 'viewerBoard', bonusMove])
+              const bonusHit = match.getIn(['viewerBoard', bonusMove])
               pendingMoves.push(bonusMove)
               botTurns.push({
                 id: botToken.id,

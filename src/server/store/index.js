@@ -19,7 +19,7 @@ export default (socket, database, redis) => {
     enhancer
   )
 
-  sagaMiddleware.run(sagas, socket, database, redis)
+  sagaMiddleware.run(sagas, socket, database, redis, store.getState)
 
   return store
 }
