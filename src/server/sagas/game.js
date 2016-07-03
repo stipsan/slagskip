@@ -1,6 +1,6 @@
 import invariant from 'invariant'
 import { socketEmit } from 'redux-saga-sc'
-import { cps, fork, call, take, put } from 'redux-saga/effects'
+import { cps, fork, call, take, put, select } from 'redux-saga/effects'
 
 import bots from '../bots'
 import {
@@ -10,8 +10,10 @@ import {
   RECEIVE_JOIN_GAME,
   JOIN_GAME_REQUESTED,
   RANDOM_ITEMS,
+  SAVE_TURN_REQUESTED,
 } from '../constants/ActionTypes'
 import { board as boardReducer } from '../reducers/board'
+import { getVersusCell } from '../selectors'
 
 export function *getNewGame({ successType, failureType, ...game }, socket, database, redis) {
   try {
@@ -55,7 +57,7 @@ export function *getNewGame({ successType, failureType, ...game }, socket, datab
     }
 
   } catch ({ name, message }) {
-    yield put(socketEmit({ type: failureType, payload: { name, message } }))
+    yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
   }
 }
 
@@ -127,7 +129,7 @@ export function *getGame({ successType, failureType, id }, socket, database, red
       }
     })
   } catch ({ name, message }) {
-    yield put(socketEmit({ type: failureType, payload: { name, message } }))
+    yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
   }
 }
 
@@ -154,7 +156,7 @@ export function *joinGame({ successType, failureType, ...payload }, socket, data
       }
     })
   } catch ({ name, message }) {
-    yield put(socketEmit({ type: failureType, payload: { name, message } }))
+    yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
   }
 }
 
@@ -162,5 +164,97 @@ export function *watchJoinGame(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload } = yield take(JOIN_GAME_REQUESTED)
     yield fork(joinGame, payload, socket, database, redis)
+  }
+}
+
+export function *saveTurn({ successType, failureType, ...payload }, socket, database, redis) {
+  try {
+    const authToken = socket.getAuthToken()
+    const { selectedCell } = action
+
+    const hit = yield select(getVersusCell, selectedCell)
+    console.log(hit)
+
+    // Something went wrong
+    if (-1 === hit || undefined === hit) {
+      throw new Error('Game data is missing')
+    }
+
+    const turn = {
+      id: authToken.id,
+      index: selectedCell,
+      hit: 0 !== hit,
+      foundItem: 0 < hit && hit,
+      on: new Date().getTime()
+    }
+
+    const game = yield call(database.saveTurn, authToken, payload.game, payload.board, redis)
+    dispatch({
+      type: SAVE_TURN_SUCCESS,
+      viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+      id: action.id,
+      turn,
+      hit,
+      hits: [],
+    })
+    socket.exchange.publish(`user:${getState().getIn(['game', 'versus'])}`, {
+      type: 0 === hit ? RECEIVE_MISS : RECEIVE_HIT,
+      versusScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+      id: action.id,
+      turn,
+    })
+
+    if (bots.hasOwnProperty(game.players[1]) && 0 === hit && 21 > game.scores[0]) {
+
+      const getBotTurns = bots[game.players[1]].getTurns
+      const botToken = { id: game.players[1] }
+
+      const turnsPlayedByBot = game.turns.reduce((turnsByBot, cturn) =>
+        (cturn.id === botToken.id ? [...turnsByBot, cturn.index] : turnsByBot)
+      , [])
+      const successfullTurnsPlayedByBot = game.turns.reduce((turnsByBot, cturn) =>
+        (cturn.id === botToken.id && cturn.hit ? [...turnsByBot, cturn.index] : turnsByBot)
+      , [])
+
+      if (99 === turnsPlayedByBot.length) return false // game over
+
+      const viewerBoard = getState().getIn(['match', 'viewerBoard'])
+      const botTurns = getBotTurns(
+        botToken,
+        getState,
+        turnsPlayedByBot,
+        successfullTurnsPlayedByBot,
+        viewerBoard
+      )
+
+      botTurns.forEach((botTurn, index) => {
+        database.saveTurn(botToken, action.id, botTurn, redis).then(({ scores }) => {
+
+          socket.exchange.publish(`user:${authToken.id}`, {
+            type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
+            versusScore: scores[1],
+            id: action.id,
+            turn: botTurn,
+          })
+        })
+      })
+    }
+
+    return callback(null, {
+      type: successType,
+      isViewerTurn: 0 !== hit,
+      viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+      id: action.id,
+      turn,
+    })
+  } catch ({ name, message }) {
+    yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
+  }
+}
+
+export function *watchSaveTurn(socket, database, redis) {
+  while (true) { // eslint-disable-line no-constant-condition
+    const { payload } = yield take(SAVE_TURN_REQUESTED)
+    yield fork(saveTurn, payload, socket, database, redis)
   }
 }
