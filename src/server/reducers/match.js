@@ -12,7 +12,7 @@ export const match = (state = initialState, { type, payload }) => {
   switch (type) {
   case LOAD_GAME_SUCCESS:
     return state.merge(payload)
-  // case FIRE_CANNON_SUCCESS:
+  // case SAVE_TURN_SUCCESS:
     // nothing to do here
     // return state.updateIn(['hits'], hits => hits.push(action.hit))
   default:

@@ -8,9 +8,9 @@ import {
   LOAD_GAME_SUCCESS,
   LOAD_GAME_FAILURE,
   PLACE_CROSSHAIRS,
-  FIRE_CANNON_REQUESTED,
-  FIRE_CANNON_SUCCESS,
-  FIRE_CANNON_FAILURE,
+  SAVE_TURN_REQUESTED,
+  SAVE_TURN_SUCCESS,
+  SAVE_TURN_FAILURE,
 } from '../constants/ActionTypes'
 
 export const resumeGame = id => socketRequest({
@@ -37,10 +37,10 @@ export const selectCell = selectedCell => ({
 })
 
 export const fireCannon = data => socketRequest({
-  type: FIRE_CANNON_REQUESTED,
+  type: SAVE_TURN_REQUESTED,
   payload: {
-    successType: FIRE_CANNON_SUCCESS,
-    failureType: FIRE_CANNON_FAILURE,
+    successType: SAVE_TURN_SUCCESS,
+    failureType: SAVE_TURN_FAILURE,
     ...data,
   }
 })

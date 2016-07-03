@@ -12,8 +12,8 @@ import {
   LOAD_GAME_FAILURE,
   RECEIVE_HIT,
   RECEIVE_MISS,
-  FIRE_CANNON_SUCCESS,
-  FIRE_CANNON_FAILURE,
+  SAVE_TURN_SUCCESS,
+  SAVE_TURN_FAILURE,
   RANDOM_ITEMS,
 } from '../constants/ActionTypes'
 import { board as boardReducer } from '../reducers/board'
@@ -189,8 +189,8 @@ export const fireCannon = (
   // Something went wrong
   if (-1 === hit || undefined === hit) {
     const error = 'Game data is missing'
-    console.error(FIRE_CANNON_FAILURE, error)
-    return callback(FIRE_CANNON_FAILURE, error)
+    console.error(SAVE_TURN_FAILURE, error)
+    return callback(SAVE_TURN_FAILURE, error)
   }
 
   const turn = {
@@ -204,7 +204,7 @@ export const fireCannon = (
   return database.saveTurn(authToken, action.id, turn, redis)
     .then(game => {
       dispatch({
-        type: FIRE_CANNON_SUCCESS,
+        type: SAVE_TURN_SUCCESS,
         viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
         id: action.id,
         turn,
@@ -254,10 +254,10 @@ export const fireCannon = (
               })
             }).catch(error => {
               // @TODO type should be RECEIVE_BOT_FAILURE
-              console.error(FIRE_CANNON_FAILURE, error)
+              console.error(SAVE_TURN_FAILURE, error)
 
               socket.exchange.publish(`user:${authToken.id}`, {
-                type: FIRE_CANNON_FAILURE,
+                type: SAVE_TURN_FAILURE,
                 data: error.message || error
               })
             })
@@ -266,14 +266,14 @@ export const fireCannon = (
       }
 
       return callback(null, {
-        type: FIRE_CANNON_SUCCESS,
+        type: SAVE_TURN_SUCCESS,
         isViewerTurn: 0 !== hit,
         viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
         id: action.id,
         turn,
       })
     }).catch(error => {
-      console.error(FIRE_CANNON_FAILURE, error)
-      callback(FIRE_CANNON_FAILURE, error.message || error)
+      console.error(SAVE_TURN_FAILURE, error)
+      callback(SAVE_TURN_FAILURE, error.message || error)
     })
 }

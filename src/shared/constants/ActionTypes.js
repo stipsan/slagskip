@@ -139,11 +139,11 @@ export const RECEIVE_WAITING = 'RECEIVE_WAITING'
 export const PLACE_CROSSHAIRS = 'PLACE_CROSSHAIRS'
 
 // fire the cannon, perhaps show a cannon firing to entertain the user while waiting
-export const FIRE_CANNON_REQUESTED = 'FIRE_CANNON_REQUESTED'
+export const SAVE_TURN_REQUESTED = 'SAVE_TURN_REQUESTED'
 // payload tells us if it's hit or miss
-export const FIRE_CANNON_SUCCESS = 'FIRE_CANNON_SUCCESS'
+export const SAVE_TURN_SUCCESS = 'SAVE_TURN_SUCCESS'
 // try firing it again!
-export const FIRE_CANNON_FAILURE = 'FIRE_CANNON_FAILURE'
+export const SAVE_TURN_FAILURE = 'SAVE_TURN_FAILURE'
 // oh blimey, we got hit! Retaliate!
 export const RECEIVE_HIT = 'RECEIVE_HIT'
 // wow that was close, fire back while they're reloading!
