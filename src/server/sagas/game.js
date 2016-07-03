@@ -2,30 +2,58 @@ import invariant from 'invariant'
 import { socketEmit } from 'redux-saga-sc'
 import { cps, fork, call, take, put } from 'redux-saga/effects'
 
+import bots from '../bots'
 import {
   NEW_GAME_REQUESTED,
   RECEIVE_NEW_GAME,
   LOAD_GAME_REQUESTED,
   RECEIVE_JOIN_GAME,
   JOIN_GAME_REQUESTED,
+  RANDOM_ITEMS,
 } from '../constants/ActionTypes'
+import { board as boardReducer } from '../reducers/board'
 
 export function *getNewGame({ successType, failureType, ...game }, socket, database, redis) {
   try {
     const authToken = socket.getAuthToken()
     const gameId = yield call(database.newGame, authToken, game.versus, game.board, redis)
     invariant(gameId, 'Failed to create new game')
+
     yield put(socketEmit({ type: successType, payload: {
       id: gameId,
       versus: game.versus,
     } }))
-    yield cps([socket.exchange, socket.exchange.publish], `user:${game.versus}`, {
-      type: RECEIVE_NEW_GAME,
-      payload: {
-        id: gameId,
-        versus: authToken.id,
+    // We have a game versus a bot!
+    if (bots.hasOwnProperty(game.versus)) {
+      const botToken = {
+        id: game.versus
       }
-    })
+      const botBoard = boardReducer(undefined, {
+        type: RANDOM_ITEMS,
+        getRotated: bots[game.versus].getRotated
+      })
+
+      const botGame = yield call(database.joinGame, botToken, gameId, botBoard.toJS(), redis)
+      invariant(botGame.id, 'Bot failed to join game')
+
+      // notify human that game is ready
+      yield cps([socket.exchange, socket.exchange.publish], `user:${authToken.id}`, {
+        type: RECEIVE_JOIN_GAME,
+        payload: {
+          id: gameId,
+        }
+      })
+
+    } else {
+      yield cps([socket.exchange, socket.exchange.publish], `user:${game.versus}`, {
+        type: RECEIVE_NEW_GAME,
+        payload: {
+          id: gameId,
+          versus: authToken.id,
+        }
+      })
+    }
+
   } catch ({ name, message }) {
     yield put(socketEmit({ type: failureType, payload: { name, message } }))
   }
@@ -115,9 +143,6 @@ export function *joinGame({ successType, failureType, ...payload }, socket, data
     const authToken = socket.getAuthToken()
     const game = yield call(database.joinGame, authToken, payload.game, payload.board, redis)
     invariant(game.id, '404 Game Not Found')
-
-    const isViewerFirst = game.players[0] === authToken.id
-    const versus = isViewerFirst ? game.players[1] : game.players[0]
 
     yield put(socketEmit({ type: successType, payload: {
       id: game.id,
