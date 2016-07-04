@@ -43,7 +43,7 @@ class Dashboard extends Component {
                   isActive: !isFriendsTabActive
                 })}
               ><Link to="/">{'Games'}</Link></li>
-              {Push.isSupported() && <li onClick={() => {
+              {Push.isSupported && <li onClick={() => {
                 Push.create('You enabled notifications!')
               }}>{'Activate Notifications'}</li>}
               {/* <li className={cx({
