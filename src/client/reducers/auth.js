@@ -5,6 +5,7 @@ import {
   RECEIVE_AUTH_STATE_CHANGE,
   AUTHENTICATE_FAILURE,
   RECEIVE_DEAUTHENTICATE,
+  DEAUTHENTICATE_SUCCESS,
   AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
   CHECK_EMAIL_EXISTS_REQUESTED,
@@ -38,6 +39,7 @@ export const auth = (state = initialState, action) => {
     })
   case AUTHENTICATE_FAILURE:
   case RECEIVE_DEAUTHENTICATE:
+  case DEAUTHENTICATE_SUCCESS:
     return state.merge({
       isAuthenticated: false,
       authState: 'unauthenticated',
