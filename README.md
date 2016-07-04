@@ -42,18 +42,10 @@ Once RelayJS release the new Subscriptions API I'll revisit it and probably fork
 ## Heroku pipeline
 
 This project is setup in a |pipeline](https://devcenter.heroku.com/articles/pipelines#deployment-with-pipelines) on Heroku.
-There are three domains and apps setup, one for each step: **development**, **staging** and **production**.
-Review apps are also setup to help contributors, to easily test new code in Pull Requests without having to manually setup Heroku apps. It doesn't matter if the pull request is from the same repo, or is from a fork. It just works, automatically.
+Code pushed to **master** will be deployed if CI tests pass. When opening a PR a review app on Heroku is created so you can test the app and make sure it deploys correctly before it's pushed into production.
 
-Here's the relevant config for each of them:
-* [nightly.epic.vg](https://nightly.epic.vg) **development** - deploys automatically whenever code is pushed to `master`.
-* [beta.epic.vg](https://beta.epic.vg) **staging** - also deploys `master` automatically, but [after CI pass](https://travis-ci.org/stipsan/epic).
-* [epic.vg](https://epic.vg) **production** - same as staging, but deploys from `production` branch.
-
-## More details about the Heroku apps
-
-Each app have their own Redis instance and is completely isolated, this includes Review Apps.
-**development** and **staging** are relatively identical. They run on free plans.
+Each review app have their own Redis instance and is completely isolated.
+The only differences between Review apps and the main app running on epic.vg is that Review Apps run on free plans on both Heroku dynos and the redis storage.
 That means each is limited to one free dyno, and run the free hobbyist redis plan.
 This causes two important considerations:
 1. Free dynos will go to sleep after 30 mins of inactivity, and waking it from sleep can cause the initial page load to take a minute or two.
@@ -62,42 +54,9 @@ This causes two important considerations:
 **production** is on a paid plan. Dynos are standard 1x, redis is on the `Premium 0` plan.
 Data is persisted, and performance swift.
 
-CloudFare is setup with very aggressive caching on all three domains, causing deploys to take up to 30 mins before you can see the changes.
+CloudFare is setup with very aggressive caching on the production app, causing deploys to take up to 30 mins before you can see the changes.
 If you can't see the new changes, check the `CF-Cache-Status` header and if it says `HIT` it's because CloudFlare haven't updated the cache with the new code yet.
-The only way to bypass this cache layer is to access the Heroku app directly.
-* [nightly.epic.vg](https://nightly.epic.vg) => (https://morning-stream-43659.herokuapp.com/)
-* [beta.epic.vg](https://beta.epic.vg) => (https://agile-river-17606.herokuapp.com/)
-
-[epic.vg](https://epic.vg) cannot be bypassed, accessing (https://getepic.herokuapp.com/) will redirect you to [epic.vg](https://epic.vg).This is to enforce a canonical domain for the game in production, protecting SEO and preventing ambiguity. Since CloudFlare requires a paid plan for secure websockets we've left open `getepic.herokuapp.com`.
-This allows us to enforce SSL and turn on HTS without breaking our app.
-Naturally, only clients that origin `epic.vg` can setup a WebSocket that talks with `getepic.herokuapp.com`.
-
-### Development
-
-This stage intentionally deploys code wether or not test pass in order to let end-users who wish to test bleeding edge features without having to look for review apps on github.
-
-### Staging
-
-While [beta.epic.vg](https://beta.epic.vg) will let end-users try out what's in the master branch before it's pushed to production, it only deploys code that pass the CI.
-This way it's possible to opt-in to find bugs by playing with apps in the **development** pipeline, but if you're not a bug-hunter but more of a provide-feedback-on-functional-stuff-fella then you can do that.
-
-### Production
-
-The `production` branch is meant to mirror what's tested, Q&A'd and deployed to the **production** pipeline.
-
-Many intense performance optimizations is put in place.
-Every time css and js is bundled files with unique hashed names is generated.
-This guarantees a new asset url whenever it changes. This is why we can tell browsers, and CloudFlare, to cache it for as long as a year at a time.
-
-## Protected branches
-
-The `production` branch is fiercely protected. Nobody can push any code into it without it passing all tests. Not even admins.
-`master` is also protected, but it only requires Travis CI to pass, it does not require coveralls for allowing a merge to happen. Admins may merge it anyway even if Travis fails.
-Nobody is able to commit directly to neither branches, all work must be done in their own branch.
-More on protected branches in this [blog post](https://help.github.com/articles/about-protected-branches/).
-If eslint reports any errors, it'll block the merge as well (warnings is ok).
-Coveralls will prevent a merge if the code coverage decrease by more than 1 %, or is less than 40%.
-In the future this limit will be changed to enforce 100% coverage at all times.
+CloudFlare cache does not apply to the Review apps as they run on Herokus `*.herokuapp.com` domain.
 
 # Credits
 
