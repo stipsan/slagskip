@@ -28,17 +28,14 @@ describe('client auth sagas', () => {
         }
       }).value
     ).toEqual(
-      put({
-        type: types.SOCKET_EMIT,
+      put(socketRequest({
+        type: types.CHECK_EMAIL_EXISTS_REQUESTED,
         payload: {
-          type: types.CHECK_EMAIL_EXISTS_REQUESTED,
-          payload: {
-            successType: types.CHECK_EMAIL_EXISTS_SUCCESS,
-            failureType: types.CHECK_EMAIL_EXISTS_FAILURE,
-            email,
-          }
+          successType: types.CHECK_EMAIL_EXISTS_SUCCESS,
+          failureType: types.CHECK_EMAIL_EXISTS_FAILURE,
+          email,
         }
-      })
+      }))
     )
 
     expect(
@@ -90,7 +87,7 @@ describe('client auth sagas', () => {
       username: 'John Doe',
     }
     const authAction = actions.createUserWithEmailAndPassword(credentials)
-    const emitAuthAction = { type: types.SOCKET_EMIT, payload: authAction }
+    const emitAuthAction = socketRequest(authAction)
 
     expect(
       iterator.next().value
@@ -120,12 +117,12 @@ describe('client auth sagas', () => {
       username: 'John Doe',
     }
     const authAction = actions.createUserWithEmailAndPassword(credentials)
-    const emitAuthAction = { type: types.SOCKET_EMIT, payload: authAction }
+    const emitAuthAction = socketRequest(authAction)
 
     expect(
       iterator.next().value
     ).toEqual(
-      take(types.CREATE_USER_REQUESTED)
+       take(types.CREATE_USER_REQUESTED)
     )
 
     expect(
