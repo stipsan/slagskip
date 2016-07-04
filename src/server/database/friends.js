@@ -21,7 +21,10 @@ export const getFriends = (viewer, redis) => {
       const mutatedPreviousValue = previousValue
       if (0 === currentIndex % 2) {
         nextValue[1].inviteIn = -1 !== viewer.invites.indexOf(nextValue[1].id)
-        mutatedPreviousValue[i++] = nextValue[1]
+        // we don't want to expose the password of the friend
+        // eslint-disable-next-line
+        const { password, ...friend } = nextValue[1]
+        mutatedPreviousValue[i++] = friend
       } else {
         mutatedPreviousValue[i - 1].inviteOut = !!currentValue[1]
       }
