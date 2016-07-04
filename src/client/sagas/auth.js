@@ -56,6 +56,7 @@ export function *registerFlow() {
 
 export function *watchViewerRequests() {
   while (true) { // eslint-disable-line no-constant-condition
+    yield take(AUTHENTICATE_SUCCESS)
     yield put(socketRequest({
       type: VIEWER_REQUESTED,
       payload: {
