@@ -1,4 +1,5 @@
 import { PropTypes } from 'react'
+import { Link } from 'react-router'
 import { Field, reduxForm } from 'redux-form/immutable'
 
 import asyncValidate from '../asyncValidate'
@@ -37,7 +38,7 @@ const CheckEmailForm = props => {
         >{'Log in'}</button>
       </p>
       <p className={cx('control')}>
-        <a className={cx('forgot-password')}>{'Forgot your password?'}</a>
+        <Link to="/forgot" className={cx('forgot-password')}>{'Forgot your password?'}</Link>
       </p>
     </form>
   )

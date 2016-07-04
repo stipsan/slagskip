@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import About from '../components/About'
 import App from './App'
 import Dashboard from './Dashboard'
+import Forgot from '../components/Forgot'
 import Friends from './Friends'
 import Game from './Game'
 import Games from './Games'
@@ -23,6 +24,7 @@ const Root = ({ store }) => {
   return <Provider store={store}>
     <Router history={history}>
       <Route path="/about" component={About} />
+      <Route path="/forgot" component={Forgot} />
       <Route component={App}>
         <Route path="/" component={Dashboard}>
           <IndexRoute component={Games} />
