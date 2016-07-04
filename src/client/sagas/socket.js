@@ -39,25 +39,6 @@ export function *watchSocketConnect() {
   }
 }
 
-// @TODO
-/*
-socket.on('authenticate', () => {
-  subscribeChannels(store, next, action, socket, [socket.getAuthToken().privateChannel])
-
-  if ('ga' in global) {
-    global.ga('set', 'userId', socket.getAuthToken().id)
-  }
-  if ('rg4js' in global) {
-    global.rg4js('setUser', {
-      identifier: socket.getAuthToken().id,
-      isAnonymous: false,
-      email: socket.getAuthToken().email,
-      firstName: socket.getAuthToken().username,
-    })
-  }
-})
-*/
-
 
 // @FIXME client and server can likely share a lot of code in the socket sagas
 export function *emitEvent(action) {

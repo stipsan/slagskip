@@ -21,6 +21,7 @@ import {
   VIEWER_SUCCESS,
   VIEWER_FAILURE,
 } from '../constants/ActionTypes'
+import { socket } from '../services'
 
 export function *authorize() {
   //
@@ -55,7 +56,6 @@ export function *registerFlow() {
 
 export function *watchViewerRequests() {
   while (true) { // eslint-disable-line no-constant-condition
-    yield take(AUTHENTICATE_SUCCESS)
     yield put(socketRequest({
       type: VIEWER_REQUESTED,
       payload: {
@@ -95,6 +95,18 @@ export function *watchSocketSuccess() {
           failureType: VIEWER_FAILURE,
         }
       }))
+    }
+    yield take([AUTHENTICATE_SUCCESS, VIEWER_SUCCESS])
+    if ('ga' in global) {
+      global.ga('set', 'userId', socket.getAuthToken().id)
+    }
+    if ('rg4js' in global) {
+      global.rg4js('setUser', {
+        identifier: socket.getAuthToken().id,
+        isAnonymous: false,
+        email: socket.getAuthToken().email,
+        firstName: socket.getAuthToken().username,
+      })
     }
   }
 }
