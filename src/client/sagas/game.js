@@ -1,3 +1,4 @@
+import Push from 'push.js'
 import { push, replace } from 'react-router-redux'
 import { take, put } from 'redux-saga/effects'
 
@@ -6,6 +7,7 @@ import {
   NEW_GAME_SUCCESS,
   LOAD_GAME_REQUESTED,
   LOAD_GAME_SUCCESS,
+  RECEIVE_NEW_GAME,
 } from '../constants/ActionTypes'
 
 export function *watchNewGame() {
@@ -26,9 +28,20 @@ export function *watchLoadGame() {
   }
 }
 
+export function *watchGameNotification() {
+  while (true) { // eslint-disable-line no-constant-condition
+    const { payload: { id, versus } } = yield take(RECEIVE_NEW_GAME)
+    console.log('game notification', id, versus)
+    Push.create(`${versus} invited you to a new game`, { onClick: () => {
+      location.pathname = `/game/${id}`
+    } })
+  }
+}
+
 export function *watchGame() {
   yield [
     watchNewGame(),
     watchLoadGame(),
+    watchGameNotification(),
   ]
 }

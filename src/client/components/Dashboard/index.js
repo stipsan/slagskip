@@ -1,4 +1,5 @@
 import DocumentTitle from 'react-document-title'
+import Push from 'push.js'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
@@ -42,6 +43,9 @@ class Dashboard extends Component {
                   isActive: !isFriendsTabActive
                 })}
               ><Link to="/">{'Games'}</Link></li>
+              {Push.isSupported() && <li onClick={() => {
+                Push.create('You enabled notifications!')
+              }}>{'Activate Notifications'}</li>}
               {/* <li className={cx({
                 isActive: isFriendsTabActive
               })}><Link to="/friends">Friends</Link></li>*/}
