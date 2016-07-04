@@ -196,12 +196,12 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
 
     const successAction = { type: successType, payload: {
       viewerScore: isViewerFirst ? game.scores[0] : game.scores[1],
-      id: payload.id,
+      id: game.id,
       turn,
       hit,
       hits: [],
     } }
-    yield put(socketEmit(successAction))
+    yield put(successAction)
     yield cps([socket.exchange, socket.exchange.publish], `user:${versusId}`, {
       type: 0 === hit ? RECEIVE_MISS : RECEIVE_HIT,
       payload: {
@@ -210,6 +210,15 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
         turn,
       }
     })
+    yield put(socketEmit({
+      type: successType,
+      payload: {
+        isViewerTurn: 0 !== hit,
+        viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
+        id: payload.id,
+        turn,
+      }
+    }))
 
     if (bots.hasOwnProperty(game.players[1]) && 0 === hit && 21 > game.scores[0]) {
       const getBotTurns = bots[game.players[1]].getTurns
@@ -222,7 +231,7 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
         (cturn.id === botToken.id && cturn.hit ? [...turnsByBot, cturn.index] : turnsByBot)
       , [])
 
-      if (99 === turnsPlayedByBot.length) return false // game over
+      // if (99 === turnsPlayedByBot.length) return false // game over
 
       const match = yield select(getMatch)
       const viewerBoard = match.get('viewerBoard')
@@ -233,30 +242,22 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
         successfullTurnsPlayedByBot,
         viewerBoard
       )
-
-      botTurns.forEach(botTurn => {
-        database.saveTurn(botToken, payload.id, botTurn, redis).then(({ scores }) => {
-          socket.exchange.publish(`user:${authToken.id}`, {
-            type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
-            payload: {
-              versusScore: scores[1],
-              id: payload.id,
-              turn: botTurn,
-            }
-          })
+      console.log('botTurns', botTurns)
+      for (let i = 0, len = botTurns.length; i < len; i++) {
+        const botTurn = botTurns[i]
+        console.log(i, 'botTurn', botTurn)
+        const { scores } = yield call(database.saveTurn, botToken, payload.id, botTurn, redis)
+        console.log('database.saveTurn', botToken, payload.id, botTurn)
+        yield cps([socket.exchange, socket.exchange.publish], `user:${authToken.id}`, {
+          type: botTurn.hit ? RECEIVE_HIT : RECEIVE_MISS,
+          payload: {
+            versusScore: scores[1],
+            id: payload.id,
+            turn: botTurn,
+          }
         })
-      })
-    }
-
-    yield put(socketEmit({
-      type: successType,
-      payload: {
-        isViewerTurn: 0 !== hit,
-        viewerScore: game.players[0] === authToken.id ? game.scores[0] : game.scores[1],
-        id: payload.id,
-        turn,
       }
-    }))
+    }
   } catch ({ name, message }) {
     yield put(socketEmit({ type: failureType, payload: { error: { name, message } } }))
   }

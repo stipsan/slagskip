@@ -97,7 +97,7 @@ export const game = (state = initialState, { type, payload }) => {
       .update(updateState =>
         updateState.get('turns').reduce((previousState, turn) => {
           // Versus opponent moves
-          if (turn.get('id') === state.get('versus')) {
+          if (turn.get('id') === updateState.get('versus')) {
             if (true === turn.get('hit')) {
               return previousState
                 .set('isViewerTurn', false)
