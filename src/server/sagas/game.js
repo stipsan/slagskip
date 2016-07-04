@@ -211,9 +211,7 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
       }
     })
 
-    console.log('is it bot')
     if (bots.hasOwnProperty(game.players[1]) && 0 === hit && 21 > game.scores[0]) {
-      console.log('yes it is')
       const getBotTurns = bots[game.players[1]].getTurns
       const botToken = { id: game.players[1] }
 
@@ -248,8 +246,6 @@ export function *saveTurn({ successType, failureType, ...payload }, socket, data
           })
         })
       })
-    } else {
-      console.log('no it is not')
     }
 
     yield put(socketEmit({

@@ -1,12 +1,11 @@
 import { startSubmit, stopSubmit } from 'redux-form'
-import { delay, eventChannel } from 'redux-saga'
-import { socketRequest, REQUEST } from 'redux-saga-sc'
-import { take, fork, call, put, race, cps, actionChannel, cancelled } from 'redux-saga/effects'
+import { eventChannel } from 'redux-saga'
+import { socketRequest } from 'redux-saga-sc'
+import { take, call, put, cps, cancelled } from 'redux-saga/effects'
 
 import {
   SOCKET_SUCCESS,
   SOCKET_PONG_TIMEOUT,
-  SOCKET_TASK_TIMEOUT,
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
@@ -80,16 +79,6 @@ export function *handleEmit(action) {
   yield put(startSubmit('login'))
   yield take([action.payload.successType, action.payload.failureType])
   yield put(stopSubmit('login'))
-}
-
-export function *watchSocketEmits() {
-  // console.log('1- Create a channel for request actions', SOCKET_EMIT)
-  // const requestChan = yield actionChannel(SOCKET_EMIT)
-  while (true) { // eslint-disable-line
-    const { payload } = yield take(REQUEST)
-    console.log('REQUEST picked up', payload)
-    console.count('epic ' + payload.type)
-  }
 }
 
 // function* handleRequest(payload) { ... }

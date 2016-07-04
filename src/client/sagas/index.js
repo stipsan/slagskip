@@ -4,7 +4,6 @@ import { socket } from '../services'
 import {
   watchAuthState,
   watchSocketConnect,
-  watchSocketEmits,
   watchGame,
  } from './exports'
 
@@ -15,7 +14,6 @@ export default function *sagas() {
     watchEmits(socket),
     watchAuthState(),
     watchSocketConnect(),
-    watchSocketEmits(),
     watchGame(),
   ]
 }

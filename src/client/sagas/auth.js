@@ -1,10 +1,8 @@
 import { startSubmit, stopSubmit } from 'redux-form'
-import { socketEmit, socketRequest } from 'redux-saga-sc'
+import { socketRequest } from 'redux-saga-sc'
 import { take, put } from 'redux-saga/effects'
 
-import { signInWithEmailAndPassword } from '../actions'
 import {
-  SOCKET_EMIT,
   SOCKET_SUCCESS,
   CHECK_EMAIL_EXISTS_REQUESTED,
   CHECK_EMAIL_EXISTS_SUCCESS,
@@ -12,7 +10,9 @@ import {
   AUTHENTICATE_REQUESTED,
   CHECK_EMAIL_EXISTS_ASYNC,
   RECEIVE_DEAUTHENTICATE,
+  DEAUTHENTICATE_REQUESTED,
   DEAUTHENTICATE_SUCCESS,
+  DEAUTHENTICATE_FAILURE,
   AUTHENTICATE_FAILURE,
   CREATE_USER_REQUESTED,
   CREATE_USER_FAILURE,
@@ -86,7 +86,7 @@ export function *validateEmail() {
 
 export function *watchSocketSuccess() {
   while (true) { // eslint-disable-line no-constant-condition
-    const { payload: { isAuthenticated }, socket } = yield take(SOCKET_SUCCESS)
+    const { payload: { isAuthenticated } } = yield take(SOCKET_SUCCESS)
     if (isAuthenticated) {
       yield put(socketRequest({
         type: VIEWER_REQUESTED,
