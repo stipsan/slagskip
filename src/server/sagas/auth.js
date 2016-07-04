@@ -11,6 +11,9 @@ import {
   AUTHENTICATE_REQUESTED,
   AUTHENTICATE_SUCCESS,
   AUTHENTICATE_FAILURE,
+  DEAUTHENTICATE_REQUESTED,
+  DEAUTHENTICATE_SUCCESS,
+  DEAUTHENTICATE_FAILURE,
 } from '../constants/ActionTypes'
 
 export function *authenticate(credentials, socket, database, redis) { // eslint-disable-line
@@ -26,15 +29,15 @@ export function *authenticate(credentials, socket, database, redis) { // eslint-
   }
 }
 
-export function *deauthenticate(credentials, socket, database, redis) { // eslint-disable-line
+export function *deauthenticate(socket, database, redis) { // eslint-disable-line
 
   try {
     const authToken = socket.getAuthToken()
     yield call(database.setViewerOffline, authToken, new Date, redis)
-    yield put(socketEmit({ type: DEAUTHENTICATE_SUCCESS, payload: { authToken } }))
-    yield call([socket, socket.setAuthToken], authToken)
+    yield put(socketEmit({ type: DEAUTHENTICATE_SUCCESS }))
+    yield call([socket, socket.deauthenticate])
   } catch (error) {
-    yield put(socketEmit({ type: AUTHENTICATE_FAILURE, payload: {
+    yield put(socketEmit({ type: DEAUTHENTICATE_FAILURE, payload: {
       error: error.message
     } }))
   }
@@ -71,7 +74,7 @@ export function *watchAuthenticateRequest(socket, database, redis) {
 export function *watchDeauthenticateRequest(socket, database, redis) {
   while (true) { // eslint-disable-line no-constant-condition
     yield take(DEAUTHENTICATE_REQUESTED)
-    yield fork(deauthenticate, credentials, socket, database, redis)
+    yield fork(deauthenticate, socket, database, redis)
   }
 }
 
