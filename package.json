@@ -12,7 +12,7 @@
     "remotedev": "remotedev --hostname=localhost --port=8000",
     "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --require babel-polyfill --recursive -t 20000",
     "test:watch": "npm test -- --watch --growl",
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "nyc --reporter=lcovonly npm test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
     "coverage": "npm run coveralls && npm run codeclimate",
     "reboot-workers": "kill -SIGUSR2",
