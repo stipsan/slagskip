@@ -29,7 +29,7 @@ export function *watchLoadGame() {
 }
 
 export function *watchGameNotification() {
-  while (true) { // eslint-disable-line no-constant-condition
+  while (Push.isSupported) { // eslint-disable-line no-constant-condition
     const { payload: { id, versus } } = yield take(RECEIVE_NEW_GAME)
     console.log('game notification', id, versus)
     Push.create(`${versus} invited you to a new game`, { onClick: () => {
