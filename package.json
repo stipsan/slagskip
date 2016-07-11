@@ -101,7 +101,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "hiredis": "0.5.0",
-    "html-minifier": "3.0.0",
+    "html-minifier": "3.0.1",
     "imagemin": "5.2.2",
     "imagemin-optipng": "5.1.0",
     "imagemin-svgo": "5.1.0",
@@ -128,7 +128,7 @@
     "react-dom": "15.2.1",
     "react-immutable-proptypes": "1.7.1",
     "react-redux": "4.4.5",
-    "react-router": "2.5.1",
+    "react-router": "2.5.2",
     "react-router-redux": "4.0.5",
     "react-timeago": "3.1.1",
     "react-transform-count-renders": "1.0.1",
@@ -153,7 +153,7 @@
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
-    "babel-plugin-istanbul": "1.0.2",
+    "babel-plugin-istanbul": "1.0.3",
     "codeclimate-test-reporter": "0.3.3",
     "coveralls": "2.11.9",
     "css-modules-require-hook": "4.0.1",
@@ -169,7 +169,7 @@
     "ioredis-mock": "1.6.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "2.5.3",
-    "nyc": "6.6.1",
+    "nyc": "7.0.0",
     "remotedev-server": "0.1.2",
     "webpack-dev-server": "2.1.0-beta.0"
   }
