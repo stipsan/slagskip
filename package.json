@@ -127,7 +127,7 @@
     "redux": "3.5.2",
     "redux-form": "6.0.0-rc.1",
     "redux-immutable": "3.0.6",
-    "redux-saga": "0.10.5",
+    "redux-saga": "0.11.0",
     "redux-saga-sc": "2.0.1",
     "remote-redux-devtools": "0.3.3",
     "sass-loader": "4.0.0",
