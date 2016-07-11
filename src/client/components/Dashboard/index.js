@@ -26,7 +26,7 @@ class Dashboard extends Component {
   render() {
     const { children, username } = this.props
     const { router } = this.context
-    const isFriendsTabActive = router.isActive({ pathname: 'friends' })
+    const isSettingsTabActive = router.isActive({ pathname: 'settings' })
 
     const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>{'Logout'}</a>
 
@@ -40,15 +40,14 @@ class Dashboard extends Component {
             <ul>
               <li
                 className={cx({
-                  isActive: !isFriendsTabActive
+                  isActive: !isSettingsTabActive
                 })}
               ><Link to="/">{'Games'}</Link></li>
-              {Push.isSupported && <li onClick={() => {
-                Push.create('You enabled notifications!')
-              }}>{'Activate Notifications'}</li>}
-              {/* <li className={cx({
-                isActive: isFriendsTabActive
-              })}><Link to="/friends">Friends</Link></li>*/}
+              <li
+                className={cx({
+                  isActive: isSettingsTabActive
+                })}
+              ><Link to="/settings">{'Settings'}</Link></li>
             </ul>
           </div>
           {children}
