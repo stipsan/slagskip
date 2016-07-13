@@ -149,7 +149,7 @@
     "eslint-config-stipsan": "1.1.0",
     "eslint-formatter-pretty": "0.2.2",
     "eslint-plugin-import": "1.10.2",
-    "eslint-plugin-jsx-a11y": "2.0.0",
+    "eslint-plugin-jsx-a11y": "2.0.1",
     "eslint-plugin-react": "5.2.2",
     "expect": "1.20.2",
     "foreman": "1.4.1",
