@@ -1,0 +1,7 @@
+.title {
+  composes: title is-6 from 'bulma';
+}
+
+.activate-button {
+  composes: button is-primary from 'bulma';
+}

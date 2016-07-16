@@ -1,4 +1,5 @@
 import DocumentTitle from 'react-document-title'
+import Push from 'push.js'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
@@ -25,7 +26,7 @@ class Dashboard extends Component {
   render() {
     const { children, username } = this.props
     const { router } = this.context
-    const isFriendsTabActive = router.isActive({ pathname: 'friends' })
+    const isSettingsTabActive = router.isActive({ pathname: 'settings' })
 
     const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>{'Logout'}</a>
 
@@ -39,12 +40,14 @@ class Dashboard extends Component {
             <ul>
               <li
                 className={cx({
-                  isActive: !isFriendsTabActive
+                  isActive: !isSettingsTabActive
                 })}
               ><Link to="/">{'Games'}</Link></li>
-              {/* <li className={cx({
-                isActive: isFriendsTabActive
-              })}><Link to="/friends">Friends</Link></li>*/}
+              <li
+                className={cx({
+                  isActive: isSettingsTabActive
+                })}
+              ><Link to="/settings">{'Settings'}</Link></li>
             </ul>
           </div>
           {children}

@@ -7,11 +7,11 @@ import About from '../components/About'
 import App from './App'
 import Dashboard from './Dashboard'
 import Forgot from '../components/Forgot'
-import Friends from './Friends'
 import Game from './Game'
 import Games from './Games'
 import NewGame from './NewGame'
 import NotFound from '../components/NotFound'
+import Settings from './Settings'
 import Setup from './Setup'
 
 const Root = ({ store }) => {
@@ -28,7 +28,7 @@ const Root = ({ store }) => {
       <Route component={App}>
         <Route path="/" component={Dashboard}>
           <IndexRoute component={Games} />
-          <Route path="friends" component={Friends} />
+          <Route path="settings" component={Settings} />
         </Route>
         <Route path="/setup/:versus" component={Setup} />
         <Route path="/join/:game" component={Setup} />

@@ -12,7 +12,7 @@
     "remotedev": "remotedev --hostname=localhost --port=8000",
     "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --require babel-polyfill --recursive -t 20000",
     "test:watch": "npm test -- --watch --growl",
-    "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 20000 --compilers js:./test/css-modules-compiler.js --require babel-polyfill -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
     "coverage": "npm run coveralls && npm run codeclimate",
     "reboot-workers": "kill -SIGUSR2",
@@ -57,6 +57,17 @@
   "bugs": {
     "url": "https://github.com/stipsan/epic/issues"
   },
+  "nyc": {
+    "include": [
+      "*.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {
     "animate.css": "3.5.1",
@@ -90,7 +101,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "hiredis": "0.5.0",
-    "html-minifier": "3.0.0",
+    "html-minifier": "3.0.1",
     "imagemin": "5.2.2",
     "imagemin-optipng": "5.1.0",
     "imagemin-svgo": "5.1.0",
@@ -117,7 +128,7 @@
     "react-dom": "15.2.1",
     "react-immutable-proptypes": "1.7.1",
     "react-redux": "4.4.5",
-    "react-router": "2.5.1",
+    "react-router": "2.5.2",
     "react-router-redux": "4.0.5",
     "react-timeago": "3.1.1",
     "react-transform-count-renders": "1.0.1",
@@ -142,6 +153,7 @@
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
+    "babel-plugin-istanbul": "1.0.3",
     "codeclimate-test-reporter": "0.3.3",
     "coveralls": "2.11.11",
     "css-modules-require-hook": "4.0.1",
@@ -157,6 +169,7 @@
     "ioredis-mock": "1.6.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "2.5.3",
+    "nyc": "7.0.0",
     "remotedev-server": "0.1.2",
     "webpack-dev-server": "2.1.0-beta.0"
   }
