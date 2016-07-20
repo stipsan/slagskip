@@ -82,7 +82,7 @@
     "bulma-loader": "1.0.1",
     "caniuse-api": "1.5.0",
     "classnames": "2.2.5",
-    "classnames-loader": "1.0.0",
+    "classnames-loader": "2.0.0",
     "compression": "1.6.2",
     "css-loader": "0.23.1",
     "express": "4.14.0",
