@@ -107,7 +107,7 @@
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",
     "react": "15.3.0",
-    "react-addons-css-transition-group": "15.2.1",
+    "react-addons-css-transition-group": "15.3.0",
     "react-addons-pure-render-mixin": "15.2.1",
     "react-addons-shallow-compare": "15.3.0",
     "react-dnd": "2.1.4",
