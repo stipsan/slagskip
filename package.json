@@ -98,7 +98,7 @@
     "ioredis": "2.2.0",
     "json-loader": "0.5.4",
     "konami-komando": "1.0.1",
-    "lodash": "4.14.1",
+    "lodash": "4.15.0",
     "module-alias": "1.0.10",
     "node-sass": "3.8.0",
     "purifycss-webpack-plugin": "2.0.3",
