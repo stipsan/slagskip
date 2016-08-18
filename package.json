@@ -10,7 +10,7 @@
     "heroku-postbuild": "npm run bundle && npm run babel",
     "hmr": "webpack-dev-server",
     "remotedev": "remotedev --hostname=localhost --port=8000",
-    "test": "NODE_ENV=test mocha --compilers js:./test/babel-register.js,js:./test/css-modules-compiler.js --require babel-polyfill --recursive -t 20000",
+    "test": "NODE_ENV=test mocha --compilers js:./test/css-modules-compiler.js --require babel-register --require babel-polyfill --recursive -t 20000",
     "test:watch": "npm test -- --watch --growl",
     "coveralls": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -t 20000 --compilers js:./test/css-modules-compiler.js --require babel-polyfill -R spec --recursive test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
@@ -70,6 +70,7 @@
     "babel-polyfill": "6.9.1",
     "babel-preset-es2015": "6.13.1",
     "babel-preset-es2015-webpack": "6.4.2",
+    "babel-preset-node6": "11.0.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-react-optimize": "1.0.1",
@@ -85,7 +86,7 @@
     "css-loader": "0.23.1",
     "express": "4.14.0",
     "express-history-spa-fallback": "3.0.0",
-    "extract-text-webpack-plugin": "1.0.1",
+    "extract-text-webpack-plugin": "2.0.0-beta.3",
     "file-loader": "0.9.0",
     "hiredis": "0.5.0",
     "html-minifier": "3.0.2",
@@ -137,7 +138,7 @@
     "url-loader": "0.5.7",
     "uws": "0.7.9",
     "vinyl-fs": "2.4.3",
-    "webpack": "2.1.0-beta.20"
+    "webpack": "2.1.0-beta.21"
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
