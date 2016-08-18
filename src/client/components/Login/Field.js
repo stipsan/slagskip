@@ -4,31 +4,25 @@ import cx from './style.scss'
 
 const Field = ({
   input,
-  meta,
-  ...custom,
-  asyncValidating,
-  touched,
-  error,
-  submitting,
+  meta: { asyncValidating, touched, error, submitting },
   className,
- ...props
 }) => (
   <p
-    className={cx('control', `control-${custom.name}`, className, {
-      error: meta.touched && meta.error,
-      'is-loading': meta.asyncValidating,
+    className={cx('control', `control-${input.name}`, className, {
+      error: touched && error,
+      'is-loading': asyncValidating,
     })}
   >
     <input
       {...input}
-      className={cx(`input-${input.props.name}`, {
+      className={cx(`input-${input.name}`, {
         'is-danger': touched && error,
       })}
       autoComplete="email"
-      disabled={meta.submitting}
+      disabled={submitting}
     />
-    {meta.touched && meta.error &&
-      <span className={cx('help', 'is-danger')}>{meta.error}</span>
+    {touched && error &&
+      <span className={cx('help', 'is-danger')}>{error}</span>
     }
   </p>
 )
