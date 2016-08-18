@@ -1,6 +1,5 @@
+import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
-
-import cx from './style.scss'
 
 const About = () => <DocumentTitle title="Epic | What's Epic?">
   <section className={cx('hero')}>

@@ -3,6 +3,9 @@ import { PropTypes } from 'react'
 import cx from './style.scss'
 
 const Field = ({
+  input,
+  meta,
+  ...custom,
   asyncValidating,
   touched,
   error,
@@ -11,21 +14,21 @@ const Field = ({
  ...props
 }) => (
   <p
-    className={cx('control', `control-${props.name}`, className, {
-      error: touched && error,
-      'is-loading': asyncValidating,
+    className={cx('control', `control-${custom.name}`, className, {
+      error: meta.touched && meta.error,
+      'is-loading': meta.asyncValidating,
     })}
   >
     <input
-      {...props}
-      className={cx(`input-${props.name}`, {
+      {...input}
+      className={cx(`input-${input.props.name}`, {
         'is-danger': touched && error,
       })}
       autoComplete="email"
-      disabled={submitting}
+      disabled={meta.submitting}
     />
-    {touched && error &&
-      <span className={cx('help', 'is-danger')}>{error}</span>
+    {meta.touched && meta.error &&
+      <span className={cx('help', 'is-danger')}>{meta.error}</span>
     }
   </p>
 )
