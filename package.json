@@ -151,7 +151,7 @@
     "eslint-formatter-pretty": "0.2.2",
     "eslint-import-resolver-webpack": "0.5.1",
     "eslint-plugin-import": "1.12.0",
-    "eslint-plugin-jsx-a11y": "2.0.1",
+    "eslint-plugin-jsx-a11y": "2.1.0",
     "eslint-plugin-react": "6.0.0",
     "expect": "1.20.2",
     "foreman": "1.4.1",
