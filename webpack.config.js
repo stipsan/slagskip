@@ -55,7 +55,8 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   })),
 ]
 
-plugins = plugins.concat(new ExtractTextPlugin('[chunkhash].css', {
+plugins = plugins.concat(new ExtractTextPlugin({
+  filename: '[chunkhash].css',
   allChunks: true,
   disable: 'production' !== process.env.NODE_ENV,
 }))
@@ -139,10 +140,10 @@ module.exports = {
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
       { test: /\.scss$/, loaders: [
         'classnames',
-        ExtractTextPlugin.extract(
-           'style',
-           `css?modules&${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass!bulma`
-         )
+        ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: `css?modules&${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass!bulma`
+        })
       ] },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
