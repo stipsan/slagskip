@@ -6,6 +6,9 @@
     },
     "development": {
       "presets": ["react-hmre"]
+    },
+    "server": {
+      "presets": ["node6"]
     }
   }
 }

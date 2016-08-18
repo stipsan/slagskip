@@ -17,14 +17,12 @@
     "coverage": "npm run coveralls && npm run codeclimate",
     "reboot-workers": "kill -SIGUSR2",
     "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
-    "babel": "npm run babel-server && npm run babel-shared",
-    "babel:watch": "npm run babel-server -- --watch && npm run babel-shared -- --watch",
-    "babel-server": "babel src/server --out-dir lib/server --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread",
-    "babel-shared": "babel src/shared --out-dir lib/shared --no-babelrc --plugins transform-es2015-modules-commonjs,transform-es2015-parameters,transform-es2015-spread,transform-es2015-destructuring,transform-object-rest-spread"
+    "babel": "BABEL_ENV=server NODE_ENV=production babel src --out-dir lib",
+    "babel:watch": "npm run babel -- --watch"
   },
   "engines": {
-    "node": "6.2.0",
-    "npm": "3.9.0"
+    "node": "6.4.0",
+    "npm": "3.9.5"
   },
   "repository": {
     "type": "git",
