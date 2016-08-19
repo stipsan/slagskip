@@ -60,7 +60,10 @@
     "coverageReporters": [
       "lcov"
     ],
-    "coveragePathIgnorePatterns": ["<rootDir>/lib/", "<rootDir>/node_modules/"],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/node_modules/"
+    ],
     "coverageDirectory": "<rootDir>/.coverage",
     "setupFiles": [
       "<rootDir>/test/setup.js"
@@ -136,7 +139,7 @@
     "react-useravatar": "1.1.2",
     "redux": "3.5.2",
     "redux-form": "6.0.0-rc.5",
-    "redux-immutable": "3.0.7",
+    "redux-immutable": "3.0.8",
     "redux-saga": "0.11.0",
     "redux-saga-sc": "2.0.1",
     "remote-redux-devtools": "0.4.2",
