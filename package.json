@@ -60,7 +60,10 @@
     "coverageReporters": [
       "lcov"
     ],
-    "coveragePathIgnorePatterns": ["<rootDir>/lib/", "<rootDir>/node_modules/"],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/node_modules/"
+    ],
     "coverageDirectory": "<rootDir>/.coverage",
     "setupFiles": [
       "<rootDir>/test/setup.js"
@@ -109,6 +112,8 @@
     "ioredis": "2.3.0",
     "json-loader": "0.5.4",
     "konami-komando": "1.0.1",
+    "less": "2.7.1",
+    "less-loader": "2.2.3",
     "lodash": "4.15.0",
     "module-alias": "1.0.10",
     "node-sass": "3.8.0",
@@ -155,6 +160,7 @@
     "babel-eslint": "6.1.2",
     "babel-jest": "14.1.0",
     "codeclimate-test-reporter": "0.3.3",
+    "concurrently": "2.2.0",
     "coveralls": "2.11.12",
     "eslint": "3.3.1",
     "eslint-config-stipsan": "1.1.0",
