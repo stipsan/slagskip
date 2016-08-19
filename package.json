@@ -60,7 +60,10 @@
     "coverageReporters": [
       "lcov"
     ],
-    "coveragePathIgnorePatterns": ["<rootDir>/lib/", "<rootDir>/node_modules/"],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/node_modules/"
+    ],
     "coverageDirectory": "<rootDir>/.coverage",
     "setupFiles": [
       "<rootDir>/test/setup.js"
@@ -145,7 +148,7 @@
     "socketcluster-client": "5.0.3",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
-    "uikit-react": "0.4.0",
+    "uikit-react": "0.4.1",
     "url-loader": "0.5.7",
     "uws": "0.7.9",
     "vinyl-fs": "2.4.3",
