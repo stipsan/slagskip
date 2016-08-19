@@ -4,7 +4,7 @@
   "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
-    "start": "babel-node src/server/web",
+    "start": "concurrently 'babel-node src/server/web' 'npm run hmr' 'npm run remotedev' --kill-others ",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
     "heroku-postbuild": "npm run bundle && npm run babel",
@@ -15,7 +15,6 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
     "coverage": "npm run coveralls && npm run codeclimate",
-    "reboot-workers": "kill -SIGUSR2",
     "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
     "babel": "BABEL_ENV=server NODE_ENV=production babel src --out-dir lib",
     "babel:watch": "npm run babel -- --watch"
