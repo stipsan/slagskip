@@ -138,13 +138,10 @@ module.exports = {
     ],
     loaders: [
       { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.scss$/, loaders: [
-        'classnames',
-        ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: `css?modules&${cssnanoOptIn}${importLoaders}${localIdentName}!autoprefixer!sass!bulma`
-        })
-      ] },
+      { test: /\.less/, loader: ExtractTextPlugin.extract({
+        fallbackLoader: 'style',
+        loader: `css?${cssnanoOptIn}!less!uikit`
+      }) },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
