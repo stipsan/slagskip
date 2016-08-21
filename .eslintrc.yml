@@ -13,3 +13,5 @@ rules:
   react/jsx-filename-extension: off
   import/imports-first: off
   import/no-extraneous-dependencies: off
+settings:
+  import/resolver: webpack

@@ -2,7 +2,11 @@ import cx from 'classnames'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
+import { Field, reduxForm } from 'redux-form/immutable'
 
+import asyncValidate from './asyncValidate'
+import validate from './validate'
+import FieldComponent from './Field'
 import Form from './Form'
 
 const formStyle = Object.freeze({

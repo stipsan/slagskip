@@ -1,5 +1,8 @@
+import asyncValidate from 'epic-client/components/Login/asyncValidate'
+import validate from 'epic-client/components/Login/validate'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { reduxForm } from 'redux-form/immutable'
 
 import Login from '../components/Login'
 import {
@@ -25,4 +28,11 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login)
+)(
+  reduxForm({
+    form: 'login',
+    validate,
+    asyncValidate,
+    asyncBlurFields: ['email'],
+  })(Login)
+)

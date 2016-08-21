@@ -8,6 +8,7 @@ describe('<Login />', () => {
     signInWithEmailAndPassword: () => {},
     isRequestPending: false,
     handleCheckEmail: () => {},
+    store: () => {}
   }
   it('should render correctly', () => {
     const component = renderer.create(

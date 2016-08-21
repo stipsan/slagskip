@@ -4,7 +4,8 @@
   "description": "React example project, that takes you from fun development to high quality production",
   "scripts": {
     "bundle": "NODE_ENV=production webpack",
-    "start": "concurrently 'babel-node src/server/web' 'npm run hmr' 'npm run remotedev' --kill-others ",
+    "start": "concurrently 'babel-node src/server/web' 'npm run hmr' 'npm run remotedev' --kill-others",
+    "nasa": "webpack-dashboard -- npm run hmr",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
     "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
     "heroku-postbuild": "npm run bundle && npm run babel",
@@ -177,6 +178,12 @@
     "jest-webpack-alias": "3.2.2",
     "react-test-renderer": "15.3.0",
     "remotedev-server": "0.1.8",
+    "webpack-dashboard": "0.1.6",
     "webpack-dev-server": "2.1.0-beta.0"
+  },
+  "_moduleAliases": {
+    "epic-client": "src/client",
+    "epic-server": "src/server",
+    "epic-shared": "src/shared"
   }
 }
