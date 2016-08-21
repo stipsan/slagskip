@@ -144,6 +144,14 @@ module.exports = {
         loader: `css?${cssnanoOptIn}!less!uikit`
       }) },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=1000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
     ],
   },
 }

@@ -24,31 +24,35 @@ export default class Login extends Component {
       doesEmailExist,
     } = this.props
 
-    return (<section className={cx('hero')}>
-      <div className={cx('hero-head')}>
-        <div className={cx('container')}>
-          <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
-        </div>
-      </div>
-      <div className={cx('hero-body')}>
-        <div className={cx('container')}>
-          <Form
-            doesEmailExist={doesEmailExist}
-            handleCheckEmail={checkIfEmailExists}
-            handleLogin={signInWithEmailAndPassword}
-            handleRegister={createUserWithEmailAndPassword}
-          />
-        </div>
-      </div>
-      <div className={cx('hero-footer')}>
-        <nav className={cx('footer-tabs')}>
-          <div className={cx('container')}>
-            <ul>
-              <li><Link to="/about">{'About'}</Link></li>
-            </ul>
+    return (
+      <div className="uk-flex uk-height-1-1">
+        <div className="uk-vertical-align-middle">
+          <div className={cx('hero-head')}>
+            <div className={cx('container')}>
+              <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
+            </div>
           </div>
-        </nav>
+          <div className={cx('hero-body')}>
+            <div className={cx('container')}>
+              <Form
+                doesEmailExist={doesEmailExist}
+                handleCheckEmail={checkIfEmailExists}
+                handleLogin={signInWithEmailAndPassword}
+                handleRegister={createUserWithEmailAndPassword}
+              />
+            </div>
+          </div>
+          <div className={cx('hero-footer')}>
+            <nav className={cx('footer-tabs')}>
+              <div className={cx('container')}>
+                <ul>
+                  <li><Link to="/about">{'About'}</Link></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
       </div>
-    </section>)
+    )
   }
 }

@@ -1,0 +1,44 @@
+exports[`<Login /> should render correctly 1`] = `
+<div
+  className="uk-flex uk-height-1-1">
+  <div
+    className="uk-vertical-align-middle">
+    <div
+      className="hero-head">
+      <div
+        className="container">
+        <img
+          height="64"
+          role="presentation"
+          src="/favicons/icon.svg"
+          width="64" />
+      </div>
+    </div>
+    <div
+      className="hero-body">
+      <div
+        className="container">
+        <div />
+      </div>
+    </div>
+    <div
+      className="hero-footer">
+      <nav
+        className="footer-tabs">
+        <div
+          className="container">
+          <ul>
+            <li>
+              <a
+                onClick={[Function bound handleClick]}
+                style={Object {}}>
+                About
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+`;
