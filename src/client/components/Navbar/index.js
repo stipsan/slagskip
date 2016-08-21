@@ -1,6 +1,6 @@
 import { PropTypes } from 'react'
 
-import cx from './style.scss'
+import cx from 'classnames'
 
 const Navbar = ({ left, children, right }) => <header className={cx('header')}>
   <div className={cx('headerLeft')}>

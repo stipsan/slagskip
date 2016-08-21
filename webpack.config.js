@@ -120,8 +120,9 @@ module.exports = {
     noInfo: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
-  bulmaLoader: {
-    theme: 'src/client/style/_bulma.scss',
+  uikitLoader: {
+    theme: 'src/client/theme.less',
+    test: /\.less$/,
   },
   output: {
     path: path.join(__dirname, 'public'),

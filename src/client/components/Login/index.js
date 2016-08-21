@@ -1,8 +1,8 @@
+import cx from 'classnames'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
-import cx from './style.scss'
 import Form from './Form'
 
 export default class Login extends Component {
@@ -24,7 +24,7 @@ export default class Login extends Component {
       doesEmailExist,
     } = this.props
 
-    return <section className={cx('hero')}>
+    return (<section className={cx('hero')}>
       <div className={cx('hero-head')}>
         <div className={cx('container')}>
           <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
@@ -49,6 +49,6 @@ export default class Login extends Component {
           </div>
         </nav>
       </div>
-    </section>
+    </section>)
   }
 }

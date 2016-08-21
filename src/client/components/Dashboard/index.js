@@ -3,7 +3,7 @@ import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
-import cx from './style.scss'
+import cx from 'classnames'
 import Navbar from '../Navbar'
 import { logoutUser } from '../../actions'
 

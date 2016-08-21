@@ -1,9 +1,9 @@
+import cx from 'classnames'
 import { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Field, reduxForm } from 'redux-form/immutable'
 
 import asyncValidate from '../asyncValidate'
-import cx from '../style.scss'
 import validate from '../validate'
 import FieldComponent from '../Field'
 

@@ -1,7 +1,6 @@
+import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
 import { PropTypes } from 'react'
-
-import cx from './style.scss'
 
 const iconStyle = Object.freeze({ height: '64px', width: '64px' })
 

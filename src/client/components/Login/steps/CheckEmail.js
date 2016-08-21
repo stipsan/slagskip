@@ -1,7 +1,7 @@
+import cx from 'classnames'
 import { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form/immutable'
 
-import cx from '../style.scss'
 import validate from '../validate'
 import FieldComponent from '../Field'
 

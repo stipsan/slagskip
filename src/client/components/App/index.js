@@ -1,8 +1,8 @@
+import cx from 'classnames'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 
-import cx from './style.scss'
 import Disconnected from '../../containers/Disconnected'
 import Loading from '../Loading'
 import Login from '../../containers/Login'

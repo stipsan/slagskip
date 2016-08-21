@@ -1,6 +1,5 @@
+import cx from 'classnames'
 import { PropTypes } from 'react'
-
-import cx from './style.scss'
 
 const Field = ({
   input,

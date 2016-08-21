@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import cx from './style.scss'
+import cx from 'classnames'
 import GameRow from './GameRow'
 
 class Games extends Component {
