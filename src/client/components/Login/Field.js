@@ -6,30 +6,29 @@ const Field = ({
   meta: { asyncValidating, touched, error, submitting },
   className,
 }) => (
-  <p
-    className={cx('control', `control-${input.name}`, className, {
-      error: touched && error,
-      'is-loading': asyncValidating,
-    })}
+  <div
+    className={cx('uk-form-row')}
   >
     <input
       {...input}
-      className={cx(`input-${input.name}`, {
+      className={cx('uk-width-1-1 uk-form-large', {
         'is-danger': touched && error,
       })}
-      autoComplete="email"
+      autoComplete={input.name}
       disabled={submitting}
     />
     {touched && error &&
       <span className={cx('help', 'is-danger')}>{error}</span>
     }
-  </p>
+  </div>
 )
 
 Field.propTypes = {
   asyncValidating: PropTypes.bool,
   className: PropTypes.string,
   error: PropTypes.string,
+  input: PropTypes.object,
+  meta: PropTypes.object,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   submitting: PropTypes.bool,

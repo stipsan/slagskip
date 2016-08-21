@@ -1,13 +1,8 @@
-import cx from 'classnames'
+import Field from 'epic-client/components/Form/Field'
 import { Component, PropTypes } from 'react'
-import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
-import { Field, reduxForm } from 'redux-form/immutable'
 
-import asyncValidate from './asyncValidate'
-import validate from './validate'
 import FieldComponent from './Field'
-import Form from './Form'
 
 const formStyle = Object.freeze({
   width: '250px'
@@ -20,9 +15,8 @@ export default class Login extends Component {
     doesEmailExist: PropTypes.bool,
     isRequestPending: PropTypes.bool.isRequired,
     signInWithEmailAndPassword: PropTypes.func.isRequired,
+    submitting: PropTypes.bool,
   }
-
-  shouldComponentUpdate = shouldComponentUpdate
 
   render() {
     const {
@@ -30,6 +24,7 @@ export default class Login extends Component {
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
       doesEmailExist,
+      submitting,
     } = this.props
 
     return (
@@ -43,16 +38,16 @@ export default class Login extends Component {
               height="64"
               role="presentation"
             />
-            <div className={cx('hero-body')}>
-              <div className={cx('container')}>
-                <Form
-                  doesEmailExist={doesEmailExist}
-                  handleCheckEmail={checkIfEmailExists}
-                  handleLogin={signInWithEmailAndPassword}
-                  handleRegister={createUserWithEmailAndPassword}
-                />
-              </div>
-            </div>
+            <form className="uk-panel uk-panel-box uk-form">
+              <Field
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                submitting={submitting}
+                component={FieldComponent}
+              />
+              <button>Submit</button>
+            </form>
           </div>
         </div>
         <div className="uk-flex-item-none">

@@ -67,7 +67,8 @@
     "coverageDirectory": "<rootDir>/.coverage",
     "setupFiles": [
       "<rootDir>/test/setup.js"
-    ]
+    ],
+    "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js"
   },
   "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {
@@ -125,12 +126,15 @@
     "react-addons-css-transition-group": "15.3.0",
     "react-addons-pure-render-mixin": "15.3.0",
     "react-addons-shallow-compare": "15.3.0",
+    "react-collapse": "2.3.3",
     "react-dnd": "2.1.4",
     "react-dnd-html5-backend": "2.1.2",
     "react-dnd-touch-backend": "0.3.2",
     "react-document-title": "2.0.2",
     "react-dom": "15.3.0",
+    "react-height": "2.1.1",
     "react-immutable-proptypes": "2.1.0",
+    "react-motion": "0.4.4",
     "react-redux": "4.4.5",
     "react-router": "2.6.1",
     "react-router-redux": "4.0.5",
@@ -161,6 +165,7 @@
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "babel-jest": "14.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.11.5",
     "codeclimate-test-reporter": "0.3.3",
     "concurrently": "2.2.0",
     "coveralls": "2.11.12",
