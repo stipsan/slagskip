@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import Collapse from 'react-collapse'
 import { PropTypes } from 'react'
 
 const Field = ({
@@ -12,14 +13,14 @@ const Field = ({
     <input
       {...input}
       className={cx('uk-width-1-1 uk-form-large', {
-        'is-danger': touched && error,
+        'uk-form-danger': touched && error,
       })}
       autoComplete={input.name}
       disabled={submitting}
     />
-    {touched && error &&
-      <span className={cx('help', 'is-danger')}>{error}</span>
-    }
+    <Collapse isOpened={touched && error} springConfig={{ stiffness: 210, damping: 20 }}>
+      <p className="uk-form-help-block">{error}</p>
+    </Collapse>
   </div>
 )
 

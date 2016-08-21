@@ -1,6 +1,9 @@
+import cx from 'classnames'
+import Collapse from 'react-collapse'
 import Field from 'epic-client/components/Form/Field'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import { Button } from 'uikit-react'
 
 import FieldComponent from './Field'
 
@@ -18,6 +21,13 @@ export default class Login extends Component {
     submitting: PropTypes.bool,
   }
 
+  state = { password: false }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.setState({ password: true })
+  }
+
   render() {
     const {
       checkIfEmailExists,
@@ -25,7 +35,9 @@ export default class Login extends Component {
       signInWithEmailAndPassword,
       doesEmailExist,
       submitting,
+      valid,
     } = this.props
+    const { handleSubmit } = this
 
     return (
       <div className="uk-flex uk-flex-column uk-height-1-1">
@@ -38,7 +50,7 @@ export default class Login extends Component {
               height="64"
               role="presentation"
             />
-            <form className="uk-panel uk-panel-box uk-form">
+            <form className="uk-panel uk-panel-box uk-form" onSubmit={handleSubmit}>
               <Field
                 name="email"
                 type="email"
@@ -46,7 +58,33 @@ export default class Login extends Component {
                 submitting={submitting}
                 component={FieldComponent}
               />
-              <button>Submit</button>
+              <Collapse isOpened={doesEmailExist !== null} className="uk-form-row">
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  submitting={submitting}
+                  component={FieldComponent}
+                />
+              </Collapse>
+              <Collapse isOpened={doesEmailExist === false} className="uk-form-row">
+                <Field
+                  name="username"
+                  placeholder="Username"
+                  autoComplete="name"
+                  submitting={submitting}
+                  component={FieldComponent}
+                />
+              </Collapse>
+              <div className="uk-form-row">
+                <Button large primary className="uk-width-1-1" type="submit">
+                  {
+                    doesEmailExist === null ?
+                    'Next' :
+                    (doesEmailExist === true ? 'Login' : 'Register')
+                  }
+                </Button>
+              </div>
             </form>
           </div>
         </div>

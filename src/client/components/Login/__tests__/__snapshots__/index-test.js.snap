@@ -17,16 +17,174 @@ exports[`<Login /> should render correctly 1`] = `
         src="/favicons/icon.svg"
         width="64" />
       <form
-        className="uk-panel uk-panel-box uk-form">
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
         <Field
           component={[Function Field]}
           name="email"
           placeholder="E-mail"
           submitting={undefined}
           type="email" />
-        <button>
-          Submit
-        </button>
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": "auto"
+            }
+          } />
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden"
+            }
+          } />
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Login /> should render correctly 2`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": "auto"
+            }
+          } />
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden"
+            }
+          } />
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Login /> should render correctly 3`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": "auto"
+            }
+          } />
+        <div
+          className="uk-form-row"
+          style={
+            Object {
+              "height": "auto"
+            }
+          } />
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Register
+          </button>
+        </div>
       </form>
     </div>
   </div>
