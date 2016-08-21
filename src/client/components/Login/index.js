@@ -5,6 +5,10 @@ import { Link } from 'react-router'
 
 import Form from './Form'
 
+const formStyle = Object.freeze({
+  width: '250px'
+})
+
 export default class Login extends Component {
   static propTypes = {
     checkIfEmailExists: PropTypes.func.isRequired,
@@ -25,32 +29,32 @@ export default class Login extends Component {
     } = this.props
 
     return (
-      <div className="uk-flex uk-height-1-1">
-        <div className="uk-vertical-align-middle">
-          <div className={cx('hero-head')}>
-            <div className={cx('container')}>
-              <img src="/favicons/icon.svg" width="64" height="64" role="presentation" />
-            </div>
-          </div>
-          <div className={cx('hero-body')}>
-            <div className={cx('container')}>
-              <Form
-                doesEmailExist={doesEmailExist}
-                handleCheckEmail={checkIfEmailExists}
-                handleLogin={signInWithEmailAndPassword}
-                handleRegister={createUserWithEmailAndPassword}
-              />
-            </div>
-          </div>
-          <div className={cx('hero-footer')}>
-            <nav className={cx('footer-tabs')}>
+      <div className="uk-flex uk-flex-column uk-height-1-1">
+        <div className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+          <div className="uk-text-center" style={formStyle}>
+            <img
+              src="/favicons/icon.svg"
+              className="uk-margin-bottom"
+              width="64"
+              height="64"
+              role="presentation"
+            />
+            <div className={cx('hero-body')}>
               <div className={cx('container')}>
-                <ul>
-                  <li><Link to="/about">{'About'}</Link></li>
-                </ul>
+                <Form
+                  doesEmailExist={doesEmailExist}
+                  handleCheckEmail={checkIfEmailExists}
+                  handleLogin={signInWithEmailAndPassword}
+                  handleRegister={createUserWithEmailAndPassword}
+                />
               </div>
-            </nav>
+            </div>
           </div>
+        </div>
+        <div className="uk-flex-item-none">
+          <ul className="uk-subnav uk-subnav-line uk-flex-center">
+            <li><Link to="/about">{'About'}</Link></li>
+          </ul>
         </div>
       </div>
     )

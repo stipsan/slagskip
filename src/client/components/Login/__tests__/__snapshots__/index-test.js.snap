@@ -1,44 +1,42 @@
 exports[`<Login /> should render correctly 1`] = `
 <div
-  className="uk-flex uk-height-1-1">
+  className="uk-flex uk-flex-column uk-height-1-1">
   <div
-    className="uk-vertical-align-middle">
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
     <div
-      className="hero-head">
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
       <div
-        className="container">
-        <img
-          height="64"
-          role="presentation"
-          src="/favicons/icon.svg"
-          width="64" />
-      </div>
-    </div>
-    <div
-      className="hero-body">
-      <div
-        className="container">
-        <div />
-      </div>
-    </div>
-    <div
-      className="hero-footer">
-      <nav
-        className="footer-tabs">
+        className="hero-body">
         <div
           className="container">
-          <ul>
-            <li>
-              <a
-                onClick={[Function bound handleClick]}
-                style={Object {}}>
-                About
-              </a>
-            </li>
-          </ul>
+          <div />
         </div>
-      </nav>
+      </div>
     </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
 `;
