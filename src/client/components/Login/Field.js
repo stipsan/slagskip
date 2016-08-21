@@ -6,20 +6,25 @@ const Field = ({
   input,
   meta: { asyncValidating, touched, error, submitting },
   className,
+  ...custom,
 }) => (
   <div
     className={cx('uk-form-row')}
   >
-    <input
-      {...input}
-      className={cx('uk-width-1-1 uk-form-large', {
-        'uk-form-danger': touched && error,
-      })}
-      autoComplete={input.name}
-      disabled={submitting}
-    />
+    <div className="uk-form-icon uk-width-1-1 ">
+      <i className={`uk-icon-${custom.icon || input.name}`}></i>
+      <input
+        {...input}
+        {...custom}
+        className={cx('uk-width-1-1 uk-form-large', {
+          'uk-form-danger': touched && error,
+        })}
+        autoComplete={input.name}
+        disabled={submitting}
+      />
+    </div>
     <Collapse isOpened={touched && error} springConfig={{ stiffness: 210, damping: 20 }}>
-      <p className="uk-form-help-block">{error}</p>
+      <p className="uk-form-help-block uk-text-left">{error}</p>
     </Collapse>
   </div>
 )

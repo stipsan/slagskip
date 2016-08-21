@@ -21,6 +21,7 @@ exports[`<Login /> should render correctly 1`] = `
         onSubmit={[Function anonymous]}>
         <Field
           component={[Function Field]}
+          icon="envelope"
           name="email"
           placeholder="E-mail"
           submitting={undefined}
@@ -90,6 +91,7 @@ exports[`<Login /> should render correctly 2`] = `
         onSubmit={[Function anonymous]}>
         <Field
           component={[Function Field]}
+          icon="envelope"
           name="email"
           placeholder="E-mail"
           submitting={undefined}
@@ -159,6 +161,7 @@ exports[`<Login /> should render correctly 3`] = `
         onSubmit={[Function anonymous]}>
         <Field
           component={[Function Field]}
+          icon="envelope"
           name="email"
           placeholder="E-mail"
           submitting={undefined}

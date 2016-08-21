@@ -54,6 +54,7 @@ export default class Login extends Component {
               <Field
                 name="email"
                 type="email"
+                icon="envelope"
                 placeholder="E-mail"
                 submitting={submitting}
                 component={FieldComponent}
@@ -62,6 +63,7 @@ export default class Login extends Component {
                 <Field
                   name="password"
                   type="password"
+                  icon="lock"
                   placeholder="Password"
                   submitting={submitting}
                   component={FieldComponent}
@@ -72,6 +74,7 @@ export default class Login extends Component {
                   name="username"
                   placeholder="Username"
                   autoComplete="name"
+                  icon="user"
                   submitting={submitting}
                   component={FieldComponent}
                 />
