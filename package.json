@@ -68,7 +68,7 @@
     "setupFiles": [
       "<rootDir>/test/setup.js"
     ],
-    "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js"
+    "scriptPreprocessor": "<rootDir>/test/preprocessor.js"
   },
   "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {

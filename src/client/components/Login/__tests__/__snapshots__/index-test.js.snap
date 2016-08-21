@@ -16,13 +16,18 @@ exports[`<Login /> should render correctly 1`] = `
         role="presentation"
         src="/favicons/icon.svg"
         width="64" />
-      <div
-        className="hero-body">
-        <div
-          className="container">
-          <div />
-        </div>
-      </div>
+      <form
+        className="uk-panel uk-panel-box uk-form">
+        <Field
+          component={[Function Field]}
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <button>
+          Submit
+        </button>
+      </form>
     </div>
   </div>
   <div
