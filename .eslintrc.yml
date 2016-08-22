@@ -13,5 +13,6 @@ rules:
   react/jsx-filename-extension: off
   import/imports-first: off
   import/no-extraneous-dependencies: off
+  arrow-parens: off
 settings:
   import/resolver: webpack
