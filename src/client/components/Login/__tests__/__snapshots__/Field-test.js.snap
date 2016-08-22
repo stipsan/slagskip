@@ -113,7 +113,7 @@ exports[`<Login.Field /> should render correctly 5`] = `
   <div
     className="uk-form-icon uk-width-1-1">
     <i
-      className="uk-icon-email" />
+      className="uk-icon-spinner uk-icon-spin" />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"

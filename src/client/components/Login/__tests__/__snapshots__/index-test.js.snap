@@ -54,8 +54,10 @@ exports[`<Login /> should render correctly 1`] = `
         <div
           className="uk-form-row">
           <button
-            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
             type="submit">
+            <i
+              className="uk-icon-chevron-right" />
             Register
           </button>
         </div>
@@ -144,8 +146,10 @@ exports[`<Login /> should render correctly 2`] = `
         <div
           className="uk-form-row">
           <button
-            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
             type="submit">
+            <i
+              className="uk-icon-chevron-right" />
             Login
           </button>
         </div>
@@ -234,8 +238,10 @@ exports[`<Login /> should render correctly 3`] = `
         <div
           className="uk-form-row">
           <button
-            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
             type="submit">
+            <i
+              className="uk-icon-chevron-right" />
             Register
           </button>
         </div>

@@ -1,3 +1,5 @@
+import './index.less'
+
 import cx from 'classnames'
 import Collapse from 'react-collapse'
 import Field from 'epic-client/components/Form/Field'
@@ -88,7 +90,8 @@ export default class Login extends Component {
                 />
               </Collapse>
               <div className="uk-form-row">
-                <Button large primary className="uk-width-1-1" type="submit">
+                <Button large primary className="uk-width-1-1 uk-form-icon" type="submit">
+                  <i className="uk-icon-chevron-right" />
                   {
                     doesEmailExist === null ?
                     'Next' :
