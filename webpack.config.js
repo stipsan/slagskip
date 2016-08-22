@@ -2,9 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 // const purify = require('purifycss-webpack-plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
 const devServerPort = process.env.DEV_SERVER_PORT || '8080'
+
+const { _moduleAliases: alias } = require('./package.json')
 
 // @TODO move this into env
 const provideDefaults = {
@@ -53,6 +56,7 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   new webpack.DefinePlugin(Object.assign({}, provideDefaults, {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
   })),
+  new DashboardPlugin(),
 ]
 
 plugins = plugins.concat(new ExtractTextPlugin({
@@ -124,6 +128,11 @@ module.exports = {
     theme: 'src/client/theme.less',
     test: /\.less$/,
   },
+  resolve: {
+    root: __dirname,
+    modules: [__dirname, 'node_modules'],
+    alias,
+  },
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'production' === process.env.NODE_ENV ? '[chunkhash].js' : '[name].js?[hash]',
@@ -144,6 +153,14 @@ module.exports = {
         loader: `css?${cssnanoOptIn}!less!uikit`
       }) },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=1000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
     ],
   },
 }

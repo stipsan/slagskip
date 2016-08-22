@@ -51,7 +51,7 @@ export default class App extends Component {
     return (
       <ReactCSSTransitionGroup
         component="div"
-        className={cx({ transitionBackwards: !isGoingForwards })}
+        className={cx('uk-height-1-1', { transitionBackwards: !isGoingForwards })}
         transitionName={transitionName}
         transitionEnterTimeout={transitionDuration}
         transitionLeaveTimeout={transitionDuration}
