@@ -1,6 +1,6 @@
 import DocumentTitle from 'react-document-title'
 
-import cx from './style.scss'
+import cx from 'classnames'
 
 const Loading = () => <DocumentTitle title="Epic | Loading...">
   <section className={cx('hero')}>

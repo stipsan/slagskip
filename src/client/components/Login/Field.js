@@ -1,36 +1,40 @@
+import cx from 'classnames'
+import Collapse from 'react-collapse'
 import { PropTypes } from 'react'
-
-import cx from './style.scss'
 
 const Field = ({
   input,
   meta: { asyncValidating, touched, error, submitting },
   className,
+  ...custom,
 }) => (
-  <p
-    className={cx('control', `control-${input.name}`, className, {
-      error: touched && error,
-      'is-loading': asyncValidating,
-    })}
+  <div
+    className={cx('uk-form-row')}
   >
-    <input
-      {...input}
-      className={cx(`input-${input.name}`, {
-        'is-danger': touched && error,
-      })}
-      autoComplete="email"
-      disabled={submitting}
-    />
-    {touched && error &&
-      <span className={cx('help', 'is-danger')}>{error}</span>
-    }
-  </p>
+    <div className="uk-form-icon uk-width-1-1 ">
+      <i className={`uk-icon-${custom.icon || input.name}`}></i>
+      <input
+        {...input}
+        {...custom}
+        className={cx('uk-width-1-1 uk-form-large', {
+          'uk-form-danger': touched && error,
+        })}
+        autoComplete={input.name}
+        disabled={submitting}
+      />
+    </div>
+    <Collapse isOpened={!!touched && !!error} className="uk-form-help-block uk-text-left">
+      {error}
+    </Collapse>
+  </div>
 )
 
 Field.propTypes = {
   asyncValidating: PropTypes.bool,
   className: PropTypes.string,
   error: PropTypes.string,
+  input: PropTypes.object,
+  meta: PropTypes.object,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   submitting: PropTypes.bool,

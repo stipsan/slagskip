@@ -4,7 +4,7 @@ import { shuffle } from 'lodash'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import cx from './style.scss'
+import cx from 'classnames'
 import Loading from '../Loading'
 import Navbar from '../Navbar'
 import { Grid, SetupCanvas, Item } from '../Board'

@@ -1,7 +1,7 @@
 import { Component, PropTypes } from 'react'
 import { DragSource } from 'react-dnd'
 
-import cx from '../style.scss'
+import cx from 'classnames'
 import { BOARD_ITEM } from '../../../constants/ItemTypes'
 import { indexToCSSTranslate } from '../util'
 

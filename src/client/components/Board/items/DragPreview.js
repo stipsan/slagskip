@@ -2,7 +2,7 @@ import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { DragLayer } from 'react-dnd'
 
-import cx from '../style.scss'
+import cx from 'classnames'
 import { XL, L, M, S, XS } from './index'
 
 const layerStyles = {

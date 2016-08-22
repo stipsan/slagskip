@@ -2,7 +2,7 @@ import DocumentTitle from 'react-document-title'
 import TimeAgo from 'react-timeago'
 import { Component, PropTypes } from 'react'
 
-import cx from './style.scss'
+import cx from 'classnames'
 
 const timeAgoFormatter = (value, singularUnit, suffix) => {
   if ('ago' === suffix || 0 === value) {

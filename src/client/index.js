@@ -1,3 +1,5 @@
+import './index.less'
+
 import { render } from 'react-dom'
 
 import store from './store'
