@@ -56,6 +56,16 @@ exports[`<Login /> should render correctly 1`] = `
             Register
           </button>
         </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={false}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
       </form>
     </div>
   </div>
@@ -133,6 +143,16 @@ exports[`<Login /> should render correctly 2`] = `
             Login
           </button>
         </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={true}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
       </form>
     </div>
   </div>
@@ -210,6 +230,16 @@ exports[`<Login /> should render correctly 3`] = `
             Register
           </button>
         </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={false}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
       </form>
     </div>
   </div>

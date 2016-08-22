@@ -64,7 +64,7 @@ export default class Login extends Component {
                 submitting={submitting}
                 component={FieldComponent}
               />
-              <Collapse isOpened={doesEmailExist !== null} className="uk-form-row">
+              <Collapse key="password" isOpened={doesEmailExist !== null} className="uk-form-row">
                 <Field
                   name="password"
                   type="password"
@@ -74,7 +74,7 @@ export default class Login extends Component {
                   component={FieldComponent}
                 />
               </Collapse>
-              <Collapse isOpened={doesEmailExist === false} className="uk-form-row">
+              <Collapse key="username" isOpened={doesEmailExist === false} className="uk-form-row">
                 <Field
                   name="username"
                   placeholder="Username"
@@ -93,6 +93,11 @@ export default class Login extends Component {
                   }
                 </Button>
               </div>
+              <Collapse key="remember" className="uk-form-row uk-text-small" isOpened={doesEmailExist === true}>
+                <Link to="/forgot" className="uk-float-right uk-link uk-link-muted">
+                  {'Forgot your password?'}
+                </Link>
+              </Collapse>
             </form>
           </div>
         </div>

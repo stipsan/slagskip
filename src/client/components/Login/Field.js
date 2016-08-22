@@ -23,7 +23,7 @@ const Field = ({
         disabled={submitting}
       />
     </div>
-    <Collapse isOpened={touched && error} className="uk-form-help-block uk-text-left">
+    <Collapse isOpened={!!touched && !!error} className="uk-form-help-block uk-text-left">
       {error}
     </Collapse>
   </div>

@@ -126,7 +126,7 @@
     "react-addons-css-transition-group": "15.3.0",
     "react-addons-pure-render-mixin": "15.3.0",
     "react-addons-shallow-compare": "15.3.0",
-    "react-collapse": "3.1.1",
+    "react-collapse": "2.3.3",
     "react-dnd": "2.1.4",
     "react-dnd-html5-backend": "2.1.2",
     "react-dnd-touch-backend": "0.3.2",
