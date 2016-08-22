@@ -1,0 +1,60 @@
+exports[`<Login.Field /> should render correctly 1`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1 ">
+    <i
+      className="uk-icon-email" />
+    <input
+      autoComplete="email"
+      className="uk-width-1-1 uk-form-large"
+      disabled={undefined}
+      name="email"
+      type="email" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false} />
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 2`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1 ">
+    <i
+      className="uk-icon-email" />
+    <input
+      autoComplete="email"
+      className="uk-width-1-1 uk-form-large"
+      disabled={undefined}
+      name="email"
+      submitting={true}
+      type="email" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false} />
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 3`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1 ">
+    <i
+      className="uk-icon-password" />
+    <input
+      autoComplete="password"
+      className="uk-width-1-1 uk-form-large"
+      disabled={undefined}
+      name="password"
+      type="password" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false} />
+</div>
+`;

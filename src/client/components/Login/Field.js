@@ -1,18 +1,17 @@
 import cx from 'classnames'
 import Collapse from 'react-collapse'
+import FieldPropTypes from 'epic-client/PropTypes/Field'
 import { PropTypes } from 'react'
 
 const Field = ({
   input,
   meta: { asyncValidating, touched, error, submitting },
-  className,
+  icon,
   ...custom,
 }) => (
-  <div
-    className={cx('uk-form-row')}
-  >
-    <div className="uk-form-icon uk-width-1-1 ">
-      <i className={`uk-icon-${custom.icon || input.name}`}></i>
+  <div className={cx('uk-form-row')}>
+    <div className="uk-form-icon uk-width-1-1">
+      <i className={`uk-icon-${icon || input.name}`} />
       <input
         {...input}
         {...custom}
@@ -24,22 +23,14 @@ const Field = ({
       />
     </div>
     <Collapse isOpened={!!touched && !!error} className="uk-form-help-block uk-text-left">
-      {error}
+      {error || '&nbsp;'}
     </Collapse>
   </div>
 )
 
 Field.propTypes = {
-  asyncValidating: PropTypes.bool,
-  className: PropTypes.string,
-  error: PropTypes.string,
-  input: PropTypes.object,
-  meta: PropTypes.object,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  submitting: PropTypes.bool,
-  touched: PropTypes.bool,
-  type: PropTypes.string,
+  ...FieldPropTypes,
+  icon: PropTypes.string,
 }
 
 export default Field
