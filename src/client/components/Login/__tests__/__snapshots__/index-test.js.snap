@@ -55,6 +55,7 @@ exports[`<Login /> should render correctly 1`] = `
           className="uk-form-row">
           <button
             className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+            disabled={undefined}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
@@ -147,6 +148,7 @@ exports[`<Login /> should render correctly 2`] = `
           className="uk-form-row">
           <button
             className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+            disabled={undefined}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
@@ -239,9 +241,103 @@ exports[`<Login /> should render correctly 3`] = `
           className="uk-form-row">
           <button
             className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+            disabled={undefined}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
+            Register
+          </button>
+        </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={false}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Login /> should render correctly 4`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          icon="envelope"
+          name="email"
+          placeholder="E-mail"
+          required={true}
+          submitting={true}
+          type="email" />
+        <Collapse
+          className="uk-form-row"
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            required={true}
+            submitting={true}
+            type="password" />
+        </Collapse>
+        <Collapse
+          className="uk-form-row"
+          isOpened={false}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            required={true}
+            submitting={true} />
+        </Collapse>
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+            disabled={true}
+            type="submit">
+            <i
+              className="uk-icon-spinner uk-icon-spin" />
             Register
           </button>
         </div>

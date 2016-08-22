@@ -9,8 +9,7 @@ describe('<Login />', () => {
   const defaultProps = {
     createUserWithEmailAndPassword: () => {},
     signInWithEmailAndPassword: () => {},
-    isRequestPending: false,
-    handleSubmit: () => () => {}
+    handleSubmit: () => () => {},
   }
   it('should render correctly', () => {
     let component = renderer.create(
@@ -25,6 +24,11 @@ describe('<Login />', () => {
 
     component = renderer.create(
       <Login {...defaultProps} doesEmailExist={false} />
+    )
+    expect(component.toJSON()).toMatchSnapshot()
+
+    component = renderer.create(
+      <Login {...defaultProps} submitting />
     )
     expect(component.toJSON()).toMatchSnapshot()
   })

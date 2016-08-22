@@ -17,21 +17,16 @@ export default class Login extends Component {
   static propTypes = {
     createUserWithEmailAndPassword: PropTypes.func.isRequired,
     doesEmailExist: PropTypes.bool,
-    isRequestPending: PropTypes.bool.isRequired,
     signInWithEmailAndPassword: PropTypes.func.isRequired,
     submitting: PropTypes.bool,
   }
 
-  state = { password: false }
-
   handleSubmit = this.props.handleSubmit(data => {
     const { doesEmailExist } = this.props
     if (doesEmailExist === false && data.has('username')) {
-      console.log('there is username', data.toJS())
       return this.props.createUserWithEmailAndPassword(data)
     }
     if (doesEmailExist === true && data.has('password')) {
-      console.log('there is password', data.toJS())
       return this.props.signInWithEmailAndPassword(data)
     }
   })
@@ -42,7 +37,6 @@ export default class Login extends Component {
       signInWithEmailAndPassword,
       doesEmailExist,
       submitting,
-      valid,
     } = this.props
     const { handleSubmit } = this
 
@@ -90,8 +84,19 @@ export default class Login extends Component {
                 />
               </Collapse>
               <div className="uk-form-row">
-                <Button large primary className="uk-width-1-1 uk-form-icon" type="submit">
-                  <i className="uk-icon-chevron-right" />
+                <Button
+                  large
+                  primary
+                  className="uk-width-1-1 uk-form-icon"
+                  type="submit"
+                  disabled={submitting}
+                >
+                  <i
+                    className={cx({
+                      'uk-icon-spinner uk-icon-spin': submitting,
+                      'uk-icon-chevron-right': !submitting,
+                    })}
+                  />
                   {
                     doesEmailExist === null ?
                     'Next' :
