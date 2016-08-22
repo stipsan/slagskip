@@ -62,13 +62,19 @@
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/lib/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir/src/client/index.js"
     ],
     "coverageDirectory": "<rootDir>/.coverage",
     "setupFiles": [
       "<rootDir>/test/setup.js"
     ],
-    "scriptPreprocessor": "<rootDir>/test/preprocessor.js"
+    "moduleFileExtensions": ["js", "jsx"],
+    "moduleNameMapper": {
+      "epic-client(.*)": "<rootDir>/src/client$1.js",
+      "^.+\\.(css|less)$": "<rootDir>/test/styleMock.js",
+      "^.+\\.(gif|ttf|eot|svg)$": "<rootDir>/test/fileMock.js"
+    }
   },
   "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {
