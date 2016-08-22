@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 // const purify = require('purifycss-webpack-plugin')
-const DashboardPlugin = require('webpack-dashboard/plugin')
+const DashboardPlugin = 'production' === process.env.NODE_ENV ? null : require('webpack-dashboard/plugin')
 
 const devServerHostName = process.env.DEV_SERVER_HOST_NAME || 'localhost'
 const devServerPort = process.env.DEV_SERVER_PORT || '8080'
