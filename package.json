@@ -69,7 +69,10 @@
     "setupFiles": [
       "<rootDir>/test/setup.js"
     ],
-    "moduleFileExtensions": ["js", "jsx"],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
     "moduleNameMapper": {
       "epic-client(.*)": "<rootDir>/src/client$1.js",
       "^.+\\.(css|less)$": "<rootDir>/test/styleMock.js",
@@ -189,7 +192,7 @@
     "jest-webpack-alias": "3.2.2",
     "react-test-renderer": "15.3.1",
     "remotedev-server": "0.1.8",
-    "webpack-dashboard": "0.1.6",
+    "webpack-dashboard": "0.1.7",
     "webpack-dev-server": "2.1.0-beta.0"
   },
   "_moduleAliases": {
