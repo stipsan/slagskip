@@ -10,7 +10,12 @@ exports[`<Login.Field /> should render correctly 1`] = `
       className="uk-width-1-1 uk-form-large"
       disabled={undefined}
       name="email"
-      onBlur={[Function onBlur]} />
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      value="" />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
@@ -33,7 +38,12 @@ exports[`<Login.Field /> should render correctly 2`] = `
       disabled={undefined}
       name="email"
       onBlur={[Function onBlur]}
-      submitting={true} />
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      submitting={true}
+      value="" />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
@@ -55,7 +65,13 @@ exports[`<Login.Field /> should render correctly 3`] = `
       className="uk-width-1-1 uk-form-large"
       disabled={undefined}
       name="password"
-      type="password" />
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      type="password"
+      value="" />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"

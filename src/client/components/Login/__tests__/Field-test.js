@@ -8,10 +8,17 @@ describe('<Login.Field />', () => {
   const defaultProps = {
     input: {
       name: 'email',
-      onBlur: () => {}
+      onBlur: () => {},
+      onChange: () => {},
+      onDragStart: () => {},
+      onDrop: () => {},
+      onFocus: () => {},
+      value: '',
     },
     meta: {
-      asyncValidating: false
+      asyncValidating: false,
+      dirty: false,
+      invalid: false,
     }
   }
   it('should render correctly', () => {
@@ -26,7 +33,11 @@ describe('<Login.Field />', () => {
     expect(component.toJSON()).toMatchSnapshot()
 
     component = renderer.create(
-      <Field {...defaultProps} input={{ name: 'password', type: 'password' }} />
+      <Field
+        {...defaultProps}
+        input={{ ...defaultProps.input, name: 'password' }}
+        type="password"
+      />
     )
     expect(component.toJSON()).toMatchSnapshot()
   })
