@@ -1,0 +1,260 @@
+exports[`<Login /> should render correctly 1`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          icon="envelope"
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <Collapse
+          className="uk-form-row"
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
+          className="uk-form-row"
+          isOpened={false}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Register
+          </button>
+        </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={false}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Login /> should render correctly 2`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          icon="envelope"
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <Collapse
+          className="uk-form-row"
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
+          className="uk-form-row"
+          isOpened={false}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Login
+          </button>
+        </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={true}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Login /> should render correctly 3`] = `
+<div
+  className="uk-flex uk-flex-column uk-height-1-1">
+  <div
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    <div
+      className="uk-text-center"
+      style={
+        Object {
+          "width": "250px"
+        }
+      }>
+      <img
+        className="uk-margin-bottom"
+        height="64"
+        role="presentation"
+        src="/favicons/icon.svg"
+        width="64" />
+      <form
+        className="uk-panel uk-panel-box uk-form"
+        onSubmit={[Function anonymous]}>
+        <Field
+          component={[Function Field]}
+          icon="envelope"
+          name="email"
+          placeholder="E-mail"
+          submitting={undefined}
+          type="email" />
+        <Collapse
+          className="uk-form-row"
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
+          className="uk-form-row"
+          isOpened={true}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
+        <div
+          className="uk-form-row">
+          <button
+            className="uk-button uk-width-1-1 uk-button-primary uk-button-large"
+            type="submit">
+            Register
+          </button>
+        </div>
+        <Collapse
+          className="uk-form-row uk-text-small"
+          isOpened={false}>
+          <a
+            className="uk-float-right uk-link uk-link-muted"
+            onClick={[Function bound handleClick]}
+            style={Object {}}>
+            Forgot your password?
+          </a>
+        </Collapse>
+      </form>
+    </div>
+  </div>
+  <div
+    className="uk-flex-item-none">
+    <ul
+      className="uk-subnav uk-subnav-line uk-flex-center">
+      <li>
+        <a
+          onClick={[Function bound handleClick]}
+          style={Object {}}>
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

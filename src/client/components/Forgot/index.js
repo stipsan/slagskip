@@ -1,6 +1,6 @@
 import DocumentTitle from 'react-document-title'
 
-import cx from './style.scss'
+import cx from 'classnames'
 
 const Forgot = () => <DocumentTitle title="Epic | Forgot your password?">
   <section className={cx('hero')}>

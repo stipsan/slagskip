@@ -1,8 +1,8 @@
+import cx from 'classnames'
 import TouchBackend from 'react-dnd-touch-backend'
 import { Component, PropTypes } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd'
 
-import cx from './style.scss'
 import { BOARD_ITEM } from '../../constants/ItemTypes'
 
 // @TODO maybe move this to a shared utility

@@ -101,7 +101,7 @@ module.exports = function htmlMiddleware() {
       const analytics = process.env.TRACKING_ID ? getAnalyticsSnippet(process.env.TRACKING_ID) : ''
 
       html = `<!doctype html>
-<html lang="en-US">
+<html lang="en-US" class="uk-height-1-1">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7, IE=9" />
     <meta charset="utf-8" />
@@ -188,8 +188,8 @@ module.exports = function htmlMiddleware() {
       }
     </style>
   </head>
-  <body>
-    <div id="app">
+  <body class="uk-height-1-1">
+    <div id="app" class="uk-height-1-1">
       <section class="hero">
         <h1>Loading…</h1>
       </section>

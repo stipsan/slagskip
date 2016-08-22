@@ -1,6 +1,6 @@
 import { PropTypes } from 'react'
 
-import cx from './style.scss'
+import cx from 'classnames'
 
 const Title = ({ children }) => <h1 className={cx('headerTitle')}>
   {children}

@@ -10,3 +10,5 @@ coverage
 assets.json
 
 dump.rdb
+
+.coverage
