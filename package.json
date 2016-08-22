@@ -151,7 +151,7 @@
     "remote-redux-devtools": "0.4.2",
     "sass-loader": "4.0.0",
     "socketcluster": "5.0.6",
-    "socketcluster-client": "5.0.3",
+    "socketcluster-client": "5.0.6",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
     "uikit": "2.26.4",
