@@ -22,10 +22,17 @@ export default class Login extends Component {
 
   state = { password: false }
 
-  handleSubmit = event => {
-    event.preventDefault()
-    this.setState({ password: true })
-  }
+  handleSubmit = this.props.handleSubmit(data => {
+    const { doesEmailExist } = this.props
+    if (doesEmailExist === false && data.has('username')) {
+      console.log('there is username', data.toJS())
+      return this.props.createUserWithEmailAndPassword(data)
+    }
+    if (doesEmailExist === true && data.has('password')) {
+      console.log('there is password', data.toJS())
+      return this.props.signInWithEmailAndPassword(data)
+    }
+  })
 
   render() {
     const {

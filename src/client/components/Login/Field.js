@@ -23,8 +23,8 @@ const Field = ({
         disabled={submitting}
       />
     </div>
-    <Collapse isOpened={touched && error} springConfig={{ stiffness: 210, damping: 20 }}>
-      <p className="uk-form-help-block uk-text-left">{error}</p>
+    <Collapse isOpened={touched && error} className="uk-form-help-block uk-text-left">
+      {error}
     </Collapse>
   </div>
 )

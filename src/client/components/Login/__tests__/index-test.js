@@ -10,7 +10,7 @@ describe('<Login />', () => {
     createUserWithEmailAndPassword: () => {},
     signInWithEmailAndPassword: () => {},
     isRequestPending: false,
-    handleCheckEmail: () => {}
+    handleSubmit: () => () => {}
   }
   it('should render correctly', () => {
     let component = renderer.create(
