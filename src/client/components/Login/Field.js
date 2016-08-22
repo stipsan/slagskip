@@ -13,12 +13,12 @@ const Field = ({
     <div className="uk-form-icon uk-width-1-1">
       <i className={`uk-icon-${icon || input.name}`} />
       <input
+        autoComplete={input.name}
         {...input}
         {...custom}
         className={cx('uk-width-1-1 uk-form-large', {
           'uk-form-danger': touched && error,
         })}
-        autoComplete={input.name}
         disabled={submitting}
       />
     </div>

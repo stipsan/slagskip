@@ -8,7 +8,7 @@ exports[`<Login.Field /> should render correctly 1`] = `
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
-      disabled={undefined}
+      disabled={false}
       name="email"
       onBlur={[Function onBlur]}
       onChange={[Function onChange]}
@@ -35,14 +35,14 @@ exports[`<Login.Field /> should render correctly 2`] = `
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
-      disabled={undefined}
+      disabled={false}
       name="email"
       onBlur={[Function onBlur]}
       onChange={[Function onChange]}
       onDragStart={[Function onDragStart]}
       onDrop={[Function onDrop]}
       onFocus={[Function onFocus]}
-      submitting={true}
+      type="email"
       value="" />
   </div>
   <Collapse
@@ -59,18 +59,101 @@ exports[`<Login.Field /> should render correctly 3`] = `
   <div
     className="uk-form-icon uk-width-1-1">
     <i
-      className="uk-icon-password" />
+      className="uk-icon-email" />
+    <input
+      autoComplete="email"
+      className="uk-width-1-1 uk-form-large uk-form-danger"
+      disabled={false}
+      name="email"
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      value="" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={true}>
+    Required
+  </Collapse>
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 4`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1">
+    <i
+      className="uk-icon-email" />
+    <input
+      autoComplete="email"
+      className="uk-width-1-1 uk-form-large"
+      disabled={true}
+      name="email"
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      value="tony@stark.enterprise" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 5`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1">
+    <i
+      className="uk-icon-lock" />
     <input
       autoComplete="password"
       className="uk-width-1-1 uk-form-large"
-      disabled={undefined}
+      disabled={false}
       name="password"
       onBlur={[Function onBlur]}
       onChange={[Function onChange]}
       onDragStart={[Function onDragStart]}
       onDrop={[Function onDrop]}
       onFocus={[Function onFocus]}
+      required={true}
       type="password"
+      value="" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 6`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1">
+    <i
+      className="uk-icon-username" />
+    <input
+      autoComplete="name"
+      className="uk-width-1-1 uk-form-large"
+      disabled={false}
+      name="username"
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      type="text"
       value="" />
   </div>
   <Collapse

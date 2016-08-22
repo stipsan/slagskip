@@ -63,6 +63,7 @@ export default class Login extends Component {
                 placeholder="E-mail"
                 submitting={submitting}
                 component={FieldComponent}
+                required
               />
               <Collapse key="password" isOpened={doesEmailExist !== null} className="uk-form-row">
                 <Field
@@ -72,6 +73,7 @@ export default class Login extends Component {
                   placeholder="Password"
                   submitting={submitting}
                   component={FieldComponent}
+                  required
                 />
               </Collapse>
               <Collapse key="username" isOpened={doesEmailExist === false} className="uk-form-row">
@@ -82,6 +84,7 @@ export default class Login extends Component {
                   icon="user"
                   submitting={submitting}
                   component={FieldComponent}
+                  required
                 />
               </Collapse>
               <div className="uk-form-row">
