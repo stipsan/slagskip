@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 node_js:
 - "6.4"
-script: npm run test -- --coverage
+script: jest --coverage
 after_script: npm run coverage
 notifications:
   email: false
