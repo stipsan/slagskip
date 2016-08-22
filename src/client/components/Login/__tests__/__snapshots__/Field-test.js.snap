@@ -113,6 +113,33 @@ exports[`<Login.Field /> should render correctly 5`] = `
   <div
     className="uk-form-icon uk-width-1-1">
     <i
+      className="uk-icon-email" />
+    <input
+      autoComplete="email"
+      className="uk-width-1-1 uk-form-large"
+      disabled={false}
+      name="email"
+      onBlur={[Function onBlur]}
+      onChange={[Function onChange]}
+      onDragStart={[Function onDragStart]}
+      onDrop={[Function onDrop]}
+      onFocus={[Function onFocus]}
+      value="" />
+  </div>
+  <Collapse
+    className="uk-form-help-block uk-text-left"
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
+</div>
+`;
+
+exports[`<Login.Field /> should render correctly 6`] = `
+<div
+  className="uk-form-row">
+  <div
+    className="uk-form-icon uk-width-1-1">
+    <i
       className="uk-icon-lock" />
     <input
       autoComplete="password"
@@ -136,7 +163,7 @@ exports[`<Login.Field /> should render correctly 5`] = `
 </div>
 `;
 
-exports[`<Login.Field /> should render correctly 6`] = `
+exports[`<Login.Field /> should render correctly 7`] = `
 <div
   className="uk-form-row">
   <div

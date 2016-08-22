@@ -11,7 +11,12 @@ const Field = ({
 }) => (
   <div className={cx('uk-form-row')}>
     <div className="uk-form-icon uk-width-1-1">
-      <i className={`uk-icon-${icon || input.name}`} />
+      <i
+        className={cx({
+          'uk-icon-spinner uk-icon-spin': asyncValidating,
+          [`uk-icon-${icon || input.name}`]: !asyncValidating,
+        })}
+      />
       <input
         autoComplete={input.name}
         {...input}

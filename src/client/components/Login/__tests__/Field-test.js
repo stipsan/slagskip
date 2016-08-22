@@ -73,6 +73,17 @@ describe('<Login.Field />', () => {
     component = renderer.create(
       <Field
         {...defaultProps}
+        meta={{
+          ...defaultProps.meta,
+          asyncValidating: true
+        }}
+      />
+    )
+    expect(component.toJSON()).toMatchSnapshot()
+
+    component = renderer.create(
+      <Field
+        {...defaultProps}
         input={{ ...defaultProps.input, name: 'password' }}
         type="password"
         icon="lock"
