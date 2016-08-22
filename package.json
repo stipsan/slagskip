@@ -123,7 +123,7 @@
     "raw-loader": "0.5.1",
     "raygun": "0.8.5",
     "react": "15.3.1",
-    "react-addons-css-transition-group": "15.3.0",
+    "react-addons-css-transition-group": "15.3.1",
     "react-addons-pure-render-mixin": "15.3.0",
     "react-addons-shallow-compare": "15.3.0",
     "react-collapse": "2.3.3",
