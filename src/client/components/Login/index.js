@@ -13,7 +13,6 @@ const formStyle = Object.freeze({
 
 export default class Login extends Component {
   static propTypes = {
-    checkIfEmailExists: PropTypes.func.isRequired,
     createUserWithEmailAndPassword: PropTypes.func.isRequired,
     doesEmailExist: PropTypes.bool,
     isRequestPending: PropTypes.bool.isRequired,
@@ -30,7 +29,6 @@ export default class Login extends Component {
 
   render() {
     const {
-      checkIfEmailExists,
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
       doesEmailExist,

@@ -1,6 +1,7 @@
 import renderer from 'react-test-renderer'
 
 jest.mock('react-height')
+jest.mock('react-collapse', () => 'Collapse')
 jest.mock('epic-client/components/Form/Field', () => 'Field')
 const Login = require('../index').default
 

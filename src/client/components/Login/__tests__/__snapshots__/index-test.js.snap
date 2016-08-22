@@ -26,21 +26,28 @@ exports[`<Login /> should render correctly 1`] = `
           placeholder="E-mail"
           submitting={undefined}
           type="email" />
-        <div
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": "auto"
-            }
-          } />
-        <div
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": 0,
-              "overflow": "hidden"
-            }
-          } />
+          isOpened={false}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
         <div
           className="uk-form-row">
           <button
@@ -96,21 +103,28 @@ exports[`<Login /> should render correctly 2`] = `
           placeholder="E-mail"
           submitting={undefined}
           type="email" />
-        <div
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": "auto"
-            }
-          } />
-        <div
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": 0,
-              "overflow": "hidden"
-            }
-          } />
+          isOpened={false}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
         <div
           className="uk-form-row">
           <button
@@ -166,20 +180,28 @@ exports[`<Login /> should render correctly 3`] = `
           placeholder="E-mail"
           submitting={undefined}
           type="email" />
-        <div
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": "auto"
-            }
-          } />
-        <div
+          isOpened={true}>
+          <Field
+            component={[Function Field]}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            submitting={undefined}
+            type="password" />
+        </Collapse>
+        <Collapse
           className="uk-form-row"
-          style={
-            Object {
-              "height": "auto"
-            }
-          } />
+          isOpened={true}>
+          <Field
+            autoComplete="name"
+            component={[Function Field]}
+            icon="user"
+            name="username"
+            placeholder="Username"
+            submitting={undefined} />
+        </Collapse>
         <div
           className="uk-form-row">
           <button
