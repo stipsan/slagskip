@@ -8,7 +8,7 @@ describe('<Login.Field />', () => {
   const defaultProps = {
     input: {
       name: 'email',
-      type: 'email'
+      onBlur: () => {}
     },
     meta: {
       asyncValidating: false

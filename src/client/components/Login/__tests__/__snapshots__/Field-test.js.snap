@@ -2,7 +2,7 @@ exports[`<Login.Field /> should render correctly 1`] = `
 <div
   className="uk-form-row">
   <div
-    className="uk-form-icon uk-width-1-1 ">
+    className="uk-form-icon uk-width-1-1">
     <i
       className="uk-icon-email" />
     <input
@@ -10,11 +10,13 @@ exports[`<Login.Field /> should render correctly 1`] = `
       className="uk-width-1-1 uk-form-large"
       disabled={undefined}
       name="email"
-      type="email" />
+      onBlur={[Function onBlur]} />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false} />
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
 </div>
 `;
 
@@ -22,7 +24,7 @@ exports[`<Login.Field /> should render correctly 2`] = `
 <div
   className="uk-form-row">
   <div
-    className="uk-form-icon uk-width-1-1 ">
+    className="uk-form-icon uk-width-1-1">
     <i
       className="uk-icon-email" />
     <input
@@ -30,12 +32,14 @@ exports[`<Login.Field /> should render correctly 2`] = `
       className="uk-width-1-1 uk-form-large"
       disabled={undefined}
       name="email"
-      submitting={true}
-      type="email" />
+      onBlur={[Function onBlur]}
+      submitting={true} />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false} />
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
 </div>
 `;
 
@@ -43,7 +47,7 @@ exports[`<Login.Field /> should render correctly 3`] = `
 <div
   className="uk-form-row">
   <div
-    className="uk-form-icon uk-width-1-1 ">
+    className="uk-form-icon uk-width-1-1">
     <i
       className="uk-icon-password" />
     <input
@@ -55,6 +59,8 @@ exports[`<Login.Field /> should render correctly 3`] = `
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false} />
+    isOpened={false}>
+    &nbsp;
+  </Collapse>
 </div>
 `;
