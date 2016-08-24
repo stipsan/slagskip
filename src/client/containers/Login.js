@@ -32,7 +32,6 @@ export default connect(
   reduxForm({
     form: 'login',
     validate,
-    asyncValidate,
-    asyncBlurFields: ['email'],
+    asyncValidate
   })(Login)
 )
