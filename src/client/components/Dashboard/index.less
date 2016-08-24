@@ -1,6 +1,38 @@
 
-.tm-logo-e {
+.uk-navbar-brand.tm-logo {
+  background-image: url('/favicons/border.svg');
+  background-repeat: no-repeat;
+  background-position: 11px 50%;
+  background-size: 64px 100%;
+  position: relative;
+
+  &:after {
+    display: block;
+    content: '';
+    background-image: url('/favicons/border.svg');
+    background-repeat: no-repeat;
+    background-position: 10px 50%;
+    background-size: 64px 100%;
+    position: absolute;
+    right: 12px;
+    top: 4px;
+    height: 32px;
+    width: 4px;
+  }
+}
+.tm-logo-legacy {
+  position: absolute;
+  height: 32px;
   width: 32px;
+  top: 4px;
+  left: 11px;
+}
+
+.tm-logo-e,
+.tm-logo-p,
+.tm-logo-i,
+.tm-logo-c {
+  transform: translateX(4px);
 }
 
 .tm-logo-e,

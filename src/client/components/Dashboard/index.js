@@ -37,8 +37,12 @@ class Dashboard extends Component {
           left={(
             <a href="" className="uk-navbar-brand tm-logo tm-logo-hover">
               <img
-                className="tm-logo-e"
+                className="tm-logo-legacy"
                 src="/favicons/icon-white.svg"
+              />
+              <img
+                className="tm-logo-e"
+                src="/favicons/e.svg"
               />
               <img
                 className="tm-logo-p"
