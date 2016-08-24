@@ -40,6 +40,12 @@ class Dashboard extends Component {
                 className="tm-logo-legacy"
                 src="/favicons/icon-white.svg"
               />
+              <span className="tm-logo-border">
+                <span className="tm-logo-border-t" />
+                <span className="tm-logo-border-r" />
+                <span className="tm-logo-border-b" />
+                <span className="tm-logo-border-l" />
+              </span>
               <img
                 className="tm-logo-e"
                 src="/favicons/e.svg"

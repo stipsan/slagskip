@@ -20,6 +20,55 @@
     width: 4px;
   }
 }
+.tm-logo-border {
+  //background-image: url('/favicons/border.svg');
+  background-repeat: no-repeat;
+  background-position: 11px 50%;
+  background-size: 64px 100%;
+  display: block;
+  position: absolute;
+  top: 4px;
+  right: 11px;
+  left: 11px;
+  bottom: 4px;
+
+  & > * {
+    position: absolute;
+    overflow: hidden;
+
+    &:after {
+      transition: transform 300ms ease-out;
+    }
+
+  }
+}
+.tm-logo-border-t {
+  top: 0px;
+  left: 4px;
+  height: 4px;
+  right: 4px;
+
+  &:after {
+    display: block;
+    content: '';
+    background-image: url('/favicons/border-horizontal.svg');
+    background-position: 0px center;
+    background-repeat: repeat-x;
+    transform: translateX(-32px);
+    top: 0px;
+    left: 0px;
+    height: 4px;
+    width: 64px;
+  }
+}
+
+.tm-logo:hover {
+  .tm-logo-border-t:after {
+    transform: translateX(0px);
+  }
+}
+
+
 .tm-logo-legacy {
   position: absolute;
   height: 32px;
