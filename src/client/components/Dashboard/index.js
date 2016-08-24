@@ -35,11 +35,7 @@ class Dashboard extends Component {
       <div className={cx('dashboard')}>
         <Navbar
           left={(
-            <a href="" className="uk-navbar-brand tm-logo tm-logo-hover">
-              <img
-                className="tm-logo-legacy"
-                src="/favicons/icon-white.svg"
-              />
+            <Link to="/" className="uk-navbar-brand tm-logo tm-logo-hover">
               <span className="tm-logo-border">
                 <span className="tm-logo-border-t" />
                 <span className="tm-logo-border-r" />
@@ -62,7 +58,7 @@ class Dashboard extends Component {
                 className="tm-logo-c"
                 src="/favicons/c.svg"
               />
-            </a>
+            </Link>
           )}
           right={(
             <div className="uk-navbar-flip">
