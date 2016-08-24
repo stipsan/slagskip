@@ -1,18 +1,15 @@
 import { PropTypes } from 'react'
 
-import cx from 'classnames'
-
-const Navbar = ({ left, children, right }) => <header className={cx('header')}>
-  <div className={cx('headerLeft')}>
-    {left}
-  </div>
-  <div className={cx('headerCenter')}>
-    {children}
-  </div>
-  <div className={cx('headerRight')}>
-    {right}
-  </div>
-</header>
+const Navbar = ({ left, children, right }) =>
+  <nav className="uk-navbar uk-navbar-attached">
+    <div className="uk-container uk-container-center">
+      {left}
+      {right}
+      <div className="uk-navbar-content uk-navbar-center">
+        {children}
+      </div>
+    </div>
+  </nav>
 
 Navbar.propTypes = {
   children: PropTypes.node.isRequired,

@@ -1,9 +1,9 @@
+import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
-import cx from 'classnames'
 import Navbar from '../Navbar'
 import { logoutUser } from '../../actions'
 
@@ -31,7 +31,16 @@ class Dashboard extends Component {
 
     return (<DocumentTitle title={username ? `Epic | ${username}` : null}>
       <div className={cx('dashboard')}>
-        <Navbar right={navbarRight}>
+        <Navbar
+          left={(
+            <a href="" className="uk-navbar-brand">...</a>
+          )}
+          right={(
+            <div className="uk-navbar-flip">
+              <a href="#" onClick={this.handleLogout} className="uk-navbar-toggle" />
+            </div>
+          )}
+        >
           {username}
         </Navbar>
         <div className={cx('tabscontainer')}>
