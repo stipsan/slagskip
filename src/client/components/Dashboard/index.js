@@ -1,3 +1,5 @@
+import './index.less'
+
 import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
@@ -33,7 +35,24 @@ class Dashboard extends Component {
       <div className={cx('dashboard')}>
         <Navbar
           left={(
-            <a href="" className="uk-navbar-brand">...</a>
+            <a href="" className="uk-navbar-brand tm-logo tm-logo-hover">
+              <img
+                className="tm-logo-e"
+                src="/favicons/icon-white.svg"
+              />
+              <img
+                className="tm-logo-p"
+                src="/favicons/p.svg"
+              />
+              <img
+                className="tm-logo-i"
+                src="/favicons/i.svg"
+              />
+              <img
+                className="tm-logo-c"
+                src="/favicons/c.svg"
+              />
+            </a>
           )}
           right={(
             <div className="uk-navbar-flip">
