@@ -49,8 +49,8 @@ export default class App extends Component {
 
 
     return (
-      <div>
-        {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
+      <div className="uk-height-1-1">
+        {shouldMountChildren && children}
         {shouldOverlayLogin && <Login />}
         {isCurrentlyLoading && <Loading />}
         {!connected && disconnected && <Disconnected />}

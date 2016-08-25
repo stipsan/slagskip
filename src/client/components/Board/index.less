@@ -8,6 +8,27 @@
 @xs-color: #e74c3c;
 
 @grid-size: 320px;
+@item-size:  @grid-size / 10;
+
+.tm-setup-background {
+  background: #2c3e50;
+}
+
+.tm-setup-background {
+  .uk-navbar {
+    background: #2980b9;
+    color: white;
+  }
+}
+
+.tm-subnavbar {
+  max-width: @grid-size;
+  margin-left: auto;
+  margin-right: auto;
+  height: 48px;
+  padding-top: 15px;
+  color: #3498db;
+}
 
 .gradient(@color) {
   //176  75  49
@@ -49,6 +70,7 @@
   width: 100%;
   position: relative;
   box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, .1), inset -1px -1px 0 hsla(0, 0%, 0%, .1);
+  background: #3498db;
 }
 
 .draggable {
@@ -69,19 +91,24 @@
 }
 .item {
   display: flex;
+  position: relative;
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    /* background: white; */
+    border: 1px solid hsla(0,0%,100%,0.5);
+    border-color: hsla(204,70%,63%,1);
+
+}
 
   div {
-    max-height: @grid-size / 10;
-    max-width: @grid-size / 10;
-    height: 10%;
-    width: 10%;
-    height: 10vmin;
-    width: 10vmin;
-
-    border: 1px hsla(0, 0%, 0%, .2) solid;
-    //box-shadow: -1px -1px 0 hsla(0, 0%, 0%, .2), 1px 1px 0 hsla(0, 0%, 0%, .2);
-    border-left-width: 0px;
-    border-top-width: 0px;
+    height: @item-size;
+    width: @item-size;
+    background: #2980b9;
   }
 }
 .rotated, .draggable.rotated .item, .itemPreview.rotated .item  {
@@ -89,37 +116,48 @@
 }
 
 .XL {
-  .item();
-
-  div {
-    .gradient(@xl-color);
+  &.item:before {
+    height: @item-size - 2;
+    width: (@item-size * 5) - 2;
+  }
+  .rotated &.item:before {
+    height: (@item-size * 5) - 2;
+    width: @item-size - 2;
   }
 }
 .L {
-  .item();
-
-  div {
-    .gradient(@l-color);
+  &.item:before {
+    height: @item-size - 2;
+    width: (@item-size * 4) - 2;
+  }
+  .rotated &.item:before {
+    height: (@item-size * 4) - 2;
+    width: @item-size - 2;
   }
 }
 .M {
-  .item();
-
-  div {
-    .gradient(@m-color);
+  &.item:before {
+    height: @item-size - 2;
+    width: (@item-size * 3) - 2;
+  }
+  .rotated &.item:before {
+    height: (@item-size * 3) - 2;
+    width: @item-size - 2;
   }
 }
 .S {
-  .item();
-
-  div {
-    .gradient(@s-color);
+  &.item:before {
+    height: @item-size - 2;
+    width: (@item-size * 2) - 2;
+  }
+  .rotated &.item:before {
+    height: (@item-size * 2) - 2;
+    width: @item-size - 2;
   }
 }
 .XS {
-  .item();
-
-  div {
-    .gradient(@xs-color);
+  &.item:before {
+    height: @item-size - 2;
+    width: @item-size - 2;
   }
 }

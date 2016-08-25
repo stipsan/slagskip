@@ -1,5 +1,3 @@
-// import './index.less'
-
 import cx from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import DocumentTitle from 'react-document-title'
@@ -187,16 +185,16 @@ class Setup extends Component {
       )
 
     return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
-      <section>
+      <section className="tm-setup-background uk-height-1-1">
         <Navbar left={navbarLeft} right={<div className="uk-navbar-flip">
           <div className="uk-navbar-content">
             {navbarRight}
           </div>
         </div>}>
-
-          {`You vs ${versusUsername}`}
+          Setup
         </Navbar>
         <div className="uk-container uk-container-center">
+          <div className="tm-subnavbar">{`Versus ${versusUsername}`}</div>
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
               {this.types.map(([type, size, component]) => {
