@@ -1,4 +1,4 @@
-import './index.less'
+// import './index.less'
 
 import cx from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'

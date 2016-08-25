@@ -15,6 +15,6 @@ export class Grid extends Component {
   render() {
     const { children } = this.props
 
-    return <div className={cx('grid')}>{children}</div>
+    return <div className={cx('board-grid')}>{children}</div>
   }
 }
