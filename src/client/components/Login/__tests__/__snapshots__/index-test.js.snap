@@ -2,7 +2,13 @@ exports[`<Login /> should render correctly 1`] = `
 <div
   className="uk-flex uk-flex-column uk-height-1-1">
   <div
-    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
+    style={
+      Object {
+        "minHeight": "460px",
+        "overflow": "auto"
+      }
+    }>
     <div
       className="uk-text-center"
       style={
@@ -17,39 +23,48 @@ exports[`<Login /> should render correctly 1`] = `
         src="/favicons/icon.svg"
         width="64" />
       <form
-        className="uk-panel uk-panel-box uk-form"
+        className="uk-panel uk-panel-box uk-form uk-text-left"
         onSubmit={[Function anonymous]}>
         <Field
-          component={[Function Field]}
+          component={[Function renderInput]}
+          errorDisplay="block"
           icon="envelope"
+          large={true}
           name="email"
           placeholder="E-mail"
           required={true}
-          submitting={undefined}
-          type="email" />
+          type="email"
+          width="full"
+          wrapperClassName="uk-width-1-1" />
         <Collapse
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="lock"
+            large={true}
             name="password"
             placeholder="Password"
             required={true}
-            submitting={undefined}
-            type="password" />
+            type="password"
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <Collapse
           className="uk-form-row"
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="user"
+            large={true}
             name="username"
             placeholder="Username"
             required={true}
-            submitting={undefined} />
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <div
           className="uk-form-row">
@@ -95,7 +110,13 @@ exports[`<Login /> should render correctly 2`] = `
 <div
   className="uk-flex uk-flex-column uk-height-1-1">
   <div
-    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
+    style={
+      Object {
+        "minHeight": "460px",
+        "overflow": "auto"
+      }
+    }>
     <div
       className="uk-text-center"
       style={
@@ -110,39 +131,48 @@ exports[`<Login /> should render correctly 2`] = `
         src="/favicons/icon.svg"
         width="64" />
       <form
-        className="uk-panel uk-panel-box uk-form"
+        className="uk-panel uk-panel-box uk-form uk-text-left"
         onSubmit={[Function anonymous]}>
         <Field
-          component={[Function Field]}
+          component={[Function renderInput]}
+          errorDisplay="block"
           icon="envelope"
+          large={true}
           name="email"
           placeholder="E-mail"
           required={true}
-          submitting={undefined}
-          type="email" />
+          type="email"
+          width="full"
+          wrapperClassName="uk-width-1-1" />
         <Collapse
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="lock"
+            large={true}
             name="password"
             placeholder="Password"
             required={true}
-            submitting={undefined}
-            type="password" />
+            type="password"
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <Collapse
           className="uk-form-row"
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="user"
+            large={true}
             name="username"
             placeholder="Username"
             required={true}
-            submitting={undefined} />
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <div
           className="uk-form-row">
@@ -188,7 +218,13 @@ exports[`<Login /> should render correctly 3`] = `
 <div
   className="uk-flex uk-flex-column uk-height-1-1">
   <div
-    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
+    style={
+      Object {
+        "minHeight": "460px",
+        "overflow": "auto"
+      }
+    }>
     <div
       className="uk-text-center"
       style={
@@ -203,39 +239,48 @@ exports[`<Login /> should render correctly 3`] = `
         src="/favicons/icon.svg"
         width="64" />
       <form
-        className="uk-panel uk-panel-box uk-form"
+        className="uk-panel uk-panel-box uk-form uk-text-left"
         onSubmit={[Function anonymous]}>
         <Field
-          component={[Function Field]}
+          component={[Function renderInput]}
+          errorDisplay="block"
           icon="envelope"
+          large={true}
           name="email"
           placeholder="E-mail"
           required={true}
-          submitting={undefined}
-          type="email" />
+          type="email"
+          width="full"
+          wrapperClassName="uk-width-1-1" />
         <Collapse
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="lock"
+            large={true}
             name="password"
             placeholder="Password"
             required={true}
-            submitting={undefined}
-            type="password" />
+            type="password"
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <Collapse
           className="uk-form-row"
           isOpened={true}>
           <Field
             autoComplete="name"
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="user"
+            large={true}
             name="username"
             placeholder="Username"
             required={true}
-            submitting={undefined} />
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <div
           className="uk-form-row">
@@ -281,7 +326,13 @@ exports[`<Login /> should render correctly 4`] = `
 <div
   className="uk-flex uk-flex-column uk-height-1-1">
   <div
-    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle">
+    className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
+    style={
+      Object {
+        "minHeight": "460px",
+        "overflow": "auto"
+      }
+    }>
     <div
       className="uk-text-center"
       style={
@@ -296,39 +347,48 @@ exports[`<Login /> should render correctly 4`] = `
         src="/favicons/icon.svg"
         width="64" />
       <form
-        className="uk-panel uk-panel-box uk-form"
+        className="uk-panel uk-panel-box uk-form uk-text-left"
         onSubmit={[Function anonymous]}>
         <Field
-          component={[Function Field]}
+          component={[Function renderInput]}
+          errorDisplay="block"
           icon="envelope"
+          large={true}
           name="email"
           placeholder="E-mail"
           required={true}
-          submitting={true}
-          type="email" />
+          type="email"
+          width="full"
+          wrapperClassName="uk-width-1-1" />
         <Collapse
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="lock"
+            large={true}
             name="password"
             placeholder="Password"
             required={true}
-            submitting={true}
-            type="password" />
+            type="password"
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <Collapse
           className="uk-form-row"
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function Field]}
+            component={[Function renderInput]}
+            errorDisplay="block"
             icon="user"
+            large={true}
             name="username"
             placeholder="Username"
             required={true}
-            submitting={true} />
+            width="full"
+            wrapperClassName="uk-width-1-1" />
         </Collapse>
         <div
           className="uk-form-row">
