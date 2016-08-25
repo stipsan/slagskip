@@ -1,7 +1,8 @@
-import { Component, PropTypes } from 'react'
-import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import './index.less'
 
 import cx from 'classnames'
+import { Component, PropTypes } from 'react'
+import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 
 export class Grid extends Component {
 

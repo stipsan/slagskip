@@ -49,20 +49,13 @@ export default class App extends Component {
 
 
     return (
-      <ReactCSSTransitionGroup
-        component="div"
-        className={cx('uk-height-1-1', { transitionBackwards: !isGoingForwards })}
-        transitionName={transitionName}
-        transitionEnterTimeout={transitionDuration}
-        transitionLeaveTimeout={transitionDuration}
-        transitionAppearTimeout={transitionDuration}
-      >
+      <div>
         {shouldMountChildren && <div key={children.props.route.path}>{children}</div>}
         {shouldOverlayLogin && <Login />}
         {isCurrentlyLoading && <Loading />}
         {!connected && disconnected && <Disconnected />}
         {!supportedBrowser && <UnsupportedBrowser />}
-      </ReactCSSTransitionGroup>
+      </div>
     )
   }
 }

@@ -1,8 +1,8 @@
+import cx from 'classnames'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import cx from 'classnames'
 import GameRow from './GameRow'
 
 class Games extends Component {
@@ -34,24 +34,26 @@ class Games extends Component {
 
     if (!friends) return <h1>{'Loading…'}</h1>
 
-    return (<div className={cx('gamesList')}>
-      <Link to="/new" className={cx('game')}>
-        <span className={cx('newGame')}>
-          {'+'}
-        </span>
-        <span className={cx('username')}>{'New Game'}</span>
-        <span className={cx('startGame')}>{'❯'}</span>
-      </Link>
-      {0 < gamesTotal && games.toArray().reverse().map(game => (
-        <GameRow
-          key={game.get('id')}
-          friendsTotal={friendsTotal}
-          friends={friends}
-          game={game}
-          bots={bots}
-        />
-      ))}
-    </div>)
+    return (
+      <div className="uk-container uk-container-center">
+        <Link to="/new" className={cx('game')}>
+          <span className={cx('newGame')}>
+            {'+'}
+          </span>
+          <span className={cx('username')}>{'New Game'}</span>
+          <span className={cx('startGame')}>{'❯'}</span>
+        </Link>
+        {0 < gamesTotal && games.toArray().reverse().map(game => (
+          <GameRow
+            key={game.get('id')}
+            friendsTotal={friendsTotal}
+            friends={friends}
+            game={game}
+            bots={bots}
+          />
+        ))}
+      </div>
+    )
   }
 }
 

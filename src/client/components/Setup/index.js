@@ -1,10 +1,12 @@
+import './index.less'
+
+import cx from 'classnames'
 import shallowCompare from 'react-addons-shallow-compare'
 import DocumentTitle from 'react-document-title'
 import { shuffle } from 'lodash'
 import { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import cx from 'classnames'
 import Loading from '../Loading'
 import Navbar from '../Navbar'
 import { Grid, SetupCanvas, Item } from '../Board'
@@ -153,15 +155,19 @@ class Setup extends Component {
     if (!versus) return <Loading />
 
     const versusUsername = versus.get('username')
-    const startGameButtonClassName = cx('startGame', {
-      startGameDisabled: !isValid
+    const startGameButtonClassName = cx('uk-button', {
+      'uk-button-primary': !isValid
     })
 
     let defaultIndex = 111
 
-    const navbarLeft = (<Link to="/new" className={cx('linkToPrevous')}>
-      {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
-    </Link>)
+    const navbarLeft = (
+      <div className="uk-navbar-content">
+        <Link to="/new" className="uk-button uk-button-link">
+          {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
+        </Link>
+      </div>
+    )
     const navbarRight = routeParams.game ?
       <button
         disabled={!isValid}
@@ -181,13 +187,16 @@ class Setup extends Component {
       )
 
     return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
-      <section className={cx('section')}>
-        <Navbar left={navbarLeft} right={navbarRight}>
-          <h1 className={cx('headerTitle')}>
-            {`You vs ${versusUsername}`}
-          </h1>
+      <section>
+        <Navbar left={navbarLeft} right={<div className="uk-navbar-flip">
+          <div className="uk-navbar-content">
+            {navbarRight}
+          </div>
+        </div>}>
+
+          {`You vs ${versusUsername}`}
         </Navbar>
-        <div className={cx('wrapper')}>
+        <div className="uk-container uk-container-center">
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
               {this.types.map(([type, size, component]) => {

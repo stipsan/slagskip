@@ -1,44 +1,17 @@
-@import '../../style/_bulma';
-$default-color: rgb(81, 161, 26);
-$border-color: rgb(141, 200, 80);
-$active-color: rgb(152, 251, 152);
-
-.linkToPrevous {
-  composes: button from 'bulma';
-  border-color: transparent;
-  background-color: transparent;
-}
-.buttonLabel {
-  composes: is-hidden-mobile from 'bulma';
-  margin-left: .2em;
-}
-
-.headerVs {
-  transform: translateY(-12px);
-  margin: 0 10px;
-  color: $grey-darker;
-}
-
-.startGame {
-  composes: button is-primary from 'bulma';
-  
-  touch-action: manipulation;
-}
-.startGameDisabled {
-  composes: is-outlined from 'bulma';
-}
+@default-color: rgb(81, 161, 26);
+@border-color: rgb(141, 200, 80);
+@active-color: rgb(152, 251, 152);
 
 .heading {
-  composes: heading is-6 from 'bulma';
+  //composes: heading is-6 from 'bulma';
   text-indent: 49px;
-  background: $grey-lighter;
   position: sticky;
   top: 0px;
 }
 .grid {
-  $grid-size: 340px;
-  max-height: $grid-size;
-  max-width: $grid-size;
+  @grid-size: 340px;
+  max-height: @grid-size;
+  max-width: @grid-size;
   height: 100%;
   width: 100%;
   height: 100vmin;
@@ -50,26 +23,26 @@ $active-color: rgb(152, 251, 152);
   position: relative;
 }
 .yard {
-  composes: grid;
+  .grid();
   border-color: transparent;
-  background-color: rgba(red, 0);
+  background-color: fade(red, 0%);
 }
 
 .cell {
   //border: 1px solid  $border-color;
-  background-color: $default-color;
-  box-shadow: $border-color 0 0 0 1px, inset $border-color 0 0 0 1px;
+  background-color: @default-color;
+  box-shadow: @border-color 0 0 0 1px, inset @border-color 0 0 0 1px;
   height: 10%;
   width: 10%;
   position: absolute;
   top: 0px;
   left: 0px;
-  
+
 }
 .cellActive {
   //border-color: $active-color;
-  box-shadow: $active-color 0 0 0 1px, inset $active-color 0 0 0 1px;
-  background-color: mix($default-color, $active-color, 66%);
+  box-shadow: @active-color 0 0 0 1px, inset @active-color 0 0 0 1px;
+  background-color: mix(@default-color, @active-color, 66%);
 
   z-index: 1;
 }
@@ -86,12 +59,12 @@ $active-color: rgb(152, 251, 152);
   opacity: .8;
 }
 .xl {
-  composes: item;
-  
+  .item();
+
   display: inline-block;
   width: 160px;
   position: relative;
-  
+
   &:before {
     content: '';
     border: 2px solid hsla(180,93%,42%,1);
@@ -106,19 +79,19 @@ $active-color: rgb(152, 251, 152);
   }
 }
 .l {
-  composes: xl;
+  .xl();
   width: 128px;
 }
 .m1, .m2 {
-  composes: xl;
+  .xl();
   width: 96px;
 }
 .s1, .s2 {
-  composes: xl;
+  .xl();
   width: 64px;
 }
 .xs1, .xs2 {
-  composes: xl;
+  .xl();
   width: 32px;
 }
 
@@ -135,20 +108,20 @@ $active-color: rgb(152, 251, 152);
   background: red;
 }
 
-:global .UserAvatar {
+.UserAvatar {
   display: block;
-  color: $grey-lighter;
+
 }
-:global .UserAvatar--inner {
+.UserAvatar--inner {
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-:global .UserAvatar--light {
-  color: rgba(black, .3);
-  
+.UserAvatar--light {
+  color: fade(black, 30%);
+
   .UserAvatar--inner {
-    border: 1px solid rgba(black, .3);
+    border: 1px solid fade(black, 30%);
   }
 }

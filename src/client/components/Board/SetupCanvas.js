@@ -1,3 +1,5 @@
+import './index.less'
+
 import cx from 'classnames'
 import TouchBackend from 'react-dnd-touch-backend'
 import { Component, PropTypes } from 'react'

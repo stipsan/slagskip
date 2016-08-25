@@ -5,6 +5,7 @@ import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
+import { Modal } from 'uikit-react'
 
 import Navbar from '../Navbar'
 import { logoutUser } from '../../actions'
@@ -24,9 +25,13 @@ class Dashboard extends Component {
 
   handleLogout = () => this.props.dispatch(logoutUser());
 
+  modalTarget = ({ handleOpen }) =>
+    <a onClick={handleOpen} className="uk-navbar-toggle" />
+
   render() {
     const { children, username } = this.props
     const { router } = this.context
+    const { modalTarget, handleLogout } = this
     const isFriendsTabActive = router.isActive({ pathname: 'friends' })
 
     const navbarRight = <a className={cx('logoutButton')} onClick={this.handleLogout}>{'Logout'}</a>
@@ -62,27 +67,20 @@ class Dashboard extends Component {
           )}
           right={(
             <div className="uk-navbar-flip">
-              <a href="#" onClick={this.handleLogout} className="uk-navbar-toggle" />
+              <Modal target={modalTarget}>
+                <ul className="uk-nav uk-nav-side">
+                  <li><Link to="/profile">Profile</Link></li>
+                  <li><Link to="/settings">Settings</Link></li>
+                  <li className="uk-nav-divider" />
+                  <li><a href="#" onClick={handleLogout}>Logout</a></li>
+                </ul>
+              </Modal>
             </div>
           )}
         >
           {username}
         </Navbar>
-        <div className={cx('tabscontainer')}>
-          <div className={cx('tabs')}>
-            <ul>
-              <li
-                className={cx({
-                  isActive: !isFriendsTabActive
-                })}
-              ><Link to="/">{'Games'}</Link></li>
-              {/* <li className={cx({
-                isActive: isFriendsTabActive
-              })}><Link to="/friends">Friends</Link></li>*/}
-            </ul>
-          </div>
-          {children}
-        </div>
+        <div className="uk-margin-top">{children}</div>
       </div>
     </DocumentTitle>)
   }

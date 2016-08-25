@@ -1,20 +1,41 @@
-@import '../../style/_bulma';
+@default-color: hsla(0, 0%, 0%, .5);
+@active-color: rgb(152, 251, 152);
+@jackpot-color: crimson;
+@xl-color: #e91e63;
+@l-color: #9b59b6;
+@m-color: #f1c40f;
+@s-color: #e67e22;
+@xs-color: #e74c3c;
 
-@mixin gradient($color) {
+@grid-size: 380px;
+
+.gradient(@color) {
   //176  75  49
   //186  65  59
   //196  70  64
   background-image: linear-gradient(
     141deg,
-    adjust-color($color, $hue: -10deg, $saturation: 10%, $lightness: -10%) 0%,
-    $color 71%,
-    adjust-color($color, $hue: 10deg, $saturation: 5%, $lightness: 5%) 100%
+    darken(
+      saturate(
+        spin(@color, -10),
+        10%
+      ),
+      10%
+    ),
+    @color 71%,
+    lighten(
+      saturate(
+        spin(@color, 10),
+        5%
+      ),
+      5%
+    )
   );
 }
 
 .setupCanvas {
-  max-height: $grid-size;
-  max-width: $grid-size;
+  max-height: @grid-size;
+  max-width: @grid-size;
   height: 100%;
   width: 100%;
   height: 100vmin;
@@ -50,8 +71,8 @@
   display: flex;
 
   div {
-    max-height: $grid-size / 10;
-    max-width: $grid-size / 10;
+    max-height: @grid-size / 10;
+    max-width: @grid-size / 10;
     height: 10%;
     width: 10%;
     height: 10vmin;
@@ -68,37 +89,37 @@
 }
 
 .XL {
-  composes: item;
+  .item();
 
   div {
-    @include gradient($xl-color);
+    .gradient(@xl-color);
   }
 }
 .L {
-  composes: item;
+  .item();
 
   div {
-    @include gradient($l-color);
+    .gradient(@l-color);
   }
 }
 .M {
-  composes: item;
+  .item();
 
   div {
-    @include gradient($m-color);
+    .gradient(@m-color);
   }
 }
 .S {
-  composes: item;
+  .item();
 
   div {
-    @include gradient($s-color);
+    .gradient(@s-color);
   }
 }
 .XS {
-  composes: item;
+  .item();
 
   div {
-    @include gradient($xs-color);
+    .gradient(@xs-color);
   }
 }

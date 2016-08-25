@@ -1,10 +1,10 @@
+import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
-import cx from 'classnames'
 import Friend from './Friend'
 import Navbar from '../Navbar'
 
@@ -43,29 +43,33 @@ class NewGame extends Component {
     const friendsOffline = friends.filter(friend => '1' !== friend.get('online'))
     const friendsOfflineTotal = friendsOffline.size
 
-    const navbarLeft = (<Link to="/" className={cx('linkToPrevous')}>
-      {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
-    </Link>)
+    const navbarLeft = (
+      <div className="uk-navbar-content">
+        <Link to="/" className="uk-button uk-button-link">
+          {'❮'} <span className={cx('buttonLabel')}>{'Back'}</span>
+        </Link>
+      </div>
+    )
 
-    return <DocumentTitle title="Epic | New game">
+    return (<DocumentTitle title="Epic | New game">
       <section>
         <Navbar left={navbarLeft}>
           {'Select your opponent'}
         </Navbar>
-        <div className={cx('container')}>
+        <div className="uk-container uk-container-center">
           <h4 className={cx('heading')}>{'Bots'}</h4>
           {bots.toArray().map(bot => <Friend key={bot.get('id')} friend={bot} />)}
         </div>
-        {0 < friendsOnlineTotal && <div className={cx('container')}>
+        {0 < friendsOnlineTotal && <div className="uk-container uk-container-center">
           <h4 className={cx('heading')}>{'Online'}</h4>
           {friendsOnline.toArray().map(friend => <Friend key={friend.get('id')} friend={friend} />)}
         </div>}
-        {0 < friendsOfflineTotal && <div className={cx('container')}>
+        {0 < friendsOfflineTotal && <div className="uk-container uk-container-center">
           <h4 className={cx('heading')}>{'Friends'}</h4>
           {friendsOffline.toArray().map(away => <Friend key={away.get('id')} friend={away} />)}
         </div>}
       </section>
-    </DocumentTitle>
+    </DocumentTitle>)
   }
 }
 
