@@ -186,7 +186,7 @@
     "eslint-plugin-import": "1.14.0",
     "eslint-plugin-jsx-a11y": "2.1.0",
     "eslint-plugin-react": "6.1.2",
-    "foreman": "1.4.1",
+    "foreman": "2.0.0",
     "growl": "1.9.2",
     "ignore-styles": "4.0.0",
     "ioredis-mock": "1.8.1",
