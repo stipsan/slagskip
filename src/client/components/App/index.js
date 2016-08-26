@@ -1,7 +1,10 @@
+import './index.less'
+
 import cx from 'classnames'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
+import { RouteTransition } from 'react-router-transition'
 
 import Disconnected from '../../containers/Disconnected'
 import Loading from '../Loading'
@@ -49,13 +52,19 @@ export default class App extends Component {
 
 
     return (
-      <div className="uk-height-1-1">
+      <RouteTransition
+        className="uk-height-1-1 tm-app"
+        pathname={this.props.location.pathname}
+        atEnter={{ opacity: 0 }}
+        atLeave={{ opacity: 0 }}
+        atActive={{ opacity: 1 }}
+      >
         {shouldMountChildren && children}
         {shouldOverlayLogin && <Login />}
         {isCurrentlyLoading && <Loading />}
         {!connected && disconnected && <Disconnected />}
         {!supportedBrowser && <UnsupportedBrowser />}
-      </div>
+      </RouteTransition>
     )
   }
 }
