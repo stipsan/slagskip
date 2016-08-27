@@ -1,0 +1,25 @@
+@grid-size: 320px;
+
+.tm-game-background {
+  background: #2c3e50;
+
+  .uk-navbar {
+    background: #1abc9c;
+    color: white;
+  }
+}
+
+.tm-scoreboard {
+  background: #34495e;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 10px 5px;
+  width: @grid-size;
+}
+
+:first-child > .tm-scoreboard-position {
+  color: #f1c40f;
+}
+:last-child > .tm-scoreboard-position {
+  color: #e67e22;
+}
