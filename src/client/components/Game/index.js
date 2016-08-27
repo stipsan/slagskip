@@ -1,10 +1,13 @@
+import './index.less'
+
+import cx from 'classnames'
 import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
 
-import cx from 'classnames'
 import Navbar from '../Navbar'
+import Scoreboard from './Scoreboard'
 import VersusGrid from './VersusGrid'
 import ViewerBoard from './ViewerBoard'
 import { fireCannon } from '../../actions'
@@ -65,14 +68,32 @@ class Game extends Component {
       versusScore,
     } = this.props
 
-    const navbarLeft = <Link to="/" className={cx('backLink')}>{'❮ Games'}</Link>
+    const navbarLeft = (
+      <div className="uk-navbar-content">
+        <Link to="/" className="uk-button uk-button-link">
+          {'❮'} <span>{'Games'}</span>
+        </Link>
+      </div>
+    )
     const opponentLabel = versusFriend && versusFriend.get('username') || 'opponent'
     const title = viewer ? `Epic | ${viewer.get('username')} vs. ${opponentLabel}` : null
 
     return (
       <DocumentTitle title={title}>
-        <section className={cx('section')}>
+        <section className="tm-game-background uk-height-1-1">
           <Navbar left={navbarLeft} />
+          {viewer && versusFriend && <Scoreboard players={[
+            { ...viewer.toJS(), score: viewerScore },
+            { ...versusFriend.toJS(), score: versusScore }
+          ]} />}
+          <div className="tm-match uk-grid uk-flex-middle">
+            <div className="uk-width-medium-1-2">
+
+            </div>
+            <div className="uk-width-medium-1-2">
+
+            </div>
+          </div>
           <div className={cx('scores')}>
             <div className={cx('score')}>
               <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>

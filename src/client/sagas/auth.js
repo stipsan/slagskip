@@ -23,11 +23,11 @@ import {
 } from '../constants/ActionTypes'
 import { socket } from '../services'
 
-export function *authorize() {
+export function* authorize() {
   //
 }
 
-export function *watchLoginForm() {
+export function* watchLoginForm() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { successType, failureType } } = yield take([
       CHECK_EMAIL_EXISTS_REQUESTED,
@@ -38,7 +38,7 @@ export function *watchLoginForm() {
   }
 }
 
-export function *loginFlow() {
+export function* loginFlow() {
   while (true) { // eslint-disable-line no-constant-condition
     const authAction = yield take(AUTHENTICATE_REQUESTED)
     yield put(socketRequest(authAction))
@@ -46,7 +46,7 @@ export function *loginFlow() {
   }
 }
 
-export function *registerFlow() {
+export function* registerFlow() {
   while (true) { // eslint-disable-line no-constant-condition
     const authAction = yield take(CREATE_USER_REQUESTED)
     yield put(socketRequest(authAction))
@@ -54,7 +54,7 @@ export function *registerFlow() {
   }
 }
 
-export function *watchViewerRequests() {
+export function* watchViewerRequests() {
   while (true) { // eslint-disable-line no-constant-condition
     yield take(AUTHENTICATE_SUCCESS)
     yield put(socketRequest({
@@ -68,7 +68,7 @@ export function *watchViewerRequests() {
   }
 }
 
-export function *validateEmail() {
+export function* validateEmail() {
   while (true) { // eslint-disable-line no-constant-condition
     const { payload: { email, resolve } } = yield take(CHECK_EMAIL_EXISTS_ASYNC)
     const emitCheckEmailAction = socketRequest({
@@ -85,10 +85,11 @@ export function *validateEmail() {
   }
 }
 
-export function *watchSocketSuccess() {
+export function* watchSocketSuccess() {
   while (true) { // eslint-disable-line no-constant-condition
-    const { payload: { isAuthenticated } } = yield take(SOCKET_SUCCESS)
+    const { payload: { isAuthenticated }, socket } = yield take(SOCKET_SUCCESS)
     if (isAuthenticated) {
+      yield put({ type: AUTHENTICATE_SUCCESS, payload: { authToken: socket.getAuthToken() } })
       yield put(socketRequest({
         type: VIEWER_REQUESTED,
         payload: {
@@ -112,7 +113,7 @@ export function *watchSocketSuccess() {
   }
 }
 
-export function *watchAuthState() {
+export function* watchAuthState() {
   yield [
     loginFlow(),
     registerFlow(),
