@@ -49,7 +49,7 @@
   "author": "Stian Didriksen <stipsan@gmail.com> (http://github.com/stipsan)",
   "meta": {
     "author": "Stian Didriksen",
-    "description": "Epic is a fun and addicting two-player game. Hide your items well and take turns searching each other in a race to 21 points!"
+    "description": "Epic is a fun and addicting two-player game. Hide your items well and race to the highest score!"
   },
   "license": "MIT",
   "bugs": {
@@ -58,7 +58,8 @@
   "jest": {
     "automock": false,
     "coverageReporters": [
-      "lcov"
+      "lcov",
+      "text"
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/lib/",

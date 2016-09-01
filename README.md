@@ -5,7 +5,7 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Realtime React based two-player game! Inspired by the good old "Battleship" by Hasbro.
+Realtime React based two-player game! Inspired by the good old "Battleship" by Hasbro and optimized for realtime gameplay.
 Tech stack includes Redux, SocketCluster, Heroku, Redis and more!
 
 It's intended to be both a learning excersise for myself to get familiar with tech I've never used before (SocketCluster, Redis) and sharpen my skills on stuff I've used a lot.
