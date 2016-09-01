@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-- "6.4"
+- "6.5"
 script: npm test -- --coverage
 after_script: npm run coverage
 notifications:
