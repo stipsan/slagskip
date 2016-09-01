@@ -58,7 +58,8 @@
   "jest": {
     "automock": false,
     "coverageReporters": [
-      "lcov"
+      "lcov",
+      "text"
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/lib/",
