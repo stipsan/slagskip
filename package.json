@@ -190,7 +190,7 @@
     "growl": "1.9.2",
     "ignore-styles": "5.0.1",
     "ioredis-mock": "1.8.2",
-    "jest-cli": "14.1.0",
+    "jest-cli": "15.0.2",
     "jest-webpack-alias": "3.2.2",
     "react-test-renderer": "15.3.1",
     "remotedev-server": "0.1.8",
