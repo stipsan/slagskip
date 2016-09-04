@@ -156,7 +156,7 @@
     "react-useravatar": "1.1.2",
     "redux": "3.6.0",
     "redux-form": "6.0.2",
-    "redux-form-uikit": "0.2.14",
+    "redux-form-uikit": "0.2.15",
     "redux-immutable": "3.0.8",
     "redux-saga": "0.11.1",
     "redux-saga-sc": "2.0.5",
