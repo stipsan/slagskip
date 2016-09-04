@@ -154,7 +154,7 @@
     "react-transform-hmr": "1.0.4",
     "react-user-avatar": "1.8.0",
     "react-useravatar": "1.1.2",
-    "redux": "3.5.2",
+    "redux": "3.6.0",
     "redux-form": "6.0.2",
     "redux-form-uikit": "0.2.14",
     "redux-immutable": "3.0.8",
