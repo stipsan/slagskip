@@ -104,7 +104,7 @@
     "bcrypt": "0.8.7",
     "bulma": "0.1.2",
     "bulma-loader": "1.0.1",
-    "caniuse-api": "1.5.1",
+    "caniuse-api": "1.5.2",
     "classnames": "2.2.5",
     "classnames-loader": "2.0.0",
     "compression": "1.6.2",
