@@ -146,7 +146,7 @@
     "react-immutable-proptypes": "2.1.0",
     "react-motion": "0.4.4",
     "react-redux": "4.4.5",
-    "react-router": "2.8.0",
+    "react-router": "2.8.1",
     "react-router-redux": "4.0.5",
     "react-router-transition": "0.0.6",
     "react-timeago": "3.1.3",
