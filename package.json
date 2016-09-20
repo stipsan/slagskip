@@ -134,7 +134,7 @@
     "raygun": "0.8.5",
     "react": "15.3.1",
     "react-addons-css-transition-group": "15.3.2",
-    "react-addons-pure-render-mixin": "15.3.1",
+    "react-addons-pure-render-mixin": "15.3.2",
     "react-addons-shallow-compare": "15.3.2",
     "react-collapse": "3.2.0",
     "react-dnd": "2.1.4",
