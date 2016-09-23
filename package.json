@@ -192,7 +192,7 @@
     "ignore-styles": "5.0.1",
     "ioredis-mock": "1.8.3",
     "jest-cli": "15.1.1",
-    "jest-webpack-alias": "3.2.2",
+    "jest-webpack-alias": "3.3.0",
     "react-test-renderer": "15.3.2",
     "remotedev-server": "0.2.0",
     "webpack-dashboard": "0.1.8",
