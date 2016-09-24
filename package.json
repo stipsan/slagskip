@@ -120,7 +120,7 @@
     "imagemin-svgo": "5.2.0",
     "immutable": "3.8.1",
     "invariant": "2.2.1",
-    "ioredis": "2.3.1",
+    "ioredis": "2.4.0",
     "json-loader": "0.5.4",
     "konami-komando": "1.0.1",
     "less": "2.7.1",
