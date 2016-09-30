@@ -190,7 +190,7 @@
     "foreman": "2.0.0",
     "growl": "1.9.2",
     "ignore-styles": "5.0.1",
-    "ioredis-mock": "1.8.3",
+    "ioredis-mock": "1.9.0",
     "jest-cli": "15.1.1",
     "jest-webpack-alias": "3.3.0",
     "react-test-renderer": "15.3.2",
