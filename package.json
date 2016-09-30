@@ -177,7 +177,7 @@
   "devDependencies": {
     "babel-eslint": "7.0.0",
     "babel-jest": "15.0.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.11.5",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.16.0",
     "codeclimate-test-reporter": "0.3.3",
     "concurrently": "3.0.0",
     "coveralls": "2.11.13",
