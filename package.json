@@ -56,7 +56,6 @@
     "url": "https://github.com/stipsan/epic/issues"
   },
   "jest": {
-    "automock": false,
     "coverageReporters": [
       "lcov",
       "text"
