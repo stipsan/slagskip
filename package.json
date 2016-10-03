@@ -125,7 +125,7 @@
     "konami-komando": "1.0.1",
     "less": "2.7.1",
     "less-loader": "2.2.3",
-    "lodash": "4.16.2",
+    "lodash": "4.16.3",
     "module-alias": "1.0.10",
     "node-sass": "3.10.1",
     "purifycss-webpack-plugin": "2.0.3",
