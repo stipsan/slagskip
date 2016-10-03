@@ -6,14 +6,14 @@ exports[`<Login /> should render correctly 1`] = `
     style={
       Object {
         "minHeight": "460px",
-        "overflow": "auto"
+        "overflow": "auto",
       }
     }>
     <div
       className="uk-text-center"
       style={
         Object {
-          "width": "250px"
+          "width": "250px",
         }
       }>
       <img
@@ -24,9 +24,9 @@ exports[`<Login /> should render correctly 1`] = `
         width="64" />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function anonymous]}>
+        onSubmit={[Function]}>
         <Field
-          component={[Function renderInput]}
+          component={[Function]}
           errorDisplay="block"
           icon="envelope"
           large={true}
@@ -40,7 +40,7 @@ exports[`<Login /> should render correctly 1`] = `
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="lock"
             large={true}
@@ -56,7 +56,7 @@ exports[`<Login /> should render correctly 1`] = `
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="user"
             large={true}
@@ -82,7 +82,7 @@ exports[`<Login /> should render correctly 1`] = `
           isOpened={false}>
           <a
             className="uk-float-right uk-link uk-link-muted"
-            onClick={[Function bound handleClick]}
+            onClick={[Function]}
             style={Object {}}>
             Forgot your password?
           </a>
@@ -96,7 +96,7 @@ exports[`<Login /> should render correctly 1`] = `
       className="uk-subnav uk-subnav-line uk-flex-center">
       <li>
         <a
-          onClick={[Function bound handleClick]}
+          onClick={[Function]}
           style={Object {}}>
           About
         </a>
@@ -114,14 +114,14 @@ exports[`<Login /> should render correctly 2`] = `
     style={
       Object {
         "minHeight": "460px",
-        "overflow": "auto"
+        "overflow": "auto",
       }
     }>
     <div
       className="uk-text-center"
       style={
         Object {
-          "width": "250px"
+          "width": "250px",
         }
       }>
       <img
@@ -132,9 +132,9 @@ exports[`<Login /> should render correctly 2`] = `
         width="64" />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function anonymous]}>
+        onSubmit={[Function]}>
         <Field
-          component={[Function renderInput]}
+          component={[Function]}
           errorDisplay="block"
           icon="envelope"
           large={true}
@@ -148,7 +148,7 @@ exports[`<Login /> should render correctly 2`] = `
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="lock"
             large={true}
@@ -164,7 +164,7 @@ exports[`<Login /> should render correctly 2`] = `
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="user"
             large={true}
@@ -190,7 +190,7 @@ exports[`<Login /> should render correctly 2`] = `
           isOpened={true}>
           <a
             className="uk-float-right uk-link uk-link-muted"
-            onClick={[Function bound handleClick]}
+            onClick={[Function]}
             style={Object {}}>
             Forgot your password?
           </a>
@@ -204,7 +204,7 @@ exports[`<Login /> should render correctly 2`] = `
       className="uk-subnav uk-subnav-line uk-flex-center">
       <li>
         <a
-          onClick={[Function bound handleClick]}
+          onClick={[Function]}
           style={Object {}}>
           About
         </a>
@@ -222,14 +222,14 @@ exports[`<Login /> should render correctly 3`] = `
     style={
       Object {
         "minHeight": "460px",
-        "overflow": "auto"
+        "overflow": "auto",
       }
     }>
     <div
       className="uk-text-center"
       style={
         Object {
-          "width": "250px"
+          "width": "250px",
         }
       }>
       <img
@@ -240,9 +240,9 @@ exports[`<Login /> should render correctly 3`] = `
         width="64" />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function anonymous]}>
+        onSubmit={[Function]}>
         <Field
-          component={[Function renderInput]}
+          component={[Function]}
           errorDisplay="block"
           icon="envelope"
           large={true}
@@ -256,7 +256,7 @@ exports[`<Login /> should render correctly 3`] = `
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="lock"
             large={true}
@@ -272,7 +272,7 @@ exports[`<Login /> should render correctly 3`] = `
           isOpened={true}>
           <Field
             autoComplete="name"
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="user"
             large={true}
@@ -298,7 +298,7 @@ exports[`<Login /> should render correctly 3`] = `
           isOpened={false}>
           <a
             className="uk-float-right uk-link uk-link-muted"
-            onClick={[Function bound handleClick]}
+            onClick={[Function]}
             style={Object {}}>
             Forgot your password?
           </a>
@@ -312,7 +312,7 @@ exports[`<Login /> should render correctly 3`] = `
       className="uk-subnav uk-subnav-line uk-flex-center">
       <li>
         <a
-          onClick={[Function bound handleClick]}
+          onClick={[Function]}
           style={Object {}}>
           About
         </a>
@@ -330,14 +330,14 @@ exports[`<Login /> should render correctly 4`] = `
     style={
       Object {
         "minHeight": "460px",
-        "overflow": "auto"
+        "overflow": "auto",
       }
     }>
     <div
       className="uk-text-center"
       style={
         Object {
-          "width": "250px"
+          "width": "250px",
         }
       }>
       <img
@@ -348,9 +348,9 @@ exports[`<Login /> should render correctly 4`] = `
         width="64" />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function anonymous]}>
+        onSubmit={[Function]}>
         <Field
-          component={[Function renderInput]}
+          component={[Function]}
           errorDisplay="block"
           icon="envelope"
           large={true}
@@ -364,7 +364,7 @@ exports[`<Login /> should render correctly 4`] = `
           className="uk-form-row"
           isOpened={true}>
           <Field
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="lock"
             large={true}
@@ -380,7 +380,7 @@ exports[`<Login /> should render correctly 4`] = `
           isOpened={false}>
           <Field
             autoComplete="name"
-            component={[Function renderInput]}
+            component={[Function]}
             errorDisplay="block"
             icon="user"
             large={true}
@@ -406,7 +406,7 @@ exports[`<Login /> should render correctly 4`] = `
           isOpened={false}>
           <a
             className="uk-float-right uk-link uk-link-muted"
-            onClick={[Function bound handleClick]}
+            onClick={[Function]}
             style={Object {}}>
             Forgot your password?
           </a>
@@ -420,7 +420,7 @@ exports[`<Login /> should render correctly 4`] = `
       className="uk-subnav uk-subnav-line uk-flex-center">
       <li>
         <a
-          onClick={[Function bound handleClick]}
+          onClick={[Function]}
           style={Object {}}>
           About
         </a>
