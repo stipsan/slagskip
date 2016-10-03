@@ -178,7 +178,7 @@
     "babel-eslint": "7.0.0",
     "babel-jest": "16.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.16.0",
-    "codeclimate-test-reporter": "0.3.3",
+    "codeclimate-test-reporter": "0.4.0",
     "concurrently": "3.1.0",
     "coveralls": "2.11.13",
     "eslint": "3.6.1",
