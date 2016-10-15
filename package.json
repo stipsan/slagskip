@@ -170,7 +170,7 @@
     "uikit-react": "0.6.13",
     "url-loader": "0.5.7",
     "uws": "0.10.11",
-    "vinyl-fs": "2.4.3",
+    "vinyl-fs": "2.4.4",
     "webpack": "2.1.0-beta.21"
   },
   "devDependencies": {
