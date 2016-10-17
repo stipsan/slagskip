@@ -154,7 +154,7 @@
     "react-user-avatar": "1.8.0",
     "react-useravatar": "1.1.2",
     "redux": "3.6.0",
-    "redux-form": "6.1.0",
+    "redux-form": "6.1.1",
     "redux-form-uikit": "1.1.0",
     "redux-immutable": "3.0.8",
     "redux-saga": "0.12.0",
