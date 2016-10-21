@@ -82,7 +82,7 @@
   "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {
     "animate.css": "3.5.2",
-    "assets-webpack-plugin": "3.4.0",
+    "assets-webpack-plugin": "3.5.0",
     "autoprefixer-loader": "3.2.0",
     "babel-cli": "6.16.0",
     "babel-loader": "6.2.5",
