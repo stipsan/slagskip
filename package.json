@@ -99,7 +99,7 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-react-optimize": "1.0.1",
     "babel-preset-stage-0": "6.16.0",
-    "babel-register": "6.16.3",
+    "babel-register": "6.18.0",
     "bcrypt": "0.8.7",
     "bulma": "0.2.3",
     "bulma-loader": "1.0.1",
