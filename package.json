@@ -175,7 +175,7 @@
   },
   "devDependencies": {
     "babel-eslint": "7.1.0",
-    "babel-jest": "16.0.0",
+    "babel-jest": "17.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.16.0",
     "codeclimate-test-reporter": "0.4.0",
     "concurrently": "3.1.0",
