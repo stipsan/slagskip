@@ -179,7 +179,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.16.0",
     "codeclimate-test-reporter": "0.4.0",
     "concurrently": "3.1.0",
-    "coveralls": "2.11.13",
+    "coveralls": "2.11.15",
     "eslint": "3.9.0",
     "eslint-config-stipsan": "1.1.1",
     "eslint-import-resolver-webpack": "0.7.0",
