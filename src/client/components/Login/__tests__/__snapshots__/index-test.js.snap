@@ -68,14 +68,16 @@ exports[`<Login /> should render correctly 1`] = `
         </Collapse>
         <div
           className="uk-form-row">
-          <button
-            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+          <Button
+            className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
+            large={true}
+            primary={true}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
             Register
-          </button>
+          </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
@@ -176,14 +178,16 @@ exports[`<Login /> should render correctly 2`] = `
         </Collapse>
         <div
           className="uk-form-row">
-          <button
-            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+          <Button
+            className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
+            large={true}
+            primary={true}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
             Login
-          </button>
+          </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
@@ -284,14 +288,16 @@ exports[`<Login /> should render correctly 3`] = `
         </Collapse>
         <div
           className="uk-form-row">
-          <button
-            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+          <Button
+            className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
+            large={true}
+            primary={true}
             type="submit">
             <i
               className="uk-icon-chevron-right" />
             Register
-          </button>
+          </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
@@ -392,14 +398,16 @@ exports[`<Login /> should render correctly 4`] = `
         </Collapse>
         <div
           className="uk-form-row">
-          <button
-            className="uk-button uk-width-1-1 uk-form-icon uk-button-primary uk-button-large"
+          <Button
+            className="uk-width-1-1 uk-form-icon"
             disabled={true}
+            large={true}
+            primary={true}
             type="submit">
             <i
               className="uk-icon-spinner uk-icon-spin" />
             Register
-          </button>
+          </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
