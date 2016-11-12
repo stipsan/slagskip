@@ -47,13 +47,5 @@
   "addons": [
     "heroku-redis:hobby-dev",
     "papertrail:choklad"
-  ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/stipsan/heroku-buildpack-imagemagick"
-    },
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
-    }
   ]
 }
