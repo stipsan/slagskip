@@ -7,7 +7,7 @@
     "start": "concurrently 'babel-node src/server/web' 'npm run hmr' 'npm run remotedev' --kill-others",
     "nasa": "webpack-dashboard -- npm run hmr",
     "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
-    "postinstall": "cd assets/exports && node ../../scripts/assets && cd ../.. && npm run favicon",
+    "postinstall": "cd assets/exports && node ../../scripts/assets",
     "heroku-postbuild": "npm run bundle && npm run babel",
     "hmr": "webpack-dev-server",
     "remotedev": "remotedev --hostname=localhost --port=8000",
@@ -21,8 +21,7 @@
     "babel:watch": "npm run babel -- --watch"
   },
   "engines": {
-    "node": "6.4.0",
-    "npm": "3.9.5"
+    "node": "6.9.1"
   },
   "repository": {
     "type": "git",
