@@ -5,6 +5,8 @@ import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
+import Gameboard from 'epic-client/components/Gameboard'
+import { selectCell } from 'epic-client/actions'
 
 import Navbar from '../Navbar'
 import Scoreboard from './Scoreboard'
@@ -49,6 +51,10 @@ class Game extends Component {
       id: this.props.routeParams.game,
       selectedCell: this.props.selectedCell
     }))
+  }
+
+  handleSelectCell = (id) => {
+    this.props.dispatch(selectCell(id))
   }
 
   render() {
@@ -135,6 +141,16 @@ class Game extends Component {
               {`${opponentLabel}'s turn`}
             </div>}
           </div>
+          <Gameboard grid={versusGrid} onSelectCell={this.handleSelectCell} selectedCell={selectedCell} />
+          <div className="uk-grid uk-grid-collapse gamestatus">
+            <div className="uk-width-1-2">
+              Scores and stuffs
+            </div>
+            <div className="uk-width-1-2">
+              <Gameboard grid={viewerGrid} mine={viewerBoard} size={160} />
+            </div>
+          </div>
+
           {'loading' !== gameState && (
             <VersusGrid
               gameState={gameState}
