@@ -80,7 +80,7 @@ class Dashboard extends Component {
         >
           {username}
         </Navbar>
-        <div className="uk-margin-top">{children}</div>
+        <div>{children}</div>
       </div>
     </DocumentTitle>)
   }

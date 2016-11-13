@@ -77,20 +77,20 @@ class GameRow extends Component {
     const gameState = game.get('gameState')
     const setupOrPlay = 'setup' === gameState ? 'join' : 'game'
 
-    let title = getTitle(gameState, game, username)
+    const title = getTitle(gameState, game, username)
 
 
     return (
       <Link
         to={`/${setupOrPlay}/${id}`}
-        className={cx('game', {
+        className={cx('game uk-flex uk-flex-middle uk-flex-space-between', {
           gameWaiting: 'setup' === gameState || 'ready' === gameState
         })}
       >
         <span className={cx(online ? 'avatarOnline' : 'avatar')}>
           <Avatar colors={defaultColors} size="39" name={username} src={avatar} />
         </span>
-        <span className={cx('username')}>{title}</span>
+        <span className={cx('username uk-flex-item-1 uk-margin-left uk-margin-right')}>{title}</span>
         <span className={cx('startGame')}>{'❯'}</span>
       </Link>
     )

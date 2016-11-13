@@ -5,6 +5,8 @@ import { Link } from 'react-router'
 
 import GameRow from './GameRow'
 
+import './index.less'
+
 class Games extends Component {
   static propTypes = {
     bots: ImmutablePropTypes.list,
@@ -35,24 +37,27 @@ class Games extends Component {
     if (!friends) return <h1>{'Loading…'}</h1>
 
     return (
-      <div className="uk-container uk-container-center">
-        <Link to="/new" className={cx('game')}>
-          <span className={cx('newGame')}>
-            {'+'}
-          </span>
-          <span className={cx('username')}>{'New Game'}</span>
-          <span className={cx('startGame')}>{'❯'}</span>
-        </Link>
+      <ul className="uk-list uk-list-line games-list">
+        <li>
+          <Link to="/new" className={cx('game uk-flex uk-flex-middle uk-flex-space-between')}>
+            <span className={cx('newGame')}>
+              {'+'}
+            </span>
+            <span className={cx('username uk-flex-item-1 uk-margin-left uk-margin-right')}>{'New Game'}</span>
+            <span className={cx('startGame')}>{'❯'}</span>
+          </Link>
+        </li>
         {0 < gamesTotal && games.toArray().reverse().map(game => (
-          <GameRow
-            key={game.get('id')}
-            friendsTotal={friendsTotal}
-            friends={friends}
-            game={game}
-            bots={bots}
-          />
+          <li key={game.get('id')}>
+            <GameRow
+              friendsTotal={friendsTotal}
+              friends={friends}
+              game={game}
+              bots={bots}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     )
   }
 }
