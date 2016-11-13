@@ -33,19 +33,14 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   }),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
-      unsafe: true,
+      unsafe: false,
       drop_console: true,
       warnings: false,
       pure_getters: true,
-      unsafe_comps: true,
+      unsafe_comps: false,
     },
     comments: false,
-    mangle: {
-      sort: true,
-      toplevel: true,
-      eval: true,
-      properties: true,
-    }
+    mangle: false,
   }),
 ] : [
   new webpack.LoaderOptionsPlugin({
