@@ -160,7 +160,7 @@
     "redux-saga-sc": "2.0.5",
     "remote-redux-devtools": "0.5.3",
     "sass-loader": "4.0.2",
-    "socketcluster": "5.0.21",
+    "socketcluster": "5.0.22",
     "socketcluster-client": "5.0.18",
     "stattic-parseurl": "0.1.0",
     "style-loader": "0.13.1",
