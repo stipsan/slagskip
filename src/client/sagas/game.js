@@ -8,7 +8,7 @@ import {
   LOAD_GAME_SUCCESS,
 } from '../constants/ActionTypes'
 
-export function *watchNewGame() {
+export function* watchNewGame() {
   while (yield take(NEW_GAME_REQUESTED)) { // eslint-disable-line no-constant-condition
     const { payload: { id } } = yield take(NEW_GAME_SUCCESS)
     if (id) {
@@ -17,7 +17,7 @@ export function *watchNewGame() {
   }
 }
 
-export function *watchLoadGame() {
+export function* watchLoadGame() {
   while (yield take(LOAD_GAME_REQUESTED)) { // eslint-disable-line no-constant-condition
     const { payload: { gameState, id } } = yield take(LOAD_GAME_SUCCESS)
     if ('setup' === gameState) {
@@ -26,7 +26,7 @@ export function *watchLoadGame() {
   }
 }
 
-export function *watchGame() {
+export function* watchGame() {
   yield [
     watchNewGame(),
     watchLoadGame(),

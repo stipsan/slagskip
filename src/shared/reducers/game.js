@@ -135,7 +135,7 @@ export const game = (state = initialState, { type, payload }) => {
       .updateIn(['turns'], update => update.push(fromJS(payload.turn)))
       .setIn(['viewerGrid', payload.turn.index], Number(payload.turn.hit))
       .set('versusScore', payload.versusScore)
-      .set('gameState', 21 === payload.versusScore ? 'defeated' : state.get('gameState'))
+      .set('gameState', 21 === payload.versusScore ? 'defeat' : state.get('gameState'))
   case SAVE_TURN_SUCCESS:
     return state
       .set('isViewerTurn', payload.isViewerTurn)

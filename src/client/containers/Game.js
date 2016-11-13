@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     versusFriend: state.getIn(['friends', 'list', versusFriendId]) ||
                 state.get('bots').find(bot => bot.get('id') === versusFriendId),
     viewer: state.get('viewer'),
+    turns: state.getIn(['game', 'turns']),
     isViewerTurn: state.getIn(['game', 'isViewerTurn']),
     versusGrid: state.getIn(['game', 'versusGrid']),
     viewerGrid: state.getIn(['game', 'viewerGrid']),

@@ -85,9 +85,12 @@ class Game extends Component {
       <DocumentTitle title={title}>
         <section className="tm-game-background">
           <Navbar left={navbarLeft} />
+          <div className="uk-margin-top">
+            <Gameboard grid={versusGrid} onSelectCell={this.handleSelectCell} selectedCell={'victory' !== gameState && 'defeat' !== gameState && selectedCell} />
+          </div>
           <div className="gamecontrols">
             <button
-              className="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-margin-top uk-margin-bottom"
+              className="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-margin-top"
               disabled={gameState !== 'ready' || -1 === selectedCell}
               onClick={this.handleFireCannon}
             >
@@ -96,30 +99,25 @@ class Game extends Component {
               {'defeat' === gameState && <div>{'You lost!'}</div>}
               {'loading' === gameState && <div>{'Loading game…'}</div>}
               {
-                isViewerTurn &&
                 'waiting' !== gameState &&
                 'victory' !== gameState &&
                 'defeat' !== gameState &&
                 (-1 === selectedCell ?
                   'Select a spot' :
-                  ('victory' !== gameState && 'defeated' !== gameState && (
+                  ('victory' !== gameState && 'defeat' !== gameState && (
                     'Send'
                   )))
               }
               {'waiting' === gameState && 'victory' !== gameState && 'defeat' !== gameState && (
-                <span>{`Waiting for ${opponentLabel} to setup their board`}</span>
+                <span>{`Waiting for ${opponentLabel}`}</span>
               )}
-              {'ready' === gameState && !isViewerTurn && <div className={cx('waitingForTurn')}>
-                {`${opponentLabel}'s turn`}
-              </div>}
             </button>
           </div>
-          <Gameboard grid={versusGrid} onSelectCell={this.handleSelectCell} selectedCell={'victory' !== gameState && 'defeat' !== gameState && selectedCell} />
           <div className="uk-flex uk-flex-top uk-flex-space-between gamestatus">
             {viewer && versusFriend && <Scoreboard players={[
               { ...viewer.toJS(), score: viewerScore },
               { ...versusFriend.toJS(), score: versusScore }
-            ]} />}
+            ]} turns={turns} />}
             <Gameboard grid={viewerGrid} mine={viewerBoard} size={150} />
           </div>
         </section>
