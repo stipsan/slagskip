@@ -1,5 +1,5 @@
-import Cell from './Cell'
-import SelectableCell from './SelectableCell'
+import EnemyCell from './EnemyCell'
+import ViewerCell from './ViewerCell'
 
 const Gameboard = ({
   grid,
@@ -8,15 +8,15 @@ const Gameboard = ({
   selectedCell,
   size
 }) => {
-  const RenderCell = onSelectCell ? SelectableCell : Cell
+  const Cell = onSelectCell ? ViewerCell : EnemyCell
 
   return (
     <div className="gameboard" style={{ height: `${size}px`, width: `${size}px` }}>
       {grid.map((value, index) => (
-        <RenderCell
+        <Cell
           key={index}
           id={index}
-          isMine={mine && mine.getIn(['grid', index])}
+          isMine={mine && mine.getIn(['grid', index]) > 0}
           value={value}
           size={size / 10}
           onSelectCell={onSelectCell}

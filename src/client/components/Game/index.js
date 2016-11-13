@@ -92,10 +92,6 @@ class Game extends Component {
             { ...viewer.toJS(), score: viewerScore },
             { ...versusFriend.toJS(), score: versusScore }
           ]} />}
-          <div className="tm-match uk-grid uk-flex-middle">
-            <div className="uk-width-medium-1-2" />
-            <div className="uk-width-medium-1-2" />
-          </div>
           <div className={cx('scores')}>
             <div className={cx('score')}>
               <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>
@@ -150,31 +146,6 @@ class Game extends Component {
               <Gameboard grid={viewerGrid} mine={viewerBoard} size={160} />
             </div>
           </div>
-
-          {'loading' !== gameState && (
-            <VersusGrid
-              gameState={gameState}
-              gameId={this.props.routeParams.game}
-              score={viewerScore}
-              grid={versusGrid}
-              turns={turns}
-              selectedCell={selectedCell}
-              dispatch={dispatch}
-              isViewerTurn={isViewerTurn}
-              versus={versusFriend}
-            />
-          )}
-          <br />
-          {'loading' !== gameState && (
-            <ViewerBoard
-              score={versusScore}
-              grid={viewerGrid}
-              board={viewerBoard}
-              turns={turns}
-              versus={versusFriend}
-              isViewerTurn={isViewerTurn}
-            />
-          )}
         </section>
       </DocumentTitle>
     )

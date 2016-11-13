@@ -2,14 +2,10 @@ import { PureComponent, PropTypes } from 'react'
 
 import cx from 'classnames'
 
-class SelectableCell extends PureComponent {
+class ViewerCell extends PureComponent {
 
   static propTypes = {
     value: PropTypes.number.isRequired,
-    cellActive: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
-    isViewerTurn: PropTypes.bool.isRequired,
-    selectedCell: PropTypes.number.isRequired,
   }
 
   handleSelectCell = () => {
@@ -40,4 +36,4 @@ class SelectableCell extends PureComponent {
   }
 }
 
-export default SelectableCell
+export default ViewerCell
