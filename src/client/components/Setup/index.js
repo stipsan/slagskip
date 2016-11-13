@@ -153,8 +153,8 @@ class Setup extends Component {
     if (!versus) return <Loading />
 
     const versusUsername = versus.get('username')
-    const startGameButtonClassName = cx('uk-button', {
-      'uk-button-primary': !isValid
+    const startGameButtonClassName = cx('tm-button-setup uk-button uk-button-large uk-width-1-1', {
+      'uk-animation-fade': isValid,
     })
 
     let defaultIndex = 111
@@ -172,7 +172,7 @@ class Setup extends Component {
         onClick={this.handleJoinGame}
         className={startGameButtonClassName}
       >
-        {'Join'}
+        {`Join ${versusUsername}`}
       </button> :
       routeParams.versus && (
         <button
@@ -180,21 +180,16 @@ class Setup extends Component {
           onClick={this.handleNewGame}
           className={startGameButtonClassName}
         >
-          {'Start'}
+          {`Challenge ${versusUsername}`}
         </button>
       )
 
     return (<DocumentTitle title={`Epic | New Game vs ${versusUsername}`}>
       <section className="tm-setup-background uk-height-1-1">
-        <Navbar left={navbarLeft} right={<div className="uk-navbar-flip">
-          <div className="uk-navbar-content">
-            {navbarRight}
-          </div>
-        </div>}>
+        <Navbar left={navbarLeft}>
           Setup
         </Navbar>
-        <div className="uk-container uk-container-center">
-          <div className="tm-subnavbar">{`Versus ${versusUsername}`}</div>
+        <div className="uk-margin-top">
           <SetupCanvas addItem={addItem} moveItem={moveItem}>
             <Grid>
               {this.types.map(([type, size, component]) => {
@@ -219,7 +214,9 @@ class Setup extends Component {
             </Grid>
           </SetupCanvas>
         </div>
-        <div>S<br />S<br />S</div>
+        <div className="gamecontrols uk-margin-top">
+          {navbarRight}
+        </div>
       </section>
     </DocumentTitle>)
   }
