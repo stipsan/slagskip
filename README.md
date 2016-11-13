@@ -12,6 +12,8 @@ It's intended to be both a learning excersise for myself to get familiar with te
 
 It's also meant to serve as a reference for others who wish to embark on similar projects :-)
 
+![Screenshot](screenshots/screenshot.png)
+
 # FAQ
 
 ## Why is (https://epic.vg) loading faster than lightning?
