@@ -5,12 +5,11 @@ import DocumentTitle from 'react-document-title'
 import { Component, PropTypes } from 'react'
 import { shouldComponentUpdate } from 'react-addons-pure-render-mixin'
 import { Link } from 'react-router'
+import Gameboard from 'epic-client/components/Gameboard'
+import { selectCell, fireCannon } from 'epic-client/actions'
 
 import Navbar from '../Navbar'
 import Scoreboard from './Scoreboard'
-import VersusGrid from './VersusGrid'
-import ViewerBoard from './ViewerBoard'
-import { fireCannon } from '../../actions'
 
 class Game extends Component {
   static propTypes = {
@@ -51,6 +50,10 @@ class Game extends Component {
     }))
   }
 
+  handleSelectCell = (id) => {
+    this.props.dispatch(selectCell(id))
+  }
+
   render() {
     const {
       gameState,
@@ -80,88 +83,45 @@ class Game extends Component {
 
     return (
       <DocumentTitle title={title}>
-        <section className="tm-game-background uk-height-1-1">
+        <section className="tm-game-background">
           <Navbar left={navbarLeft} />
-          {viewer && versusFriend && <Scoreboard players={[
-            { ...viewer.toJS(), score: viewerScore },
-            { ...versusFriend.toJS(), score: versusScore }
-          ]} />}
-          <div className="tm-match uk-grid uk-flex-middle">
-            <div className="uk-width-medium-1-2">
-
-            </div>
-            <div className="uk-width-medium-1-2">
-
-            </div>
+          <div className="gamecontrols">
+            <button
+              className="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-margin-top uk-margin-bottom"
+              disabled={gameState !== 'ready' || -1 === selectedCell}
+              onClick={this.handleFireCannon}
+            >
+              {'failed' === gameState && reasonFailed && <div>{`Error: ${reasonFailed}`}</div>}
+              {'victory' === gameState && <div>{'You won!'}</div>}
+              {'defeat' === gameState && <div>{'You lost!'}</div>}
+              {'loading' === gameState && <div>{'Loading game…'}</div>}
+              {
+                isViewerTurn &&
+                'waiting' !== gameState &&
+                'victory' !== gameState &&
+                'defeat' !== gameState &&
+                (-1 === selectedCell ?
+                  'Select a spot' :
+                  ('victory' !== gameState && 'defeated' !== gameState && (
+                    'Send'
+                  )))
+              }
+              {'waiting' === gameState && 'victory' !== gameState && 'defeat' !== gameState && (
+                <span>{`Waiting for ${opponentLabel} to setup their board`}</span>
+              )}
+              {'ready' === gameState && !isViewerTurn && <div className={cx('waitingForTurn')}>
+                {`${opponentLabel}'s turn`}
+              </div>}
+            </button>
           </div>
-          <div className={cx('scores')}>
-            <div className={cx('score')}>
-              <h6 className={cx('header')}>{viewer && viewer.get('username') || 'You'}</h6>
-              <strong className={cx('viewerScore')}>{viewerScore}</strong>
-            </div>
-            <div className={cx('score')}>
-              <h6 className={cx('header')}>
-                {versusFriend && versusFriend.get('username') || 'Versus'}
-              </h6>
-              <strong className={cx('versusScore')}>{versusScore}</strong>
-            </div>
+          <Gameboard grid={versusGrid} onSelectCell={this.handleSelectCell} selectedCell={'victory' !== gameState && 'defeat' !== gameState && selectedCell} />
+          <div className="uk-flex uk-flex-top uk-flex-space-between gamestatus">
+            {viewer && versusFriend && <Scoreboard players={[
+              { ...viewer.toJS(), score: viewerScore },
+              { ...versusFriend.toJS(), score: versusScore }
+            ]} />}
+            <Gameboard grid={viewerGrid} mine={viewerBoard} size={150} />
           </div>
-          <div className={cx('state')}>
-            {'failed' === gameState && reasonFailed && <div>{`Error: ${reasonFailed}`}</div>}
-            {'victory' === gameState && <div>{'You won!'}</div>}
-            {'defeated' === gameState && <div>{'You lost!'}</div>}
-            {'loading' === gameState && <div>{'Loading game…'}</div>}
-            {
-              isViewerTurn &&
-              'waiting' !== gameState &&
-              'victory' !== gameState &&
-              'defeat' !== gameState &&
-              (-1 === selectedCell ?
-              'Select a spot' :
-              ('victory' !== gameState && 'defeated' !== gameState && (
-                <div className={cx('readyToFire')}>
-                  {'Ready?'}
-                  <button
-                    className={cx('sendButton')}
-                    onClick={this.handleFireCannon}
-                  >
-                    {'Send'}
-                  </button>
-                </div>
-              )))
-            }
-            {'waiting' === gameState && 'victory' !== gameState && 'defeat' !== gameState && (
-              <div className={cx('waitingForOpponent')}>
-                {`Waiting for ${opponentLabel} to setup their board`}
-              </div>
-            )}
-            {'ready' === gameState && !isViewerTurn && <div className={cx('waitingForTurn')}>
-              {`${opponentLabel}'s turn`}
-            </div>}
-          </div>
-          {'loading' !== gameState && (
-            <VersusGrid
-              gameState={gameState}
-              gameId={this.props.routeParams.game}
-              score={viewerScore}
-              grid={versusGrid}
-              turns={turns}
-              selectedCell={selectedCell}
-              dispatch={dispatch}
-              isViewerTurn={isViewerTurn}
-              versus={versusFriend}
-            />
-          )}
-          {'loading' !== gameState && (
-            <ViewerBoard
-              score={versusScore}
-              grid={viewerGrid}
-              board={viewerBoard}
-              turns={turns}
-              versus={versusFriend}
-              isViewerTurn={isViewerTurn}
-            />
-          )}
         </section>
       </DocumentTitle>
     )

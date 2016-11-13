@@ -24,8 +24,8 @@ class Cell extends Component {
           'cell',
           {
             cellRemaining: -1 === cell,
-            cellEmpty: 0 === cell,
-            cellJackpot: 1 === cell,
+            'is-empty': 0 === cell,
+            'is-yay': 1 === cell,
             cellXL: 1 === type,
             cellL: 2 === type,
             cellM: 3 === type || 4 === type,

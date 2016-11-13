@@ -1,6 +1,7 @@
 @grid-size: 320px;
 
 .tm-game-background {
+  min-height: 100%;
   background: #2c3e50;
 
   .uk-navbar {
@@ -10,11 +11,28 @@
 }
 
 .tm-scoreboard {
+  box-shadow: #34495e 0 0 0 1px;
   background: #34495e;
-  margin-left: auto;
+  margin-left: 0px;
   margin-right: auto;
   padding: 10px 10px 5px;
-  width: @grid-size;
+  width: (@grid-size / 2) - 10;
+
+ li {
+    position: relative;
+  }
+}
+.tm-scoreboard-username {
+  display: block;
+  color: rgba(199, 199, 199, 0.85);
+}
+.tm-scoreboard-score {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 :first-child > .tm-scoreboard-position {
@@ -22,4 +40,71 @@
 }
 :last-child > .tm-scoreboard-position {
   color: #e67e22;
+}
+:last-child > .tm-scoreboard-score {
+  top: 5px;
+}
+
+.gamecontrols {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+
+  .uk-button {
+    transition: all 100ms ease-out;
+  }
+
+  .uk-button:disabled {
+    background-color: rgb(52, 73, 94);
+    color: #b1b4b7;
+  }
+}
+
+.versusGrid, .versusGrid {
+  margin-left: auto;
+  margin-right: auto;
+  height: 320px;
+  width: 320px;
+  box-shadow: #34495e 0 0 0 2px;
+}
+
+.gamestatus {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  margin-top: 20px;
+
+  .gameboard {
+    margin-right: 0px;
+  }
+}
+.gameboard {
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: #34495e 0 0 0 1px;
+}
+.gamecell {
+  display: block;
+  float: left;
+  background: #253544;
+  box-shadow: hsl(210, 29%, 29%) 0 0 0 1px inset;
+
+  &.is-empty {
+    background: transparent;
+  }
+  &.is-selected {
+    background: rgba(41, 128, 185, 0.3);
+    box-shadow: #2980b9 0 0 0 1px inset, #2980b9 0 0 0 1px;
+    z-index: 1;
+    position: relative;
+  }
+  &.is-yay {
+    background: #2ecc71;
+  }
+  &.is-boo {
+    background: #e74c3c;
+  }
+  &.is-mine {
+    box-shadow: #354a5f 0 0 0 1px inset, rgb(231, 76, 60) 0 0 0 3px inset;
+  }
 }

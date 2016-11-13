@@ -2,12 +2,10 @@ import { PropTypes } from 'react'
 
 const Navbar = ({ left, children, right }) =>
   <nav className="uk-navbar uk-navbar-attached">
-    <div className="uk-container uk-container-center">
-      {left}
-      {right}
-      <div className="uk-navbar-content uk-navbar-center">
-        {children}
-      </div>
+    {left}
+    {right}
+    <div className="uk-navbar-content uk-navbar-center">
+      {children}
     </div>
   </nav>
 
