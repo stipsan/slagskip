@@ -219,7 +219,7 @@ class Setup extends Component {
             </Grid>
           </SetupCanvas>
         </div>
-        <div></div>
+        <div>S<br />S<br />S</div>
       </section>
     </DocumentTitle>)
   }
