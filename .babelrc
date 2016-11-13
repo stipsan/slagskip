@@ -1,9 +1,10 @@
 {
-  "presets": ["react", ["es2015", {"modules": false}], "stage-0"],
+  "presets": ["react-app"],
+  "plugins": [
+    "transform-export-extensions",
+    "transform-flow-strip-types",
+  ],
   "env": {
-    "production": {
-      "presets": []
-    },
     "development": {
       "presets": ["react-hmre"]
     },
