@@ -1,6 +1,7 @@
 @grid-size: 320px;
 
 .tm-game-background {
+  min-height: 100%;
   background: #2c3e50;
 
   .uk-navbar {
@@ -22,4 +23,44 @@
 }
 :last-child > .tm-scoreboard-position {
   color: #e67e22;
+}
+
+.versusGrid, .versusGrid {
+  margin-left: auto;
+  margin-right: auto;
+  height: 320px;
+  width: 320px;
+  box-shadow: #34495e 0 0 0 2px;
+}
+.gameboard {
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: #34495e 0 0 0 2px;
+}
+.gamecell {
+  display: block;
+  float: left;
+  height: 32px;
+  width: 32px;
+  background: #253544;
+  box-shadow: hsl(210, 29%, 29%) 0 0 0 1px inset;
+
+  &.is-empty {
+    background: transparent;
+  }
+  &.is-selected {
+    background: rgba(41, 128, 185, 0.3);
+    box-shadow: #2980b9 0 0 0 1px inset, #2980b9 0 0 0 1px;
+    z-index: 1;
+    position: relative;
+  }
+  &.is-yay {
+    background: #2ecc71;
+  }
+  &.is-boo {
+    background: #e74c3c;
+  }
+  &.is-mine {
+    box-shadow: #354a5f 0 0 0 1px inset, rgb(231, 76, 60) 0 0 0 3px inset;
+  }
 }

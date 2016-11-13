@@ -80,19 +80,15 @@ class Game extends Component {
 
     return (
       <DocumentTitle title={title}>
-        <section className="tm-game-background uk-height-1-1">
+        <section className="tm-game-background">
           <Navbar left={navbarLeft} />
           {viewer && versusFriend && <Scoreboard players={[
             { ...viewer.toJS(), score: viewerScore },
             { ...versusFriend.toJS(), score: versusScore }
           ]} />}
           <div className="tm-match uk-grid uk-flex-middle">
-            <div className="uk-width-medium-1-2">
-
-            </div>
-            <div className="uk-width-medium-1-2">
-
-            </div>
+            <div className="uk-width-medium-1-2" />
+            <div className="uk-width-medium-1-2" />
           </div>
           <div className={cx('scores')}>
             <div className={cx('score')}>
@@ -117,18 +113,18 @@ class Game extends Component {
               'victory' !== gameState &&
               'defeat' !== gameState &&
               (-1 === selectedCell ?
-              'Select a spot' :
-              ('victory' !== gameState && 'defeated' !== gameState && (
-                <div className={cx('readyToFire')}>
-                  {'Ready?'}
-                  <button
-                    className={cx('sendButton')}
-                    onClick={this.handleFireCannon}
-                  >
-                    {'Send'}
-                  </button>
-                </div>
-              )))
+                'Select a spot' :
+                ('victory' !== gameState && 'defeated' !== gameState && (
+                  <div className={cx('readyToFire')}>
+                    {'Ready?'}
+                    <button
+                      className={cx('sendButton')}
+                      onClick={this.handleFireCannon}
+                    >
+                      {'Send'}
+                    </button>
+                  </div>
+                )))
             }
             {'waiting' === gameState && 'victory' !== gameState && 'defeat' !== gameState && (
               <div className={cx('waitingForOpponent')}>
@@ -152,6 +148,7 @@ class Game extends Component {
               versus={versusFriend}
             />
           )}
+          <br />
           {'loading' !== gameState && (
             <ViewerBoard
               score={versusScore}
