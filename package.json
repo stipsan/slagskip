@@ -158,7 +158,7 @@
     "redux-immutable": "3.0.8",
     "redux-saga": "0.12.1",
     "redux-saga-sc": "2.0.5",
-    "remote-redux-devtools": "0.5.3",
+    "remote-redux-devtools": "0.5.4",
     "sass-loader": "4.0.2",
     "socketcluster": "5.0.22",
     "socketcluster-client": "5.0.18",
