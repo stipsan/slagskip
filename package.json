@@ -184,7 +184,7 @@
     "eslint-import-resolver-webpack": "0.7.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "3.0.1",
-    "eslint-plugin-react": "6.7.0",
+    "eslint-plugin-react": "6.7.1",
     "foreman": "2.0.0",
     "growl": "1.9.2",
     "ignore-styles": "5.0.1",
