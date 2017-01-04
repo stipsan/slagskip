@@ -4,7 +4,6 @@ import Game from '../components/Game'
 import {
   loadGame,
   resumeGame,
-  pickSpot,
   fetchFriends,
  } from '../actions'
 
@@ -35,9 +34,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadGame(id))
     // @TODO temp measure this is
     dispatch(fetchFriends())
-  },
-  pickSpot: position => {
-    dispatch(pickSpot(position))
   },
   dispatch,
 })

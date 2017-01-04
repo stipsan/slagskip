@@ -25,7 +25,6 @@ let plugins = 'production' === process.env.NODE_ENV ? [
     'process.env.AUTO_RECONNECT_OPTIONS': 'null',
     'process.env.NODE_ENV': JSON.stringify('production'),
   })),
-  new webpack.optimize.DedupePlugin(),
   new webpack.optimize.AggressiveMergingPlugin(),
   new webpack.LoaderOptionsPlugin({
     minimize: true,
@@ -44,7 +43,8 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   }),
 ] : [
   new webpack.LoaderOptionsPlugin({
-    debug: true
+    debug: true,
+
   }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin(),
@@ -53,6 +53,17 @@ let plugins = 'production' === process.env.NODE_ENV ? [
   })),
   new DashboardPlugin(),
 ]
+
+plugins = plugins.concat(
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      uikitLoader: {
+        theme: 'src/client/theme.less',
+        test: /\.less$/,
+      }
+    }
+  })
+)
 
 plugins = plugins.concat(new ExtractTextPlugin({
   filename: '[chunkhash].css',
@@ -119,12 +130,7 @@ module.exports = {
     noInfo: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
-  uikitLoader: {
-    theme: 'src/client/theme.less',
-    test: /\.less$/,
-  },
   resolve: {
-    root: __dirname,
     modules: [__dirname, 'node_modules'],
     alias,
   },
@@ -138,14 +144,12 @@ module.exports = {
   },
   plugins,
   module: {
-    preLoaders: [
-        { test: /\.json$/, loader: 'json' },
-    ],
-    loaders: [
-      { test: /\.js?$/, exclude: /node_modules/, loader: 'babel' },
+    rules: [
+      { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.less/, loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style',
-        loader: `css?${cssnanoOptIn}!less!uikit`
+        fallbackLoader: 'style-loader',
+        loader: `css-loader?${cssnanoOptIn}!less-loader!uikit-loader`
       }) },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
       {
