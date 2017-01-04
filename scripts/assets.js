@@ -1,10 +1,10 @@
 const imagemin = require('imagemin')
-const imageminOptipng = require('imagemin-optipng')
+const imageminPngquant = require('imagemin-pngquant')
 const imageminSvgo = require('imagemin-svgo')
 const path = require('path')
 const vfs = require('vinyl-fs')
 
-const optipngOptions = { optimizationLevel: 7 }
+const pngQuantOptions = { quality: '65-80' }
 const svgoOptions = {
   plugins: [
     { removeTitle: true },
@@ -13,7 +13,7 @@ const svgoOptions = {
 }
 const options = {
   use: [
-    imageminOptipng(optipngOptions),
+    imageminPngquant(pngQuantOptions),
     imageminSvgo(svgoOptions)
   ]
 }
@@ -49,7 +49,7 @@ imagemin(
 imagemin(
   // [path.resolve(__dirname, '..', 'assets', 'exports', 'bot', '*.png')],
   // path.resolve(__dirname, '..', 'public', 'bot'),
-  { use: [imageminOptipng(optipngOptions)] }
+  { use: [imageminPngquant(pngQuantOptions)] }
 )
 
 // browsers
