@@ -156,7 +156,7 @@
     "redux": "3.6.0",
     "redux-form": "6.5.0",
     "redux-form-uikit": "2.0.1",
-    "redux-immutable": "3.0.10",
+    "redux-immutable": "3.0.11",
     "redux-saga": "0.14.3",
     "redux-saga-sc": "2.0.5",
     "remote-redux-devtools": "0.5.7",
