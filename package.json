@@ -136,7 +136,7 @@
     "react-addons-pure-render-mixin": "15.4.2",
     "react-addons-shallow-compare": "15.4.2",
     "react-collapse": "3.2.0",
-    "react-dnd": "2.2.0",
+    "react-dnd": "2.2.3",
     "react-dnd-html5-backend": "2.2.1",
     "react-dnd-touch-backend": "0.3.5",
     "react-document-title": "2.0.2",
