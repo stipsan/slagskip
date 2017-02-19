@@ -195,7 +195,7 @@
     "react-test-renderer": "15.4.2",
     "remotedev-server": "0.3.0-beta-2",
     "webpack-dashboard": "0.3.0",
-    "webpack-dev-server": "2.3.0"
+    "webpack-dev-server": "2.4.0"
   },
   "_moduleAliases": {
     "epic-client": "src/client",
