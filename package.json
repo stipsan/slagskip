@@ -112,7 +112,7 @@
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "0.10.0",
     "hiredis": "0.5.0",
-    "html-minifier": "3.3.2",
+    "html-minifier": "3.3.3",
     "imagemin": "5.2.2",
     "imagemin-pngquant": "^5.0.0",
     "imagemin-svgo": "5.2.0",
