@@ -164,7 +164,7 @@
     "socketcluster": "5.7.1",
     "socketcluster-client": "5.2.5",
     "stattic-parseurl": "0.1.0",
-    "style-loader": "0.13.1",
+    "style-loader": "0.13.2",
     "uikit": "2.27.2",
     "uikit-loader": "2.0.10",
     "uikit-react": "2.1.1",
