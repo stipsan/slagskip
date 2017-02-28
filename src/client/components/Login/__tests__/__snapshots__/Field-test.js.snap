@@ -1,10 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`<Login.Field /> should render correctly 1`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-email" />
+      className="uk-icon-email"
+    />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
@@ -15,11 +20,13 @@ exports[`<Login.Field /> should render correctly 1`] = `
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
@@ -27,11 +34,14 @@ exports[`<Login.Field /> should render correctly 1`] = `
 
 exports[`<Login.Field /> should render correctly 2`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-email" />
+      className="uk-icon-email"
+    />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
@@ -43,11 +53,13 @@ exports[`<Login.Field /> should render correctly 2`] = `
       onDrop={[Function]}
       onFocus={[Function]}
       type="email"
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
@@ -55,11 +67,14 @@ exports[`<Login.Field /> should render correctly 2`] = `
 
 exports[`<Login.Field /> should render correctly 3`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-email" />
+      className="uk-icon-email"
+    />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large uk-form-danger"
@@ -70,11 +85,13 @@ exports[`<Login.Field /> should render correctly 3`] = `
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={true}>
+    isOpened={true}
+  >
     Required
   </Collapse>
 </div>
@@ -82,11 +99,14 @@ exports[`<Login.Field /> should render correctly 3`] = `
 
 exports[`<Login.Field /> should render correctly 4`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-email" />
+      className="uk-icon-email"
+    />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
@@ -97,11 +117,13 @@ exports[`<Login.Field /> should render correctly 4`] = `
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
-      value="tony@stark.enterprise" />
+      value="tony@stark.enterprise"
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
@@ -109,11 +131,14 @@ exports[`<Login.Field /> should render correctly 4`] = `
 
 exports[`<Login.Field /> should render correctly 5`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-spinner uk-icon-spin" />
+      className="uk-icon-spinner uk-icon-spin"
+    />
     <input
       autoComplete="email"
       className="uk-width-1-1 uk-form-large"
@@ -124,11 +149,13 @@ exports[`<Login.Field /> should render correctly 5`] = `
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
@@ -136,11 +163,14 @@ exports[`<Login.Field /> should render correctly 5`] = `
 
 exports[`<Login.Field /> should render correctly 6`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-lock" />
+      className="uk-icon-lock"
+    />
     <input
       autoComplete="password"
       className="uk-width-1-1 uk-form-large"
@@ -153,11 +183,13 @@ exports[`<Login.Field /> should render correctly 6`] = `
       onFocus={[Function]}
       required={true}
       type="password"
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
@@ -165,11 +197,14 @@ exports[`<Login.Field /> should render correctly 6`] = `
 
 exports[`<Login.Field /> should render correctly 7`] = `
 <div
-  className="uk-form-row">
+  className="uk-form-row"
+>
   <div
-    className="uk-form-icon uk-width-1-1">
+    className="uk-form-icon uk-width-1-1"
+  >
     <i
-      className="uk-icon-username" />
+      className="uk-icon-username"
+    />
     <input
       autoComplete="name"
       className="uk-width-1-1 uk-form-large"
@@ -181,11 +216,13 @@ exports[`<Login.Field /> should render correctly 7`] = `
       onDrop={[Function]}
       onFocus={[Function]}
       type="text"
-      value="" />
+      value=""
+    />
   </div>
   <Collapse
     className="uk-form-help-block uk-text-left"
-    isOpened={false}>
+    isOpened={false}
+  >
     &nbsp;
   </Collapse>
 </div>
