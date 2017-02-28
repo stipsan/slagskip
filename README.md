@@ -16,6 +16,8 @@ It's also meant to serve as a reference for others who wish to embark on similar
 
 # FAQ
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/stipsan/epic.svg)](https://greenkeeper.io/)
+
 ## Why is (https://epic.vg) loading faster than lightning?
 
 It's thanks to Herokus' Standard 1x dynos and CloudFlare's CDN combined with very agressive caching on all layers of the stack.
