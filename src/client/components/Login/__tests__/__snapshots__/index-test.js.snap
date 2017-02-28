@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`<Login /> should render correctly 1`] = `
 <div
-  className="uk-flex uk-flex-column uk-height-1-1">
+  className="uk-flex uk-flex-column uk-height-1-1"
+>
   <div
     className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
     style={
@@ -8,23 +11,27 @@ exports[`<Login /> should render correctly 1`] = `
         "minHeight": "460px",
         "overflow": "auto",
       }
-    }>
+    }
+  >
     <div
       className="uk-text-center"
       style={
         Object {
           "width": "250px",
         }
-      }>
+      }
+    >
       <img
         className="uk-margin-bottom"
         height="64"
         role="presentation"
         src="/favicons/icon.svg"
-        width="64" />
+        width="64"
+      />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <Field
           component={[Function]}
           errorDisplay="block"
@@ -35,10 +42,12 @@ exports[`<Login /> should render correctly 1`] = `
           required={true}
           type="email"
           width="full"
-          wrapperClassName="uk-width-1-1" />
+          wrapperClassName="uk-width-1-1"
+        />
         <Collapse
           className="uk-form-row"
-          isOpened={true}>
+          isOpened={true}
+        >
           <Field
             component={[Function]}
             errorDisplay="block"
@@ -49,11 +58,13 @@ exports[`<Login /> should render correctly 1`] = `
             required={true}
             type="password"
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <Collapse
           className="uk-form-row"
-          isOpened={false}>
+          isOpened={false}
+        >
           <Field
             autoComplete="name"
             component={[Function]}
@@ -64,28 +75,34 @@ exports[`<Login /> should render correctly 1`] = `
             placeholder="Username"
             required={true}
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <div
-          className="uk-form-row">
+          className="uk-form-row"
+        >
           <Button
             className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
             large={true}
             primary={true}
-            type="submit">
+            type="submit"
+          >
             <i
-              className="uk-icon-chevron-right" />
+              className="uk-icon-chevron-right"
+            />
             Register
           </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
-          isOpened={false}>
+          isOpened={false}
+        >
           <a
             className="uk-float-right uk-link uk-link-muted"
             onClick={[Function]}
-            style={Object {}}>
+            style={Object {}}
+          >
             Forgot your password?
           </a>
         </Collapse>
@@ -93,13 +110,16 @@ exports[`<Login /> should render correctly 1`] = `
     </div>
   </div>
   <div
-    className="uk-flex-item-none">
+    className="uk-flex-item-none"
+  >
     <ul
-      className="uk-subnav uk-subnav-line uk-flex-center">
+      className="uk-subnav uk-subnav-line uk-flex-center"
+    >
       <li>
         <a
           onClick={[Function]}
-          style={Object {}}>
+          style={Object {}}
+        >
           About
         </a>
       </li>
@@ -110,7 +130,8 @@ exports[`<Login /> should render correctly 1`] = `
 
 exports[`<Login /> should render correctly 2`] = `
 <div
-  className="uk-flex uk-flex-column uk-height-1-1">
+  className="uk-flex uk-flex-column uk-height-1-1"
+>
   <div
     className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
     style={
@@ -118,23 +139,27 @@ exports[`<Login /> should render correctly 2`] = `
         "minHeight": "460px",
         "overflow": "auto",
       }
-    }>
+    }
+  >
     <div
       className="uk-text-center"
       style={
         Object {
           "width": "250px",
         }
-      }>
+      }
+    >
       <img
         className="uk-margin-bottom"
         height="64"
         role="presentation"
         src="/favicons/icon.svg"
-        width="64" />
+        width="64"
+      />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <Field
           component={[Function]}
           errorDisplay="block"
@@ -145,10 +170,12 @@ exports[`<Login /> should render correctly 2`] = `
           required={true}
           type="email"
           width="full"
-          wrapperClassName="uk-width-1-1" />
+          wrapperClassName="uk-width-1-1"
+        />
         <Collapse
           className="uk-form-row"
-          isOpened={true}>
+          isOpened={true}
+        >
           <Field
             component={[Function]}
             errorDisplay="block"
@@ -159,11 +186,13 @@ exports[`<Login /> should render correctly 2`] = `
             required={true}
             type="password"
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <Collapse
           className="uk-form-row"
-          isOpened={false}>
+          isOpened={false}
+        >
           <Field
             autoComplete="name"
             component={[Function]}
@@ -174,28 +203,34 @@ exports[`<Login /> should render correctly 2`] = `
             placeholder="Username"
             required={true}
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <div
-          className="uk-form-row">
+          className="uk-form-row"
+        >
           <Button
             className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
             large={true}
             primary={true}
-            type="submit">
+            type="submit"
+          >
             <i
-              className="uk-icon-chevron-right" />
+              className="uk-icon-chevron-right"
+            />
             Login
           </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
-          isOpened={true}>
+          isOpened={true}
+        >
           <a
             className="uk-float-right uk-link uk-link-muted"
             onClick={[Function]}
-            style={Object {}}>
+            style={Object {}}
+          >
             Forgot your password?
           </a>
         </Collapse>
@@ -203,13 +238,16 @@ exports[`<Login /> should render correctly 2`] = `
     </div>
   </div>
   <div
-    className="uk-flex-item-none">
+    className="uk-flex-item-none"
+  >
     <ul
-      className="uk-subnav uk-subnav-line uk-flex-center">
+      className="uk-subnav uk-subnav-line uk-flex-center"
+    >
       <li>
         <a
           onClick={[Function]}
-          style={Object {}}>
+          style={Object {}}
+        >
           About
         </a>
       </li>
@@ -220,7 +258,8 @@ exports[`<Login /> should render correctly 2`] = `
 
 exports[`<Login /> should render correctly 3`] = `
 <div
-  className="uk-flex uk-flex-column uk-height-1-1">
+  className="uk-flex uk-flex-column uk-height-1-1"
+>
   <div
     className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
     style={
@@ -228,23 +267,27 @@ exports[`<Login /> should render correctly 3`] = `
         "minHeight": "460px",
         "overflow": "auto",
       }
-    }>
+    }
+  >
     <div
       className="uk-text-center"
       style={
         Object {
           "width": "250px",
         }
-      }>
+      }
+    >
       <img
         className="uk-margin-bottom"
         height="64"
         role="presentation"
         src="/favicons/icon.svg"
-        width="64" />
+        width="64"
+      />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <Field
           component={[Function]}
           errorDisplay="block"
@@ -255,10 +298,12 @@ exports[`<Login /> should render correctly 3`] = `
           required={true}
           type="email"
           width="full"
-          wrapperClassName="uk-width-1-1" />
+          wrapperClassName="uk-width-1-1"
+        />
         <Collapse
           className="uk-form-row"
-          isOpened={true}>
+          isOpened={true}
+        >
           <Field
             component={[Function]}
             errorDisplay="block"
@@ -269,11 +314,13 @@ exports[`<Login /> should render correctly 3`] = `
             required={true}
             type="password"
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <Collapse
           className="uk-form-row"
-          isOpened={true}>
+          isOpened={true}
+        >
           <Field
             autoComplete="name"
             component={[Function]}
@@ -284,28 +331,34 @@ exports[`<Login /> should render correctly 3`] = `
             placeholder="Username"
             required={true}
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <div
-          className="uk-form-row">
+          className="uk-form-row"
+        >
           <Button
             className="uk-width-1-1 uk-form-icon"
             disabled={undefined}
             large={true}
             primary={true}
-            type="submit">
+            type="submit"
+          >
             <i
-              className="uk-icon-chevron-right" />
+              className="uk-icon-chevron-right"
+            />
             Register
           </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
-          isOpened={false}>
+          isOpened={false}
+        >
           <a
             className="uk-float-right uk-link uk-link-muted"
             onClick={[Function]}
-            style={Object {}}>
+            style={Object {}}
+          >
             Forgot your password?
           </a>
         </Collapse>
@@ -313,13 +366,16 @@ exports[`<Login /> should render correctly 3`] = `
     </div>
   </div>
   <div
-    className="uk-flex-item-none">
+    className="uk-flex-item-none"
+  >
     <ul
-      className="uk-subnav uk-subnav-line uk-flex-center">
+      className="uk-subnav uk-subnav-line uk-flex-center"
+    >
       <li>
         <a
           onClick={[Function]}
-          style={Object {}}>
+          style={Object {}}
+        >
           About
         </a>
       </li>
@@ -330,7 +386,8 @@ exports[`<Login /> should render correctly 3`] = `
 
 exports[`<Login /> should render correctly 4`] = `
 <div
-  className="uk-flex uk-flex-column uk-height-1-1">
+  className="uk-flex uk-flex-column uk-height-1-1"
+>
   <div
     className="uk-flex-item-auto uk-flex uk-flex-center uk-flex-middle"
     style={
@@ -338,23 +395,27 @@ exports[`<Login /> should render correctly 4`] = `
         "minHeight": "460px",
         "overflow": "auto",
       }
-    }>
+    }
+  >
     <div
       className="uk-text-center"
       style={
         Object {
           "width": "250px",
         }
-      }>
+      }
+    >
       <img
         className="uk-margin-bottom"
         height="64"
         role="presentation"
         src="/favicons/icon.svg"
-        width="64" />
+        width="64"
+      />
       <form
         className="uk-panel uk-panel-box uk-form uk-text-left"
-        onSubmit={[Function]}>
+        onSubmit={[Function]}
+      >
         <Field
           component={[Function]}
           errorDisplay="block"
@@ -365,10 +426,12 @@ exports[`<Login /> should render correctly 4`] = `
           required={true}
           type="email"
           width="full"
-          wrapperClassName="uk-width-1-1" />
+          wrapperClassName="uk-width-1-1"
+        />
         <Collapse
           className="uk-form-row"
-          isOpened={true}>
+          isOpened={true}
+        >
           <Field
             component={[Function]}
             errorDisplay="block"
@@ -379,11 +442,13 @@ exports[`<Login /> should render correctly 4`] = `
             required={true}
             type="password"
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <Collapse
           className="uk-form-row"
-          isOpened={false}>
+          isOpened={false}
+        >
           <Field
             autoComplete="name"
             component={[Function]}
@@ -394,28 +459,34 @@ exports[`<Login /> should render correctly 4`] = `
             placeholder="Username"
             required={true}
             width="full"
-            wrapperClassName="uk-width-1-1" />
+            wrapperClassName="uk-width-1-1"
+          />
         </Collapse>
         <div
-          className="uk-form-row">
+          className="uk-form-row"
+        >
           <Button
             className="uk-width-1-1 uk-form-icon"
             disabled={true}
             large={true}
             primary={true}
-            type="submit">
+            type="submit"
+          >
             <i
-              className="uk-icon-spinner uk-icon-spin" />
+              className="uk-icon-spinner uk-icon-spin"
+            />
             Register
           </Button>
         </div>
         <Collapse
           className="uk-form-row uk-text-small"
-          isOpened={false}>
+          isOpened={false}
+        >
           <a
             className="uk-float-right uk-link uk-link-muted"
             onClick={[Function]}
-            style={Object {}}>
+            style={Object {}}
+          >
             Forgot your password?
           </a>
         </Collapse>
@@ -423,13 +494,16 @@ exports[`<Login /> should render correctly 4`] = `
     </div>
   </div>
   <div
-    className="uk-flex-item-none">
+    className="uk-flex-item-none"
+  >
     <ul
-      className="uk-subnav uk-subnav-line uk-flex-center">
+      className="uk-subnav uk-subnav-line uk-flex-center"
+    >
       <li>
         <a
           onClick={[Function]}
-          style={Object {}}>
+          style={Object {}}
+        >
           About
         </a>
       </li>
