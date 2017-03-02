@@ -107,7 +107,7 @@
     "classnames-loader": "2.0.0",
     "compression": "1.6.2",
     "css-loader": "0.26.2",
-    "express": "4.14.1",
+    "express": "5.0.0-alpha.4",
     "express-history-spa-fallback": "3.0.0",
     "extract-text-webpack-plugin": "2.0.0",
     "file-loader": "0.10.1",
