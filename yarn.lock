@@ -2001,9 +2001,9 @@ concat-stream@^1.4.6, concat-stream@^1.4.7:
     readable-stream "~2.0.0"
     typedarray "~0.0.5"
 
-concurrently@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-3.3.0.tgz#d8eb7a9765fdf0b28d12220dc058e14d03c7dd4f"
+concurrently@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-3.4.0.tgz#60662b3defde07375bae19aac0ab780ec748ba79"
   dependencies:
     chalk "0.5.1"
     commander "2.6.0"
@@ -2474,15 +2474,6 @@ diffie-hellman@^5.0.0:
 disposables@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/disposables/-/disposables-1.0.1.tgz#064727a25b54f502bd82b89aa2dfb8df9f1b39e3"
-
-dnd-core@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-2.0.2.tgz#4528da4fbeb1abb6c308414b2d2e8389f3514646"
-  dependencies:
-    asap "^2.0.3"
-    invariant "^2.0.0"
-    lodash "^4.2.0"
-    redux "^3.2.0"
 
 dnd-core@^2.2.4:
   version "2.2.4"
@@ -6627,22 +6618,13 @@ react-dnd-touch-backend@0.3.5:
     invariant "^2.1.1"
     react-dnd "^2.0.0"
 
-react-dnd@2.2.4:
+react-dnd@2.2.4, react-dnd@^2.0.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.2.4.tgz#8982d557cc620b1f201a8b6ebda894b622af903f"
   dependencies:
     disposables "^1.0.1"
     dnd-core "^2.2.4"
     hoist-non-react-statics "^1.2.0"
-    invariant "^2.1.0"
-    lodash "^4.2.0"
-
-react-dnd@^2.0.0:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.1.4.tgz#dd2afeddddd5ff4507d795a5bd44361c84374c0f"
-  dependencies:
-    disposables "^1.0.1"
-    dnd-core "^2.0.1"
     invariant "^2.1.0"
     lodash "^4.2.0"
 
@@ -7916,13 +7898,13 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.1.0:
+supports-color@^3.1.0, supports-color@^3.1.1, supports-color@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
     has-flag "^1.0.0"
 
-supports-color@^3.1.1, supports-color@^3.1.2, supports-color@^3.2.3:
+supports-color@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
@@ -8184,18 +8166,9 @@ ua-parser-js@^0.7.9:
   version "0.7.11"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.11.tgz#3741e2dd2fb09251a960f9ef076cd0cc72eaf6a0"
 
-uglify-js@2.8.x:
+uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.7.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.5.tgz#ae9f5b143f4183d99a1dabb350e243fdc06641ed"
-  dependencies:
-    async "~0.2.6"
-    source-map "~0.5.1"
-    uglify-to-browserify "~1.0.0"
-    yargs "~3.10.0"
-
-uglify-js@^2.6, uglify-js@^2.7.5:
-  version "2.7.5"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
     async "~0.2.6"
     source-map "~0.5.1"
