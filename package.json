@@ -180,7 +180,7 @@
     "codeclimate-test-reporter": "0.4.1",
     "concurrently": "3.3.0",
     "coveralls": "2.11.16",
-    "eslint": "3.16.1",
+    "eslint": "3.17.0",
     "eslint-config-stipsan": "1.1.2",
     "eslint-import-resolver-webpack": "0.8.1",
     "eslint-plugin-import": "2.2.0",
