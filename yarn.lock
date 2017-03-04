@@ -2001,9 +2001,9 @@ concat-stream@^1.4.6, concat-stream@^1.4.7:
     readable-stream "~2.0.0"
     typedarray "~0.0.5"
 
-concurrently@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-3.3.0.tgz#d8eb7a9765fdf0b28d12220dc058e14d03c7dd4f"
+concurrently@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-3.4.0.tgz#60662b3defde07375bae19aac0ab780ec748ba79"
   dependencies:
     chalk "0.5.1"
     commander "2.6.0"
@@ -7898,13 +7898,13 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.1.0:
+supports-color@^3.1.0, supports-color@^3.1.1, supports-color@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
     has-flag "^1.0.0"
 
-supports-color@^3.1.1, supports-color@^3.1.2, supports-color@^3.2.3:
+supports-color@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
