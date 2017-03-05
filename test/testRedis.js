@@ -1,4 +1,6 @@
-import bcrypt from 'bcrypt'
+// @TODO https://github.com/yarnpkg/yarn/issues/2266
+//import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import RedisMock from 'ioredis-mock'
 
 const lastVisit = '2016-03-22T00:15:46.757Z'

@@ -1,4 +1,6 @@
-import bcrypt from 'bcrypt'
+// @TODO https://github.com/yarnpkg/yarn/issues/2266
+//import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import invariant from 'invariant'
 
 import { authenticate } from './auth'
