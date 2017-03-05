@@ -2782,21 +2782,21 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^5.0.2:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-5.0.3.tgz#9714ac35ec2cd7fab0d44d148a9f91db2944074d"
+eslint-config-airbnb-base@^11.1.0:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.1.1.tgz#61e9e89e4eb89f474f6913ac817be9fbb59063e0"
 
-eslint-config-airbnb@10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-10.0.1.tgz#a470108646d6c45e1f639a03f11d504a1aa4aedc"
+eslint-config-airbnb@14.1.0:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-14.1.0.tgz#355d290040bbf8e00bf8b4b19f4b70cbe7c2317f"
   dependencies:
-    eslint-config-airbnb-base "^5.0.2"
+    eslint-config-airbnb-base "^11.1.0"
 
-eslint-config-stipsan@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-stipsan/-/eslint-config-stipsan-1.1.2.tgz#1a8359ead9fc8125332a236f15630a5f87d9eab6"
+eslint-config-stipsan@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-stipsan/-/eslint-config-stipsan-1.2.0.tgz#e41175da7bab5a3e14df7374f407a300b87d899c"
   dependencies:
-    eslint-config-airbnb "10.0.1"
+    eslint-config-airbnb "14.1.0"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
