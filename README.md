@@ -36,13 +36,6 @@ If installing a local redis isn't your cup of tea, hit the purple `Deploy` up to
 Be sure to install both the React and Redux Devtools for an developer experience like no other.
 Complete with Hot Reload and Time Travel, making web development more fun than ever!
 
-## Why no RelayJS?
-
-RelayJS and GraphQL don't support realtime communication out of the box yet.
-Some have managed to marry websockets and Relay [already](https://github.com/facebook/relay/issues/652#issuecomment-162299541), but I've decided to wait for it to [land](https://github.com/facebook/relay/issues/541) in the core.
-This way I can move fast and not worry about bugs due to using unstable dependencies.
-Once RelayJS release the new Subscriptions API I'll revisit it and probably fork this project and port it to RelayJS to see how the two stack up against each other.
-
 ## Heroku pipeline
 
 This project is setup in a |pipeline](https://devcenter.heroku.com/articles/pipelines#deployment-with-pipelines) on Heroku.
