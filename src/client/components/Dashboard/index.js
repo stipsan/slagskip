@@ -10,6 +10,13 @@ import { Modal } from 'uikit-react'
 import Navbar from '../Navbar'
 import { logoutUser } from '../../actions'
 
+class OpenModal extends Component {
+
+  render() {
+    return <a onClick={this.props.onClick} className="uk-navbar-toggle" />
+  }
+}
+
 class Dashboard extends Component {
 
   static contextTypes = {
@@ -24,9 +31,6 @@ class Dashboard extends Component {
   shouldComponentUpdate = shouldComponentUpdate
 
   handleLogout = () => this.props.dispatch(logoutUser());
-
-  modalTarget = ({ handleOpen }) =>
-    <a onClick={handleOpen} className="uk-navbar-toggle" />
 
   render() {
     const { children, username } = this.props
@@ -67,7 +71,7 @@ class Dashboard extends Component {
           )}
           right={(
             <div className="uk-navbar-flip">
-              <Modal target={modalTarget}>
+              <Modal target={<OpenModal />}>
                 <ul className="uk-nav uk-nav-side">
                   <li><Link to="/profile">Profile</Link></li>
                   <li><Link to="/settings">Settings</Link></li>
