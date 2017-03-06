@@ -712,9 +712,9 @@ babel-jest@19.0.0, babel-jest@^19.0.0:
     babel-plugin-istanbul "^4.0.0"
     babel-preset-jest "^19.0.0"
 
-babel-loader@6.3.2:
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-6.3.2.tgz#18de4566385578c1b4f8ffe6cbc668f5e2a5ef03"
+babel-loader@6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-6.4.0.tgz#e98c239662a22533b9e7a49594ef216d7635ea28"
   dependencies:
     find-cache-dir "^0.1.1"
     loader-utils "^0.2.16"
