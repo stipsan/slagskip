@@ -514,21 +514,21 @@ babel-cli@6.23.0:
   optionalDependencies:
     chokidar "^1.6.1"
 
-babel-code-frame@^6.11.0, babel-code-frame@^6.16.0:
-  version "6.20.0"
-  resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.20.0.tgz#b968f839090f9a8bc6d41938fb96cb84f7387b26"
-  dependencies:
-    chalk "^1.1.0"
-    esutils "^2.0.2"
-    js-tokens "^2.0.0"
-
-babel-code-frame@^6.22.0:
+babel-code-frame@^6.11.0, babel-code-frame@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.22.0.tgz#027620bee567a88c32561574e7fd0801d33118e4"
   dependencies:
     chalk "^1.1.0"
     esutils "^2.0.2"
     js-tokens "^3.0.0"
+
+babel-code-frame@^6.16.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.20.0.tgz#b968f839090f9a8bc6d41938fb96cb84f7387b26"
+  dependencies:
+    chalk "^1.1.0"
+    esutils "^2.0.2"
+    js-tokens "^2.0.0"
 
 babel-core@^6.0.0, babel-core@^6.23.0:
   version "6.23.1"
@@ -2176,9 +2176,9 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-css-loader@0.26.2:
-  version "0.26.2"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-0.26.2.tgz#a9cd4c2b1a559b45d8efc04fc311ab5d2aaccb9d"
+css-loader@0.26.4:
+  version "0.26.4"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-0.26.4.tgz#b61e9e30db94303e6ffc892f10ecd09ad025a1fd"
   dependencies:
     babel-code-frame "^6.11.0"
     css-selector-tokenizer "^0.7.0"
