@@ -7644,7 +7644,7 @@ socket.io@^1.4.8:
     socket.io-client "1.5.1"
     socket.io-parser "2.3.1"
 
-socketcluster-client@5.3.0:
+socketcluster-client@5.3.0, socketcluster-client@^5.1.1:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/socketcluster-client/-/socketcluster-client-5.3.0.tgz#3491f5e7319a9361c54de6f718582b7ffec1fed1"
   dependencies:
@@ -7657,20 +7657,6 @@ socketcluster-client@5.3.0:
     sc-errors "1.0.x"
     sc-formatter "3.0.x"
     ws "1.1.2"
-
-socketcluster-client@^5.1.1:
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/socketcluster-client/-/socketcluster-client-5.2.5.tgz#40b4e97a0a6c5b2f5177f8f96dbf11b373444110"
-  dependencies:
-    base-64 "0.1.0"
-    linked-list "0.1.0"
-    lodash.clonedeep "4.5.0"
-    querystring "0.2.0"
-    sc-channel "1.0.x"
-    sc-emitter "1.x.x"
-    sc-errors "1.0.x"
-    sc-formatter "3.0.x"
-    ws "1.1.1"
 
 socketcluster-server@5.x.x, socketcluster-server@~5.10.0:
   version "5.10.0"
@@ -7689,7 +7675,42 @@ socketcluster-server@5.x.x, socketcluster-server@~5.10.0:
     uws "0.13.0"
     ws "1.1.1"
 
-socketcluster@5.8.0, socketcluster@^5.0.4:
+socketcluster-server@~5.10.1:
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/socketcluster-server/-/socketcluster-server-5.10.1.tgz#f4cb88081bb409645034726d631fc89e3e8ad227"
+  dependencies:
+    async "2.0.0"
+    base64id "0.1.0"
+    lodash.clonedeep "4.5.0"
+    sc-auth "~3.2.1"
+    sc-domain "~1.0.1"
+    sc-emitter "~1.1.0"
+    sc-errors "~1.1.0"
+    sc-formatter "~3.0.0"
+    sc-simple-broker "~2.0.0"
+    uuid "3.0.1"
+    uws "0.13.0"
+    ws "1.1.1"
+
+socketcluster@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/socketcluster/-/socketcluster-5.9.0.tgz#dcd6e0e165c0d857cc5f21d3f414187330d8bdaa"
+  dependencies:
+    async "2.0.0"
+    base64id "0.1.0"
+    fs-extra "2.0.0"
+    inquirer "1.1.3"
+    minimist "1.1.0"
+    sc-auth "~3.2.1"
+    sc-broker-cluster "~4.0.0"
+    sc-domain "~1.0.1"
+    sc-emitter "~1.1.0"
+    sc-errors "~1.1.0"
+    socketcluster-server "~5.10.1"
+    uid-number "0.0.5"
+    uuid "3.0.1"
+
+socketcluster@^5.0.4:
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/socketcluster/-/socketcluster-5.8.0.tgz#244d8b8379cb573bbd941254ac0e9714ddbd6a11"
   dependencies:
