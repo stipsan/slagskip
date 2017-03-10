@@ -5760,10 +5760,6 @@ node-pre-gyp@0.6.32, node-pre-gyp@^0.6.29, node-pre-gyp@~0.6.31:
     tar "~2.2.1"
     tar-pack "~3.3.0"
 
-node-promise@^0.5.10:
-  version "0.5.12"
-  resolved "https://registry.yarnpkg.com/node-promise/-/node-promise-0.5.12.tgz#b0acf9bc2229a76407c077b926592f99b3b4e1f1"
-
 node-sass@4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.5.0.tgz#532e37bad0ce587348c831535dbc98ea4289508b"
@@ -8335,11 +8331,9 @@ uikit-react@2.3.0:
     react-input-autosize "1.1.0"
     react-portal "^3.0.0"
 
-uikit@2.27.2:
-  version "2.27.2"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-2.27.2.tgz#4936be0a041b3e030292d401e5344bb1c2c48f08"
-  dependencies:
-    node-promise "^0.5.10"
+uikit@3.0.0-beta.17:
+  version "3.0.0-beta.17"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-beta.17.tgz#a867cbb99f2851e57ab97380583f27c693b0ec3a"
 
 ultron@1.0.x:
   version "1.0.2"
