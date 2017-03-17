@@ -8405,9 +8405,9 @@ uikit-loader@2.0.10:
   dependencies:
     loader-utils "0.2.15"
 
-uikit-react@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/uikit-react/-/uikit-react-2.3.0.tgz#8f70b5673ea1fabdbbc6f2ceac9f5230051d3cac"
+uikit-react@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/uikit-react/-/uikit-react-2.3.1.tgz#7ebd07cb6da8f060ae0f187d2bb89061c5d05c69"
   dependencies:
     classnames "2.2.5"
     react-input-autosize "1.1.0"
