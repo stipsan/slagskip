@@ -1903,6 +1903,10 @@ clone@^1.0.0, clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
 
+clone@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
+
 cluster-key-slot@^1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/cluster-key-slot/-/cluster-key-slot-1.0.8.tgz#7654556085a65330932a2e8b5976f8e2d0b3e414"
@@ -5082,11 +5086,11 @@ lcov-parse@0.0.10:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/lcov-parse/-/lcov-parse-0.0.10.tgz#1b0b8ff9ac9c7889250582b70b71315d9da6d9a3"
 
-less-loader@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/less-loader/-/less-loader-4.0.1.tgz#bf0a5d6c5f61f272de592421d0ea87a168d1edf7"
+less-loader@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/less-loader/-/less-loader-4.0.2.tgz#3ec6909c31e07f2658266fed7b04d4d5d7e71d25"
   dependencies:
-    clone-deep "^0.2.4"
+    clone "^2.1.1"
     loader-utils "^1.0.2"
     pify "^2.3.0"
 
