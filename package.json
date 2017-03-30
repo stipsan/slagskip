@@ -123,7 +123,7 @@
     "json-loader": "0.5.4",
     "konami-komando": "1.0.1",
     "less": "2.7.2",
-    "less-loader": "4.0.2",
+    "less-loader": "4.0.3",
     "lodash": "4.17.4",
     "module-alias": "2.0.0",
     "node-gyp": "^3.4.0",
