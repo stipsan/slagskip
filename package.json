@@ -103,7 +103,7 @@
     "bcryptjs": "^2.4.3",
     "bulma": "0.4.0",
     "bulma-loader": "1.0.1",
-    "caniuse-api": "1.5.3",
+    "caniuse-api": "1.6.0",
     "classnames": "2.2.5",
     "classnames-loader": "2.0.0",
     "compression": "1.6.2",
