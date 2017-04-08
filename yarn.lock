@@ -7096,9 +7096,9 @@ redux-saga-sc@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/redux-saga-sc/-/redux-saga-sc-2.0.5.tgz#459babfa7edb837f38abb3e3a200f7886ee21f87"
 
-redux-saga@0.14.5:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.5.tgz#8faa627e7d0ea9417455a6544f82d31fe610bbac"
+redux-saga@0.14.6:
+  version "0.14.6"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.6.tgz#bc409aa0edaa4a7234759041cc70da62f37c6f13"
 
 redux@3.6.0, redux@^3.2.0:
   version "3.6.0"
