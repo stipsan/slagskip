@@ -6746,9 +6746,9 @@ react-addons-pure-render-mixin@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-addons-shallow-compare@15.4.2:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.4.2.tgz#027ffd9720e3a1e0b328dcd8fc62e214a0d174a5"
+react-addons-shallow-compare@15.5.1:
+  version "15.5.1"
+  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.5.1.tgz#4cd195d72efe7790dee532b37b50473dca9c9fc6"
   dependencies:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
