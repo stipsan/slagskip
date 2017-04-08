@@ -6739,9 +6739,9 @@ react-addons-css-transition-group@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-addons-pure-render-mixin@15.4.2:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/react-addons-pure-render-mixin/-/react-addons-pure-render-mixin-15.4.2.tgz#a8433c71c45e2368503721921dc47bdaf1fbabcd"
+react-addons-pure-render-mixin@15.5.1:
+  version "15.5.1"
+  resolved "https://registry.yarnpkg.com/react-addons-pure-render-mixin/-/react-addons-pure-render-mixin-15.5.1.tgz#e79f029fcf99dffce0d65281bf108821d1d537c4"
   dependencies:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
