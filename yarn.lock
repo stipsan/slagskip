@@ -8426,9 +8426,9 @@ uikit-react@2.3.1:
     react-input-autosize "1.1.0"
     react-portal "^3.0.0"
 
-uikit@3.0.0-beta.20:
-  version "3.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-beta.20.tgz#84b63a82e3d0ccc64c3bf1716a77df122cd510da"
+uikit@3.0.0-beta.21:
+  version "3.0.0-beta.21"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-beta.21.tgz#b20e7a2e8bba698d3d400256b43a71dc65c6fc50"
 
 ultron@1.0.x:
   version "1.0.2"
