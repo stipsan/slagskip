@@ -170,7 +170,7 @@
     "uikit-loader": "2.0.10",
     "uikit-react": "2.3.1",
     "url-loader": "0.5.8",
-    "uws": "0.13.0",
+    "uws": "0.14.0",
     "vinyl-fs": "2.4.4",
     "webpack": "2.3.3"
   },
