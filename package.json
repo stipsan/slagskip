@@ -116,7 +116,7 @@
     "html-minifier": "3.4.2",
     "imagemin": "5.2.2",
     "imagemin-pngquant": "^5.0.0",
-    "imagemin-svgo": "5.2.0",
+    "imagemin-svgo": "5.2.1",
     "immutable": "4.0.0-rc.1",
     "invariant": "2.2.2",
     "ioredis": "2.5.0",
