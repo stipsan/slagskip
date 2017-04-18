@@ -7769,27 +7769,9 @@ socketcluster-server@5.x.x, socketcluster-server@~5.10.2:
     uws "0.14.1"
     ws "1.1.1"
 
-socketcluster@5.10.2:
+socketcluster@5.10.2, socketcluster@^5.0.4:
   version "5.10.2"
   resolved "https://registry.yarnpkg.com/socketcluster/-/socketcluster-5.10.2.tgz#62afeed9865c2e0cb1aa4a2fe62220b20e7a8c8e"
-  dependencies:
-    async "2.0.0"
-    base64id "0.1.0"
-    fs-extra "2.0.0"
-    inquirer "1.1.3"
-    minimist "1.1.0"
-    sc-auth "~3.2.1"
-    sc-broker-cluster "~4.0.0"
-    sc-domain "~1.0.1"
-    sc-emitter "~1.1.0"
-    sc-errors "~1.1.0"
-    socketcluster-server "~5.10.2"
-    uid-number "0.0.5"
-    uuid "3.0.1"
-
-socketcluster@^5.0.4:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/socketcluster/-/socketcluster-5.9.1.tgz#110ab264e3325c6cf5ecfc1a04c4343a9d806844"
   dependencies:
     async "2.0.0"
     base64id "0.1.0"
