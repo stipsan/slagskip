@@ -1680,9 +1680,9 @@ bulma-loader@1.0.1:
   dependencies:
     loader-utils "^0.2.14"
 
-bulma@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.4.0.tgz#2a0b07555d53bb4eb17861e3159e2616c21dfa6c"
+bulma@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.4.1.tgz#620b7986bc552311358aa9393c10905c55648864"
 
 bytes@2.3.0:
   version "2.3.0"
