@@ -149,7 +149,7 @@
     "react-router": "3.0.2",
     "react-router-redux": "5.0.0-alpha.3",
     "react-router-transition": "0.0.6",
-    "react-timeago": "3.2.0",
+    "react-timeago": "3.2.1",
     "react-transform-count-renders": "1.0.1",
     "react-transform-hmr": "1.0.4",
     "react-user-avatar": "1.9.0",
