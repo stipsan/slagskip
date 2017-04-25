@@ -6884,9 +6884,9 @@ react-test-renderer@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-timeago@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-timeago/-/react-timeago-3.2.0.tgz#2ac8041065703b269984a46abed8e1c7cf9087c5"
+react-timeago@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-timeago/-/react-timeago-3.2.1.tgz#dcca61514dac108d8f86ec7e40c947296a6954a0"
 
 react-transform-catch-errors@^1.0.2:
   version "1.0.2"
