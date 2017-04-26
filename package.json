@@ -144,7 +144,7 @@
     "react-dom": "15.4.2",
     "react-height": "2.2.0",
     "react-immutable-proptypes": "2.1.0",
-    "react-motion": "0.4.7",
+    "react-motion": "0.5.0",
     "react-redux": "5.0.3",
     "react-router": "3.0.2",
     "react-router-redux": "5.0.0-alpha.3",
