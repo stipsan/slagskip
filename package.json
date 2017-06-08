@@ -110,7 +110,7 @@
     "css-loader": "0.28.0",
     "express": "5.0.0-alpha.5",
     "express-history-spa-fallback": "3.0.0",
-    "extract-text-webpack-plugin": "2.1.0",
+    "extract-text-webpack-plugin": "2.1.1",
     "file-loader": "0.11.1",
     "hiredis": "0.5.0",
     "html-minifier": "3.4.2",
