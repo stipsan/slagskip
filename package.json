@@ -179,7 +179,7 @@
     "babel-jest": "19.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.24.0",
     "codeclimate-test-reporter": "0.4.1",
-    "concurrently": "3.4.0",
+    "concurrently": "3.5.0",
     "coveralls": "2.13.0",
     "eslint": "3.19.0",
     "eslint-config-stipsan": "1.2.0",
