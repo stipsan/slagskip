@@ -1,7 +1,7 @@
 {
     "name": "@epic/server",
     "private": true,
-    "version": "0.0.1",
+    "version" : "0.0.1",
     "dependencies": {
         "next": "^4.0.3"
     }
