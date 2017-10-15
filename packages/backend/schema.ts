@@ -9,9 +9,9 @@ import resolvers from './resolvers'
 const readFileAsync = promisify(fs.readFile)
 
 export default async function getSchema() {
-  const files: string[] = await globby('typeDefs/*.graphql', { cwd: __dirname })
+  const files = await globby('typeDefs/*.graphql', { cwd: __dirname })
   const typeDefs = await Promise.all(
-    files.map(async (file): Promise<string> => {
+    files.map(async file => {
       const buffer = await readFileAsync(path.join(__dirname, file))
       return buffer.toString()
     })

@@ -47,6 +47,19 @@
     lodash "^4.17.4"
     pify "^3.0.0"
 
+"@types/glob@*":
+  version "5.0.33"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.33.tgz#3dff7c6ce09d65abe919c7961dc3dee016f36ad7"
+  dependencies:
+    "@types/minimatch" "*"
+    "@types/node" "*"
+
+"@types/globby@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@types/globby/-/globby-6.1.0.tgz#7c25b975512a89effea2a656ca8cf6db7fb29d11"
+  dependencies:
+    "@types/glob" "*"
+
 "@types/graphql@^0.11.5":
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.11.5.tgz#e70f051e80b299be5b12f7e60d962f30c9596072"
@@ -64,6 +77,10 @@
 "@types/micro@^7.3.1":
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/@types/micro/-/micro-7.3.1.tgz#d40a47b7ee680f7183f3052d36fa2ed7a118e2f9"
+
+"@types/minimatch@*":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.1.tgz#b683eb60be358304ef146f5775db4c0e3696a550"
 
 "@types/next@^2.4.3":
   version "2.4.3"
@@ -1338,12 +1355,6 @@ concat-stream@^1.5.2:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
-
-concat@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/concat/-/concat-1.0.3.tgz#40f3353089d65467695cb1886b45edd637d8cca8"
-  dependencies:
-    commander "^2.9.0"
 
 concurrently@^3.5.0:
   version "3.5.0"
