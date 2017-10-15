@@ -1,16 +1,10 @@
 {
   "private": true,
   "scripts": {
+    "precommit": "lint-staged",
     "heroku-postbuild": "next build",
-    "start": "node ./node_modules/@epic/server",
-    "precommit" : "lint-staged"
+    "start": "node ./node_modules/@epic/server"
   },
-  "lint-staged": {
-    "*.json": ["prettier --write", "git add"],
-    "*.{ts,tsx}": ["tslint --fix", "prettier --write", "git add"],
-    "*.graphql": ["prettier --write", "git add"]
-  },
-  "workspaces": ["packages/*"],
   "devDependencies": {
     "@types/node": "^8.0.34",
     "husky": "^0.14.3",
@@ -19,5 +13,27 @@
     "prettier-package-json": "^1.4.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3"
-  }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.graphql": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "package.json": [
+      "prettier-package-json --write",
+      "git add"
+    ]
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
