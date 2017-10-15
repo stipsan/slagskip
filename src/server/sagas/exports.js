@@ -1,6 +1,0 @@
-export * from './auth'
-export * from './exchange'
-export * from './friends'
-export * from './game'
-export * from './games'
-export * from './viewer'

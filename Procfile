@@ -1,2 +1,1 @@
-web: node --optimize_for_size --max_old_space_size=920 --gc_interval=100 lib/server/web
-migrate: node lib/server/migrate
+web: node --optimize_for_size --max_old_space_size=460 --gc_interval=100 @epic/server
