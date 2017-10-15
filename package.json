@@ -3,16 +3,19 @@
   "scripts": {
     "build": "tsc && next build",
     "precommit": "lint-staged",
+    "predev": "tsc",
     "dev": "concurrently \"tsc --watch\" \"node server\"",
     "heroku-postbuild": "yarn build",
-    "start": "node ./node_modules/@epic/server"
+    "start": "node server"
   },
   "dependencies": {
+    "micro": "^9.0.0",
     "next": "^4.0.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
+    "@types/micro": "^7.3.1",
     "@types/next": "^2.4.3",
     "@types/node": "^8.0.34",
     "@types/react": "^16.0.10",
