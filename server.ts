@@ -1,7 +1,7 @@
 import micro from 'micro'
 import { parse } from 'url'
 import * as next from 'next'
-import backend from '@epic/server'
+import backend from '@epic/backend'
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'

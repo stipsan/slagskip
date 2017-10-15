@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@epic/backend",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "dependencies": {
+    "apollo-server-micro": "^1.1.6",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.5.0",
+    "ioredis": "^3.1.4"
+  },
+  "devDependencies": {
+    "@types/graphql": "^0.11.5",
+    "@types/ioredis": "^0.0.26"
+  },
+  "types": "./index.ts"
+}
