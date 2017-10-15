@@ -1,6 +1,7 @@
 import micro from 'micro'
 import { parse } from 'url'
 import * as next from 'next'
+import backend from '@epic/server'
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -11,14 +12,10 @@ const server = micro(async (req, res) => {
   const parsedUrl = parse(req.url, true)
   const { pathname, query } = parsedUrl
 
-  console.log(parsedUrl, parsedUrl.pathname)
+  const maybeBackend = backend(req, res)
 
-  if (pathname === '/graphql') {
-    return 'graphql here'
-  }
-
-  if (pathname === '/graphiql') {
-    return 'Graphiql IDE here'
+  if (maybeBackend) {
+    return maybeBackend
   }
 
   return handle(req, res, parsedUrl)
