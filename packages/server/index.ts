@@ -1,10 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'http'
-import * as url from 'url'
+import { UrlObject, Url } from 'url'
 
 export default (
   req: IncomingMessage,
   res: ServerResponse,
-  parsedUrl: url.UrlObject | url.Url
+  parsedUrl: UrlObject | Url
 ) => {
   const { pathname } = parsedUrl
 
