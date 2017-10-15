@@ -3,7 +3,7 @@
   "scripts": {
     "heroku-postbuild": "next build",
     "start": "node ./node_modules/@epic/server",
-    "precommit": "lint-staged"
+    "precommit" : "lint-staged"
   },
   "lint-staged": {
     "*.json": ["prettier --write", "git add"],
