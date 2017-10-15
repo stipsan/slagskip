@@ -1,1 +1,3 @@
-console.log('ah!')
+export default (...args) => {
+  console.log('ah!', args)
+}

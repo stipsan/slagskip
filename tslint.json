@@ -2,6 +2,11 @@
   "defaultSeverity": "error",
   "extends": ["tslint:recommended"],
   "jsRules": {},
-  "rules": {},
+  "rules": {
+    "no-console": false,
+    "quotemark": false,
+    "semicolon": false,
+    "eofline": false
+  },
   "rulesDirectory": []
 }
