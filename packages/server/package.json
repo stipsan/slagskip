@@ -3,11 +3,7 @@
   "name": "@epic/server",
   "version": "0.0.1",
   "main": "./index.js",
-  "dependencies": {
-    "next": "^4.0.3"
-  },
-  "devDependencies": {
-    "@types/next": "^2.4.3"
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "types": "./index.ts"
 }
