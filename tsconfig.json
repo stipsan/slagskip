@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react-native",
     "typeRoots": ["node_modules/@types"]
   }
 }

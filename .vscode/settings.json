@@ -2,6 +2,7 @@
   "files.exclude": {
     "packages/**/*.js": true,
     "packages/**/*.jsx": true,
+    "pages/*.js": true,
     "server.js": true
   }
 }
