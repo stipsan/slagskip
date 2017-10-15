@@ -2,13 +2,7 @@
   "private": true,
   "scripts": {
     "heroku-postbuild": "next build",
-    "start": "node start"
-  },
-  "dependencies": {
-    "ioredis": "2.5.0"
-  },
-  "devDependencies": {
-    "ioredis-mock": "2.4.0"
+    "start": "node ./node_modules/@epic/server"
   },
   "workspaces": ["packages/*"]
 }
