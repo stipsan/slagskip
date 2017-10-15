@@ -1,9 +1,14 @@
-import { parse } from 'url'
 import { IncomingMessage, ServerResponse } from 'http'
+import * as url from 'url'
 
-export default (req: IncomingMessage, res: ServerResponse) => {
-  const parsedUrl = parse(req.url, true)
-  const { pathname, query } = parsedUrl
+export default (
+  req: IncomingMessage,
+  res: ServerResponse,
+  parsedUrl: url.UrlObject | url.Url
+) => {
+  const { pathname } = parsedUrl
+
+  console.log(req, res)
 
   if (pathname === '/graphql') {
     return 'graphql here'

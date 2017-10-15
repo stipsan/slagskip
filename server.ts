@@ -10,9 +10,8 @@ const handle = app.getRequestHandler()
 
 const server = micro(async (req, res) => {
   const parsedUrl = parse(req.url, true)
-  const { pathname, query } = parsedUrl
 
-  const maybeBackend = backend(req, res)
+  const maybeBackend = backend(req, res, parsedUrl)
 
   if (maybeBackend) {
     return maybeBackend

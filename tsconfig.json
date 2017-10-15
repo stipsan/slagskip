@@ -3,6 +3,9 @@
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
   }
 }
