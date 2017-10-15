@@ -2,11 +2,13 @@
   "private": true,
   "scripts": {
     "heroku-postbuild": "next build",
-    "start": "node ./node_modules/@epic/server"
+    "start": "node ./node_modules/@epic/server",
+    "precommit": "lint-staged"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "lint-staged": {
+    "*.json": ["prettier --write", "git add"]
+  },
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "@types/node": "^8.0.34",
     "husky": "^0.14.3",
