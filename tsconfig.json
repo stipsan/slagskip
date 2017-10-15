@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-
     "typeRoots": ["node_modules/@types"]
   }
 }
