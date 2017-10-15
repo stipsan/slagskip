@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
+    "build": "tsc && next build",
     "precommit": "lint-staged",
     "dev": "concurrently \"tsc --watch\" \"node server\"",
-    "heroku-postbuild": "next build",
+    "heroku-postbuild": "yarn build",
     "start": "node ./node_modules/@epic/server"
   },
   "devDependencies": {
@@ -15,6 +16,10 @@
     "prettier-package-json": "^1.4.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3"
+  },
+  "engines": {
+    "node": "8",
+    "yarn": ">1.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
