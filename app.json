@@ -1,6 +1,7 @@
 {
   "name": "Epic Video Game",
-  "description": "A two-player mayhem inspired by the classic, Battleship (copyright hasbro)",
+  "description":
+    "A two-player mayhem inspired by the classic, Battleship (copyright hasbro)",
   "keywords": [
     "example",
     "game",
@@ -26,16 +27,19 @@
       "generator": "secret"
     },
     "ERROR_PAGE_URL": {
-      "description": "Showing how you can use github hosted pages to serve custom error pages in your Heroku app",
+      "description":
+        "Showing how you can use github hosted pages to serve custom error pages in your Heroku app",
       "value": "//stipsan.github.io/epic/failure.html",
       "required": false
     },
     "ORIGINS": {
-      "description": "Domain and port whitelist for websockets, normal http requests on other origins will redirect to the domain you specify here",
+      "description":
+        "Domain and port whitelist for websockets, normal http requests on other origins will redirect to the domain you specify here",
       "required": false
     },
     "SOCKET_HOSTNAME": {
-      "description": "Use this if you're using CloudFlare SSL on a free plan, or some other SSL that don't work with websockets",
+      "description":
+        "Use this if you're using CloudFlare SSL on a free plan, or some other SSL that don't work with websockets",
       "required": false
     },
     "TRACKING_ID": {
@@ -44,8 +48,5 @@
     }
   },
   "image": "heroku/nodejs",
-  "addons": [
-    "heroku-redis:hobby-dev",
-    "papertrail:choklad"
-  ]
+  "addons": ["heroku-redis:hobby-dev", "papertrail:choklad"]
 }
