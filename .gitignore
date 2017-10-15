@@ -1,4 +1,6 @@
 node_modules
 .env
+.next
 *.log
 **/*.js
+**/*.jsx

@@ -1,6 +1,7 @@
 {
   "files.exclude": {
-    "packages/**/.js": true,
+    "packages/**/*.js": true,
+    "packages/**/*.jsx": true,
     "server.js": true
   }
 }
