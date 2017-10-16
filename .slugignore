@@ -1,1 +1,2 @@
-*.sketch
+**/__tests__/**
+screenshots

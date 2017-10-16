@@ -1,14 +1,6 @@
-
 node_modules
-lib
-
 .env
-
+.next
 *.log
-
-coverage
-assets.json
-
-dump.rdb
-
-.coverage
+**/*.js
+**/*.jsx

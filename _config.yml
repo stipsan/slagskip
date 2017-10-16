@@ -1,8 +1,0 @@
-title: Epic
-description: Just a learning exercise
-google_analytics: UA-25067435-2
-show_downloads: true
-theme: jekyll-theme-cayman
-
-gems:
-  - jekyll-mentions

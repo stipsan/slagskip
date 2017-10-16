@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@epic/react-app",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "dependencies": {
+    "apollo-local-query": "^0.3.0",
+    "isomorphic-fetch": "^2.2.1",
+    "react-apollo": "^1.4.16"
+  },
+  "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.34"
+  },
+  "types": "./index.ts"
+}

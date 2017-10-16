@@ -1,206 +1,57 @@
 {
-  "name": "epic",
-  "version": "1.0.0",
-  "description": "React example project, that takes you from fun development to high quality production",
+  "private": true,
   "scripts": {
-    "bundle": "NODE_ENV=production webpack",
-    "start": "concurrently 'babel-node src/server/web' 'npm run hmr' 'npm run remotedev' --kill-others",
-    "nasa": "webpack-dashboard -- npm run hmr",
-    "start-production": "NODE_ENV=production node lib/server/web && npm run bundle -- --watch",
-    "postinstall": "cd assets/exports && node ../../scripts/assets",
-    "heroku-postbuild": "npm run bundle && npm run babel",
-    "hmr": "webpack-dev-server",
-    "remotedev": "remotedev --hostname=localhost --port=8000",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "npm test -- --watch",
-    "coveralls": "cat .coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "codeclimate": "codeclimate-test-reporter < .coverage/lcov.info",
-    "coverage": "npm run coveralls && npm run codeclimate",
-    "favicon": "cd public/favicons && convert icon-16.png icon-32.png icon-96.png ../favicon.ico",
-    "babel": "BABEL_ENV=server NODE_ENV=production babel src --out-dir lib",
-    "babel:watch": "npm run babel -- --watch"
+    "build": "tsc && next build",
+    "precommit": "lint-staged",
+    "predev": "tsc",
+    "dev": "concurrently \"tsc --watch\" \"node server\"",
+    "heroku-postbuild": "yarn build",
+    "start": "node server"
   },
-  "engines": {
-    "node": "6.9.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stipsan/epic.git"
-  },
-  "keywords": [
-    "react",
-    "reactjs",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "flux",
-    "redux",
-    "example",
-    "game",
-    "socketcluster",
-    "heroku",
-    "immutable",
-    "redis",
-    "ioredis"
-  ],
-  "author": "Stian Didriksen <stipsan@gmail.com> (http://github.com/stipsan)",
-  "meta": {
-    "author": "Stian Didriksen",
-    "description": "Epic is a fun and addicting two-player game. Hide your items well and race to the highest score!"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stipsan/epic/issues"
-  },
-  "jest": {
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/lib/",
-      "<rootDir>/node_modules/",
-      "<rootDir/src/client/index.js"
-    ],
-    "coverageDirectory": "<rootDir>/.coverage",
-    "setupFiles": [
-      "<rootDir>/test/setup.js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleNameMapper": {
-      "epic-client(.*)": "<rootDir>/src/client$1.js",
-      "^.+\\.(css|less)$": "<rootDir>/test/styleMock.js",
-      "^.+\\.(gif|ttf|eot|svg)$": "<rootDir>/test/fileMock.js"
-    }
-  },
-  "homepage": "https://github.com/stipsan/epic#readme",
   "dependencies": {
-    "animate.css": "3.5.2",
-    "assets-webpack-plugin": "3.5.1",
-    "autoprefixer-loader": "3.2.0",
-    "babel-cli": "6.23.0",
-    "babel-loader": "6.4.0",
-    "babel-plugin-syntax-object-rest-spread": "6.13.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.23.0",
-    "babel-plugin-transform-es2015-parameters": "6.23.0",
-    "babel-plugin-transform-es2015-spread": "6.22.0",
-    "babel-plugin-transform-object-rest-spread": "6.23.0",
-    "babel-polyfill": "6.23.0",
-    "babel-preset-es2015": "6.24.0",
-    "babel-preset-es2015-webpack": "6.4.3",
-    "babel-preset-node6": "11.0.0",
-    "babel-preset-react": "6.23.0",
-    "babel-preset-react-hmre": "1.1.1",
-    "babel-preset-react-optimize": "1.0.1",
-    "babel-preset-stage-0": "6.22.0",
-    "babel-register": "6.24.0",
-    "bcrypt": "1.0.2",
-    "bcryptjs": "^2.4.3",
-    "bulma": "0.4.0",
-    "bulma-loader": "1.0.1",
-    "caniuse-api": "1.6.1",
-    "classnames": "2.2.5",
-    "classnames-loader": "2.0.0",
-    "compression": "1.6.2",
-    "css-loader": "0.28.0",
-    "express": "5.0.0-alpha.5",
-    "express-history-spa-fallback": "3.0.0",
-    "extract-text-webpack-plugin": "2.1.0",
-    "file-loader": "0.11.1",
-    "hiredis": "0.5.0",
-    "html-minifier": "3.4.2",
-    "imagemin": "5.2.2",
-    "imagemin-pngquant": "^5.0.0",
-    "imagemin-svgo": "5.2.0",
-    "immutable": "4.0.0-rc.1",
-    "invariant": "2.2.2",
-    "ioredis": "2.5.0",
-    "json-loader": "0.5.4",
-    "konami-komando": "1.0.1",
-    "less": "2.7.2",
-    "less-loader": "4.0.3",
-    "lodash": "4.17.4",
-    "module-alias": "2.0.0",
-    "node-gyp": "^3.4.0",
-    "node-sass": "4.5.2",
-    "purifycss-webpack-plugin": "2.0.3",
-    "push.js": "0.0.13",
-    "raw-loader": "0.5.1",
-    "raygun": "0.9.1",
-    "react": "15.4.2",
-    "react-addons-css-transition-group": "15.4.2",
-    "react-addons-pure-render-mixin": "15.4.2",
-    "react-addons-shallow-compare": "15.4.2",
-    "react-collapse": "3.2.0",
-    "react-dnd": "2.2.4",
-    "react-dnd-html5-backend": "2.3.0",
-    "react-dnd-touch-backend": "0.3.6",
-    "react-document-title": "2.0.2",
-    "react-dom": "15.4.2",
-    "react-height": "2.2.0",
-    "react-immutable-proptypes": "2.1.0",
-    "react-motion": "0.4.7",
-    "react-redux": "5.0.3",
-    "react-router": "3.0.2",
-    "react-router-redux": "5.0.0-alpha.3",
-    "react-router-transition": "0.0.6",
-    "react-timeago": "3.2.0",
-    "react-transform-count-renders": "1.0.1",
-    "react-transform-hmr": "1.0.4",
-    "react-user-avatar": "1.9.0",
-    "react-useravatar": "1.1.2",
-    "redux": "3.6.0",
-    "redux-form": "6.5.0",
-    "redux-form-uikit": "2.0.1",
-    "redux-immutable": "4.0.0",
-    "redux-saga": "0.14.5",
-    "redux-saga-sc": "2.0.5",
-    "remote-redux-devtools": "0.5.7",
-    "sass-loader": "6.0.3",
-    "socketcluster": "5.9.1",
-    "socketcluster-client": "5.3.0",
-    "stattic-parseurl": "0.1.0",
-    "style-loader": "0.15.0",
-    "uikit": "3.0.0-beta.20",
-    "uikit-loader": "2.0.10",
-    "uikit-react": "2.3.1",
-    "url-loader": "0.5.8",
-    "uws": "0.13.0",
-    "vinyl-fs": "2.4.4",
-    "webpack": "2.3.3"
+    "micro": "^9.0.0",
+    "next": "^4.0.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "7.2.0",
-    "babel-jest": "19.0.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.24.0",
-    "codeclimate-test-reporter": "0.4.1",
-    "concurrently": "3.4.0",
-    "coveralls": "2.13.0",
-    "eslint": "3.19.0",
-    "eslint-config-stipsan": "1.2.0",
-    "eslint-import-resolver-webpack": "0.8.1",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.10.3",
-    "foreman": "2.0.0",
-    "growl": "1.9.2",
-    "ignore-styles": "5.0.1",
-    "ioredis-mock": "2.4.0",
-    "jest-cli": "19.0.2",
-    "jest-webpack-alias": "3.3.3",
-    "react-test-renderer": "15.4.2",
-    "remotedev-server": "0.3.0-beta-3",
-    "webpack-dashboard": "0.3.0",
-    "webpack-dev-server": "2.4.2"
+    "@types/micro": "^7.3.1",
+    "@types/next": "^2.4.3",
+    "@types/node": "^8.0.34",
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
+    "concurrently": "^3.5.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.3",
+    "prettier": "^1.7.4",
+    "prettier-package-json": "^1.4.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
   },
-  "_moduleAliases": {
-    "epic-client": "src/client",
-    "epic-server": "src/server",
-    "epic-shared": "src/shared"
-  }
+  "engines": {
+    "node": "8",
+    "yarn": ">=1.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.graphql": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "package.json": [
+      "prettier-package-json --write",
+      "git add"
+    ]
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

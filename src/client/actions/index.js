@@ -1,6 +1,0 @@
-export * from './auth'
-export * from './friends'
-export * from './gamePlay'
-export * from './games'
-export * from './gameSetup'
-export * from './socket'
