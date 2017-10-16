@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "@epic/react-app",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "types": "./index.ts"
+}
