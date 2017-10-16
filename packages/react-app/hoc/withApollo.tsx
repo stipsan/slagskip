@@ -7,7 +7,7 @@ import {
   createNetworkInterface,
 } from 'react-apollo'
 import Head from 'next/head'
-import fetch from 'isomorphic-fetch'
+import * as fetch from 'isomorphic-fetch'
 
 let apolloClient = null
 
@@ -34,7 +34,7 @@ function create(initialState) {
   })
 }
 
-const initApollo = initialState => {
+const initApollo = (initialState?) => {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {
@@ -62,15 +62,12 @@ export default ComposedComponent => {
     static propTypes = {
       serverState: PropTypes.object.isRequired,
     }
+    static defaultProps = {
+      serverState: {},
+    }
 
     static async getInitialProps(ctx) {
       let serverState = {}
-
-      // Evaluate the composed component's getInitialProps()
-      let composedInitialProps = {}
-      if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(ctx)
-      }
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
@@ -111,10 +108,7 @@ export default ComposedComponent => {
       }
     }
 
-    constructor(props) {
-      super(props)
-      this.apollo = initApollo(this.props.serverState)
-    }
+    apollo = initApollo(this.props.serverState)
 
     render() {
       return (
